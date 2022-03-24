@@ -1,0 +1,52 @@
+# 3월 25일 금요일까지 블로그 완성->ui 디자인 평가
+
+# 참고
+https://hiharrry.cafe24.com/
+https://hmm03099.cafe24.com/
+https://ryujjong99.cafe24.com/myblog
+https://rkd3116.cafe24.com
+
+# 구성
+레쥬메 
+포트폴리오(앱 목록)
+다이어리 (포스트 목록)
+스터디 (스터디 목록)
+취미 (취미 목록)
+
+인사말
+프로필
+사진첩
+각종게시판
+
+
+# 카테고리 구조
+
+profile
+  profile
+  resume
+  link
+    profile
+    jobkorea
+    artstation
+    github
+
+portpolio
+  development
+  art&graphic
+  link
+    portpolio
+    github
+    artstation
+    github
+
+study
+  sql
+  php
+  html&css
+  javascript
+
+diary
+  life
+  
+
+
