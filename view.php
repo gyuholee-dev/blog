@@ -19,7 +19,7 @@ $head = <<<HTML
   <title>블로그</title>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Quicksand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles/style.css">
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
   <script type="text/javascript" src="scripts/script.js"></script>
 HTML;
