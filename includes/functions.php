@@ -54,14 +54,12 @@ function makePost($page, $idx) {
 
   $sql = "SELECT * FROM post
   WHERE category = '$page' ";
-
   if ($idx != 0) {
-  $sql .= "AND idx = $idx ";
+    $sql .= "AND idx = $idx ";
   } else {
-  $items = $pages[$page]['items'];
-  $sql .= "ORDER BY idx DESC LIMIT 0, $items ";
+    $items = $pages[$page]['items'];
+    $sql .= "ORDER BY idx DESC LIMIT 0, $items ";
   }
-  
   $res = mysqli_query($db, $sql);
 
   $html = '';
