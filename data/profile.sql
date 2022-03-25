@@ -23,28 +23,14 @@ INSERT INTO post
 (wdate, title, writer, category, subcategory, posttype, files, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
-  'PROFILE',
+  'GITHUB',
   'LeeGyuho',
   'profile',
   'link',
   'link',
-  'BI-header_r.png',
-  'view.php?page=profile',
-  '프로필 페이지 링크'
-);
-
-INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
-VALUES (
-  UNIX_TIMESTAMP(),
-  'DEVELOPMENT',
-  'LeeGyuho',
-  'profile',
-  'link',
-  'link',
-  'images(1).jpg',
-  'view.php?page=portpolio',
-  '포트폴리오 페이지 링크'
+  'images(3).jpg',
+  'https://github.com/leegyuho-dev',
+  '깃허브 링크'
 );
 
 INSERT INTO post 
@@ -65,31 +51,26 @@ INSERT INTO post
 (wdate, title, writer, category, subcategory, posttype, files, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
-  'GITHUB',
+  'DEVELOPMENT',
   'LeeGyuho',
   'profile',
   'link',
   'link',
-  'images(3).jpg',
-  'https://github.com/leegyuho-dev',
-  '깃허브 링크'
+  'images(1).jpg',
+  'view.php?page=portpolio',
+  '포트폴리오 페이지 링크'
 );
 
-
-
-
-
-
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, tags, files, content) 
+(wdate, title, writer, category, subcategory, posttype, files, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
-  '테스트 타이틀',
+  'PROFILE',
   'LeeGyuho',
-  'diary',
-  '일상',
-  'text',
-  '태그1,태그2,태그3,태그4',
-  '1648083930_testfile.jpg',
-  'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore molestiae architecto repellat eligendi, iusto magnam illum deserunt cumque unde voluptatibus tenetur nisi expedita doloremque quasi aliquid suscipit, temporibus omnis labore?'
+  'profile',
+  'link',
+  'link',
+  'BI-header_r.png',
+  'view.php?page=profile',
+  '프로필 페이지 링크'
 );
