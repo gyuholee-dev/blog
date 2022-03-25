@@ -254,9 +254,17 @@ main section.post .header .info > div:first-child {
 }
 
 main section.post .content {
+  width: 100%;
   padding: 10px 5px;
   margin-bottom: 10px;
   line-height: 1.5;
+}
+
+main section.post .content img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 main section.post .footer {

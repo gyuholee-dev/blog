@@ -298,10 +298,18 @@ main {
     }
 
     .content {
+      width: 100%;
       padding: 10px 5px;
       margin-bottom: 10px;
       // word-break: keep-all;
       line-height: 1.5;
+
+      img {
+        display: block;
+        width: auto;
+        max-width: 100%;
+        margin: 0 auto;
+      }
     }
 
     .footer {

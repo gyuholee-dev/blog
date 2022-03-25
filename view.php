@@ -2,12 +2,6 @@
 // 초기화
 require_once 'includes/init.php';
 
-// 환경변수
-$info = $blogConfig['info'];
-$theme = $blogConfig['theme'];
-$libraries = $blogConfig['libraries'];
-$pages = $blogConfig['pages'];
-
 // 컨텐츠
 $head = '';
 $header = '';
