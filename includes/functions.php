@@ -66,38 +66,36 @@ function makePost($page, $idx) {
 
   $html = '';
   while ($data = mysqli_fetch_assoc($res)) {
+    foreach ($data as $key => $value) {
+      $$key = $value;
+    }
 
     $headerClass = 'header';
     $headerBG = '';
     $file = '';
-    $wdate = date("Y-m-d H:i:s", $data['wdate']);
+    $wdate = date("Y-m-d H:i:s", $wdate);
 
-    if ($data['posttype'] == 'text' && $data['file'] != '') {
+    if ($posttype == 'text' && $file != '') {
       $headerClass = 'header img';
-      $headerBG = "<div class='bg' style='background-image:url(\"files/$data[file]\")'></div>";
-    } elseif ($data['posttype'] == 'media' && $data['file'] != '') {
-      $file = "<img src='files/$data[file]'>";
+      $headerBG = "<div class='bg' style='background-image:url(\"files/$file\")'></div>";
+    } elseif ($posttype == 'media' && $file != '') {
+      $file = "<img src='files/$file'>";
     }
 
-    $html .= <<<HTML
-      <section class="post $data[posttype]">
-        <div class="$headerClass">
-          $headerBG
-          <div class="title">$data[title]</div>
-          <div class="subcategoty">$data[subcategory]</div>
-        </div>
-        <div class="content">
-          $file
-          $data[content]
-        </div>
-        <div class="footer">
-          <div class="info">
-            <div class="wdate">$wdate</div>
-            <div class="username">$data[writer]</div>
-          </div>
-        </div>
-      </section>
-    HTML;
+    $post_values = array( 
+      '{posttype}' => $posttype,
+      '{headerClass}' => $headerClass,
+      '{headerBG}' => $headerBG,
+      '{title}' => $title,
+      '{subcategory}' => $subcategory,
+      '{file}' => $file,
+      '{content}' => $content,
+      '{wdate}' => $wdate,
+      '{writer}' => $writer,
+    );
+    
+    $template = file_get_contents('templates/_post.html');
+    $html .= strtr($template, $post_values);
   }
 
   return $html;
