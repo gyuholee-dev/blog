@@ -2,6 +2,12 @@
 // 초기화
 require_once 'includes/init.php';
 
+// 환경변수
+$info = $blogConfig['info'];
+$theme = $blogConfig['theme'];
+$libraries = $blogConfig['libraries'];
+$pages = $blogConfig['pages'];
+
 // 컨텐츠
 $head = '';
 $header = '';
@@ -16,60 +22,39 @@ $head = <<<HTML
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="favicon.ico">
-  <title>블로그</title>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Quicksand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/style.css">
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
-  <script type="text/javascript" src="scripts/script.js"></script>
+  <title>$info[siteTitle]</title>
 HTML;
+foreach ($libraries as $key => $library) {
+  foreach ($library as $lib) {
+    if ($key == 'styles') {
+      $head .= "<link rel='stylesheet' href='$lib'>";
+    } elseif ($key == 'scripts') {
+      $head .= "<script type='text/javascript' src='$lib'></script>";
+    }
+  }
+}
 
 // 헤더
-$header = <<<HTML
-  <div class="logo">
-    <a href="view.php">
-      <img src="images/logo.png">
-    </a>
-  </div>
-  <div class="menu top">
-    <div class="links">
-      <a href="github"><i class="xi-github"></i></a>
-      <a href="twitter"><i class="xi-twitter"></i></a>
-      <a href="facebook"><i class="xi-facebook"></i></a>
-      <a href="kakaotalk"><i class="xi-kakaotalk"></i></a>
-    </div>
-    <div class="search">
-      <a href="search"><i class="xi-search"></i></a>
-      <!-- <input type="text"><button>검색</button> -->
-    </div>
-  </div>
-HTML;
+$siteUrl = ($_SERVER['HTTP_HOST']=='localhost')?'index.php':$info['siteUrl'];
+$header_values = array(
+  '{headerLink}' => "<a href='$siteUrl'><img src='images/$theme[logo]'></a>"
+);
+$header = file_get_contents('templates/_header.html');
+$header = strtr($header, $header_values);
 
 // 네비게이션메뉴
-$active = [
-  'profile' => '',
-  'portpolio' => '',
-  'study' => '',
-  'diary' => '',
-  'board' => ''
-];
-$active[$page] = 'active';
-$nav = <<<HTML
-  <ul class="menu main">
-    <li class="$active[profile]"><a href="view.php?page=profile">LeeGyuho</a></li>
-    <li class="$active[portpolio]"><a href="view.php?page=portpolio">Portpolio</a></li>
-    <li class="$active[study]"><a href="view.php?page=study">Study</a></li>
-    <li class="$active[diary]"><a href="view.php?page=diary">Diary</a></li>
-    <li class="$active[board]"><a href="view.php?page=board">Board</a></li>
-  </ul>
-HTML;
+foreach ($pages as $key => $conf) {
+  $active = ($page==$key)?'active':'';
+  $nav .= "<li class='$active'><a href='view.php?page=$key'>$conf[name]</a></li>";
+}
+$nav = '<ul class="menu main">'.$nav.'</ul>';
 
 // 사이드메뉴
 $aside = '';
 
 // 푸터
 $footer = <<<HTML
-  <p>Copyright © LeeGyuho all right reserved.</p>
+  <p>$info[copyright]</p>
 HTML;
 
 
