@@ -4,7 +4,7 @@
 
 -- 프로필
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '이규호의 프로필',
@@ -20,7 +20,7 @@ VALUES (
 ---------------------------- 링크 (네개) ----------------------------
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'GITHUB',
@@ -34,7 +34,7 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'ART & GRAPHIC',
@@ -48,7 +48,7 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'DEVELOPMENT',
@@ -62,7 +62,7 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'PROFILE',

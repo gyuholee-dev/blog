@@ -3,7 +3,7 @@
 */
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '어제 일기',
@@ -17,7 +17,7 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '어제 사진',
@@ -31,7 +31,7 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '오늘 일기',
@@ -45,7 +45,7 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '오늘 사진',
@@ -59,7 +59,7 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '오늘 영상',

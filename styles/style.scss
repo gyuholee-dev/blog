@@ -46,10 +46,11 @@ img {
   // max-width: $max-width;
   margin: 0 auto;
   display: flex;
-  align-items: start;
-  justify-content: center;
+  align-items: center;
+  justify-content: start;
   flex-direction: column;
   position: relative;
+  min-height: 100vh;
 }
 
 header,
@@ -209,6 +210,7 @@ nav {
 main {
   // margin-top: 60px;
   overflow-x: hidden;
+  flex-grow: 1;
 
   article {
     flex-direction: column;

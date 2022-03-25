@@ -3,7 +3,7 @@
 */
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'Travel Guide',
@@ -17,7 +17,7 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'DD Bakery',
@@ -31,7 +31,7 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, files, link, content) 
+(wdate, title, writer, category, subcategory, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'HS Hotel',
