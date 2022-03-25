@@ -56,7 +56,9 @@ HTML;
 // TODO: $action 값에 따라 각각 다른 페이지를 인클루드 
 include "pages/$page.php";
 
+
 //------------------------ 랜더링 ------------------------
+
 $content_values = array( 
   '{head}' => $head,
   '{header}' => $header,
