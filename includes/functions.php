@@ -72,7 +72,6 @@ function makePost($page, $idx) {
 
     $headerClass = 'header';
     $headerBG = '';
-    $file = '';
     $wdate = date("Y-m-d H:i:s", $wdate);
 
     if ($posttype == 'text' && $file != '') {
