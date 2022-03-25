@@ -1,87 +1,78 @@
 <?php // portpolio.php
-$content = <<<HTML
 
-  <section class="post media">
-    <!-- <div class="title categoty">분류</div> -->
-    <div class="header">
-      <div class="title">포스트 제목</div>
-      <div class="subcategoty">하위분류</div>
-    </div>
-    <div class="content">
-      <img src="files/localhost_html_0316_hshotel_.png">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae beatae nemo autem voluptates eaque laudantium illo perferendis saepe exercitationem, tempore suscipit facilis quas! Optio, dicta placeat! Ab minus molestiae repellat!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae beatae nemo autem voluptates eaque laudantium illo perferendis saepe exercitationem, tempore suscipit facilis quas! Optio, dicta placeat! Ab minus molestiae repellat!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae beatae nemo autem voluptates eaque laudantium illo perferendis saepe exercitationem, tempore suscipit facilis quas! Optio, dicta placeat! Ab minus molestiae repellat!
-    </div>
-    <div class="footer">
-      <div class="tags">태그1, 태그2, 태그3, 태그4</div>
-      <div class="info">
-        <div class="wdate">2022-03-24 12:33</div>
-        <div class="username">이규호</div>
+// 인덱스
+$idx = isset($_REQUEST['idx'])?$_REQUEST['idx']:0;
+
+// sql 
+// TODO: 포스트 출력을 함수로 변경
+$sql = "SELECT * FROM post
+        WHERE category = '$page' ";
+if ($idx != 0) {
+  $sql .= "AND idx = $idx ";
+} else {
+  $items = $pages[$page]['items'];
+  $sql .= "ORDER BY idx DESC LIMIT 0, $items ";
+}
+$res = mysqli_query($db, $sql);
+
+while ($data = mysqli_fetch_assoc($res)) {
+  $content .= <<<HTML
+    <section class="post media">
+      <div class="header">
+        <div class="title">$data[title]</div>
+        <div class="subcategoty">$data[subcategory]</div>
       </div>
-    </div>
-  </section>
-
-  <section class="post media">
-    <div class="header">
-      <div class="title">포스트 제목</div>
-      <div class="subcategoty">하위분류</div>
-    </div>
-    <div class="content">
-      <img src="files/localhost_html_0318_bakery_.png">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae beatae nemo autem voluptates eaque laudantium illo perferendis saepe exercitationem, tempore suscipit facilis quas! Optio, dicta placeat! Ab minus molestiae repellat!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae beatae nemo autem voluptates eaque laudantium illo perferendis saepe exercitationem, tempore suscipit facilis quas! Optio, dicta placeat! Ab minus molestiae repellat!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae beatae nemo autem voluptates eaque laudantium illo perferendis saepe exercitationem, tempore suscipit facilis quas! Optio, dicta placeat! Ab minus molestiae repellat!
-    </div>
-    <div class="footer">
-      <div class="tags">태그1, 태그2, 태그3, 태그4</div>
-      <div class="info">
-        <div class="wdate">2022-03-24 12:33</div>
-        <div class="username">이규호</div>
+      <div class="content">
+        <img src="files/$data[file]">
+        $data[content]
       </div>
-    </div>
-  </section>
+      <div class="footer">
+        <div class="info">
+          <div class="wdate">2022-03-24 12:33</div>
+          <div class="username">이규호</div>
+        </div>
+      </div>
+    </section>
+  HTML;
+}
 
+// TODO: 페이지 및 리스트 삽입
+
+// TODO: 리스트를 함수로 변경
+$listLinks = '';
+// 링크 리스트
+$sql = "SELECT * FROM post 
+        WHERE 
+        category = 'portpolio' AND 
+        subcategory = 'link' 
+        ORDER BY idx DESC 
+        LIMIT 0, 4 ";
+$res = mysqli_query($db, $sql);
+
+$i = 0;
+while ($data = mysqli_fetch_assoc($res)) {
+  $itemClass = ($i==0)?'item wide':'item';
+  $boxClass = ($i==0)?'box link active':'box link';
+
+  $listLinks .= <<<HTML
+    <li class="$itemClass">
+      <div class="$boxClass" onclick="location.href='$data[link]'">
+        <div class="bg" style="background-image:url('files/$data[file]')"></div>
+        <div class="post">
+          <div class="title">$data[title]</div>
+          <div class="summary">$data[content]</div>
+        </div>
+      </div>
+    </li>
+  HTML;
+  $i++;
+}
+
+$content .= <<<HTML
   <section class="list tile">
     <div class="title xi-bookmark-o">바로가기</div>
     <ul class="tile">
-      <li class="item wide">
-        <div class="box link active" onclick="location.href='#'">
-          <div class="bg" style="background-image:url('images/BI-header_r.png')"></div>
-          <div class="post">
-            <div class="title">PROFILE</div>
-            <div class="summary"></div>
-          </div>
-        </div>
-      </li>
-      <li class="item">
-        <div class="box link" onclick="location.href='#'">
-          <div class="bg" style="background-image:url('images/slide/images(1).jpg')"></div>
-          <div class="post">
-            <div class="title">DEVELOPMENT</div>
-            <div class="summary"></div>
-          </div>
-        </div>
-      </li>
-      <li class="item">
-        <div class="box link" onclick="location.href='http\://www.artstation.com/geoflowerstudio'">
-          <div class="bg" style="background-image:url('images/slide/images(2).jpg')"></div>
-          <div class="post">
-            <div class="title">ART &<br>GRAPHIC</div>
-            <div class="summary"></div>
-          </div>
-        </div>
-      </li>
-      <li class="item">
-        <div class="box link" onclick="location.href='https\://github.com/leegyuho-dev'">
-          <div class="bg" style="background-image:url('images/slide/images(3).jpg')"></div>
-          <div class="post">
-            <div class="title">GITHUB</div>
-            <div class="summary"></div>
-          </div>
-        </div>
-      </li>
+      $listLinks
     </ul>
   </section>
-
 HTML;

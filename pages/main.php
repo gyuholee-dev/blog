@@ -20,7 +20,7 @@ while ($data = mysqli_fetch_assoc($res)) {
   $listLinks .= <<<HTML
     <li class="$itemClass">
       <div class="$boxClass" onclick="location.href='$data[link]'">
-        <div class="bg" style="background-image:url('files/$data[files]')"></div>
+        <div class="bg" style="background-image:url('files/$data[file]')"></div>
         <div class="post">
           <div class="title">$data[title]</div>
           <div class="summary">$data[content]</div>
@@ -42,8 +42,8 @@ while ($data = mysqli_fetch_assoc($res)) {
   $itemClass = ($data['posttype']=='media')?'item wide':'item';
   $boxClass = "box ".$data['posttype'];
   $link = "view.php?page=$data[category]&idx=$data[idx]";
-  if ($data['posttype']=='media' && $data['files'] != '') {
-    $background = "<div class='bg' style='background-image:url(\"files/$data[files]\")'></div>";
+  if ($data['posttype']=='media' && $data['file'] != '') {
+    $background = "<div class='bg' style='background-image:url(\"files/$data[file]\")'></div>";
   } else { $background = ''; }
 
   $listLastest .= <<<HTML

@@ -15,7 +15,7 @@ writer 이름
 category 분류: profile, portpolio...
 subcategory 하위분류: 일상, 게임...
 posttype: text, media, link...
-files 파일
+file 파일
 link 링크
 content 내용
 tags 태그(차후 추가)
@@ -29,7 +29,7 @@ CREATE TABLE post (
   category VARCHAR(20),
   subcategory VARCHAR(20),
   posttype VARCHAR(20),
-  files VARCHAR(80),
+  file VARCHAR(80),
   link VARCHAR(80),
   content TEXT,
   PRIMARY KEY (idx)
