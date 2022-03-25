@@ -3,7 +3,7 @@ require_once 'includes/functions.php';
 
 // DB
 $dbconfig = json_decode(
-  file_get_contents('./configs/dbconfig.json'), 
+  file_get_contents('./configs/db.config'), 
   true);
 // console_log($dbconfig);
 $host = $dbconfig['host'];
