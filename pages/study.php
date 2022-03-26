@@ -1,5 +1,5 @@
 <?php // study.php
 
-$content = makePost($page, $idx);
+$content .= makePost($page, $idx);
 
 // TODO: 페이지 및 리스트 삽입

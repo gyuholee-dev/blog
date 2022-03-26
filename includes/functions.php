@@ -97,4 +97,99 @@ function makePost($page, $idx) {
 
   return $html;
 
-}  
+}
+
+// 리스트 출력
+function makeList($listTitle='리스트', $listType='tile', $category='all', $subcategory='all', $start=false, $end=false) {
+  global $db;
+  
+  $postCount = 0;
+  $whereSql = '';
+  $orderSql = '';
+  $limitSql = '';
+
+  if ($category != 'all') {
+    $whereSql .= "WHERE category = '$category' ";
+    if ($subcategory != 'all') {
+      $whereSql .= "AND subcategory = '$subcategory' ";
+    }
+  }
+
+  $sql = "SELECT COUNT(*) FROM post $whereSql";
+  $res = mysqli_query($db, $sql);
+  $postCount = mysqli_fetch_row($res)[0];
+
+  $orderSql .= "ORDER BY idx DESC ";
+  
+  if ($start !== false) {
+    $end = ($end !== false)?$end:$postCount;
+    $limitSql .= "LIMIT $start, $end ";
+  }
+
+  $sql = "SELECT * FROM post ";
+  $sql .= $whereSql.$orderSql.$limitSql;
+  // console_log($sql);
+  $res = mysqli_query($db, $sql);
+
+
+  $listTemplate = file_get_contents('templates/_list'.$listType.'.html');
+  
+  $reg = '/\{listItem start\}(.+)\{listItem end\}/is';
+  preg_match($reg, $listTemplate, $matches);
+  $itemTemplate = $matches[1];
+
+  $i = 0;
+  $listItem = '';
+  while ($data = mysqli_fetch_assoc($res)) {
+    foreach ($data as $key => $value) {
+      $$key = $value;
+    }
+
+    $itemClass = 'item';
+    $boxClass = 'box '.$posttype;
+    $headerBG = '';
+    $linkUrl = '';
+    $listBG = '';
+
+    if ($posttype == 'link' && $i == 0 || $posttype=='media') {
+      $itemClass .= ' wide';
+    }
+    if ($posttype == 'link' && $i == 0 || $posttype=='media') {
+      $boxClass .= ' active';
+    }
+    if ($posttype=='link') {
+      $linkUrl = $link;
+    } else {
+      $linkUrl = "view.php?page=$category&idx=$idx";
+    }
+    if ($posttype=='link' || $posttype=='media') {
+      if ($data['file'] != '') {
+        $listBG = "<div class='bg' style='background-image:url(\"files/$file\")'></div>";
+      }
+    }
+
+    $item_values = array( 
+      '{itemClass}' => $itemClass,
+      '{boxClass}' => $boxClass,
+      '{headerBG}' => $headerBG,
+      '{linkUrl}' => $linkUrl,
+      '{listBG}' => $listBG,
+      '{title}' => $title,
+      '{content}' => $content,
+      '{wdate}' => $wdate,
+      '{writer}' => $writer,
+    );
+
+    $listItem .= strtr($itemTemplate, $item_values); 
+    $i++;
+  }
+
+  $listTemplate = preg_replace($reg, '{listItem}', $listTemplate);
+  $list_values = array(
+    '{listTitle}' => $listTitle,
+    '{listItem}' => $listItem,
+  );
+
+  return strtr($listTemplate, $list_values);
+
+}
