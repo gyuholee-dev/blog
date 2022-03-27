@@ -83,9 +83,6 @@ header .menu {
   align-items: start;
   justify-content: space-between;
   padding: 10px 15px;
-  /* >.links {
-      
-    } */
 }
 
 header .menu i {
@@ -181,7 +178,7 @@ main article {
 main section {
   width: 100%;
   display: flex;
-  padding: 15px;
+  padding: 25px;
   flex-direction: column;
   background-color: white;
 }
@@ -259,6 +256,8 @@ main section.post .content {
   width: 100%;
   padding: 10px 5px;
   margin-bottom: 10px;
+  font-size: 1.125em;
+  word-break: keep-all;
   line-height: 1.5;
 }
 

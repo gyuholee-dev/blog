@@ -1,4 +1,4 @@
-// 변수
+// ## 변수
 $color-emp: #34a3e7;
 $color-shine: #eee;
 $color-light: #bbb;
@@ -16,6 +16,7 @@ $media-width-large: 960px;
 $media-width-middle: 800px;
 $media-width-min: 680px;
 
+// ## 엘리먼트 기본값
 * {
   margin: 0;
   padding: 0;
@@ -74,6 +75,7 @@ aside {
 
 // ---------------------------------------------------------
 
+// ## 헤더
 header {
   height: 140px;
   // flex-direction: column;
@@ -117,10 +119,6 @@ header {
       transition: all 0.25s;
     }
 
-    /* >.links {
-      
-    } */
-
     >.search {
       input {
         width: 160px;
@@ -135,6 +133,7 @@ header {
 
 }
 
+// ## 네비게이션 바
 nav {
   width: 100%;
   height: $height-nav + 1;
@@ -207,6 +206,7 @@ nav {
   }
 }
 
+// ## 메인
 main {
   // margin-top: 60px;
   overflow-x: hidden;
@@ -222,7 +222,7 @@ main {
   section {
     width: 100%;
     display: flex;
-    padding: 15px;
+    padding: 25px;
     flex-direction: column;
     background-color: white;
 
@@ -244,6 +244,7 @@ main {
     }
   }
 
+  // ## 섹션 포스트
   section.post {
     .header {
       width: 100%;
@@ -303,7 +304,9 @@ main {
       width: 100%;
       padding: 10px 5px;
       margin-bottom: 10px;
-      // word-break: keep-all;
+      font-size: 1.125em;
+      word-break: keep-all;
+      // letter-spacing: 1;
       line-height: 1.5;
 
       img {
@@ -349,6 +352,7 @@ main {
     }
   }
 
+  // ## 섹션 리스트
   section.list {
     padding: 5px;
 
@@ -480,6 +484,7 @@ main {
 
 }
 
+// ## 로딩
 #loading {
   width: 100%;
   text-align: center;
@@ -491,6 +496,7 @@ main {
   color: $color-grey;
 }
 
+// ## 푸터
 footer {
   width: 100%;
   height: 60px;
