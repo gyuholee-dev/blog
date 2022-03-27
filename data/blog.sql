@@ -32,8 +32,12 @@ CREATE TABLE post (
   file VARCHAR(80),
   link VARCHAR(80),
   content TEXT,
+  pinned BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (idx)
 );
+
+ALTER TABLE post ADD pinned BOOLEAN NOT NULL DEFAULT FALSE;
+UPDATE post SET pinned = TRUE WHERE idx = 1;
 
 /* board 보드
 idx 인덱스: 자동증가 정수
