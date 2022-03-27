@@ -2,7 +2,7 @@
 
 // ------------------------ 기본 함수 ------------------------
 
-// 콘솔 출력
+// ## 콘솔 출력
 function console_log($log) {
   if (is_array($log)) {
     $log = json_encode($log);
@@ -28,13 +28,13 @@ function console_log($log) {
   echo $script;
 }
 
-// 값이 date 인지 검사
+// ## 값이 date 인지 검사
 function isDate($str) {
 	$d = date('Y-m-d', strtotime($str));
 	return $d == $str;
 }
 
-// 숫자를 자릿수 맞춰서 문자열로 변환
+// ## 숫자를 자릿수 맞춰서 문자열로 변환
 function numStr($numb, $numSize) {
   $add = '0';
   for ($i=0; $i < $numSize; $i++) { 
@@ -47,7 +47,19 @@ function numStr($numb, $numSize) {
 
 // ------------------------ 블로그 엘리먼트 함수 ------------------------
 
-// 포스트 출력
+// ## 태그링크 출력
+// TODO: tagList 구현
+function makeTagLink($tags) {
+  $tags = explode(',', $tags);
+
+  $html = '';
+  foreach ($tags as $tag) {
+    $html .= "<a href='#'>$tag</a>";
+  }
+  return $html;
+}
+
+// ## 포스트 출력
 // TODO: pinned 기능 구현
 function makePost($page, $idx) {
   global $db;
@@ -68,14 +80,13 @@ function makePost($page, $idx) {
     foreach ($data as $key => $value) {
       $$key = $value;
     }
-    console_log($category);
 
     $headerClass = 'header';
     $headerBG = '';
     $wdate = date("Y-m-d H:i:s", $wdate);
 
     if ($pinned == true && $file != '') {
-      $headerClass = 'header img';
+      $headerClass = 'header pinned img';
       $headerBG = "<div class='bg' style='background-image:url(\"files/$file\")'></div>";
       $file = '';
     } 
@@ -85,6 +96,7 @@ function makePost($page, $idx) {
     }
 
     $category = ($category!='')?"<a href='view.php?page=$category'>$category</a>":$category;
+    $tags = makeTagLink($tags);
 
     $post_values = array( 
       '{posttype}' => $posttype,
@@ -107,7 +119,8 @@ function makePost($page, $idx) {
 
 }
 
-// 리스트 출력
+// ## 리스트 출력
+// TODO: 테이블 리스트 출력 기능 추가
 function makeList($listTitle='리스트', $listType='tile', $category='all', $posttype='all', $start=false, $end=false) {
   global $db;
   

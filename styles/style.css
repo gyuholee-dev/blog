@@ -168,6 +168,10 @@ main {
   flex-grow: 1;
 }
 
+main a:hover {
+  color: #34a3e7;
+}
+
 main article {
   flex-direction: column;
   width: 100%;
@@ -200,7 +204,7 @@ main section > .title::before {
 
 main section.post .header {
   width: 100%;
-  padding: 10px 10px 0;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -245,10 +249,14 @@ main section.post .header .info > span:not(:last-child) {
   margin-right: 10px;
 }
 
+main section.post .header.pinned.img .info {
+  display: none;
+}
+
 main section.post .content {
   width: 100%;
-  padding: 10px 5px;
-  margin-bottom: 10px;
+  padding: 5px;
+  margin-bottom: 15px;
   font-size: 1.125em;
   word-break: keep-all;
   line-height: 1.5;
@@ -258,7 +266,11 @@ main section.post .content img {
   display: block;
   width: auto;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 10px auto;
+}
+
+main section.post .content img:first-of-type {
+  margin: 0 auto 10px;
 }
 
 main section.post .footer {
@@ -270,6 +282,10 @@ main section.post .footer {
 main section.post .footer .tags {
   align-self: end;
   font-size: 0.9em;
+}
+
+main section.post .footer .tags > a:not(:last-child) {
+  margin-right: 10px;
 }
 
 main section.post .footer .info {
@@ -286,7 +302,9 @@ main section.post.media .header {
   flex-direction: row;
   justify-content: space-between;
   height: auto;
-  padding: 0 5px;
+  padding: 5px;
+  border-bottom: 1px solid #666;
+  margin-bottom: 15px;
 }
 
 main section.post.media .header .title {
