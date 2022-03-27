@@ -15,10 +15,12 @@ mysqli_select_db($db, 'gyuholee');
 // 글로벌 변수
 $fileName = '';
 $page = 'main';
+$pnum = 1;
 $idx = 0;
 
 $fileName = basename($_SERVER['PHP_SELF']);
 $page = isset($_REQUEST['page'])?$_REQUEST['page']:$page;
+$pnum = isset($_REQUEST['pnum'])?$_REQUEST['pnum']:$pnum;
 $idx = isset($_REQUEST['idx'])?$_REQUEST['idx']:$idx;
 
 // 블로그 환경변수

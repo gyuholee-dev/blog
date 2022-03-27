@@ -64,6 +64,7 @@ function makeTagLink($tags) {
 function makePost($page, $idx) {
   global $db;
   global $pages;
+  global $pnum;
 
   $sql = "SELECT * FROM post
   WHERE category = '$page' ";
@@ -80,6 +81,7 @@ function makePost($page, $idx) {
     foreach ($data as $key => $value) {
       $$key = $value;
     }
+    $posttype = $pages[$page]['postType'];
 
     $headerClass = 'header';
     $headerBG = '';
@@ -214,4 +216,12 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
 
   return strtr($listTemplate, $list_values);
 
+}
+
+
+
+// ## 페이지 넘버 출력
+function makePageNumber() {
+  global $pnum;
+  global $pages;
 }

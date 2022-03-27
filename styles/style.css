@@ -216,6 +216,7 @@ main section.post .header {
 main section.post .header.img {
   height: 180px;
   padding: 10px;
+  margin-bottom: 15px;
   color: white;
   text-shadow: 0 1px 4px black;
 }
@@ -285,7 +286,7 @@ main section.post .footer .tags {
 }
 
 main section.post .footer .tags > a:not(:last-child) {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 main section.post .footer .info {
@@ -302,13 +303,18 @@ main section.post.media .header {
   flex-direction: row;
   justify-content: space-between;
   height: auto;
-  padding: 5px;
+  padding: 5px 5px 10px;
   border-bottom: 1px solid #666;
   margin-bottom: 15px;
 }
 
 main section.post.media .header .title {
   font-size: 2em;
+}
+
+main section.post.media .header .info {
+  margin: 0;
+  align-self: end;
 }
 
 main section.post.media .header .subcategoty {
