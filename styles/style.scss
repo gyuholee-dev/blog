@@ -248,7 +248,7 @@ main {
   section.post {
     .header {
       width: 100%;
-      height: 140px;
+      // height: 140px;
       padding: 10px 10px 0;
       display: flex;
       flex-direction: column;
@@ -268,7 +268,6 @@ main {
         width: 100%;
         height: 100%;
         position: absolute;
-        // z-index: -1;
         background-color: #666;
         background-position: center;
         background-repeat: no-repeat;
@@ -277,24 +276,18 @@ main {
       }
 
       .title {
-        font-size: 2.5em;
+        font-size: 2em;
         line-height: 1;
         z-index: 1;
       }
 
-      .subcategoty {
-        margin-top: 5px;
-        z-index: 1;
-      }
-
       .info {
+        height: 22px;
         display: flex;
         justify-self: end;
-        position: absolute;
-        bottom: 0;
-        right: 10px;
+        margin-top: 10px;
         z-index: 1;
-        >div:first-child {
+        >span:not(:last-child) {
           margin-right: 10px;
         }
       }
@@ -319,17 +312,17 @@ main {
 
     .footer {
       display: flex;
-      justify-content: end;
+      justify-content: space-between;
       width: 100%;
       .tags {
         align-self: end;
         font-size: 0.9em;
       }
       .info {
+        height: 22px;
         display: flex;
-        justify-self: end;
         z-index: 1;
-        >div:first-child {
+        >span:not(:last-child) {
           margin-right: 10px;
         }
       }
@@ -342,7 +335,7 @@ main {
         height: auto;
         padding: 0 5px;
         .title {
-          font-size: 1.6em;
+          font-size: 2em;
         }
         .subcategoty {
           margin: 0;

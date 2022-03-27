@@ -48,6 +48,7 @@ function numStr($numb, $numSize) {
 // ------------------------ 블로그 엘리먼트 함수 ------------------------
 
 // 포스트 출력
+// TODO: pinned 기능 구현
 function makePost($page, $idx) {
   global $db;
   global $pages;
@@ -67,28 +68,35 @@ function makePost($page, $idx) {
     foreach ($data as $key => $value) {
       $$key = $value;
     }
+    console_log($category);
 
     $headerClass = 'header';
     $headerBG = '';
     $wdate = date("Y-m-d H:i:s", $wdate);
 
-    if ($posttype == 'text' && $file != '') {
+    if ($pinned == true && $file != '') {
       $headerClass = 'header img';
       $headerBG = "<div class='bg' style='background-image:url(\"files/$file\")'></div>";
-    } elseif ($posttype == 'media' && $file != '') {
+      $file = '';
+    } 
+    
+    if ($posttype == 'media' && $file != '') {
       $file = "<img src='files/$file'>";
     }
+
+    $category = ($category!='')?"<a href='view.php?page=$category'>$category</a>":$category;
 
     $post_values = array( 
       '{posttype}' => $posttype,
       '{headerClass}' => $headerClass,
       '{headerBG}' => $headerBG,
       '{title}' => $title,
-      '{subcategory}' => $subcategory,
-      '{file}' => $file,
-      '{content}' => $content,
+      '{category}' => $category,
       '{wdate}' => $wdate,
       '{writer}' => $writer,
+      '{tags}' => $tags,
+      '{file}' => $file,
+      '{content}' => $content,
     );
     
     $template = file_get_contents('templates/_post.html');
@@ -100,7 +108,7 @@ function makePost($page, $idx) {
 }
 
 // 리스트 출력
-function makeList($listTitle='리스트', $listType='tile', $category='all', $subcategory='all', $start=false, $end=false) {
+function makeList($listTitle='리스트', $listType='tile', $category='all', $posttype='all', $start=false, $end=false) {
   global $db;
   
   $postCount = 0;
@@ -108,11 +116,12 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $su
   $orderSql = '';
   $limitSql = '';
 
+  $whereSql .= "WHERE 1 = 1 ";
   if ($category != 'all') {
-    $whereSql .= "WHERE category = '$category' ";
-    if ($subcategory != 'all') {
-      $whereSql .= "AND subcategory = '$subcategory' ";
-    }
+    $whereSql .= "AND category = '$category' ";
+  }
+  if ($posttype != 'all') {
+    $whereSql .= "AND posttype = '$posttype' ";
   }
 
   $sql = "SELECT COUNT(*) FROM post $whereSql";

@@ -13,7 +13,6 @@ wdate 날짜: 타임스탬프
 title 타이틀
 writer 이름
 category 분류: profile, portpolio...
-subcategory 하위분류: 일상, 게임...
 posttype: text, media, link...
 file 파일
 link 링크
@@ -27,17 +26,20 @@ CREATE TABLE post (
   title VARCHAR(80),
   writer VARCHAR(20),
   category VARCHAR(20),
-  subcategory VARCHAR(20),
   posttype VARCHAR(20),
   file VARCHAR(80),
   link VARCHAR(80),
   content TEXT,
+  tags VARCHAR(80),
   pinned BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (idx)
 );
 
 ALTER TABLE post ADD pinned BOOLEAN NOT NULL DEFAULT FALSE;
 UPDATE post SET pinned = TRUE WHERE idx = 1;
+
+ALTER TABLE post ADD tags VARCHAR(80);
+UPDATE post SET tags = '태그1,태그2,태그3,태그4';
 
 /* board 보드
 idx 인덱스: 자동증가 정수
