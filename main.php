@@ -55,9 +55,8 @@ $footer = <<<HTML
 HTML;
 
 
-// 콘텐츠 메인페이지
-// TODO: $action 값에 따라 각각 다른 페이지를 인클루드 
-include "pages/$page.php";
+// 콘텐츠
+include "pages/$action.php";
 
 
 //------------------------ 랜더링 ------------------------
