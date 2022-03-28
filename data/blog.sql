@@ -35,11 +35,23 @@ CREATE TABLE post (
   PRIMARY KEY (idx)
 );
 
-ALTER TABLE post ADD pinned BOOLEAN NOT NULL DEFAULT FALSE;
-UPDATE post SET pinned = TRUE WHERE idx = 1;
+/* user 유저
+userid 아이디
+password 비밀번호
+username 이름
+avatar 아바타
+email 이메일
+link 링크
+*/
 
-ALTER TABLE post ADD tags VARCHAR(80);
-UPDATE post SET tags = '태그1,태그2,태그3,태그4';
+CREATE TABLE user (
+  userid VARCHAR(20) NOT NULL PRIMARY KEY,
+  password VARCHAR(20),
+  username VARCHAR(20),
+  avatar VARCHAR(80),
+  email VARCHAR(30),
+  link VARCHAR(80)
+);
 
 /* board 보드
 idx 인덱스: 자동증가 정수
@@ -55,7 +67,6 @@ posttype: text, media, link...
 tags 태그 
 files 파일
 content 내용
-
 */
 
 CREATE TABLE board (

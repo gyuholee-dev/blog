@@ -15,11 +15,13 @@ mysqli_select_db($db, 'gyuholee');
 // 글로벌 변수
 $fileName = '';
 $page = 'main';
+$action = 'view';
 $pnum = 1;
 $idx = 0;
 
 $fileName = basename($_SERVER['PHP_SELF']);
 $page = isset($_REQUEST['page'])?$_REQUEST['page']:$page;
+$action = isset($_REQUEST['action'])?$_REQUEST['action']:$action;
 $pnum = isset($_REQUEST['pnum'])?$_REQUEST['pnum']:$pnum;
 $idx = isset($_REQUEST['idx'])?$_REQUEST['idx']:$idx;
 

@@ -1,4 +1,4 @@
-<?php // view.php
+<?php // blog.php
 // 초기화
 require_once 'includes/init.php';
 
@@ -30,8 +30,11 @@ foreach ($libraries as $key => $library) {
 
 // 헤더
 $siteUrl = ($_SERVER['HTTP_HOST']=='localhost')?'index.php':$info['siteUrl'];
+$headerLink = "<a href='$siteUrl'><img src='images/$theme[logo]'></a>";
+$loginLink = getLoginLink();
 $header_values = array(
-  '{headerLink}' => "<a href='$siteUrl'><img src='images/$theme[logo]'></a>"
+  '{headerLink}' => "<a href='$siteUrl'><img src='images/$theme[logo]'></a>",
+  '{loginLink}' => $loginLink
 );
 $header = file_get_contents('templates/_header.html');
 $header = strtr($header, $header_values);
@@ -39,7 +42,7 @@ $header = strtr($header, $header_values);
 // 네비게이션메뉴
 foreach ($pages as $key => $conf) {
   $active = ($page==$key)?'active':'';
-  $nav .= "<li class='$active'><a href='view.php?page=$key'>$conf[name]</a></li>";
+  $nav .= "<li class='$active'><a href='blog.php?page=$key'>$conf[name]</a></li>";
 }
 $nav = '<ul class="menu main">'.$nav.'</ul>';
 

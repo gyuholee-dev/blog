@@ -1,2 +1,2 @@
 <?php
-header('Location:view.php');
+header('Location:blog.php');

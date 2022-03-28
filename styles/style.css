@@ -322,18 +322,18 @@ main section.post.media .header .subcategoty {
   align-self: end;
 }
 
-main section.list {
+main section.list.tile {
   padding: 5px;
 }
 
-main section.list ul.tile {
+main section.list.tile ul.tile {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   padding: 5px;
 }
 
-main section.list ul.tile > li {
+main section.list.tile ul.tile > li {
   height: 180px;
   min-width: 180px;
   padding: 5px;
@@ -342,15 +342,15 @@ main section.list ul.tile > li {
   overflow: hidden;
 }
 
-main section.list ul.tile > li.wide {
+main section.list.tile ul.tile > li.wide {
   width: 40%;
 }
 
-main section.list ul.tile > li:hover {
+main section.list.tile ul.tile > li:hover {
   overflow: visible;
 }
 
-main section.list ul.tile .box {
+main section.list.tile ul.tile .box {
   display: flex;
   flex-direction: column;
   box-sizing: content-box;
@@ -363,7 +363,7 @@ main section.list ul.tile .box {
   overflow: hidden;
 }
 
-main section.list ul.tile .box > .post {
+main section.list.tile ul.tile .box > .post {
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -374,18 +374,18 @@ main section.list ul.tile .box > .post {
   z-index: 1;
 }
 
-main section.list ul.tile .box > .post > .title {
+main section.list.tile ul.tile .box > .post > .title {
   font-size: 1.6em;
 }
 
-main section.list ul.tile .box > .post > .summary {
+main section.list.tile ul.tile .box > .post > .summary {
   max-height: 80px;
   margin-top: 10px;
   overflow: hidden;
   line-height: 1.25;
 }
 
-main section.list ul.tile .box > .bg {
+main section.list.tile ul.tile .box > .bg {
   position: absolute;
   left: 0;
   top: 0;
@@ -397,12 +397,12 @@ main section.list ul.tile .box > .bg {
   background-size: cover;
 }
 
-main section.list ul.tile .box:not(.active) > .bg {
+main section.list.tile ul.tile .box:not(.active) > .bg {
   background-blend-mode: darken;
   filter: grayscale(1);
 }
 
-main section.list ul.tile .box:hover {
+main section.list.tile ul.tile .box:hover {
   cursor: pointer;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
   transform: translate(-10px, -10px) scale(110%);
@@ -410,24 +410,28 @@ main section.list ul.tile .box:hover {
   z-index: 5;
 }
 
-main section.list ul.tile .box:hover > .bg {
+main section.list.tile ul.tile .box:hover > .bg {
   background-color: white;
   filter: grayscale(0);
   transition: all 0.5s;
 }
 
-main section.list ul.tile .box.link, main section.list ul.tile .box.media {
+main section.list.tile ul.tile .box.link, main section.list.tile ul.tile .box.media {
   color: white;
   text-shadow: 0 1px 4px black;
 }
 
-main section.list ul.tile .box.link > .post > .title, main section.list ul.tile .box.media > .post > .title {
+main section.list.tile ul.tile .box.link > .post > .title, main section.list.tile ul.tile .box.media > .post > .title {
   font-size: 2.5em;
   line-height: 1;
 }
 
-main section.list ul.tile .box.link > .post > .summary {
+main section.list.tile ul.tile .box.link > .post > .summary {
   display: none;
+}
+
+main section.list.table {
+  padding: 5px;
 }
 
 #loading {

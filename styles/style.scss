@@ -368,8 +368,8 @@ main {
     }
   }
 
-  // ## 섹션 리스트
-  section.list {
+  // ## 섹션 리스트 타일
+  section.list.tile {
     padding: 5px;
 
     ul.tile {
@@ -496,6 +496,11 @@ main {
       }
     }
 
+  }
+
+  // ## 섹션 리스트 테이블
+  section.list.table {
+    padding: 5px;
   }
 
 }

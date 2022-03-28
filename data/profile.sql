@@ -57,7 +57,7 @@ VALUES (
   'link',
   'link',
   'images(1).jpg',
-  'view.php?page=portpolio',
+  'blog.php?page=portpolio',
   '포트폴리오 페이지 링크'
 );
 
@@ -71,6 +71,6 @@ VALUES (
   'link',
   'link',
   'BI-header_r.png',
-  'view.php?page=profile',
+  'blog.php?page=profile',
   '프로필 페이지 링크'
 );

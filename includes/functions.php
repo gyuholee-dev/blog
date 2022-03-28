@@ -47,6 +47,22 @@ function numStr($numb, $numSize) {
 
 // ------------------------ 블로그 엘리먼트 함수 ------------------------
 
+// ## 멤버정보
+function getLoginLink() {
+  $loginLink = "
+    <a href='user.php?action=login'>Login</a>
+    <a href='user.php?action=signup'>Signup</a>
+  ";
+  if (isset($_SESSION['user'])) {
+    $loginLink = "
+      <a href='user.php?action=mypage'>Mypage</a>
+      <a href='user.php?action=logout'>Logout</a>
+    ";
+  }
+  return $loginLink;
+}
+
+
 // ## 태그링크 출력
 // TODO: tagList 구현
 function makeTagLink($tags) {
@@ -97,7 +113,7 @@ function makePost($page, $idx) {
       $file = "<img src='files/$file'>";
     }
 
-    $category = ($category!='')?"<a href='view.php?page=$category'>$category</a>":$category;
+    $category = ($category!='')?"<a href='blog.php?page=$category'>$category</a>":$category;
     $tags = makeTagLink($tags);
 
     $post_values = array( 
@@ -174,6 +190,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
     $headerBG = '';
     $linkUrl = '';
     $listBG = '';
+    $wdate = date("Y-m-d H:i:s", $wdate);
 
     if ($posttype == 'link' && $i == 0 || $posttype=='media') {
       $itemClass .= ' wide';
@@ -184,7 +201,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
     if ($posttype=='link') {
       $linkUrl = $link;
     } else {
-      $linkUrl = "view.php?page=$category&idx=$idx";
+      $linkUrl = "blog.php?page=$category&idx=$idx";
     }
     if ($posttype=='link' || $posttype=='media') {
       if ($data['file'] != '') {
@@ -199,6 +216,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
       '{linkUrl}' => $linkUrl,
       '{listBG}' => $listBG,
       '{title}' => $title,
+      '{category}' => $category,
       '{content}' => $content,
       '{wdate}' => $wdate,
       '{writer}' => $writer,
