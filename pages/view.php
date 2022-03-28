@@ -1,7 +1,9 @@
 <?php // view.php
 
 // $page 에 따라 각각 다른 컨텐츠를 출력
-// TODO: $pages 컨피그에서 변수를 가져옴, 변수와 출력을 분리
+// TODO: $pages 컨피그에서 변수를 가져옴
+// TODO: $do 파라메터에 따라 메인, 포스트, 리스트를 출력
+// TODO: 변수와 출력을 분리
 switch ($page) {
   case 'main':
     // 링크
