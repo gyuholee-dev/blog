@@ -14,7 +14,7 @@ $DB = mysqli_connect($host, $user, $pass);
 mysqli_select_db($DB, 'gyuholee');
 
 // 블로그 환경변수
-// TODO: 환경변수를 gloval 로 명시적 선언
+// TODO: 환경변수를 global 로 명시적 선언
 global $MAIN;
 $blogConfig = json_decode(
   file_get_contents('./configs/blog.config'), 
@@ -32,8 +32,9 @@ $pages = $blogConfig['pages'];
  *        edit
  *        user
  *        manage
- * view&do=post
- *         list
+ * view&do=main
+ *         post&postid=1
+ *         list&category=all
  * edit&do=create
  *         update
  *         delete
@@ -49,11 +50,11 @@ $page = 'main';
 $action = 'view';
 $do = 'post';
 $pnum = 1;
-$idx = 0;
+$postid = 0;
 
 $fileName = basename($_SERVER['PHP_SELF']);
 $page = isset($_REQUEST['page'])?$_REQUEST['page']:$page;
 $action = isset($_REQUEST['action'])?$_REQUEST['action']:$action;
 $do = isset($_REQUEST['do'])?$_REQUEST['do']:$do;
 $pnum = isset($_REQUEST['pnum'])?$_REQUEST['pnum']:$pnum;
-$idx = isset($_REQUEST['idx'])?$_REQUEST['idx']:$idx;
+$postid = isset($_REQUEST['postid'])?$_REQUEST['postid']:$postid;

@@ -78,18 +78,18 @@ function makeTagLink($tags) {
 
 // ## 포스트 출력
 // TODO: pinned 기능 구현
-function makePost($page, $idx) {
+function makePost($page, $postid) {
   global $DB;
   global $pages;
   global $pnum;
 
   $sql = "SELECT * FROM post
   WHERE category = '$page' ";
-  if ($idx != 0) {
-    $sql .= "AND idx = $idx ";
+  if ($postid != 0) {
+    $sql .= "AND postid = $postid ";
   } else {
     $items = $pages[$page]['items'];
-    $sql .= "ORDER BY idx DESC LIMIT 0, $items ";
+    $sql .= "ORDER BY postid DESC LIMIT 0, $items ";
   }
   $res = mysqli_query($DB, $sql);
 
@@ -161,7 +161,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
   $res = mysqli_query($DB, $sql);
   $postCount = mysqli_fetch_row($res)[0];
 
-  $orderSql .= "ORDER BY idx DESC ";
+  $orderSql .= "ORDER BY postid DESC ";
   
   if ($start !== false) {
     $end = ($end !== false)?$end:$postCount;
@@ -203,7 +203,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
     if ($posttype=='link') {
       $linkUrl = $link;
     } else {
-      $linkUrl = "$MAIN?page=$category&idx=$idx";
+      $linkUrl = "$MAIN?page=$category&postid=$postid";
     }
     if ($posttype=='link' || $posttype=='media') {
       if ($data['file'] != '') {

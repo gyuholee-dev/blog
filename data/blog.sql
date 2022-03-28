@@ -8,7 +8,7 @@ https://blueamor.tistory.com/618
 
 
 /* post 포스트
-idx 인덱스: 자동증가 정수
+postid 인덱스: 자동증가 정수
 wdate 날짜: 타임스탬프
 title 타이틀
 writer 이름
@@ -23,7 +23,7 @@ allow 권한: ????
 */
 
 CREATE TABLE post (
-  idx INT AUTO_INCREMENT PRIMARY KEY,
+  postid INT AUTO_INCREMENT PRIMARY KEY,
   wdate INT,
   title VARCHAR(80),
   writer VARCHAR(20),
@@ -57,7 +57,7 @@ CREATE TABLE user (
 );
 
 /* board 보드
-idx 인덱스: 자동증가 정수
+threadid 인덱스: 자동증가 정수
 wdate 날짜: 타임스탬프
 title 타이틀
 writer 이름
@@ -77,7 +77,7 @@ CREATE TABLE board (
 );
 
 /* comment 덧글
-idx 인덱스
+commentid 인덱스
 wdate 날짜
 name 이름
 pwd 비밀번호
