@@ -18,10 +18,12 @@ file 파일
 link 링크
 content 내용
 tags 태그(차후 추가)
+pinned 상단고정
+allow 권한: ????
 */
 
 CREATE TABLE post (
-  idx INT AUTO_INCREMENT,
+  idx INT AUTO_INCREMENT PRIMARY KEY,
   wdate INT,
   title VARCHAR(80),
   writer VARCHAR(20),
@@ -31,8 +33,7 @@ CREATE TABLE post (
   link VARCHAR(80),
   content TEXT,
   tags VARCHAR(80),
-  pinned BOOLEAN NOT NULL DEFAULT FALSE,
-  PRIMARY KEY (idx)
+  pinned BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 /* user 유저
@@ -42,6 +43,7 @@ username 이름
 avatar 아바타
 email 이메일
 link 링크
+usergroup 권한그룹: admin, user
 */
 
 CREATE TABLE user (
@@ -50,7 +52,8 @@ CREATE TABLE user (
   username VARCHAR(20),
   avatar VARCHAR(80),
   email VARCHAR(30),
-  link VARCHAR(80)
+  link VARCHAR(80),
+  usergroup VARCHAR(20) DEFAULT 'user'
 );
 
 /* board 보드

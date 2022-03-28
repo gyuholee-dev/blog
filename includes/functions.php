@@ -49,14 +49,15 @@ function numStr($numb, $numSize) {
 
 // ## 멤버정보
 function getLoginLink() {
+  global $MAIN;
   $loginLink = "
-    <a href='user.php?action=login'>Login</a>
-    <a href='user.php?action=signup'>Signup</a>
+    <a href='$MAIN?action=user&do=login'>Login</a>
+    <a href='$MAIN?action=user&do=signup'>Signup</a>
   ";
   if (isset($_SESSION['user'])) {
     $loginLink = "
-      <a href='user.php?action=mypage'>Mypage</a>
-      <a href='user.php?action=logout'>Logout</a>
+      <a href='$MAIN?action=user&do=mypage'>Mypage</a>
+      <a href='$MAIN?action=user&do=logout'>Logout</a>
     ";
   }
   return $loginLink;
@@ -78,7 +79,7 @@ function makeTagLink($tags) {
 // ## 포스트 출력
 // TODO: pinned 기능 구현
 function makePost($page, $idx) {
-  global $db;
+  global $DB;
   global $pages;
   global $pnum;
 
@@ -90,7 +91,7 @@ function makePost($page, $idx) {
     $items = $pages[$page]['items'];
     $sql .= "ORDER BY idx DESC LIMIT 0, $items ";
   }
-  $res = mysqli_query($db, $sql);
+  $res = mysqli_query($DB, $sql);
 
   $html = '';
   while ($data = mysqli_fetch_assoc($res)) {
@@ -113,7 +114,7 @@ function makePost($page, $idx) {
       $file = "<img src='files/$file'>";
     }
 
-    $category = ($category!='')?"<a href='blog.php?page=$category'>$category</a>":$category;
+    $category = ($category!='')?"<a href='main.php?page=$category'>$category</a>":$category;
     $tags = makeTagLink($tags);
 
     $post_values = array( 
@@ -140,7 +141,8 @@ function makePost($page, $idx) {
 // ## 리스트 출력
 // TODO: 테이블 리스트 출력 기능 추가
 function makeList($listTitle='리스트', $listType='tile', $category='all', $posttype='all', $start=false, $end=false) {
-  global $db;
+  global $DB;
+  global $MAIN;
   
   $postCount = 0;
   $whereSql = '';
@@ -156,7 +158,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
   }
 
   $sql = "SELECT COUNT(*) FROM post $whereSql";
-  $res = mysqli_query($db, $sql);
+  $res = mysqli_query($DB, $sql);
   $postCount = mysqli_fetch_row($res)[0];
 
   $orderSql .= "ORDER BY idx DESC ";
@@ -169,7 +171,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
   $sql = "SELECT * FROM post ";
   $sql .= $whereSql.$orderSql.$limitSql;
   // console_log($sql);
-  $res = mysqli_query($db, $sql);
+  $res = mysqli_query($DB, $sql);
 
 
   $listTemplate = file_get_contents('templates/_list'.$listType.'.html');
@@ -201,7 +203,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
     if ($posttype=='link') {
       $linkUrl = $link;
     } else {
-      $linkUrl = "blog.php?page=$category&idx=$idx";
+      $linkUrl = "$MAIN?page=$category&idx=$idx";
     }
     if ($posttype=='link' || $posttype=='media') {
       if ($data['file'] != '') {

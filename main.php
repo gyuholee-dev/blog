@@ -1,4 +1,4 @@
-<?php // blog.php
+<?php // main.php
 // 초기화
 require_once 'includes/init.php';
 
@@ -42,7 +42,7 @@ $header = strtr($header, $header_values);
 // 네비게이션메뉴
 foreach ($pages as $key => $conf) {
   $active = ($page==$key)?'active':'';
-  $nav .= "<li class='$active'><a href='blog.php?page=$key'>$conf[name]</a></li>";
+  $nav .= "<li class='$active'><a href='$MAIN?page=$key'>$conf[name]</a></li>";
 }
 $nav = '<ul class="menu main">'.$nav.'</ul>';
 
