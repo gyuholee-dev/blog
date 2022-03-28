@@ -85,6 +85,10 @@ header .menu {
   padding: 10px 15px;
 }
 
+header .menu > div > *:not(:last-child) {
+  margin-right: 10px;
+}
+
 header .menu i {
   font-size: 1.25em;
 }

@@ -110,6 +110,12 @@ header {
     justify-content: space-between;
     padding: 10px 15px;
 
+    >div>* {
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+
     i {
       font-size: 1.25em;
     }
