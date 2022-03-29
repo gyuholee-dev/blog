@@ -33,6 +33,13 @@ body {
   background-color: $color-background;
 }
 
+// FIXME: 인풋 자동완성 폰트사이즈 수정 요망
+// REF: https://stackoverflow.com/questions/57195620/css-autocomplete-font-size
+input:-webkit-autofill::first-line {
+  font-family: inherit;
+  font-size: inherit;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -40,6 +47,25 @@ a {
 
 img {
   width: 100%;
+}
+
+table {
+  width: 100%;
+  width: -webkit-fill-available;
+  border-collapse: collapse;
+}
+
+.btn,
+button,
+input[type=button],
+input[type=reset] {
+  cursor: pointer;
+  font-size: 1em;
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: #d5d5d5;
+  }
 }
 
 #container {
@@ -222,6 +248,26 @@ main {
     color: $color-emp;
   }
 
+  // TODO: 인풋 및 버튼 css 분리
+  .btn, button,
+  input[type=button] {
+    font-size: 1em;
+    padding: 5px;
+    min-width: 120px;
+  }
+
+  input:not([type=radio]), 
+  select,
+  textarea {
+    border: 1px solid #858585;
+    border-radius: 4px;
+    &:focus-visible {
+      border: 1px solid #29cdff;
+      outline: 1px solid #0072ff;
+      box-shadow: 0 0 6px #0014ff;
+    }
+  }
+
   article {
     flex-direction: column;
     width: 100%;
@@ -326,6 +372,167 @@ main {
         margin: 10px auto;
         &:first-of-type {
           margin: 0 auto 10px;
+        }
+      }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      .tags {
+        align-self: end;
+        font-size: 0.9em;
+        >a:not(:last-child) {
+          margin-right: 5px;
+        }
+      }
+      .info {
+        height: 22px;
+        display: flex;
+        z-index: 1;
+        >span:not(:last-child) {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    &.media {
+      .header {
+        flex-direction: row;
+        justify-content: space-between;
+        height: auto;
+        padding: 5px 5px 10px;
+        border-bottom: 1px solid $color-dark;
+        margin-bottom: 15px;
+        .title {
+          font-size: 2em;
+        }
+        .info {
+          margin: 0;
+          align-self: end;
+        }
+        .subcategoty {
+          margin: 0;
+          align-self: end;
+        }
+      }
+    }
+  }
+
+  // ## 섹션 유저
+  section.user {
+    .header {
+      width: 100%;
+      // height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 5px 5px 10px;
+      border-bottom: 1px solid #666;
+      margin-bottom: 15px;
+
+      .title {
+        font-size: 2em;
+        line-height: 1;
+        z-index: 1;
+      }
+
+      .info {
+        height: 22px;
+        display: flex;
+        justify-self: end;
+        margin-top: 10px;
+        z-index: 1;
+        >span:not(:last-child) {
+          margin-right: 10px;
+        }
+      }
+
+      &.pinned.img {
+        .info {
+          display: none;
+        }
+      }
+    }
+
+    .content {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 15px;
+      font-size: 1.125em;
+      word-break: keep-all;
+      // letter-spacing: 1;
+      line-height: 1.5;
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      table {
+        max-width: 600px;
+        margin: 0 25px 15px;
+        &.login {
+          max-width: 400px;
+        }
+        * {
+          font-size: 1em;
+        }
+        th, td {
+          padding: 5px;
+        }
+        th {
+          text-align: center;
+        }
+        td {
+          text-align: left;
+        }
+
+        td.hr::before {
+          content: "";
+          display: block;
+          width: 100%;
+          border-bottom: 1px solid $color-light;
+        }
+
+        td:last-child {
+          padding-right: 60px;
+        }
+        
+        input, 
+        select,
+        textarea {
+          padding: 5px;
+        }
+        input[type=text],
+        input[type=number],
+        input[type=password],
+        textarea {
+          width: 100%;
+        }
+        select {
+          width: 120px;
+        }
+        input[type=radio],
+        input[type=checkbox] {
+          cursor: pointer;
+          margin-right: 5px;
+        }
+        label {
+          cursor: pointer;
+          margin-right: 5px;
+        }
+
+        &.signup {
+          input[name=userid],
+          input[name=email] {
+            width: calc(100% - 128px);
+          }
         }
       }
     }

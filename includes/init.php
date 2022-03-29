@@ -58,3 +58,6 @@ $action = isset($_REQUEST['action'])?$_REQUEST['action']:$action;
 $do = isset($_REQUEST['do'])?$_REQUEST['do']:$do;
 $pnum = isset($_REQUEST['pnum'])?$_REQUEST['pnum']:$pnum;
 $postid = isset($_REQUEST['postid'])?$_REQUEST['postid']:$postid;
+
+// 세션 시작
+session_start();

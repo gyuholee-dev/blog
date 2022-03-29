@@ -22,11 +22,12 @@ switch ($page) {
     $content .= makeList('바로가기', 'tile', 'portpolio', 'link', 0, 4);
     break;
   case 'study':
-    if ($postid != 0) {
+    $content .= makePost($page, $postid);
+    /* if ($postid != 0) {
       $content .= makePost($page, $postid);
     } else {
       $content .= makeList('리스트', 'table', $page, 'all', 0, 10);
-    }
+    } */
     break;
   case 'diary':
     $content .= makePost($page, $postid);

@@ -1,10 +1,11 @@
 <?php //functions.php
 
-// ------------------------ 기본 함수 ------------------------
+// ## ------------------------ 기본 함수 ------------------------
 
 // ## 콘솔 출력
+// FIXME: XHR 오류 해결 요망
 function console_log($log) {
-  if (is_array($log)) {
+  /* if (is_array($log)) {
     $log = json_encode($log);
     $script = "
         <script id='backendLog'>
@@ -25,7 +26,7 @@ function console_log($log) {
     ";
   }
 
-  echo $script;
+  echo $script; */
 }
 
 // ## 값이 date 인지 검사
@@ -45,7 +46,17 @@ function numStr($numb, $numSize) {
   return $numb;
 }
 
-// ------------------------ 블로그 엘리먼트 함수 ------------------------
+// ## ------------------------ SQL 함수 ------------------------ 
+
+// 유저 아이디 존재 검사
+function checkId($userid) {
+  global $DB;
+  $sql = "SELECT * FROM user WHERE userid = '$userid' ";
+  $res = mysqli_query($DB, $sql);
+  return mysqli_num_rows($res);
+}
+
+// ## ------------------------ 블로그 엘리먼트 함수 ------------------------
 
 // ## 멤버정보
 function getLoginLink() {

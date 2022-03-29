@@ -15,6 +15,11 @@ body {
   background-color: #eeeeee;
 }
 
+input:-webkit-autofill::first-line {
+  font-family: inherit;
+  font-size: inherit;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -22,6 +27,33 @@ a {
 
 img {
   width: 100%;
+}
+
+table {
+  width: 100%;
+  width: -webkit-fill-available;
+  border-collapse: collapse;
+}
+
+.btn,
+button,
+input[type=button],
+input[type=reset] {
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.btn:hover, .btn:active, .btn:focus,
+button:hover,
+button:active,
+button:focus,
+input[type=button]:hover,
+input[type=button]:active,
+input[type=button]:focus,
+input[type=reset]:hover,
+input[type=reset]:active,
+input[type=reset]:focus {
+  background-color: #d5d5d5;
 }
 
 #container {
@@ -176,6 +208,28 @@ main a:hover {
   color: #34a3e7;
 }
 
+main .btn, main button,
+main input[type=button] {
+  font-size: 1em;
+  padding: 5px;
+  min-width: 120px;
+}
+
+main input:not([type=radio]),
+main select,
+main textarea {
+  border: 1px solid #858585;
+  border-radius: 4px;
+}
+
+main input:not([type=radio]):focus-visible,
+main select:focus-visible,
+main textarea:focus-visible {
+  border: 1px solid #29cdff;
+  outline: 1px solid #0072ff;
+  box-shadow: 0 0 6px #0014ff;
+}
+
 main article {
   flex-direction: column;
   width: 100%;
@@ -322,6 +376,173 @@ main section.post.media .header .info {
 }
 
 main section.post.media .header .subcategoty {
+  margin: 0;
+  align-self: end;
+}
+
+main section.user .header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 5px 5px 10px;
+  border-bottom: 1px solid #666;
+  margin-bottom: 15px;
+}
+
+main section.user .header .title {
+  font-size: 2em;
+  line-height: 1;
+  z-index: 1;
+}
+
+main section.user .header .info {
+  height: 22px;
+  display: flex;
+  justify-self: end;
+  margin-top: 10px;
+  z-index: 1;
+}
+
+main section.user .header .info > span:not(:last-child) {
+  margin-right: 10px;
+}
+
+main section.user .header.pinned.img .info {
+  display: none;
+}
+
+main section.user .content {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 15px;
+  font-size: 1.125em;
+  word-break: keep-all;
+  line-height: 1.5;
+}
+
+main section.user .content form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main section.user .content table {
+  max-width: 600px;
+  margin: 0 25px 15px;
+}
+
+main section.user .content table.login {
+  max-width: 400px;
+}
+
+main section.user .content table * {
+  font-size: 1em;
+}
+
+main section.user .content table th, main section.user .content table td {
+  padding: 5px;
+}
+
+main section.user .content table th {
+  text-align: center;
+}
+
+main section.user .content table td {
+  text-align: left;
+}
+
+main section.user .content table td.hr::before {
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #bbb;
+}
+
+main section.user .content table td:last-child {
+  padding-right: 60px;
+}
+
+main section.user .content table input,
+main section.user .content table select,
+main section.user .content table textarea {
+  padding: 5px;
+}
+
+main section.user .content table input[type=text],
+main section.user .content table input[type=number],
+main section.user .content table input[type=password],
+main section.user .content table textarea {
+  width: 100%;
+}
+
+main section.user .content table select {
+  width: 120px;
+}
+
+main section.user .content table input[type=radio],
+main section.user .content table input[type=checkbox] {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+main section.user .content table label {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+main section.user .content table.signup input[name=userid],
+main section.user .content table.signup input[name=email] {
+  width: calc(100% - 128px);
+}
+
+main section.user .footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+main section.user .footer .tags {
+  align-self: end;
+  font-size: 0.9em;
+}
+
+main section.user .footer .tags > a:not(:last-child) {
+  margin-right: 5px;
+}
+
+main section.user .footer .info {
+  height: 22px;
+  display: flex;
+  z-index: 1;
+}
+
+main section.user .footer .info > span:not(:last-child) {
+  margin-right: 10px;
+}
+
+main section.user.media .header {
+  flex-direction: row;
+  justify-content: space-between;
+  height: auto;
+  padding: 5px 5px 10px;
+  border-bottom: 1px solid #666;
+  margin-bottom: 15px;
+}
+
+main section.user.media .header .title {
+  font-size: 2em;
+}
+
+main section.user.media .header .info {
+  margin: 0;
+  align-self: end;
+}
+
+main section.user.media .header .subcategoty {
   margin: 0;
   align-self: end;
 }

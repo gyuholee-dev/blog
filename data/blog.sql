@@ -40,8 +40,8 @@ CREATE TABLE post (
 userid 아이디
 password 비밀번호
 username 이름
-avatar 아바타
 email 이메일
+avatar 아바타
 link 링크
 usergroup 권한그룹: admin, user
 */
@@ -50,8 +50,8 @@ CREATE TABLE user (
   userid VARCHAR(20) NOT NULL PRIMARY KEY,
   password VARCHAR(20),
   username VARCHAR(20),
-  avatar VARCHAR(80),
   email VARCHAR(30),
+  avatar VARCHAR(80),
   link VARCHAR(80),
   usergroup VARCHAR(20) DEFAULT 'user'
 );
