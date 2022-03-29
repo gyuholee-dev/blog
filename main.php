@@ -59,6 +59,12 @@ HTML;
 include "pages/$action.php";
 
 
+// 콘솔로그
+$consoleLog = consoleLog();
+
+// 포스트스크립트
+$postScript = '';
+
 //------------------------ 랜더링 ------------------------
 
 $content_values = array( 
@@ -68,6 +74,8 @@ $content_values = array(
   '{content}' => $content,
   '{aside}' => $aside,
   '{footer}' => $footer,
+  '{consoleLog}' => $consoleLog,
+  '{postScript}' => $postScript
 );
 
 $html = file_get_contents('templates/template.html');

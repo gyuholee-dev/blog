@@ -1,32 +1,34 @@
 <?php //functions.php
 
-// ## ------------------------ 기본 함수 ------------------------
+// ------------------------ 기본 함수 ------------------------
 
-// ## 콘솔 출력
-// FIXME: XHR 오류 해결 요망
-function console_log($log) {
-  /* if (is_array($log)) {
-    $log = json_encode($log);
-    $script = "
-        <script id='backendLog'>
-           var log = JSON.parse('$log');
-           console.log(log);
-           backendLog.remove();
-        </script>
-    ";
-  } else {
-    $log = preg_replace('/\s+/', ' ', $log);
-    $log = addslashes($log);
-    $script = "
-        <script id='backendLog'>
-           var log = '$log';
-           console.log(log);
-           backendLog.remove();
-        </script>
-    ";
+
+// 로그를 배열 $BACKLOG 에 모음
+function pushLog($log) {
+  global $BACKLOG;
+  array_push($BACKLOG, $log);
+}
+
+// ## 로그를 콘솔에 출력
+// 주의: 반드시 인라인 또는 포스트스크립트로 쓸 것
+function consoleLog($logs=null) {
+  if (!$logs) {
+    global $BACKLOG;
+    $logs = $BACKLOG;
   }
+  $logs = json_encode($logs);
 
-  echo $script; */
+  $script ="
+    <script id='backendLog'>
+      var logs = JSON.parse('$logs');
+      logs.forEach(function(log) {
+        console.log(log);
+      });
+      backendLog.remove();
+    </script>
+  ";
+
+  return $script;
 }
 
 // ## 값이 date 인지 검사
@@ -46,7 +48,7 @@ function numStr($numb, $numSize) {
   return $numb;
 }
 
-// ## ------------------------ SQL 함수 ------------------------ 
+// ------------------------ SQL 함수 ------------------------ 
 
 // 유저 아이디 존재 검사
 function checkId($userid) {
@@ -56,7 +58,7 @@ function checkId($userid) {
   return mysqli_num_rows($res);
 }
 
-// ## ------------------------ 블로그 엘리먼트 함수 ------------------------
+// ------------------------ 블로그 엘리먼트 함수 ------------------------
 
 // ## 멤버정보
 function getLoginLink() {

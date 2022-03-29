@@ -1,12 +1,22 @@
 <?php // init.php
 require_once 'includes/functions.php';
 
+// 글로벌 변수
+global $BACKLOG; // 백엔드 로그 배열
+global $DB; // DB 연결
+global $MAIN; // 메인 페이지
+
+
+// ## 로그 배열 선언
+$BACKLOG = array();
+
 // DB 환경변수
-global $DB;
 $dbConfig = json_decode(
-  file_get_contents('./configs/db.config'), 
+  file_get_contents('./configs/'.
+    'db'.(file_exists('./configs/db.json')?'':'.default').'.json'
+  ),
 true);
-// console_log($dbConfig);
+
 $host = $dbConfig['host'];
 $user = $dbConfig['user'];
 $pass = $dbConfig['pass'];
@@ -17,9 +27,9 @@ mysqli_select_db($DB, 'gyuholee');
 // TODO: 환경변수를 global 로 명시적 선언
 global $MAIN;
 $blogConfig = json_decode(
-  file_get_contents('./configs/blog.config'), 
+  file_get_contents('./configs/blog.json'), 
 true);
-console_log($blogConfig);
+pushLog($blogConfig);
 
 $MAIN = $blogConfig['mainFile'];
 $info = $blogConfig['info'];

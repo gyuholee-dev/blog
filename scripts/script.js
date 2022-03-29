@@ -3,23 +3,23 @@ console.log('SCRIPT LOAD OK');
 // Promise XMLHttpRequest
 async function requestData(url, option = null) {
   try {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', url);
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
 
-      xhr.send();
-      const request = await new Promise((resolve, reject) => {
-          xhr.onload = function () {
-              if (xhr.status == 200) {
-                  resolve(xhr.response);
-              } else {
-                  reject(Error(xhr.statusText));
-              }
-          };
-      });
-      return request;
+    xhr.send();
+    const request = await new Promise((resolve, reject) => {
+      xhr.onload = function () {
+        if (xhr.status == 200) {
+          resolve(xhr.response);
+        } else {
+          reject(Error(xhr.statusText));
+        }
+      };
+    });
+    return request;
   }
   catch (error) {
-      throw Error(error);
+    throw Error(error);
   }
 }
 
@@ -30,13 +30,12 @@ async function checkId() {
     return false;
   }
 
-  var check = await requestData(
+  let check = await requestData(
     'xhr.php?call=checkId&userid='+signup.userid.value
   );
   
   if (check == 0) {
     alert('아이디 사용 가능');
-    signup.userid.readOnly = true;
     signup.password.focus();
     signup.idcheked.value=true;
   } else {
@@ -45,6 +44,10 @@ async function checkId() {
     signup.userid.focus();
     return false;
   }
+}
+
+function resetCheck() {
+  signup.idcheked.value=false;
 }
 
 function sendSignup() {

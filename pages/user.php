@@ -51,7 +51,7 @@ $content_signup = <<<HTML
           <tr>
             <th>아이디</th>
             <td>
-              <input type="text" name="userid">
+              <input type="text" name="userid" onchange="resetCheck()">
               <input type="button" value="중복확인" onclick="checkId()">
             </td>
           </tr>
