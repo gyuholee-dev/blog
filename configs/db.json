@@ -1,8 +1,0 @@
-{
-  "host" : "localhost",
-  "user" : "root",
-  "pass" : null,
-  "db" : "blog",
-  "port" : 3306,
-  "socket" : "/var/lib/mysql/mysql.sock"
-}
