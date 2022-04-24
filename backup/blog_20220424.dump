@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.4.22-MariaDB, for Win64 (AMD64)
 --
--- Host: localhost    Database: gyuholee
+-- Host: localhost    Database: blog
 -- ------------------------------------------------------
 -- Server version	10.4.22-MariaDB
 
@@ -14,34 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `notice`
---
-
-DROP TABLE IF EXISTS `notice`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `notice` (
-  `num` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) DEFAULT NULL,
-  `writer` varchar(20) DEFAULT NULL,
-  `wdate` varchar(20) DEFAULT NULL,
-  `content` text DEFAULT NULL,
-  `hit` int(11) DEFAULT 0,
-  PRIMARY KEY (`num`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `notice`
---
-
-LOCK TABLES `notice` WRITE;
-/*!40000 ALTER TABLE `notice` DISABLE KEYS */;
-INSERT INTO `notice` VALUES (1,'첫번째 공지사항입니다','관리자','2022-03-15','내용없음',0),(2,'두번째 공지사항입니다','관리자','2022-03-15','내용없음',0),(3,'세번째 공지사항입니다','관리자','2022-03-15','내용없음',0),(4,'네번째 공지사항입니다','관리자','2022-03-15','내용없음',0),(5,'다섯번째 공지사항입니다','관리자','2022-03-15','내용없음',0),(6,'여섯번째 공지사항입니다','관리자','2022-03-15','내용없음',0),(7,'일곱번째 공지사항입니다','관리자','2022-03-15','내용없음',0);
-/*!40000 ALTER TABLE `notice` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `post`
@@ -114,4 +86,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-24 17:21:33
+-- Dump completed on 2022-04-24 17:24:18
