@@ -1,5 +1,8 @@
 {
   "host" : "localhost",
   "user" : "root",
-  "pass" : ""
+  "pass" : null,
+  "db" : "blog",
+  "port" : 3306,
+  "socket" : null
 }

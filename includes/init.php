@@ -20,8 +20,10 @@ true);
 $host = $dbConfig['host'];
 $user = $dbConfig['user'];
 $pass = $dbConfig['pass'];
-$DB = mysqli_connect($host, $user, $pass);
-mysqli_select_db($DB, 'gyuholee');
+$db = $dbConfig['db'];
+$port = $dbConfig['port'];
+$socket = $dbConfig['socket'];
+$DB = mysqli_connect($host, $user, $pass, $db, $port, $socket);
 
 // 블로그 환경변수
 // TODO: 환경변수를 global 로 명시적 선언
