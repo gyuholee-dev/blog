@@ -1,15 +1,217 @@
-<?php //functions.php
+<?php // functions.php
+
+// 기초 함수 ------------------------------------------------
+
+// 경고 출력
+function alert($msg, $url=null)
+{
+    $script = 'alert("'.$msg.'");';
+    $script .= $url?'location.href="'.$url.'";':'';
+    $script = "<script>$script</script>";
+    echo $script;
+}
+
+// 로그 입력
+function pushLog($log, $class='info')
+{
+    global $MSG;
+    $MSG[$class] .= ($MSG[$class] != '')?' | ':'';
+    $MSG[$class] .= $log;
+    $_SESSION['MSG'] = $MSG;
+    return true;
+}
+
+// 로그 출력
+function printLog()
+{
+    global $MSG;
+    $html = '';
+    foreach ($MSG as $type => $log) {
+        $html .= $log?"<div class='log $type'>$log</div>":'';
+    }
+    unset($_SESSION['MSG']);
+    return "<div id='message'>$html</div>";
+}
+
+// 파일 존재 검사
+function fileExists($file)
+{
+    return file_exists($file);
+}
+
+// json 파일 오픈
+function openJson($file)
+{
+    if (!fileExists($file)) {
+        return false;
+    }
+    $json = file_get_contents($file);
+    $json = json_decode($json, true);
+    return $json;
+}
+
+// json 파일 세이브
+function saveJson($file, $json)
+{
+    $json = json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    return file_put_contents($file, $json);
+}
+
+// 코드 생성
+// 현재 시간을 소스로 최대 32자 임의 문자열 생성
+function makeCode($max=32, $upper=false)
+{
+    $code = md5(time());
+    if ($max <= 32) {
+        $code = substr($code, 0, $max);
+    }
+    if ($upper) {
+        $code = strtoupper($code);
+    }
+    return $code;
+}
+
+// 유저기능 함수 ------------------------------------------------
+
+// 유저 아이디 존재 검사
+// TODO: 테이블명 및 필드명 변수처리
+function checkId($userid)
+{
+    global $DB;
+    $sql = "SELECT * FROM travel_member WHERE userid = '$userid' ";
+    $res = mysqli_query($DB, $sql);
+    return mysqli_num_rows($res);
+}
+
+// 로그인 처리
+// 로그인은 별도 함수로 만들지 않음
+function setUserData($userData)
+{
+    global $USER;
+    $USER = array(
+    'userid' => $userData['userid'],
+    'nickname' => $userData['nickname'],
+    'groups' => $userData['groups'],
+    'key' => makeCode(),
+  );
+    $_SESSION['USER'] = $USER;
+    setcookie('USER', json_encode($USER), time()+3600);
+    return true;
+}
+
+// 로그아웃
+function logout()
+{
+    global $MSG;
+    unsetUserData();
+    pushLog('로그아웃되었습니다.', 'info');
+    $_SESSION['MSG'] = $MSG;
+    header('Location: main.php');
+}
+
+// 로그아웃 처리
+function unsetUserData()
+{
+    global $USER;
+    $USER = null;
+    unset($_SESSION['USER']);
+    setcookie('USER', '', time()-3600);
+    return true;
+}
+
+// DB 함수 ------------------------------------------------
+
+// AES 암호화
+function AES_ENCRYPT($plaintext, $key)
+{
+    // TODO: PHP 암호화 라이브러리를 통해 암호화 구현
+    global $DB;
+    $sql = "SELECT AES_ENCRYPT('$plaintext', '$key') AS ciphertext ";
+    $result = mysqli_query($DB, $sql);
+    $row = mysqli_fetch_assoc($result);
+    return $row['ciphertext'];
+}
+
+// AES 암호해독
+function AES_DECRYPT($ciphertext_raw, $key)
+{
+    // TODO: PHP 암호화 라이브러리를 통해 해독 구현
+    global $DB;
+    $sql = "SELECT AES_DECRYPT('$ciphertext_raw', '$key') AS plaintext ";
+    $result = mysqli_query($DB, $sql);
+    $row = mysqli_fetch_assoc($result);
+    return $row['plaintext'];
+}
+
+// DB 접속
+function connectDB($dbConfig, $log=false)
+{
+    global $DB;
+    global $MSG;
+    foreach ($dbConfig as $key => $value) {
+        $$key = $value;
+    }
+    try {
+        $DB = mysqli_connect(
+            $hostname, $username, $password, 
+            $database, $port, $socket
+        );
+        if ($log) {
+            pushLog('DB 접속 성공', 'success');
+        }
+        return $DB;
+    } catch (Exception $e) {
+        if ($log) {
+            pushLog('DB 접속 실패: '.$e->getMessage(), 'error');
+        }
+        return false;
+    }
+}
+
+// DB 접속해제
+function disconnectDB($log=false)
+{
+    global $DB;
+    global $MSG;
+    try {
+        mysqli_close($DB);
+        if ($log) {
+            pushLog('DB 접속해제 성공', 'success');
+        }
+        return null;
+    } catch (Exception $e) {
+        if ($log) {
+            pushLog('DB 접속해제 실패: '.$e->getMessage(), 'error');
+        }
+        return false;
+    }
+}
+
+// 테이블 검사
+function checkTable($table, $log=false)
+{
+    global $DB;
+    global $MSG;
+    
+    $sql = "SHOW TABLES LIKE '$table'";
+    $rows = mysqli_num_rows(mysqli_query($DB, $sql));
+  
+    if ($rows == 0) {
+        if ($log) {
+            pushLog("테이블 없음: $table", 'error');
+        }
+        return false;
+    }
+    if ($log) {
+        pushLog("테이블 있음: $table", 'success');
+    }
+    return true;
+}
+
 
 // ------------------------ 기본 함수 ------------------------
 
-
-// 로그를 배열 $BACKLOG 에 모음
-function pushLog($log) {
-  global $BACKLOG;
-  array_push($BACKLOG, $log);
-}
-
-// ## 로그를 콘솔에 출력
+// 콘솔 출력
 // 주의: 반드시 인라인 또는 포스트스크립트로 쓸 것
 function consoleLog($logs=null) {
   if (!$logs) {
@@ -31,13 +233,13 @@ function consoleLog($logs=null) {
   return $script;
 }
 
-// ## 값이 date 인지 검사
+// 값이 date 인지 검사
 function isDate($str) {
 	$d = date('Y-m-d', strtotime($str));
 	return $d == $str;
 }
 
-// ## 숫자를 자릿수 맞춰서 문자열로 변환
+// 숫자를 자릿수 맞춰서 문자열로 변환
 function numStr($numb, $numSize) {
   $add = '0';
   for ($i=0; $i < $numSize; $i++) { 
@@ -46,215 +248,4 @@ function numStr($numb, $numSize) {
   $numb = $add.(string)$numb;
   $numb = substr($numb, 0-$numSize);
   return $numb;
-}
-
-// ------------------------ SQL 함수 ------------------------ 
-
-// 유저 아이디 존재 검사
-function checkId($userid) {
-  global $DB;
-  $sql = "SELECT * FROM user WHERE userid = '$userid' ";
-  $res = mysqli_query($DB, $sql);
-  return mysqli_num_rows($res);
-}
-
-// ------------------------ 블로그 엘리먼트 함수 ------------------------
-
-// ## 멤버정보
-function getLoginLink() {
-  global $MAIN;
-  $loginLink = "
-    <a href='$MAIN?action=user&do=login'>Login</a>
-    <a href='$MAIN?action=user&do=signup'>Signup</a>
-  ";
-  if (isset($_SESSION['user'])) {
-    $loginLink = "
-      <a href='$MAIN?action=user&do=mypage'>Mypage</a>
-      <a href='$MAIN?action=user&do=logout'>Logout</a>
-    ";
-  }
-  return $loginLink;
-}
-
-
-// ## 태그링크 출력
-// TODO: tagList 구현
-function makeTagLink($tags) {
-  $tags = explode(',', $tags);
-
-  $html = '';
-  foreach ($tags as $tag) {
-    $html .= "<a href='#'>$tag</a>";
-  }
-  return $html;
-}
-
-// ## 포스트 출력
-// TODO: pinned 기능 구현
-function makePost($page, $postid) {
-  global $DB;
-  global $pages;
-  global $pnum;
-
-  $sql = "SELECT * FROM post
-  WHERE category = '$page' ";
-  if ($postid != 0) {
-    $sql .= "AND postid = $postid ";
-  } else {
-    $items = $pages[$page]['items'];
-    $sql .= "ORDER BY postid DESC LIMIT 0, $items ";
-  }
-  $res = mysqli_query($DB, $sql);
-
-  $html = '';
-  while ($data = mysqli_fetch_assoc($res)) {
-    foreach ($data as $key => $value) {
-      $$key = $value;
-    }
-    $posttype = $pages[$page]['postType'];
-
-    $headerClass = 'header';
-    $headerBG = '';
-    $wdate = date("Y-m-d H:i:s", $wdate);
-
-    if ($pinned == true && $file != '') {
-      $headerClass = 'header pinned img';
-      $headerBG = "<div class='bg' style='background-image:url(\"files/$file\")'></div>";
-      $file = '';
-    } 
-    
-    if ($posttype == 'media' && $file != '') {
-      $file = "<img src='files/$file'>";
-    }
-
-    $category = ($category!='')?"<a href='main.php?page=$category'>$category</a>":$category;
-    $tags = makeTagLink($tags);
-
-    $post_values = array( 
-      '{posttype}' => $posttype,
-      '{headerClass}' => $headerClass,
-      '{headerBG}' => $headerBG,
-      '{title}' => $title,
-      '{category}' => $category,
-      '{wdate}' => $wdate,
-      '{writer}' => $writer,
-      '{tags}' => $tags,
-      '{file}' => $file,
-      '{content}' => $content,
-    );
-    
-    $template = file_get_contents('templates/_post.html');
-    $html .= strtr($template, $post_values);
-  }
-
-  return $html;
-
-}
-
-// ## 리스트 출력
-// TODO: 테이블 리스트 출력 기능 추가
-function makeList($listTitle='리스트', $listType='tile', $category='all', $posttype='all', $start=false, $end=false) {
-  global $DB;
-  global $MAIN;
-  
-  $postCount = 0;
-  $whereSql = '';
-  $orderSql = '';
-  $limitSql = '';
-
-  $whereSql .= "WHERE 1 = 1 ";
-  if ($category != 'all') {
-    $whereSql .= "AND category = '$category' ";
-  }
-  if ($posttype != 'all') {
-    $whereSql .= "AND posttype = '$posttype' ";
-  }
-
-  $sql = "SELECT COUNT(*) FROM post $whereSql";
-  $res = mysqli_query($DB, $sql);
-  $postCount = mysqli_fetch_row($res)[0];
-
-  $orderSql .= "ORDER BY postid DESC ";
-  
-  if ($start !== false) {
-    $end = ($end !== false)?$end:$postCount;
-    $limitSql .= "LIMIT $start, $end ";
-  }
-
-  $sql = "SELECT * FROM post ";
-  $sql .= $whereSql.$orderSql.$limitSql;
-  // console_log($sql);
-  $res = mysqli_query($DB, $sql);
-
-
-  $listTemplate = file_get_contents('templates/_list'.$listType.'.html');
-  
-  $reg = '/\{listItem start\}(.+)\{listItem end\}/is';
-  preg_match($reg, $listTemplate, $matches);
-  $itemTemplate = $matches[1];
-
-  $i = 0;
-  $listItem = '';
-  while ($data = mysqli_fetch_assoc($res)) {
-    foreach ($data as $key => $value) {
-      $$key = $value;
-    }
-
-    $itemClass = 'item';
-    $boxClass = 'box '.$posttype;
-    $headerBG = '';
-    $linkUrl = '';
-    $listBG = '';
-    $wdate = date("Y-m-d H:i:s", $wdate);
-
-    if ($posttype == 'link' && $i == 0 || $posttype=='media') {
-      $itemClass .= ' wide';
-    }
-    if ($posttype == 'link' && $i == 0 || $posttype=='media') {
-      $boxClass .= ' active';
-    }
-    if ($posttype=='link') {
-      $linkUrl = $link;
-    } else {
-      $linkUrl = "$MAIN?page=$category&postid=$postid";
-    }
-    if ($posttype=='link' || $posttype=='media') {
-      if ($data['file'] != '') {
-        $listBG = "<div class='bg' style='background-image:url(\"files/$file\")'></div>";
-      }
-    }
-
-    $item_values = array( 
-      '{itemClass}' => $itemClass,
-      '{boxClass}' => $boxClass,
-      '{headerBG}' => $headerBG,
-      '{linkUrl}' => $linkUrl,
-      '{listBG}' => $listBG,
-      '{title}' => $title,
-      '{category}' => $category,
-      '{content}' => $content,
-      '{wdate}' => $wdate,
-      '{writer}' => $writer,
-    );
-
-    $listItem .= strtr($itemTemplate, $item_values); 
-    $i++;
-  }
-
-  $listTemplate = preg_replace($reg, '{listItem}', $listTemplate);
-  $list_values = array(
-    '{listTitle}' => $listTitle,
-    '{listItem}' => $listItem,
-  );
-
-  return strtr($listTemplate, $list_values);
-
-}
-
-
-
-// ## 페이지 넘버 출력
-function makePageNumber() {
-  global $pnum;
-  global $pages;
 }

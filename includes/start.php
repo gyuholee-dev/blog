@@ -1,4 +1,10 @@
 <?php
+$main = MAIN;
+$info = $CONF['info'];
+$theme = $CONF['theme'];
+$libraries = $CONF['libraries'];
+$pages = $CONF['pages'];
+
 // 컨텐츠
 $head = '';
 $header = '';
@@ -39,7 +45,7 @@ $header = strtr($header, $header_values);
 // 네비게이션메뉴
 foreach ($pages as $key => $conf) {
   $active = ($page==$key)?'active':'';
-  $nav .= "<li class='$active'><a href='$MAIN?page=$key'>$conf[name]</a></li>";
+  $nav .= "<li class='$active'><a href='$main?page=$key'>$conf[name]</a></li>";
 }
 $nav = '<ul class="menu main">'.$nav.'</ul>';
 
