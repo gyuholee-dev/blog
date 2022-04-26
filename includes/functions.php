@@ -22,14 +22,14 @@ function pushLog($log, $class='info')
 }
 
 // 로그 출력
-function printLog()
+function printLog($reset=false)
 {
     global $MSG;
     $html = '';
     foreach ($MSG as $type => $log) {
         $html .= $log?"<div class='log $type'>$log</div>":'';
     }
-    unset($_SESSION['MSG']);
+    if ($reset == true) unset($_SESSION['MSG']);
     return "<div id='message'>$html</div>";
 }
 

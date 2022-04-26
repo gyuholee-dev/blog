@@ -1,6 +1,6 @@
 <?php // user.php
 
-if (isset($do) && $do == 'mypage') {
+if (isset($DO) && $DO == 'mypage') {
   $userid = $_SESSION['user']['userid'];
   $sql = "SELECT * FROM user WHERE userid = '$userid' ";
   $res = mysqli_query($DB, $sql);
@@ -15,7 +15,7 @@ $content_login = <<<HTML
   </div>
   <div class="content">
     <form name="login" method="post" action="main.php?action=user&do=login">
-      <table class="table $do">
+      <table class="table $DO">
         <tr>
           <th>아이디</th>
           <td><input type="text" name="userid" value=""></td>
@@ -47,7 +47,7 @@ $content_signup = <<<HTML
     </div>
     <div class="content">
       <form name="signup" method="post" action="main.php?action=user&do=signup">
-        <table class="table $do">
+        <table class="table $DO">
           <tr>
             <th>아이디</th>
             <td>
@@ -106,7 +106,7 @@ $content_signup = <<<HTML
 HTML;
 
 // ## 마이페이지
-if (isset($do) && $do == 'mypage') {
+if (isset($DO) && $DO == 'mypage') {
   $userid = $_SESSION['user']['userid'];
   $sql = "SELECT * FROM user WHERE userid = '$userid' ";
   $res = mysqli_query($DB, $sql);
@@ -119,7 +119,7 @@ if (isset($do) && $do == 'mypage') {
       </div>
       <div class="content">
         <form name="signup" method="post" action="main.php?action=user&do=edit">
-          <table class="table $do">
+          <table class="table $DO">
             <tr>
               <th>아이디</th>
               <td>
@@ -195,7 +195,7 @@ HTML;
 
 // ## 컨펌 처리
 if (isset($_POST['confirm'])) {
-  switch ($do) {
+  switch ($DO) {
     case 'login': 
       $userid = $_POST['userid'];
       $password = $_POST['password'];
@@ -243,33 +243,4 @@ if (isset($_POST['confirm'])) {
       ";
       break;
   }
-}
-
-
-// $do 값에 따라 각각 다른 컨텐츠를 출력
-$formTitle = '';
-switch ($do) {
-  case 'login':
-    // $formTitle = '로그인';
-    $content .= $content_login;
-    break;
-  case 'logout':
-    // $formTitle = '로그아웃';
-    $content .= $content_logout;
-    // unset($_SESSION['user']);
-    session_destroy();
-    header('Location: '.$MAIN);
-    break;
-  case 'signup':
-    // $formTitle = '회원가입';
-    $content .= $content_signup;
-    break;
-  case 'mypage':
-    // $formTitle = '마이페이지';
-    $content .= $content_mypage;
-    break;
-  case 'delete':
-    // $formTitle = '회원탈퇴';
-    $content .= $content_delete;
-    break;
 }

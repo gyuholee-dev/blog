@@ -1,4 +1,6 @@
 <?php
+require_once 'includes/elements.php';
+
 $main = MAIN;
 $info = $CONF['info'];
 $theme = $CONF['theme'];
@@ -44,7 +46,7 @@ $header = strtr($header, $header_values);
 
 // 네비게이션메뉴
 foreach ($pages as $key => $conf) {
-  $active = ($page==$key)?'active':'';
+  $active = ($PAGE==$key)?'active':'';
   $nav .= "<li class='$active'><a href='$main?page=$key'>$conf[name]</a></li>";
 }
 $nav = '<ul class="menu main">'.$nav.'</ul>';
@@ -56,11 +58,6 @@ $aside = '';
 $footer = <<<HTML
   <p>$info[copyright]</p>
 HTML;
-
-
-// 콘텐츠
-include "pages/$action.php";
-
 
 // 콘솔로그
 $consoleLog = consoleLog();

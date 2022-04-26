@@ -1,38 +1,30 @@
 <!DOCTYPE html>
 <html lang="ko">
 
-<head>
-  {head}
-</head>
+<head>{head}</head>
 
 <body>
-  <div id="container">
+    {message}
+    <div id="container">
+        
+        <header>{header}</header>
+        
+        <nav>{nav}</nav>
 
-    <header>
-      {header}
-    </header>
+        <main>
+            <article id="content">
+                {content}
+            </article>
+            <aside>
+                {aside}
+            </aside>
+        </main>
 
-    <nav>
-      {nav}
-    </nav>
+        <footer>{footer}</footer>
 
-    <main>
-      <article id="content">
-        {content}
-      </article>
-
-      <aside>
-        {aside}
-      </aside>
-    </main>
-
-    <footer>
-      {footer}
-    </footer>
-
-  </div>
-  {consoleLog}
-  {postScript}
+    </div>
+    {consoleLog}
+    {postScript}
 </body>
 
 </html>

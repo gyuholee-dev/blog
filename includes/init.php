@@ -1,7 +1,6 @@
 <?php // init.php
 // 초기화 ------------------------------------------------
 require_once 'includes/functions.php';
-require_once 'includes/elements.php';
 ini_set('display_errors', 'On');
 ini_set('session.use_strict_mode', 0);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -13,7 +12,7 @@ define('INC', './includes/');
 define('CONF', './configs/');
 define('DATA', './data/');
 define('FILE', './files/');
-define('PAGE', './');
+define('PAGE', './pages/');
 define('IMG', './images/');
 define('STL', './styles/');
 define('SCT', './scripts/');
@@ -29,6 +28,8 @@ global $DB;
 global $DBCONF;
 global $PAGE;
 global $ACT;
+global $DO;
+global $ID;
 
 // 설정파일 로드
 $CONF = openJson(CONF.'config.json');
@@ -98,19 +99,5 @@ unset($dbConfigFile, $dbLog);
  */
 $PAGE = isset($_REQUEST['page'])?$_REQUEST['page']:'main';
 $ACT = isset($_REQUEST['action'])?$_REQUEST['action']:'view';
-
-// 파라메터 변수
-$fileName = '';
-$page = 'main';
-$action = 'view';
-$do = 'post';
-$pnum = 1;
-$postid = 0;
-
-$fileName = basename($_SERVER['PHP_SELF']);
-$page = isset($_REQUEST['page'])?$_REQUEST['page']:$page;
-$action = isset($_REQUEST['action'])?$_REQUEST['action']:$action;
-$do = isset($_REQUEST['do'])?$_REQUEST['do']:$do;
-$pnum = isset($_REQUEST['pnum'])?$_REQUEST['pnum']:$pnum;
-$postid = isset($_REQUEST['postid'])?$_REQUEST['postid']:$postid;
-
+$DO = isset($_REQUEST['do'])?$_REQUEST['do']:'post';
+$ID = isset($_REQUEST['postid'])?$_REQUEST['postid']:0;
