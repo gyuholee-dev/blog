@@ -3,93 +3,93 @@
 // 기초 함수 ------------------------------------------------
 
 // 경고 출력
-function alert($msg, $url=null)
+function alert(string $msg, string $url=null) : void
 {
-    $script = 'alert("'.$msg.'");';
-    $script .= $url?'location.href="'.$url.'";':'';
-    $script = "<script>$script</script>";
-    echo $script;
+  $script = 'alert("'.$msg.'");';
+  $script .= $url?'location.href="'.$url.'";':'';
+  $script = "<script>$script</script>";
+  echo $script;
 }
 
 // 로그 입력
-function pushLog($log, $class='info')
+function pushLog(string $log, string $class='info') : bool
 {
-    global $MSG;
-    $MSG[$class] .= ($MSG[$class] != '')?' | ':'';
-    $MSG[$class] .= $log;
-    $_SESSION['MSG'] = $MSG;
-    return true;
+  global $MSG;
+  $MSG[$class] .= ($MSG[$class] != '')?' | ':'';
+  $MSG[$class] .= $log;
+  $_SESSION['MSG'] = $MSG;
+  return true;
 }
 
 // 로그 출력
-function printLog($reset=false)
+function printLog(bool $reset=false) : string
 {
-    global $MSG;
-    $html = '';
-    foreach ($MSG as $type => $log) {
-        $html .= $log?"<div class='log $type'>$log</div>":'';
-    }
-    if ($reset == true) {
-        unset($_SESSION['MSG']);
-    }
-    return "<div id='message'>$html</div>";
+  global $MSG;
+  $html = '';
+  foreach ($MSG as $type => $log) {
+    $html .= $log?"<div class='log $type'>$log</div>":'';
+  }
+  if ($reset == true) {
+    unset($_SESSION['MSG']);
+  }
+  return "<div id='message'>$html</div>";
 }
 
 // 파일 존재 검사
-function fileExists($file)
+function fileExists(string $file) : bool
 {
-    return file_exists($file);
+  return file_exists($file);
 }
 
 // json 파일 오픈
 function openJson($file)
 {
-    if (!fileExists($file)) {
-        return false;
-    }
-    $json = file_get_contents($file);
-    $json = json_decode($json, true);
-    return $json;
+  if (!fileExists($file)) {
+    return false;
+  }
+  $json = file_get_contents($file);
+  $json = json_decode($json, true);
+  return $json;
 }
 
 // json 파일 세이브
 function saveJson($file, $data)
 {
-    $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    return file_put_contents($file, $json);
+  $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+  return file_put_contents($file, $json);
 }
 
 // 코드 생성
 // 현재 시간을 소스로 최대 32자 임의 문자열 생성
 function makeCode($max=32, $upper=false)
 {
-    $code = md5(time());
-    if ($max <= 32) {
-        $code = substr($code, 0, $max);
-    }
-    if ($upper) {
-        $code = strtoupper($code);
-    }
-    return $code;
+  $code = md5(time());
+  if ($max <= 32) {
+    $code = substr($code, 0, $max);
+  }
+  if ($upper) {
+    $code = strtoupper($code);
+  }
+  return $code;
 }
 
 // 값이 date 인지 검사
 function isDate($str)
 {
-    $d = date('Y-m-d', strtotime($str));
-    return $d == $str;
+  $d = date('Y-m-d', strtotime($str));
+  return $d == $str;
 }
 
 // 숫자를 자릿수 맞춰서 문자열로 변환
 function numStr($numb, $numSize)
 {
-    $add = '0';
-    for ($i=0; $i < $numSize; $i++) {
-        $add = $add.'0';
-    }
-    $numb = $add.(string)$numb;
-    $numb = substr($numb, 0-$numSize);
-    return $numb;
+  $add = '0';
+  for ($i=0; $i < $numSize; $i++) {
+    $add = $add.'0';
+  }
+  $numb = $add.(string)$numb;
+  $numb = substr($numb, 0-$numSize);
+  return $numb;
 }
 
 // 유저기능 함수 ------------------------------------------------
@@ -98,46 +98,46 @@ function numStr($numb, $numSize)
 // TODO: 테이블명 및 필드명 변수처리
 function checkId($userid)
 {
-    global $DB;
-    $sql = "SELECT * FROM user WHERE userid = '$userid' ";
-    $res = mysqli_query($DB, $sql);
-    return mysqli_num_rows($res);
+  global $DB;
+  $sql = "SELECT * FROM user WHERE userid = '$userid' ";
+  $res = mysqli_query($DB, $sql);
+  return mysqli_num_rows($res);
 }
 
 // 로그인 처리
 // 로그인은 별도 함수로 만들지 않음
 function setUserData($userData)
 {
-    global $USER;
-    $USER = array(
-        'userid' => $userData['userid'],
-        'nickname' => $userData['nickname'],
-        'groups' => $userData['groups'],
-        'key' => makeCode(),
-    );
-    $_SESSION['USER'] = $USER;
-    setcookie('USER', json_encode($USER), time()+3600);
-    return true;
+  global $USER;
+  $USER = array(
+    'userid' => $userData['userid'],
+    'nickname' => $userData['nickname'],
+    'groups' => $userData['groups'],
+    'key' => makeCode(),
+  );
+  $_SESSION['USER'] = $USER;
+  setcookie('USER', json_encode($USER), time()+3600);
+  return true;
 }
 
 // 로그아웃
 function logout()
 {
-    global $MSG;
-    unsetUserData();
-    pushLog('로그아웃되었습니다.', 'info');
-    $_SESSION['MSG'] = $MSG;
-    header('Location: main.php');
+  global $MSG;
+  unsetUserData();
+  pushLog('로그아웃되었습니다.', 'info');
+  $_SESSION['MSG'] = $MSG;
+  header('Location: main.php');
 }
 
 // 로그아웃 처리
 function unsetUserData()
 {
-    global $USER;
-    $USER = null;
-    unset($_SESSION['USER']);
-    setcookie('USER', '', time()-3600);
-    return true;
+  global $USER;
+  $USER = null;
+  unset($_SESSION['USER']);
+  setcookie('USER', '', time()-3600);
+  return true;
 }
 
 // DB 함수 ------------------------------------------------
@@ -145,90 +145,90 @@ function unsetUserData()
 // AES 암호화
 function AES_ENCRYPT($plaintext, $key)
 {
-    // TODO: PHP 암호화 라이브러리를 통해 암호화 구현
-    global $DB;
-    $sql = "SELECT AES_ENCRYPT('$plaintext', '$key') AS ciphertext ";
-    $result = mysqli_query($DB, $sql);
-    $row = mysqli_fetch_assoc($result);
-    return $row['ciphertext'];
+  // TODO: PHP 암호화 라이브러리를 통해 암호화 구현
+  global $DB;
+  $sql = "SELECT AES_ENCRYPT('$plaintext', '$key') AS ciphertext ";
+  $result = mysqli_query($DB, $sql);
+  $row = mysqli_fetch_assoc($result);
+  return $row['ciphertext'];
 }
 
 // AES 암호해독
 function AES_DECRYPT($ciphertext_raw, $key)
 {
-    // TODO: PHP 암호화 라이브러리를 통해 해독 구현
-    global $DB;
-    $sql = "SELECT AES_DECRYPT('$ciphertext_raw', '$key') AS plaintext ";
-    $result = mysqli_query($DB, $sql);
-    $row = mysqli_fetch_assoc($result);
-    return $row['plaintext'];
+  // TODO: PHP 암호화 라이브러리를 통해 해독 구현
+  global $DB;
+  $sql = "SELECT AES_DECRYPT('$ciphertext_raw', '$key') AS plaintext ";
+  $result = mysqli_query($DB, $sql);
+  $row = mysqli_fetch_assoc($result);
+  return $row['plaintext'];
 }
 
 // DB 접속
 function connectDB($dbConfig, $log=false)
 {
-    global $DB;
-    global $MSG;
-    foreach ($dbConfig as $key => $value) {
-        $$key = $value;
+  global $DB;
+  global $MSG;
+  foreach ($dbConfig as $key => $value) {
+    $$key = $value;
+  }
+  try {
+    $DB = mysqli_connect(
+      $hostname,
+      $username,
+      $password,
+      $database,
+      $port,
+      $socket
+    );
+    if ($log) {
+      pushLog('DB 접속 성공', 'success');
     }
-    try {
-        $DB = mysqli_connect(
-            $hostname,
-            $username,
-            $password,
-            $database,
-            $port,
-            $socket
-        );
-        if ($log) {
-            pushLog('DB 접속 성공', 'success');
-        }
-        return $DB;
-    } catch (Exception $e) {
-        if ($log) {
-            pushLog('DB 접속 실패: '.$e->getMessage(), 'error');
-        }
-        return false;
+    return $DB;
+  } catch (Exception $e) {
+    if ($log) {
+      pushLog('DB 접속 실패: '.$e->getMessage(), 'error');
     }
+    return false;
+  }
 }
 
 // DB 접속해제
 function disconnectDB($log=false)
 {
-    global $DB;
-    global $MSG;
-    try {
-        mysqli_close($DB);
-        if ($log) {
-            pushLog('DB 접속해제 성공', 'success');
-        }
-        return null;
-    } catch (Exception $e) {
-        if ($log) {
-            pushLog('DB 접속해제 실패: '.$e->getMessage(), 'error');
-        }
-        return false;
+  global $DB;
+  global $MSG;
+  try {
+    mysqli_close($DB);
+    if ($log) {
+      pushLog('DB 접속해제 성공', 'success');
     }
+    return null;
+  } catch (Exception $e) {
+    if ($log) {
+      pushLog('DB 접속해제 실패: '.$e->getMessage(), 'error');
+    }
+    return false;
+  }
 }
 
 // 테이블 검사
 function checkTable($table, $log=false)
 {
-    global $DB;
-    global $MSG;
-    
-    $sql = "SHOW TABLES LIKE '$table'";
-    $rows = mysqli_num_rows(mysqli_query($DB, $sql));
+  global $DB;
+  global $MSG;
   
-    if ($rows == 0) {
-        if ($log) {
-            pushLog("테이블 없음: $table", 'error');
-        }
-        return false;
-    }
+  $sql = "SHOW TABLES LIKE '$table'";
+  $rows = mysqli_num_rows(mysqli_query($DB, $sql));
+  
+  if ($rows == 0) {
     if ($log) {
-        pushLog("테이블 있음: $table", 'success');
+      pushLog("테이블 없음: $table", 'error');
     }
-    return true;
+    return false;
+  }
+  if ($log) {
+    pushLog("테이블 있음: $table", 'success');
+  }
+  return true;
 }

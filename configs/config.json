@@ -1,28 +1,10 @@
 {
-  "info" : {
-    "siteTitle" : "블로그",
-    "description" : "블로그 설명",
-    "siteOwner" : "GyuhoLee",
-    "siteUrl" : "https://blog.geoflowerstudio.com",
-    "email" : "andrewgyuholee@gmail.com",
-    "copyright" : "Copyright © GyuhoLee all right reserved."
-  },
-
-  "userGroup" : {
-    "owner" : 0,
-    "admin" : 1,
-    "user" : 3,
-    "guest" : 9
-  },
-
   "mainFile" : "main.php",
   "language" : "ko",
-  "dateTime" : {
-    "timezone" : "Asia/Seoul",
-    "dateFormat" : "YYYY-MM-DD",
-    "timeFormat" : "HH:mm:ss",
-    "dateTimeFormat" : "YYYY-MM-DD HH:mm:ss",
-    "timezoneOffset" : "+0900"
+
+  "theme" : {
+    "logo" : "logo.png",
+    "themeColor" : "light"
   },
 
   "libraries" : {
@@ -36,9 +18,19 @@
     ]
   },
 
-  "theme" : {
-    "logo" : "logo.png",
-    "themeColor" : "light"
+  "dateTime" : {
+    "timezone" : "Asia/Seoul",
+    "dateFormat" : "YYYY-MM-DD",
+    "timeFormat" : "HH:mm:ss",
+    "dateTimeFormat" : "YYYY-MM-DD HH:mm:ss",
+    "timezoneOffset" : "+0900"
+  },
+
+  "userGroup" : {
+    "owner" : 0,
+    "admin" : 1,
+    "user" : 3,
+    "guest" : 9
   },
 
   "pages" : {

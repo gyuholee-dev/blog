@@ -21,7 +21,7 @@ define('MAIN', 'main.php');
 
 //글로벌 변수
 global $MSG;
-// global $INFO;
+global $INFO;
 global $CONF;
 global $USER;
 global $DB;
@@ -33,27 +33,25 @@ global $ID;
 
 // 메시지
 if (isset($_SESSION['MSG'])) {
-    $MSG = $_SESSION['MSG'];
-    // js 출력시 프린트후 삭제
-    // unset($_SESSION['MSG']);
+  $MSG = $_SESSION['MSG']; // 프린트후 삭제 필수
 } else {
-    $MSG = [
-        'info' => '',
-        'success' => '',
-        'error' => ''
-    ];
+  $MSG = [
+    'info' => '',
+    'success' => '',
+    'error' => ''
+  ];
 }
 
 // 설정파일 로드
 $CONF = openJson(CONF.'config.json');
-// $INFO = $CONF['info'];
+$INFO = openJson(CONF.'info.json');
 
 // DB 초기화 ------------------------------------------------
 
 // DB 설정파일 로드
 $dbConfigFile = 'db.blog.json';
 if (!fileExists(CONF.$dbConfigFile)) {
-    $dbConfigFile = 'db.default.json';
+  $dbConfigFile = 'db.default.json';
 }
 $DBCONF = openJson(CONF.$dbConfigFile);
 
@@ -61,21 +59,21 @@ $DBCONF = openJson(CONF.$dbConfigFile);
 $dbLog = '';
 $DB = connectDB($DBCONF);
 if (!$DB) {
-    $dbLog = 'DB 접속에 실패하였습니다.';
+  $dbLog = 'DB 접속에 실패하였습니다.';
 } else {
-    // FIXME: 테이블 리스트를 컨피그에서 받아옴
-    // $fileList = glob(DATA.'travel_*.sql');
-    // foreach ($fileList as $file) {
-    //     $table = str_replace('.sql', '', basename($file));
-    //     if (!checkTable($table)) {
-    //         $dbLog = '테이블이 존재하지 않습니다.';
-    //         $DB = disconnectDB($DB);
-    //         break;
-    //     }
-    // }
+  // FIXME: 테이블 리스트를 컨피그에서 받아옴
+  // $fileList = glob(DATA.'travel_*.sql');
+  // foreach ($fileList as $file) {
+  //   $table = str_replace('.sql', '', basename($file));
+  //   if (!checkTable($table)) {
+  //     $dbLog = '테이블이 존재하지 않습니다.';
+  //     $DB = disconnectDB($DB);
+  //     break;
+  //   }
+  // }
 }
 if ($dbLog) {
-    pushLog($dbLog.' 셋업을 실행해 주세요. [<a href="setup.php">바로가기</a>]', 'error');
+  pushLog($dbLog.' 셋업을 실행해 주세요. [<a href="setup.php">바로가기</a>]', 'error');
 }
 unset($dbConfigFile, $dbLog);
 
@@ -83,16 +81,16 @@ unset($dbConfigFile, $dbLog);
 
 // 로그인 체크
 if (isset($_SESSION['USER']) && isset($_COOKIE['USER'])) {
-    // 세션 유저 키와 쿠키 유저 키를 비교하여 같을 경우에 로그인 인정
-    if ($_SESSION['USER']['key'] == json_decode($_COOKIE['USER'], true)['key']) {
-        $USER = $_SESSION['USER'];
-    }
+  // 세션 유저 키와 쿠키 유저 키를 비교하여 같을 경우에 로그인 인정
+  if ($_SESSION['USER']['key'] == json_decode($_COOKIE['USER'], true)['key']) {
+    $USER = $_SESSION['USER'];
+  }
 }
 if (!$USER) { // 로그인 안되어 있을 경우
-    if (isset($_SESSION['USER'])) {
-        unset($_SESSION['USER']);
-    }
-    setcookie('USER', '', time()-3600);
+  if (isset($_SESSION['USER'])) {
+    unset($_SESSION['USER']);
+  }
+  setcookie('USER', '', time()-3600);
 }
 
 // 사이트 초기화 ------------------------------------------------
