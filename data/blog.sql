@@ -70,14 +70,20 @@ hits 조회수
 
 CREATE TABLE board (
   numb INT AUTO_INCREMENT PRIMARY KEY,
-  wdate INT,
+  category CHAR(10),
   title VARCHAR(80),
-  writer VARCHAR(20),
-  category VARCHAR(20),
+  wdate INT,
+  userid CHAR(20),
+  nickname VARCHAR(20),
   content TEXT,
-  secret BOOLEAN NOT NULL DEFAULT FALSE,
-  hits INT DEFAULT 0
+  secret BOOLEAN DEFAULT 0,
+  hit INT DEFAULT 0
 );
+
+INSERT INTO board 
+(category, title, wdate, userid, nickname, content)
+VALUES
+('notice', '게시글 제목', UNIX_TIMESTAMP(), 'gyuholee', 'Gyuholee', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque fuga commodi obcaecati delectus quaerat earum ad odit ducimus placeat doloremque corporis modi quia, harum cum exercitationem, veritatis velit aliquid nam.');
 
 /* comment 덧글
 commentid 인덱스
