@@ -27,11 +27,6 @@ if ($ACT == 'view') {
             break;
         case 'study':
             $content .= makePost($PAGE, $ID);
-            /* if ($ID != 0) {
-                $content .= makePost($PAGE, $ID);
-            } else {
-                $content .= makeList('리스트', 'table', $PAGE, 'all', 0, 10);
-            } */
             break;
         case 'diary':
             $content .= makePost($PAGE, $ID);
@@ -72,7 +67,7 @@ if ($ACT == 'view') {
 }
 
 // 메시지 출력
-$message = printLog(false);
+$message = printLog(true);
 
 //------------------------ 랜더링 ------------------------
 

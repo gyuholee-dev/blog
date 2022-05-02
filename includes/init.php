@@ -21,7 +21,7 @@ define('MAIN', 'main.php');
 
 //글로벌 변수
 global $MSG;
-global $INFO;
+// global $INFO;
 global $CONF;
 global $USER;
 global $DB;
@@ -30,10 +30,6 @@ global $PAGE;
 global $ACT;
 global $DO;
 global $ID;
-
-// 설정파일 로드
-$CONF = openJson(CONF.'config.json');
-// $MAIN = $CONF['mainFile'];
 
 // 메시지
 if (isset($_SESSION['MSG'])) {
@@ -47,6 +43,10 @@ if (isset($_SESSION['MSG'])) {
         'error' => ''
     ];
 }
+
+// 설정파일 로드
+$CONF = openJson(CONF.'config.json');
+// $INFO = $CONF['info'];
 
 // DB 초기화 ------------------------------------------------
 
@@ -63,40 +63,56 @@ $DB = connectDB($DBCONF);
 if (!$DB) {
     $dbLog = 'DB 접속에 실패하였습니다.';
 } else {
-    $fileList = glob(DATA.'travel_*.sql');
-    foreach ($fileList as $file) {
-        $table = str_replace('.sql', '', basename($file));
-        if (!checkTable($table)) {
-            $dbLog = '테이블이 존재하지 않습니다.';
-            $DB = disconnectDB($DB);
-            break;
-        }
-    }
+    // FIXME: 테이블 리스트를 컨피그에서 받아옴
+    // $fileList = glob(DATA.'travel_*.sql');
+    // foreach ($fileList as $file) {
+    //     $table = str_replace('.sql', '', basename($file));
+    //     if (!checkTable($table)) {
+    //         $dbLog = '테이블이 존재하지 않습니다.';
+    //         $DB = disconnectDB($DB);
+    //         break;
+    //     }
+    // }
 }
 if ($dbLog) {
     pushLog($dbLog.' 셋업을 실행해 주세요. [<a href="setup.php">바로가기</a>]', 'error');
 }
 unset($dbConfigFile, $dbLog);
 
+// 유저 초기화 ------------------------------------------------
+
+// 로그인 체크
+if (isset($_SESSION['USER']) && isset($_COOKIE['USER'])) {
+    // 세션 유저 키와 쿠키 유저 키를 비교하여 같을 경우에 로그인 인정
+    if ($_SESSION['USER']['key'] == json_decode($_COOKIE['USER'], true)['key']) {
+        $USER = $_SESSION['USER'];
+    }
+}
+if (!$USER) { // 로그인 안되어 있을 경우
+    if (isset($_SESSION['USER'])) {
+        unset($_SESSION['USER']);
+    }
+    setcookie('USER', '', time()-3600);
+}
 
 // 사이트 초기화 ------------------------------------------------
 
-/** 기본 파라메터 변수
- * action=view
- *        edit
- *        user
- *        manage
- * view&do=main
- *         post&postid=1
- *         list&category=all
- * edit&do=create
- *         update
- *         delete
- * user&do=login
- *         logout
- *         signup
- *         mypage
- */
+/* 리퀘스트
+action=view
+       edit
+       user
+       manage
+view&do=main
+        post&postid=1
+        list&category=all
+edit&do=create
+        update
+        delete
+user&do=login
+        logout
+        signup
+        mypage
+*/
 $PAGE = isset($_REQUEST['page'])?$_REQUEST['page']:'main';
 $ACT = isset($_REQUEST['action'])?$_REQUEST['action']:'view';
 $DO = isset($_REQUEST['do'])?$_REQUEST['do']:'post';

@@ -35,8 +35,8 @@ function getLoginLink() {
   // TODO: pinned 기능 구현
   function makePost($page, $postid) {
     global $DB;
-    global $pages;
-    global $pnum;
+    global $CONF;
+    $pages = $CONF['pages'];
   
     $sql = "SELECT * FROM post
     WHERE category = '$page' ";

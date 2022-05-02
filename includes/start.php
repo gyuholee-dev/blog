@@ -34,7 +34,7 @@ foreach ($libraries as $key => $library) {
 }
 
 // 헤더
-$siteUrl = ($_SERVER['HTTP_HOST']=='localhost')?'index.php':$info['siteUrl'];
+$siteUrl = ($_SERVER['HTTP_HOST']=='localhost')?MAIN:$info['siteUrl'];
 $headerLink = "<a href='$siteUrl'><img src='images/$theme[logo]'></a>";
 $loginLink = getLoginLink();
 $header_values = array(
