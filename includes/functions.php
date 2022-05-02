@@ -29,7 +29,9 @@ function printLog($reset=false)
     foreach ($MSG as $type => $log) {
         $html .= $log?"<div class='log $type'>$log</div>":'';
     }
-    if ($reset == true) unset($_SESSION['MSG']);
+    if ($reset == true) {
+        unset($_SESSION['MSG']);
+    }
     return "<div id='message'>$html</div>";
 }
 
@@ -71,6 +73,25 @@ function makeCode($max=32, $upper=false)
     return $code;
 }
 
+// 값이 date 인지 검사
+function isDate($str)
+{
+    $d = date('Y-m-d', strtotime($str));
+    return $d == $str;
+}
+
+// 숫자를 자릿수 맞춰서 문자열로 변환
+function numStr($numb, $numSize)
+{
+    $add = '0';
+    for ($i=0; $i < $numSize; $i++) {
+        $add = $add.'0';
+    }
+    $numb = $add.(string)$numb;
+    $numb = substr($numb, 0-$numSize);
+    return $numb;
+}
+
 // 유저기능 함수 ------------------------------------------------
 
 // 유저 아이디 존재 검사
@@ -78,7 +99,7 @@ function makeCode($max=32, $upper=false)
 function checkId($userid)
 {
     global $DB;
-    $sql = "SELECT * FROM travel_member WHERE userid = '$userid' ";
+    $sql = "SELECT * FROM user WHERE userid = '$userid' ";
     $res = mysqli_query($DB, $sql);
     return mysqli_num_rows($res);
 }
@@ -89,11 +110,11 @@ function setUserData($userData)
 {
     global $USER;
     $USER = array(
-    'userid' => $userData['userid'],
-    'nickname' => $userData['nickname'],
-    'groups' => $userData['groups'],
-    'key' => makeCode(),
-  );
+        'userid' => $userData['userid'],
+        'nickname' => $userData['nickname'],
+        'groups' => $userData['groups'],
+        'key' => makeCode(),
+    );
     $_SESSION['USER'] = $USER;
     setcookie('USER', json_encode($USER), time()+3600);
     return true;
@@ -153,8 +174,12 @@ function connectDB($dbConfig, $log=false)
     }
     try {
         $DB = mysqli_connect(
-            $hostname, $username, $password, 
-            $database, $port, $socket
+            $hostname,
+            $username,
+            $password,
+            $database,
+            $port,
+            $socket
         );
         if ($log) {
             pushLog('DB 접속 성공', 'success');
@@ -206,46 +231,4 @@ function checkTable($table, $log=false)
         pushLog("테이블 있음: $table", 'success');
     }
     return true;
-}
-
-
-// ------------------------ 기본 함수 ------------------------
-
-// 콘솔 출력
-// 주의: 반드시 인라인 또는 포스트스크립트로 쓸 것
-function consoleLog($logs=null) {
-  if (!$logs) {
-    global $BACKLOG;
-    $logs = $BACKLOG;
-  }
-  $logs = json_encode($logs);
-
-  $script ="
-    <script id='backendLog'>
-      var logs = JSON.parse('$logs');
-      logs.forEach(function(log) {
-        console.log(log);
-      });
-      backendLog.remove();
-    </script>
-  ";
-
-  return $script;
-}
-
-// 값이 date 인지 검사
-function isDate($str) {
-	$d = date('Y-m-d', strtotime($str));
-	return $d == $str;
-}
-
-// 숫자를 자릿수 맞춰서 문자열로 변환
-function numStr($numb, $numSize) {
-  $add = '0';
-  for ($i=0; $i < $numSize; $i++) { 
-    $add = $add.'0';
-  }
-  $numb = $add.(string)$numb;
-  $numb = substr($numb, 0-$numSize);
-  return $numb;
 }

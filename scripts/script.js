@@ -33,7 +33,7 @@ async function checkId() {
   let check = await requestData(
     'xhr.php?call=checkId&userid='+signup.userid.value
   );
-  
+
   if (check == 0) {
     alert('아이디 사용 가능');
     signup.password.focus();

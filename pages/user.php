@@ -180,7 +180,7 @@ if (isset($DO) && $DO == 'mypage') {
           <br>
           <div class="buttons">
             <input class="btn" name="confirm" type="submit" value="예">
-            <input class="btn" type="button" value="아니오" onclick="location.href='$MAIN'">
+            <input class="btn" type="button" value="아니오" onclick="location.href='main.php'">
           </div>
         </form>
       </div>
@@ -208,19 +208,12 @@ if (isset($_POST['confirm'])) {
           'userid' => $userid,
           'password' => $password
         );
-        /* echo "
-          <script>
-            alert('로그인 성공');
-            location.href='$MAIN?action=user&do=mypage';
-          </script>
-        "; */
-        // echo "<meta http-equiv='refresh' content='0; url=$MAIN'>";
-        header('Location: '.$MAIN);
+        header('Location: main.php');
       } else {
         echo "
           <script>
             alert('로그인 실패');
-            location.href='$MAIN?action=user&do=login';
+            location.href='main.php?action=user&do=login';
           </script>
         ";
       }
@@ -238,7 +231,7 @@ if (isset($_POST['confirm'])) {
       echo "
         <script>
           alert('회원탈퇴하였습니다');
-          location.href='$MAIN';
+          location.href='main.php';
         </script>
       ";
       break;

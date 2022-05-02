@@ -54,7 +54,7 @@ if ($ACT == 'view') {
         $content .= $content_logout;
         // unset($_SESSION['user']);
         session_destroy();
-        header('Location: '.$MAIN);
+        header('Location: main.php');
         break;
     case 'signup':
         // $formTitle = '회원가입';
@@ -84,7 +84,6 @@ $content_values = array(
     '{content}' => $content,
     '{aside}' => $aside,
     '{footer}' => $footer,
-    '{consoleLog}' => $consoleLog,
     '{postScript}' => $postScript
 );
 

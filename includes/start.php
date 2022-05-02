@@ -59,8 +59,5 @@ $footer = <<<HTML
   <p>$info[copyright]</p>
 HTML;
 
-// 콘솔로그
-$consoleLog = consoleLog();
-
 // 포스트스크립트
 $postScript = '';
