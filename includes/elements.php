@@ -9,7 +9,7 @@ function getLoginLink() {
       <a href='$main?action=user&do=login'>Login</a>
       <a href='$main?action=user&do=signup'>Signup</a>
     ";
-    if (isset($_SESSION['user'])) {
+    if (isset($_SESSION['USER'])) {
       $loginLink = "
         <a href='$main?action=user&do=mypage'>Mypage</a>
         <a href='$main?action=user&do=logout'>Logout</a>

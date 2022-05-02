@@ -1,7 +1,7 @@
 <?php // user.php
 
 if (isset($DO) && $DO == 'mypage') {
-  $userid = $_SESSION['user']['userid'];
+  $userid = $_SESSION['USER']['userid'];
   $sql = "SELECT * FROM user WHERE userid = '$userid' ";
   $res = mysqli_query($DB, $sql);
   $data = mysqli_fetch_assoc($res);
@@ -68,7 +68,7 @@ $content_signup = <<<HTML
           </tr>
           <tr>
             <th>이름</th>
-            <td><input type="text" name="username"></td>
+            <td><input type="text" name="nickname"></td>
           </tr>
           <tr>
             <th>이메일</th>
@@ -85,11 +85,11 @@ $content_signup = <<<HTML
           </tr>
           <tr>
             <th>프로필 사진</th>
-            <td><input type="text" name="avatar"></td>
+            <td><input type="text" name="avatar" readonly></td>
           </tr>
           <tr>
             <th>링크</th>
-            <td><input type="text" name="link"></td>
+            <td><input type="text" name="link" readonly></td>
           </tr>
         </table>
 
@@ -107,7 +107,7 @@ HTML;
 
 // ## 마이페이지
 if (isset($DO) && $DO == 'mypage') {
-  $userid = $_SESSION['user']['userid'];
+  $userid = $_SESSION['USER']['userid'];
   $sql = "SELECT * FROM user WHERE userid = '$userid' ";
   $res = mysqli_query($DB, $sql);
   $data = mysqli_fetch_assoc($res);
@@ -128,18 +128,18 @@ if (isset($DO) && $DO == 'mypage') {
             </tr>
             <tr>
               <th>비밀번호</th>
-              <td><input type="text" name="password"></td>
+              <td><input type="password" name="password"></td>
             </tr>
             <tr>
               <th>비밀번호 확인</th>
-              <td><input type="text" name="password_check"></td>
+              <td><input type="password" name="password_check"></td>
             </tr>
             <tr>
               <td colspan="2" class="hr"></td>
             </tr>
             <tr>
               <th>이름</th>
-              <td><input type="text" name="username" value="$data[username]"></td>
+              <td><input type="text" name="nickname" value="$data[nickname]"></td>
             </tr>
             <tr>
               <th>이메일</th>
@@ -149,12 +149,12 @@ if (isset($DO) && $DO == 'mypage') {
             </tr>
             <tr>
               <th>프로필 사진</th>
-              <td><input type="text" name="avatar" value="$data[avatar]"></td>
+              <td><input type="text" name="avatar" value="$data[avatar]" readonly></td>
             </tr>
             <tr>
               <th>링크</th>
               <td>
-                <input type="text" name="link" value="$data[link]">
+                <input type="text" name="link" value="$data[link]" readonly>
               </td>
             </tr>
           </table>
@@ -189,9 +189,7 @@ if (isset($DO) && $DO == 'mypage') {
 }
 
 // ## 회원정보 삭제
-$content_delete = <<<HTML
-
-HTML;
+$content_delete = "";
 
 // ## 컨펌 처리
 if (isset($_POST['confirm'])) {
@@ -204,10 +202,12 @@ if (isset($_POST['confirm'])) {
               AND password='$password' ";
       $res = mysqli_query($DB, $sql);
       if (mysqli_num_rows($res) == 1) {
-        $_SESSION['user'] = array(
-          'userid' => $userid,
-          'password' => $password
-        );
+        $userdata = mysqli_fetch_assoc($res);
+        setUserData([
+          'userid' => $userdata['userid'],
+          'nickname' => $userData['nickname'],
+          'groups' => $userData['groups']
+        ]);
         header('Location: main.php');
       } else {
         echo "
@@ -220,11 +220,33 @@ if (isset($_POST['confirm'])) {
       break;
 
     case 'signup':
-      echo "회원가입 처리";
+      $userid = $_POST['userid'];
+      $password = $_POST['password'];
+      $password_check = $_POST['password_check'];
+      $nickname = $_POST['nickname'];
+      $email = $_POST['email'].'@'.$_POST['provider'];
+      $avatar = $_POST['avatar'];
+      $link = $_POST['link'];
+      $sql = "INSERT INTO user 
+              (userid, password, nickname, email, avatar, link) 
+              VALUES
+              ('$userid', '$password', '$nickname', '$email', '$avatar', '$link') ";
+      mysqli_query($DB, $sql);
+      setUserData([
+        'userid' => $userid,
+        'nickname' => $nickname,
+        'groups' => 'user'
+      ]);
+      echo "
+        <script>
+          alert('회원가입 완료');
+          location.href='main.php';
+        </script>
+      ";
       break;
 
     case 'delete':
-      $userid = $_SESSION['user']['userid'];
+      $userid = $_SESSION['USER']['userid'];
       $sql = "DELETE FROM user WHERE userid = '$userid' ";
       $res = mysqli_query($DB, $sql);
       session_destroy();

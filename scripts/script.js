@@ -78,9 +78,9 @@ function sendSignup() {
     signup.password.focus();
     return false;
   }
-  if (signup.username.value=='') {
+  if (signup.nickname.value=='') {
     alert('이름을 입력하세요');
-    signup.username.focus();
+    signup.nickname.focus();
     return false;
   }
   if (signup.email.value=='') {

@@ -45,29 +45,29 @@ if ($ACT == 'view') {
     // $DO 값에 따라 각각 다른 컨텐츠를 출력
     $formTitle = '';
     switch ($DO) {
-    case 'login':
-        // $formTitle = '로그인';
-        $content .= $content_login;
-        break;
-    case 'logout':
-        // $formTitle = '로그아웃';
-        $content .= $content_logout;
-        // unset($_SESSION['user']);
-        session_destroy();
-        header('Location: main.php');
-        break;
-    case 'signup':
-        // $formTitle = '회원가입';
-        $content .= $content_signup;
-        break;
-    case 'mypage':
-        // $formTitle = '마이페이지';
-        $content .= $content_mypage;
-        break;
-    case 'delete':
-        // $formTitle = '회원탈퇴';
-        $content .= $content_delete;
-        break;
+        case 'login':
+            // $formTitle = '로그인';
+            $content .= $content_login;
+            break;
+        case 'logout':
+            // $formTitle = '로그아웃';
+            $content .= $content_logout;
+            // unset($_SESSION['user']);
+            session_destroy();
+            header('Location: main.php');
+            break;
+        case 'signup':
+            // $formTitle = '회원가입';
+            $content .= $content_signup;
+            break;
+        case 'mypage':
+            // $formTitle = '마이페이지';
+            $content .= $content_mypage;
+            break;
+        case 'delete':
+            // $formTitle = '회원탈퇴';
+            $content .= $content_delete;
+            break;
     }
 }
 

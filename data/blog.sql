@@ -49,7 +49,7 @@ usergroup 권한그룹: admin, user
 CREATE TABLE user (
   userid VARCHAR(20) NOT NULL PRIMARY KEY,
   password VARCHAR(20),
-  username VARCHAR(20),
+  nickname VARCHAR(20),
   email VARCHAR(30),
   avatar VARCHAR(80),
   link VARCHAR(80),
@@ -57,23 +57,26 @@ CREATE TABLE user (
 );
 
 /* board 보드
-threadid 인덱스: 자동증가 정수
+numb 인덱스: 자동증가 정수
 wdate 날짜: 타임스탬프
 title 타이틀
 writer 이름
-email 이메일
-home 홈페이지
-pass 비밀번호
-ip 작성자 IP
-category 카테고리: profile, portpolio...
-posttype: text, media, link...
-tags 태그 
-files 파일
+category 분류: notice, qna, free...
 content 내용
+secret 비밀글
+hits 조회수
+
 */
 
 CREATE TABLE board (
-
+  numb INT AUTO_INCREMENT PRIMARY KEY,
+  wdate INT,
+  title VARCHAR(80),
+  writer VARCHAR(20),
+  category VARCHAR(20),
+  content TEXT,
+  secret BOOLEAN NOT NULL DEFAULT FALSE,
+  hits INT DEFAULT 0
 );
 
 /* comment 덧글

@@ -67,6 +67,10 @@ input[type=reset] {
     background-color: #d5d5d5;
   }
 }
+input[readonly] {
+  background-color: #ddd;
+}
+
 
 #container {
   width: 100%;
