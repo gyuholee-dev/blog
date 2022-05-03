@@ -1,5 +1,9 @@
 <?php
 
+// TODO: 공지사항 pinned 구현
+// 카테고리 선택 버튼 추가
+
+
 $items = 10;
 $page = 1;
 $postCount = 0;
