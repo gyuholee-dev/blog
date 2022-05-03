@@ -108,14 +108,14 @@ function makeHeader() : string
 // 네비게이션 출력
 function makeNav() : string
 {
-  global $CONF, $PAGE;
+  global $CONF, $ACT;
   $main = MAIN;
   $pages = $CONF['pages'];
 
   $nav = '';
   foreach ($pages as $key => $conf) {
-    $active = ($PAGE==$key)?'active':'';
-    $nav .= "<li class='$active'><a href='$main?page=$key'>$conf[name]</a></li>";
+    $active = ($ACT==$key)?'active':'';
+    $nav .= "<li class='$active'><a href='$main?action=$key'>$conf[name]</a></li>";
   }
   $nav = '<ul class="menu main">'.$nav.'</ul>';
 
@@ -134,18 +134,18 @@ function makeFooter() : string
 
 // 포스트 출력
 // TODO: pinned 기능 구현
-function makePost($page, $postid) 
+function makePost($cat, $postid) 
 {
   global $DB;
   global $CONF;
   $pages = $CONF['pages'];
 
   $sql = "SELECT * FROM post
-  WHERE category = '$page' ";
+  WHERE category = '$cat' ";
   if ($postid != 0) {
     $sql .= "AND postid = $postid ";
   } else {
-    $items = $pages[$page]['items'];
+    $items = $pages[$cat]['items'];
     $sql .= "ORDER BY postid DESC LIMIT 0, $items ";
   }
   $res = mysqli_query($DB, $sql);
@@ -155,7 +155,7 @@ function makePost($page, $postid)
     foreach ($data as $key => $value) {
       $$key = $value;
     }
-    $posttype = $pages[$page]['postType'];
+    $posttype = $pages[$cat]['postType'];
 
     $headerClass = 'header';
     $headerBG = '';
@@ -258,7 +258,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
     if ($posttype=='link') {
       $linkUrl = $link;
     } else {
-      $linkUrl = "$main?page=$category&postid=$postid";
+      $linkUrl = "$main?action=$category&postid=$postid";
     }
     if ($posttype=='link' || $posttype=='media') {
       if ($data['file'] != '') {
@@ -295,8 +295,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
 
 // 페이지 넘버 출력
 function makePageNumber() {
-  global $pnum;
-  global $pages;
+  global $PAGE;
 }
 
 // 유저페이지 출력
@@ -304,15 +303,7 @@ function makePageNumber() {
 function makeUserPage() : string
 {
   global $DB, $USER, $DO;
-  if (!isset($DO)) return false; 
-
-  if (!$USER) {
-    if ($DO == 'signup') {
-      return renderElement(TPL.'signup.html');
-    } else {
-      return renderElement(TPL.'login.html');
-    }
-  }
+  if (!isset($DO) || !isset($USER)) return false; 
 
   if ($DO == 'mypage') {
     $userid = $USER['userid'];
