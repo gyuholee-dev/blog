@@ -464,6 +464,7 @@ main {
   // 섹션 유저
   section.user {
     max-width: 640px;
+
     .header {
       width: 100%;
       // height: 140px;
@@ -518,7 +519,7 @@ main {
 
       table {
         max-width: 600px;
-        margin: 0 25px 15px;
+        margin: 0 15px 15px;
         &.login {
           max-width: 400px;
         }
@@ -601,25 +602,11 @@ main {
       }
     }
 
-    &.media {
-      .header {
-        flex-direction: row;
-        justify-content: space-between;
-        height: auto;
-        padding: 5px 5px 10px;
-        border-bottom: 1px solid $light;
-        margin-bottom: 15px;
-        .title {
-          font-size: 2em;
-        }
-        .info {
-          margin: 0;
-          align-self: end;
-        }
-        .subcategoty {
-          margin: 0;
-          align-self: end;
-        }
+    .buttons {
+      @include flex(center, center);
+      width: 100%;
+      >*:not(:last-child) {
+        margin-right: 25px;
       }
     }
   }

@@ -97,6 +97,12 @@ if (!$USER) { // 로그인 안되어 있을 경우
 // 사이트 초기화 ------------------------------------------------
 
 /* 리퀘스트
+page=main
+     profile
+     portpolio
+     study
+     diary
+     board
 action=view
        edit
        user

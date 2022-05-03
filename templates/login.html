@@ -4,7 +4,7 @@
   </div>
   <div class="content">
     <form name="login" method="post" action="main.php?action=user&do=login">
-      <table class="table $DO">
+      <table class="table login">
         <tr>
           <th>아이디</th>
           <td><input type="text" name="userid" value=""></td>
@@ -17,6 +17,7 @@
       <div class="buttons">
         <input type="hidden" name="confirm" value="true">
         <input class="btn" type="button" value="로그인" onclick="sendLogin()">
+        <input class="btn" type="button" value="회원가입" onclick="location.href='main.php?action=user&do=signup'">
       </div>
     </form>
   </div>

@@ -307,7 +307,11 @@ function makeUserPage() : string
   if (!isset($DO)) return false; 
 
   if (!$USER) {
-    return renderElement(TPL.'login.html');
+    if ($DO == 'signup') {
+      return renderElement(TPL.'signup.html');
+    } else {
+      return renderElement(TPL.'login.html');
+    }
   }
 
   if ($DO == 'mypage') {

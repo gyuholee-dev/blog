@@ -31,11 +31,14 @@ if ($ACT == 'view') {
       $content .= makePost($PAGE, $ID);
       break;
     case 'board':
-      $content .= '';
+      include INC.'board.php';
+      $content .= $board_content;
+      // $content .= renderElement(TPL.'board.html');
       break;
   }
 } elseif ($ACT == 'user') {
-  include PAGE.'user.php';
+  // TODO: 유저 조건에 따라 페이지 분기
+  include INC.'user.php';
   switch ($DO) {
     case 'logout':
       logout();

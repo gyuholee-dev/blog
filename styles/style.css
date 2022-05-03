@@ -476,7 +476,7 @@ main section.user .content form {
 
 main section.user .content table {
   max-width: 600px;
-  margin: 0 25px 15px;
+  margin: 0 15px 15px;
 }
 
 main section.user .content table.login {
@@ -569,27 +569,17 @@ main section.user .footer .info > span:not(:last-child) {
   margin-right: 10px;
 }
 
-main section.user.media .header {
+main section.user .buttons {
+  display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  height: auto;
-  padding: 5px 5px 10px;
-  border-bottom: 1px solid #a5a5a5;
-  margin-bottom: 15px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: 100%;
 }
 
-main section.user.media .header .title {
-  font-size: 2em;
-}
-
-main section.user.media .header .info {
-  margin: 0;
-  align-self: end;
-}
-
-main section.user.media .header .subcategoty {
-  margin: 0;
-  align-self: end;
+main section.user .buttons > *:not(:last-child) {
+  margin-right: 25px;
 }
 
 main section.list.tile {
