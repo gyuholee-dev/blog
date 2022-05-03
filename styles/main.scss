@@ -1,143 +1,4 @@
-// 변수
-$blue: #34a3e7;
-$shine: #eeeeee;
-$light: #a5a5a5;
-$grey: #808080; 
-$dark: #2f2f2f;
-$darkblack: #1b1b1b;
-$black: #101010;
-
-$height-nav: 40px;
-
-$max-width: 1000px;
-$media-width-large: 960px;
-$media-width-middle: 800px;
-$media-width-min: 680px;
-
-@mixin flex($align:center, $justify:center, $direction:row, $wrap:nowrap) {
-  display: flex;
-  flex-direction: $direction;
-  align-items: $align;
-  justify-content: $justify;
-  flex-wrap: $wrap;
-}
-
-@mixin font() {
-  font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
-}
-
-// 엘리먼트 기본값
-* {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-body {
-  @include font();
-  color: $black;
-  font-size: 16px;
-  word-break: break-all;
-  background-color: $shine;
-}
-
-// FIXME: 인풋 자동완성 폰트사이즈 수정 요망
-// REF: https://stackoverflow.com/questions/57195620/css-autocomplete-font-size
-input:-webkit-autofill::first-line {
-  font-family: inherit;
-  font-size: inherit;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.btn {
-  cursor: pointer;
-}
-
-button {
-  @include font;
-}
-
-img {
-  width: 100%;
-}
-
-table {
-  width: 100%;
-  width: -webkit-fill-available;
-  border-collapse: collapse;
-}
-
-.btn,
-button,
-input[type=button],
-input[type=reset] {
-  cursor: pointer;
-  font-size: 1em;
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: #d5d5d5;
-  }
-}
-input[readonly] {
-  background-color: #ddd;
-}
-
-
-#container {
-  @include flex(center, start, column);
-  width: 100%;
-  // max-width: $max-width;
-  margin: 0 auto;
-  position: relative;
-  min-height: 100vh;
-}
-
-header,
-main,
-footer,
-article,
-section,
-nav,
-aside {
-  @include flex(start, center);
-  width: 100%;
-  position: relative;
-}
-
-aside {
-  width: 0;
-}
-
-#message {
-  width: 100%;
-  .log {
-    padding: 5px 10px;
-    background-color: gray;
-    color: white;
-    font-size: 0.9em;
-    text-align: center;
-
-    &.info {
-      background-color: #5f5fff;
-    }
-
-    &.success {
-      background-color: green;
-    }
-
-    &.error {
-      background-color: red;
-    }
-  }
-}
-
+@import "_variables.scss";
 
 // ---------------------------------------------------------
 
@@ -309,18 +170,16 @@ main {
   }
 
   article {
-    flex-direction: column;
-    align-items: center;
+    @include flex(center, center, column);
     width: 100%;
     max-width: $max-width;
     padding: 15px;
   }
 
   section {
+    @include flex(center, center, column);
     width: 100%;
-    display: flex;
     padding: 25px;
-    flex-direction: column;
     background-color: white;
 
     &:not(:last-of-type) {
@@ -330,30 +189,45 @@ main {
     >.title {
       padding: 5px 10px 0;
       font-size: 1.2em;
-      // font-weight: bold;
-      // color: $grey;
       &::before {
         position: relative;
         top: 1px;
         margin-right: 5px;
-        // font-weight: initial;
       }
+    }
+
+    >.header {
+      @include flex(center, center, column);
+      width: 100%;
+      padding: 10px;
+      position: relative;
+      overflow: hidden;
+      >.title {
+        font-size: 2em;
+        line-height: 1;
+        z-index: 1;
+      }
+    }
+
+    >.content {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 15px;
+      font-size: 1.125em;
+      word-break: keep-all;
+      // letter-spacing: 1;
+      line-height: 1.5;
+    }
+
+    >.footer {
+      @include flex(center, space-between);
+      width: 100%;
     }
   }
 
   // 섹션 포스트
   section.post {
     .header {
-      width: 100%;
-      // height: 140px;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-
       &.img {
         height: 180px;
         padding: 10px;
@@ -373,12 +247,6 @@ main {
         background-blend-mode: overlay;
       }
 
-      .title {
-        font-size: 2em;
-        line-height: 1;
-        z-index: 1;
-      }
-
       .info {
         height: 22px;
         display: flex;
@@ -398,14 +266,6 @@ main {
     }
 
     .content {
-      width: 100%;
-      padding: 5px;
-      margin-bottom: 15px;
-      font-size: 1.125em;
-      word-break: keep-all;
-      // letter-spacing: 1;
-      line-height: 1.5;
-
       img {
         display: block;
         width: auto;
@@ -418,9 +278,6 @@ main {
     }
 
     .footer {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
       .tags {
         align-self: end;
         font-size: 0.9em;
@@ -437,26 +294,21 @@ main {
         }
       }
     }
+  }
 
-    &.media {
-      .header {
-        flex-direction: row;
-        justify-content: space-between;
-        height: auto;
-        padding: 5px 5px 10px;
-        border-bottom: 1px solid $light;
-        margin-bottom: 15px;
-        .title {
-          font-size: 2em;
-        }
-        .info {
-          margin: 0;
-          align-self: end;
-        }
-        .subcategoty {
-          margin: 0;
-          align-self: end;
-        }
+  // 섹션 미디어
+  section.media {
+    .header {
+      flex-direction: row;
+      justify-content: space-between;
+      height: auto;
+      padding: 5px 5px 10px;
+      border-bottom: 1px solid $light;
+      margin-bottom: 15px;
+      .info {
+        margin: 0;
+        align-self: end;
+        z-index: 1;
       }
     }
   }
@@ -466,51 +318,12 @@ main {
     max-width: 640px;
 
     .header {
-      width: 100%;
-      // height: 140px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
       padding: 5px 5px 10px;
       border-bottom: 1px solid $light;
       margin-bottom: 15px;
-
-      .title {
-        font-size: 2em;
-        line-height: 1;
-        z-index: 1;
-      }
-
-      .info {
-        height: 22px;
-        display: flex;
-        justify-self: end;
-        margin-top: 10px;
-        z-index: 1;
-        >span:not(:last-child) {
-          margin-right: 10px;
-        }
-      }
-
-      &.pinned.img {
-        .info {
-          display: none;
-        }
-      }
     }
 
     .content {
-      width: 100%;
-      padding: 5px;
-      margin-bottom: 15px;
-      font-size: 1.125em;
-      word-break: keep-all;
-      // letter-spacing: 1;
-      line-height: 1.5;
-
       form {
         display: flex;
         flex-direction: column;
@@ -522,18 +335,6 @@ main {
         margin: 0 15px 15px;
         &.login {
           max-width: 400px;
-        }
-        * {
-          font-size: 1em;
-        }
-        th, td {
-          padding: 5px;
-        }
-        th {
-          text-align: center;
-        }
-        td {
-          text-align: left;
         }
 
         td.hr::before {
@@ -581,27 +382,6 @@ main {
       }
     }
 
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      .tags {
-        align-self: end;
-        font-size: 0.9em;
-        >a:not(:last-child) {
-          margin-right: 5px;
-        }
-      }
-      .info {
-        height: 22px;
-        display: flex;
-        z-index: 1;
-        >span:not(:last-child) {
-          margin-right: 10px;
-        }
-      }
-    }
-
     .buttons {
       @include flex(center, center);
       width: 100%;
@@ -614,6 +394,10 @@ main {
   // 섹션 리스트 타일
   section.list.tile {
     padding: 5px;
+
+    .title {
+      width: 100%;
+    }
 
     ul.tile {
       width: 100%;
@@ -644,7 +428,6 @@ main {
         box-sizing: content-box;
         width: 100%;
         height: 100%;
-        // padding: 8px;
         transform: translate(-10px, -10px);
         background-color: white;
         // background-color: $grey;
@@ -743,7 +526,14 @@ main {
 
   // 섹션 리스트 테이블
   section.list.table {
-    padding: 5px;
+    .header {
+      flex-direction: row;
+      justify-content: space-between;
+      height: auto;
+      padding: 5px 5px 10px;
+      border-bottom: 1px solid #a5a5a5;
+      margin-bottom: 15px;
+    }
   }
 
 }

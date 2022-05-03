@@ -1,0 +1,27 @@
+// 변수
+$blue: #34a3e7;
+$shine: #eeeeee;
+$light: #a5a5a5;
+$grey: #808080; 
+$dark: #2f2f2f;
+$darkblack: #1b1b1b;
+$black: #101010;
+
+$height-nav: 40px;
+
+$max-width: 1000px;
+$media-width-large: 960px;
+$media-width-middle: 800px;
+$media-width-min: 680px;
+
+@mixin flex($align:center, $justify:center, $direction:row, $wrap:nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  flex-wrap: $wrap;
+}
+
+@mixin font() {
+  font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+}

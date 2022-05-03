@@ -35,7 +35,7 @@ while ($data = mysqli_fetch_assoc($res)) {
 }
 
 $board_content = <<<HTML
-  <section class="board $ACT">
+  <section class="board list table">
     <div class="header">
       <div class="title">$postCount 개의 게시물이 있습니다.</div>
     </div>

@@ -11,7 +11,8 @@
     "styles" : [
       "https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css",
       "https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Quicksand&display=swap",
-      "styles/style.css?v=0.17"
+      "styles/global.css?v=0.18",
+      "styles/main.css?v=0.18"
     ],
     "scripts" : [
       "scripts/script.js"
