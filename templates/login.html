@@ -1,0 +1,23 @@
+<section class="user">
+  <div class="header">
+    <div class="title">로그인</div>
+  </div>
+  <div class="content">
+    <form name="login" method="post" action="main.php?action=user&do=login">
+      <table class="table $DO">
+        <tr>
+          <th>아이디</th>
+          <td><input type="text" name="userid" value=""></td>
+        </tr>
+        <tr>
+          <th>비밀번호</th>
+          <td><input type="password" name="password" value=""></td>
+        </tr>
+      </table>
+      <div class="buttons">
+        <input type="hidden" name="confirm" value="true">
+        <input class="btn" type="button" value="로그인" onclick="sendLogin()">
+      </div>
+    </form>
+  </div>
+</section>

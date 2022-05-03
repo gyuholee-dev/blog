@@ -1,8 +1,9 @@
 <?php
 
 // 템플릿을 로드하여 html 엘리먼트 생성
-function renderElement(string $template, array $data) : string 
+function renderElement(string $template, array $data=array()) : string 
 {
+  if (!file_exists($template)) return '';
   $html = file_get_contents($template);
   foreach ($data as $key => $value) {
     $html = str_replace('{'.$key.'}', $value, $html);
@@ -13,6 +14,7 @@ function renderElement(string $template, array $data) : string
 // ------------------------ 블로그 엘리먼트 함수 ------------------------
 
 // 사이트 타이틀
+// TODO: 서브타이틀 변경
 function getSiteTitle() : string
 {
   global $INFO;
@@ -224,7 +226,6 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
 
   $sql = "SELECT * FROM post ";
   $sql .= $whereSql.$orderSql.$limitSql;
-  // console_log($sql);
   $res = mysqli_query($DB, $sql);
 
 
@@ -296,4 +297,37 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
 function makePageNumber() {
   global $pnum;
   global $pages;
+}
+
+// 유저페이지 출력
+// TODO: 유저 조건은 로직으로 보냄
+function makeUserPage() : string
+{
+  global $DB, $USER, $DO;
+  if (!isset($DO)) return false; 
+
+  if (!$USER) {
+    return renderElement(TPL.'login.html');
+  }
+
+  if ($DO == 'mypage') {
+    $userid = $USER['userid'];
+    $sql = "SELECT * FROM user WHERE userid = '$userid' ";
+    $res = mysqli_query($DB, $sql);
+    $data = mysqli_fetch_assoc($res);
+  
+    $mypage_data = array(
+      'userid' => $data['userid'],
+      'nickname' => $data['nickname'],
+      'email' => $data['email'],
+      'avatar' => $data['avatar'],
+      'link' => $data['link']
+    );
+  
+    $html = renderElement(TPL.'mypage.html', $mypage_data);
+  } else {
+    $html = renderElement(TPL.$DO.'.html');
+  }
+  
+  return $html;
 }

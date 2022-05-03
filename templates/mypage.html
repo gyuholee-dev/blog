@@ -1,0 +1,71 @@
+<section class="user">
+  <div class="header">
+    <div class="title">회원정보 수정</div>
+  </div>
+  <div class="content">
+    <form name="edit" method="post" action="main.php?action=user&do=edit" autocomplete="off">
+      <table class="table edit">
+        <tr>
+          <th>아이디</th>
+          <td>
+            <input type="text" name="userid" value="{userid}" readonly>
+          </td>
+        </tr>
+        <tr>
+          <th>비밀번호</th>
+          <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
+          <th>비밀번호 확인</th>
+          <td><input type="password" name="password_check"></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="hr"></td>
+        </tr>
+        <tr>
+          <th>이름</th>
+          <td><input type="text" name="nickname" value="{nickname}"></td>
+        </tr>
+        <tr>
+          <th>이메일</th>
+          <td>
+            <input type="email" name="email" value="{email}">
+          </td>
+        </tr>
+        <tr>
+          <th>프로필 사진</th>
+          <td><input type="text" name="avatar" value="{avatar}" readonly></td>
+        </tr>
+        <tr>
+          <th>링크</th>
+          <td>
+            <input type="text" name="link" value="{link}" readonly>
+          </td>
+        </tr>
+      </table>
+
+      <div class="buttons">
+        <input type="hidden" name="confirm" value="true">
+        <input class="btn" type="button" value="정보수정" onclick="sendEdit()">
+        <input class="btn" type="reset" value="재입력">
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<section class="user">
+  <div class="header">
+    <div class="title">회원탈퇴</div>
+  </div>
+  <div class="content">
+    <form name="delete" method="post" action="main.php?action=user&do=delete">
+      <b>탈퇴하겠습니까?</b>
+      <br>
+      <div class="buttons">
+        <input class="btn" name="confirm" type="submit" value="예">
+        <input class="btn" type="button" value="아니오" onclick="location.href='main.php'">
+      </div>
+    </form>
+  </div>
+</section>

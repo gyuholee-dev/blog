@@ -65,7 +65,6 @@ category 분류: notice, qna, free...
 content 내용
 secret 비밀글
 hits 조회수
-
 */
 
 CREATE TABLE board (

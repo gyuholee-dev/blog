@@ -22,15 +22,12 @@ function pushLog(string $log, string $class='info') : bool
 }
 
 // 로그 출력
-function printLog(bool $reset=false) : string
+function printLog(bool $reset=true) : string
 {
   global $MSG;
   $html = '';
   foreach ($MSG as $type => $log) {
     $html .= $log?"<div class='log $type'>$log</div>":'';
-  }
-  if ($reset == true) {
-    unset($_SESSION['MSG']);
   }
   return "<div id='message'>$html</div>";
 }
@@ -106,7 +103,7 @@ function checkId($userid)
 
 // 로그인 처리
 // 로그인은 별도 함수로 만들지 않음
-function setUserData($userData)
+function setUserData(array $userData) : bool
 {
   global $USER;
   $USER = array(
@@ -121,7 +118,7 @@ function setUserData($userData)
 }
 
 // 로그아웃
-function logout()
+function logout() : void
 {
   global $MSG;
   unsetUserData();
@@ -131,7 +128,7 @@ function logout()
 }
 
 // 로그아웃 처리
-function unsetUserData()
+function unsetUserData() : bool
 {
   global $USER;
   $USER = null;

@@ -1,13 +1,11 @@
-// ## 변수
-$color-emp: #34a3e7;
-$color-shine: #eee;
-$color-light: #bbb;
-$color-blue: #62abff;
-$color-lightgrey: #aaaaaa;
-$color-grey: #808080;
-$color-dark: #666;
-$color-black: #222;
-$color-background: #eeeeee;
+// 변수
+$blue: #34a3e7;
+$shine: #eeeeee;
+$light: #a5a5a5;
+$grey: #808080; 
+$dark: #2f2f2f;
+$darkblack: #1b1b1b;
+$black: #101010;
 
 $height-nav: 40px;
 
@@ -16,7 +14,19 @@ $media-width-large: 960px;
 $media-width-middle: 800px;
 $media-width-min: 680px;
 
-// ## 엘리먼트 기본값
+@mixin flex($align:center, $justify:center, $direction:row, $wrap:nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  flex-wrap: $wrap;
+}
+
+@mixin font() {
+  font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+}
+
+// 엘리먼트 기본값
 * {
   margin: 0;
   padding: 0;
@@ -26,11 +36,11 @@ $media-width-min: 680px;
 }
 
 body {
-  font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
-  color: $color-black;
+  @include font();
+  color: $black;
   font-size: 16px;
   word-break: break-all;
-  background-color: $color-background;
+  background-color: $shine;
 }
 
 // FIXME: 인풋 자동완성 폰트사이즈 수정 요망
@@ -43,6 +53,14 @@ input:-webkit-autofill::first-line {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+button {
+  @include font;
 }
 
 img {
@@ -73,13 +91,10 @@ input[readonly] {
 
 
 #container {
+  @include flex(center, start, column);
   width: 100%;
   // max-width: $max-width;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
   position: relative;
   min-height: 100vh;
 }
@@ -91,10 +106,8 @@ article,
 section,
 nav,
 aside {
+  @include flex(start, center);
   width: 100%;
-  display: flex;
-  align-items: start;
-  justify-content: center;
   position: relative;
 }
 
@@ -102,10 +115,33 @@ aside {
   width: 0;
 }
 
+#message {
+  width: 100%;
+  .log {
+    padding: 5px 10px;
+    background-color: gray;
+    color: white;
+    font-size: 0.9em;
+    text-align: center;
+
+    &.info {
+      background-color: #5f5fff;
+    }
+
+    &.success {
+      background-color: green;
+    }
+
+    &.error {
+      background-color: red;
+    }
+  }
+}
+
 
 // ---------------------------------------------------------
 
-// ## 헤더
+// 헤더
 header {
   height: 140px;
   // flex-direction: column;
@@ -151,7 +187,7 @@ header {
     }
 
     a:hover {
-      color: $color_emp;
+      color: $blue;
       transition: all 0.25s;
     }
 
@@ -159,7 +195,7 @@ header {
       input {
         width: 160px;
         font-size: 1em;
-        border: 1px solid $color-light;
+        border: 1px solid $light;
         border-radius: 5px;
         margin-right: 5px;
       }
@@ -169,7 +205,7 @@ header {
 
 }
 
-// ## 네비게이션 바
+// 네비게이션 바
 nav {
   width: 100%;
   height: $height-nav + 1;
@@ -218,7 +254,7 @@ nav {
       overflow: hidden;
 
       &.active {
-        border-bottom: 4px solid $color-emp;
+        border-bottom: 4px solid $blue;
       }
 
       >a {
@@ -229,10 +265,10 @@ nav {
 
         &:hover {
           cursor: pointer;
-          color: $color-emp;
+          color: $blue;
           // background-color: rgba(black, 0.5);
           background-color: white;
-          // border-bottom: 4px solid $color-emp;
+          // border-bottom: 4px solid $blue;
           transition: all 0.25s;
           box-shadow: 0 0 24px rgba(black, 0.05);
         }
@@ -242,14 +278,14 @@ nav {
   }
 }
 
-// ## 메인
+// 메인
 main {
   // margin-top: 60px;
   overflow-x: hidden;
   flex-grow: 1;
 
   a:hover {
-    color: $color-emp;
+    color: $blue;
   }
 
   // TODO: 인풋 및 버튼 css 분리
@@ -274,6 +310,7 @@ main {
 
   article {
     flex-direction: column;
+    align-items: center;
     width: 100%;
     max-width: $max-width;
     padding: 15px;
@@ -294,7 +331,7 @@ main {
       padding: 5px 10px 0;
       font-size: 1.2em;
       // font-weight: bold;
-      // color: $color-dark;
+      // color: $grey;
       &::before {
         position: relative;
         top: 1px;
@@ -304,7 +341,7 @@ main {
     }
   }
 
-  // ## 섹션 포스트
+  // 섹션 포스트
   section.post {
     .header {
       width: 100%;
@@ -407,7 +444,7 @@ main {
         justify-content: space-between;
         height: auto;
         padding: 5px 5px 10px;
-        border-bottom: 1px solid $color-dark;
+        border-bottom: 1px solid $light;
         margin-bottom: 15px;
         .title {
           font-size: 2em;
@@ -424,8 +461,9 @@ main {
     }
   }
 
-  // ## 섹션 유저
+  // 섹션 유저
   section.user {
+    max-width: 640px;
     .header {
       width: 100%;
       // height: 140px;
@@ -436,7 +474,7 @@ main {
       position: relative;
       overflow: hidden;
       padding: 5px 5px 10px;
-      border-bottom: 1px solid #666;
+      border-bottom: 1px solid $light;
       margin-bottom: 15px;
 
       .title {
@@ -501,7 +539,7 @@ main {
           content: "";
           display: block;
           width: 100%;
-          border-bottom: 1px solid $color-light;
+          border-bottom: 1px solid $light;
         }
 
         td:last-child {
@@ -516,6 +554,7 @@ main {
         input[type=text],
         input[type=number],
         input[type=password],
+        input[type=email],
         textarea {
           width: 100%;
         }
@@ -568,7 +607,7 @@ main {
         justify-content: space-between;
         height: auto;
         padding: 5px 5px 10px;
-        border-bottom: 1px solid $color-dark;
+        border-bottom: 1px solid $light;
         margin-bottom: 15px;
         .title {
           font-size: 2em;
@@ -585,7 +624,7 @@ main {
     }
   }
 
-  // ## 섹션 리스트 타일
+  // 섹션 리스트 타일
   section.list.tile {
     padding: 5px;
 
@@ -621,7 +660,7 @@ main {
         // padding: 8px;
         transform: translate(-10px, -10px);
         background-color: white;
-        // background-color: $color-dark;
+        // background-color: $grey;
         // background-position: center;
         // background-repeat: no-repeat;
         // background-size: auto 100%; 
@@ -662,7 +701,7 @@ main {
           top: 0;
           width: 100%;
           height: 100%;
-          background-color: $color-grey;
+          background-color: $grey;
           background-position: center;
           background-repeat: no-repeat;
           // background-size: auto 100%;
@@ -680,15 +719,15 @@ main {
   
         &:hover {
           cursor: pointer;
-          // background-color: $color-grey;
-          // background-color: $color-blue;
+          // background-color: $grey;
+          // background-color: $blue;
           box-shadow: 0 0 8px rgba(black, 0.25);
           transform: translate(-10px, -10px) scale(110%);
           transition: all 0.5s;
           z-index: 5;
           // filter: grayscale(0);
           >.bg {
-            // background-color: $color-grey;
+            // background-color: $grey;
             background-color: white;
             filter: grayscale(0);
             transition: all 0.5s;
@@ -715,14 +754,14 @@ main {
 
   }
 
-  // ## 섹션 리스트 테이블
+  // 섹션 리스트 테이블
   section.list.table {
     padding: 5px;
   }
 
 }
 
-// ## 로딩
+// 로딩
 #loading {
   width: 100%;
   text-align: center;
@@ -731,10 +770,10 @@ main {
   // top: -5px;
   // margin-bottom: 10px;
   margin: 10px 0;
-  color: $color-grey;
+  color: $grey;
 }
 
-// ## 푸터
+// 푸터
 footer {
   width: 100%;
   height: 60px;

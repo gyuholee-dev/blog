@@ -33,7 +33,8 @@ global $ID;
 
 // 메시지
 if (isset($_SESSION['MSG'])) {
-  $MSG = $_SESSION['MSG']; // 프린트후 삭제 필수
+  $MSG = $_SESSION['MSG'];
+  unset($_SESSION['MSG']); // js 출력시 프린트후 삭제
 } else {
   $MSG = [
     'info' => '',

@@ -9,7 +9,7 @@
 
 body {
   font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
-  color: #222;
+  color: #101010;
   font-size: 16px;
   word-break: break-all;
   background-color: #eeeeee;
@@ -23,6 +23,14 @@ input:-webkit-autofill::first-line {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+button {
+  font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
 }
 
 img {
@@ -61,12 +69,13 @@ input[readonly] {
 }
 
 #container {
-  width: 100%;
-  margin: 0 auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: start;
-  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin: 0 auto;
   position: relative;
   min-height: 100vh;
 }
@@ -78,15 +87,41 @@ article,
 section,
 nav,
 aside {
-  width: 100%;
   display: flex;
+  flex-direction: row;
   align-items: start;
   justify-content: center;
+  flex-wrap: nowrap;
+  width: 100%;
   position: relative;
 }
 
 aside {
   width: 0;
+}
+
+#message {
+  width: 100%;
+}
+
+#message .log {
+  padding: 5px 10px;
+  background-color: gray;
+  color: white;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+#message .log.info {
+  background-color: #5f5fff;
+}
+
+#message .log.success {
+  background-color: green;
+}
+
+#message .log.error {
+  background-color: red;
 }
 
 header {
@@ -137,7 +172,7 @@ header .menu a:hover {
 header .menu > .search input {
   width: 160px;
   font-size: 1em;
-  border: 1px solid #bbb;
+  border: 1px solid #a5a5a5;
   border-radius: 5px;
   margin-right: 5px;
 }
@@ -236,6 +271,7 @@ main textarea:focus-visible {
 
 main article {
   flex-direction: column;
+  align-items: center;
   width: 100%;
   max-width: 1000px;
   padding: 15px;
@@ -366,7 +402,7 @@ main section.post.media .header {
   justify-content: space-between;
   height: auto;
   padding: 5px 5px 10px;
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid #a5a5a5;
   margin-bottom: 15px;
 }
 
@@ -384,6 +420,10 @@ main section.post.media .header .subcategoty {
   align-self: end;
 }
 
+main section.user {
+  max-width: 640px;
+}
+
 main section.user .header {
   width: 100%;
   display: flex;
@@ -393,7 +433,7 @@ main section.user .header {
   position: relative;
   overflow: hidden;
   padding: 5px 5px 10px;
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid #a5a5a5;
   margin-bottom: 15px;
 }
 
@@ -463,7 +503,7 @@ main section.user .content table td.hr::before {
   content: "";
   display: block;
   width: 100%;
-  border-bottom: 1px solid #bbb;
+  border-bottom: 1px solid #a5a5a5;
 }
 
 main section.user .content table td:last-child {
@@ -479,6 +519,7 @@ main section.user .content table textarea {
 main section.user .content table input[type=text],
 main section.user .content table input[type=number],
 main section.user .content table input[type=password],
+main section.user .content table input[type=email],
 main section.user .content table textarea {
   width: 100%;
 }
@@ -533,7 +574,7 @@ main section.user.media .header {
   justify-content: space-between;
   height: auto;
   padding: 5px 5px 10px;
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid #a5a5a5;
   margin-bottom: 15px;
 }
 

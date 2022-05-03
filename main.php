@@ -4,6 +4,7 @@ require_once 'includes/init.php';
 require_once 'includes/elements.php';
 
 // $page 에 따라 각각 다른 컨텐츠를 출력
+// TODO: 사이트 로직 개선
 $content = '';
 if ($ACT == 'view') {
   switch ($PAGE) {
@@ -35,31 +36,15 @@ if ($ACT == 'view') {
   }
 } elseif ($ACT == 'user') {
   include PAGE.'user.php';
-  // $DO 값에 따라 각각 다른 컨텐츠를 출력
-  $formTitle = '';
   switch ($DO) {
-    case 'login':
-      // $formTitle = '로그인';
-      $content .= $content_login;
-      break;
     case 'logout':
-      // $formTitle = '로그아웃';
-      $content .= $content_logout;
-      // unset($_SESSION['user']);
-      session_destroy();
+      logout();
       header('Location: main.php');
       break;
-    case 'signup':
-      // $formTitle = '회원가입';
-      $content .= $content_signup;
-      break;
-    case 'mypage':
-      // $formTitle = '마이페이지';
-      $content .= $content_mypage;
-      break;
     case 'delete':
-      // $formTitle = '회원탈퇴';
-      $content .= $content_delete;
+      break;
+    default:
+      $content .= makeUserPage();
       break;
   }
 }
@@ -68,7 +53,7 @@ if ($ACT == 'view') {
 
 $html_data = array(
   'head' => makeHead(),
-  'message' => printLog($reset = true),
+  'message' => printLog(),
   'header' => makeHeader(),
   'nav' => makeNav(),
   'content' => $content,

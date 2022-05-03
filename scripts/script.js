@@ -93,6 +93,44 @@ function sendSignup() {
   document.signup.submit();
 }
 
+function sendEdit() {
+  if (edit.userid.value=='') {
+    alert('아이디를 입력하세요');
+    edit.userid.focus();
+    return false;
+  }
+  if (edit.password.value=='') {
+    alert('비밀번호를 입력하세요');
+    edit.password.focus();
+    return false;
+  }
+  if (edit.password_check.value=='') {
+    alert('비밀번호를 확인해 주세요');
+    edit.password_check.focus();
+    return false;
+  }
+  if (edit.password.value != edit.password_check.value) {
+    alert('비밀번호가 다릅니다');
+    edit.password.value = '';
+    edit.password_check.value = '';
+    edit.password.focus();
+    return false;
+  }
+  if (edit.nickname.value=='') {
+    alert('이름을 입력하세요');
+    edit.nickname.focus();
+    return false;
+  }
+  if (edit.email.value=='') {
+    alert('이메일을 입력하세요');
+    edit.email.focus();
+    return false;
+  }
+  
+  edit.confirm.value = true;
+  document.edit.submit();
+}
+
 function sendLogin() {
   if (login.userid.value=='') {
     alert('아이디를 입력하세요');
