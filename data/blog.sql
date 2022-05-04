@@ -28,7 +28,7 @@ CREATE TABLE post (
   title VARCHAR(80),
   writer VARCHAR(20),
   category VARCHAR(20),
-  posttype VARCHAR(20),
+  posttype CHAR(10),
   file VARCHAR(80),
   link VARCHAR(80),
   content TEXT,
@@ -61,34 +61,63 @@ numb 인덱스: 자동증가 정수
 wdate 날짜: 타임스탬프
 title 타이틀
 writer 이름
-category 분류: notice, qna, free...
+category 분류: notice, general...
 content 내용
 secret 비밀글
 hits 조회수
 */
 
 CREATE TABLE board (
-  numb INT AUTO_INCREMENT PRIMARY KEY,
+  idx INT AUTO_INCREMENT PRIMARY KEY,
   category CHAR(10),
-  title VARCHAR(80),
   wdate INT,
   userid CHAR(20),
   nickname VARCHAR(20),
-  content TEXT,
-  secret BOOLEAN DEFAULT 0,
-  hit INT DEFAULT 0
+  content VARCHAR(140),
+  secret BOOLEAN DEFAULT 0
 );
 
 INSERT INTO board 
 (category, title, wdate, userid, nickname, content)
 VALUES
-('notice', '게시글 제목', UNIX_TIMESTAMP(), 'gyuholee', 'Gyuholee', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque fuga commodi obcaecati delectus quaerat earum ad odit ducimus placeat doloremque corporis modi quia, harum cum exercitationem, veritatis velit aliquid nam.');
+('notice', '공지사항 제목입니다', UNIX_TIMESTAMP(), 'gyuholee', 'Gyuholee', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque fuga commodi obcaecati delectus quaerat earum ad odit ducimus placeat doloremque corporis modi quia, harum cum exercitationem, veritatis velit aliquid nam.');
+INSERT INTO board 
+(category, title, wdate, userid, nickname, content)
+VALUES
+('general', '공지사항 제목입니다', UNIX_TIMESTAMP(), 'gyuholee', 'Gyuholee', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque fuga commodi obcaecati delectus quaerat earum ad odit ducimus placeat doloremque corporis modi quia, harum cum exercitationem, veritatis velit aliquid nam.');
 
-/* comment 덧글
-commentid 인덱스
-wdate 날짜
-name 이름
-pwd 비밀번호
-content 내용
-비밀
+
+/*
+ board
+ forum
+ discussion
+ thread
+ reply
+
+thread 쓰레드
+  threadid 쓰레드 인덱스
+  wdate 작성일
+  userid 작성자 id
+  nickname 작성자 이름
+  content 본문
+  threadtype 타입: thread, comment, reply,
+  parent 부모(comment일 경우 postid, reply 일 경우 threadid) 
+  child 자식(threadid)
+  pinned 최상위 표시, type 이 thread 일 경우에만 적용
+  secret 비밀글, 부모가 비밀일 경우 자동으로 적용, 이외 선택.
 */
+
+CREATE TABLE thread (
+  threadid INT AUTO_INCREMENT PRIMARY KEY,
+  wdate INT,
+  userid CHAR(20),
+  nickname VARCHAR(20),
+  content VARCHAR(140),
+  threadtype CHAR(10) DEFAULT 'thread',
+  parent INT,
+  child INT,
+  pinned BOOLEAN NOT NULL DEFAULT FALSE
+  secret BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+
