@@ -62,6 +62,24 @@ function getTagLink(string $tags) : string
   return $html;
 }
 
+function getLibraries($key = 'styles') : string
+{
+  global $CONF;
+  $library = $CONF['libraries'][$key];
+  $html = '';
+  foreach ($library as $lib) {
+    if ($key == 'styles') {
+      $html .= "<link rel='stylesheet' href='$lib'>";
+    } elseif ($key == 'scripts') {
+      $html .= "<script type='text/javascript' src='$lib'></script>";
+    } elseif ($key == 'postscripts') {
+      $html .= "<script type='text/javascript' src='$lib'></script>";
+    }
+  }
+  return $html;
+  
+}
+
 // --------------------------------------------------------------------------
   
 // 헤드 출력
@@ -81,15 +99,8 @@ function makeHead() : string
     <meta name="description" content="$description">
   HTML;
 
-  foreach ($libraries as $key => $library) {
-    foreach ($library as $lib) {
-      if ($key == 'styles') {
-        $head .= "<link rel='stylesheet' href='$lib'>";
-      } elseif ($key == 'scripts') {
-        $head .= "<script type='text/javascript' src='$lib'></script>";
-      }
-    }
-  }
+  $head .= getLibraries('styles');
+  $head .= getLibraries('scripts');
 
   return $head;
 }

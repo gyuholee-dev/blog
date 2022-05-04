@@ -1,3 +1,4 @@
+// 변수
 @import "_variables.scss";
 
 // 엘리먼트 기본값
@@ -12,7 +13,8 @@
 body {
   @include font();
   color: $black;
-  font-size: 16px;
+  font-size: 18px;
+  line-height: 1.6;
   word-break: break-all;
   background-color: $shine;
 }
@@ -61,6 +63,7 @@ table {
   width: 100%;
   width: -webkit-fill-available;
   border-collapse: collapse;
+  white-space: nowrap;
   * {
     font-size: 1em;
   }
@@ -74,7 +77,6 @@ table {
     text-align: center;
   }
 }
-
 
 #container {
   @include flex(center, start, column);
@@ -122,4 +124,27 @@ aside {
       background-color: red;
     }
   }
+}
+
+
+b, span, a, .btn {
+  &[class*=" xi-"], 
+  &[class^=xi-] {
+    &:before {
+      margin-right: 5px;
+      font-size: 1.15em;
+      position: relative;
+      top: 0.075em;
+    }
+  }
+}
+
+.red {
+  color: red;
+}
+.green {
+  color: green;
+}
+.blue {
+  color: #5f5fff;
 }

@@ -23,6 +23,7 @@ $list = '';
 while ($data = mysqli_fetch_assoc($res)) {
   $numb = $data['numb'];
   $title = $data['title'];
+  $category = $data['category'];
   $nickname = $data['nickname'];
   $wdate = date("Y-m-d H:i:s", $data['wdate']);
   $secret = $data['secret'];
@@ -31,6 +32,7 @@ while ($data = mysqli_fetch_assoc($res)) {
     <tr>
       <td>$numb</td>
       <td>$title</td>
+      <td>$category</td>
       <td>$nickname</td>
       <td>$wdate</td>
       <td>$hit</td>
@@ -41,13 +43,14 @@ while ($data = mysqli_fetch_assoc($res)) {
 $board_content = <<<HTML
   <section class="board list table">
     <div class="header">
-      <div class="title">$postCount 개의 게시물이 있습니다.</div>
+      <div class="title">게시판</div>
     </div>
     <div class="content">
       <table class="table">
         <tr>
           <th>번호</th>
-          <th>제목</th>
+          <th width="100%">제목</th>
+          <th>구분</th>
           <th>글쓴이</th>
           <th>날짜</th>
           <th>조회수</th>

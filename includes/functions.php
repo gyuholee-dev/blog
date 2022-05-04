@@ -22,7 +22,7 @@ function pushLog(string $log, string $class='info') : bool
 }
 
 // 로그 출력
-function printLog(bool $reset=true) : string
+function printLog() : string
 {
   global $MSG;
   $html = '';

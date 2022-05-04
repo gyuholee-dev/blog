@@ -9,13 +9,16 @@
 
   "libraries" : {
     "styles" : [
-      "https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css",
-      "https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Quicksand&display=swap",
       "styles/global.css?v=0.18",
       "styles/main.css?v=0.18"
     ],
     "scripts" : [
+      "scripts/functions.js",
+      "scripts/form.js",
       "scripts/script.js"
+    ],
+    "postscripts" : [
+      "scripts/postscript.js"
     ]
   },
 

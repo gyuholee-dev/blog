@@ -69,12 +69,12 @@ switch ($ACT) {
 
 $html_data = array(
   'head' => makeHead(),
-  'message' => printLog(),
+  // 'message' => printLog(),
   'header' => makeHeader(),
   'nav' => makeNav(),
   'content' => $content,
   'aside' => '',
   'footer' => makeFooter(),
-  'postScript' => ''
+  'postScript' => getLibraries('postscripts'),
 );
 echo renderElement(TPL.'template.html', $html_data);

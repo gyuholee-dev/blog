@@ -1,4 +1,6 @@
 @charset "UTF-8";
+@import url("https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css");
+@import url("https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css");
 * {
   margin: 0;
   padding: 0;
@@ -8,9 +10,10 @@
 }
 
 body {
-  font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
   color: #101010;
-  font-size: 16px;
+  font-size: 18px;
+  line-height: 1.6;
   word-break: break-all;
   background-color: #eeeeee;
 }
@@ -30,7 +33,7 @@ a {
 }
 
 button {
-  font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
 }
 
 img {
@@ -66,6 +69,7 @@ table {
   width: 100%;
   width: -webkit-fill-available;
   border-collapse: collapse;
+  white-space: nowrap;
 }
 
 table * {
@@ -138,4 +142,23 @@ aside {
 
 #message .log.error {
   background-color: red;
+}
+
+b[class*=" xi-"]:before, b[class^=xi-]:before, span[class*=" xi-"]:before, span[class^=xi-]:before, a[class*=" xi-"]:before, a[class^=xi-]:before, .btn[class*=" xi-"]:before, .btn[class^=xi-]:before {
+  margin-right: 5px;
+  font-size: 1.15em;
+  position: relative;
+  top: 0.075em;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.blue {
+  color: #5f5fff;
 }

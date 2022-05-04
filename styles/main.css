@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css");
+@import url("https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css");
 header {
   height: 140px;
   align-items: center;
@@ -80,7 +82,6 @@ nav .menu {
   flex-direction: row;
   align-items: start;
   justify-content: center;
-  font-family: "Quicksand";
   font-size: 0.95em;
   font-weight: bold;
   letter-spacing: 0.05em;
@@ -101,15 +102,15 @@ nav .menu > li.active {
 
 nav .menu > li > a {
   display: block;
-  padding: 10px;
+  height: 39px;
+  padding: 7px;
 }
 
 nav .menu > li > a:hover {
   cursor: pointer;
   color: #34a3e7;
-  background-color: white;
   transition: all 0.25s;
-  box-shadow: 0 0 24px rgba(0, 0, 0, 0.05);
+  text-shadow: 0 0 16px white;
 }
 
 main {
@@ -259,7 +260,7 @@ main section.post .content img {
 }
 
 main section.post .content img:first-of-type {
-  margin: 0 auto 10px;
+  margin: 0 auto 15px;
 }
 
 main section.post .footer .tags {
@@ -436,14 +437,15 @@ main section.list.tile ul.tile .box > .post {
 }
 
 main section.list.tile ul.tile .box > .post > .title {
-  font-size: 1.6em;
+  font-size: 1.5em;
+  line-height: 1.25;
 }
 
 main section.list.tile ul.tile .box > .post > .summary {
-  max-height: 80px;
+  max-height: 108px;
   margin-top: 10px;
   overflow: hidden;
-  line-height: 1.25;
+  line-height: 1.5;
 }
 
 main section.list.tile ul.tile .box > .bg {
@@ -483,7 +485,7 @@ main section.list.tile ul.tile .box.link, main section.list.tile ul.tile .box.me
 }
 
 main section.list.tile ul.tile .box.link > .post > .title, main section.list.tile ul.tile .box.media > .post > .title {
-  font-size: 2.5em;
+  font-size: 2.25em;
   line-height: 1;
 }
 
@@ -515,6 +517,5 @@ footer {
   margin: 0 auto;
   background-color: white;
   border-top: 1px solid rgba(0, 0, 0, 0.25);
-  font-family: "Quicksand";
   font-size: 0.9em;
 }

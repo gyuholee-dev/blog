@@ -101,7 +101,7 @@ nav {
     flex-direction: row;
     align-items: start;
     justify-content: center;
-    font-family: "Quicksand";
+    // font-family: "Quicksand";
     font-size: 0.95em;
     font-weight: bold;
     letter-spacing: 0.05em;
@@ -121,17 +121,18 @@ nav {
       >a {
         display: block;
         // height: 39px;
-        // height: $height-nav - 1;
-        padding: 10px;
+        height: $height-nav - 1;
+        padding: 7px;
 
         &:hover {
           cursor: pointer;
           color: $blue;
           // background-color: rgba(black, 0.5);
-          background-color: white;
+          // background-color: white;
           // border-bottom: 4px solid $blue;
           transition: all 0.25s;
-          box-shadow: 0 0 24px rgba(black, 0.05);
+          text-shadow: 0 0 16px white;
+          // box-shadow: 0 0 24px rgba(black, 0.05);
         }
       }
 
@@ -272,7 +273,7 @@ main {
         max-width: 100%;
         margin: 10px auto;
         &:first-of-type {
-          margin: 0 auto 10px;
+          margin: 0 auto 15px;
         }
       }
     }
@@ -451,17 +452,18 @@ main {
           height: 100%;
           padding: 5px;
           z-index: 1;
-          // text-shadow: 0 0 2px black, 0 1px 2px black;
+          
           >.title {
-            font-size: 1.6em;
+            font-size: 1.5em;
+            line-height: 1.25;
           }
     
           >.summary {
             // padding: 5px;
-            max-height: 80px;
+            max-height: 108px;
             margin-top: 10px;
             overflow: hidden;
-            line-height: 1.25;
+            line-height: 1.5;
           }
         }
   
@@ -508,7 +510,7 @@ main {
           color: white;
           text-shadow: 0 1px 4px black;
           >.post>.title {
-            font-size: 2.5em;
+            font-size: 2.25em;
             line-height: 1;
           } 
         }
@@ -558,6 +560,6 @@ footer {
   margin: 0 auto;
   background-color: white;
   border-top: 1px solid rgba(black, 0.25);
-  font-family: "Quicksand";
+  // font-family: "Quicksand";
   font-size: 0.9em;
 }
