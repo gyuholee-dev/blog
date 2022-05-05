@@ -152,7 +152,7 @@ main article {
   flex-wrap: nowrap;
   width: 100%;
   max-width: 1000px;
-  padding: 15px;
+  padding: 20px 0;
 }
 
 main section {
@@ -162,12 +162,13 @@ main section {
   justify-content: center;
   flex-wrap: nowrap;
   width: 100%;
+  max-width: calc(1000px - 30px);
   padding: 25px;
   background-color: white;
 }
 
 main section:not(:last-of-type) {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 main section > .title {
@@ -183,14 +184,16 @@ main section > .title::before {
 
 main section > .header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: nowrap;
   width: 100%;
-  padding: 10px;
+  padding: 5px 5px 10px;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid #a5a5a5;
+  margin-bottom: 15px;
 }
 
 main section > .header > .title {
@@ -201,7 +204,7 @@ main section > .header > .title {
 
 main section > .content {
   width: 100%;
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 15px;
   font-size: 1.125em;
   word-break: keep-all;
@@ -215,9 +218,18 @@ main section > .footer {
   justify-content: space-between;
   flex-wrap: nowrap;
   width: 100%;
+  height: 22px;
 }
 
-main section.post .header.img {
+main section.post.text .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+main section.post > .header.img {
   height: 180px;
   padding: 10px;
   margin-bottom: 15px;
@@ -225,7 +237,7 @@ main section.post .header.img {
   text-shadow: 0 1px 4px black;
 }
 
-main section.post .header > .bg {
+main section.post > .header > .bg {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -236,19 +248,18 @@ main section.post .header > .bg {
   background-blend-mode: overlay;
 }
 
-main section.post .header .info {
+main section.post > .header .info {
   height: 22px;
   display: flex;
-  justify-self: end;
   margin-top: 10px;
   z-index: 1;
 }
 
-main section.post .header .info > span:not(:last-child) {
+main section.post > .header .info > span:not(:last-child) {
   margin-right: 10px;
 }
 
-main section.post .header.pinned.img .info {
+main section.post > .header.pinned.img .info {
   display: none;
 }
 
@@ -263,32 +274,26 @@ main section.post .content img:first-of-type {
   margin: 0 auto 15px;
 }
 
-main section.post .footer .tags {
-  align-self: end;
+main section.post > .footer > span:not(:last-child) {
+  margin-right: 10px;
+}
+
+main section.post > .footer > span:nth-child(2) {
+  margin-left: auto;
+}
+
+main section.post > .footer .tags {
   font-size: 0.9em;
 }
 
-main section.post .footer .tags > a:not(:last-child) {
+main section.post > .footer .tags > a:not(:last-child) {
   margin-right: 5px;
-}
-
-main section.post .footer .info {
-  height: 22px;
-  display: flex;
-  z-index: 1;
-}
-
-main section.post .footer .info > span:not(:last-child) {
-  margin-right: 10px;
 }
 
 main section.media .header {
   flex-direction: row;
   justify-content: space-between;
   height: auto;
-  padding: 5px 5px 10px;
-  border-bottom: 1px solid #a5a5a5;
-  margin-bottom: 15px;
 }
 
 main section.media .header .info {
@@ -299,12 +304,6 @@ main section.media .header .info {
 
 main section.user {
   max-width: 640px;
-}
-
-main section.user .header {
-  padding: 5px 5px 10px;
-  border-bottom: 1px solid #a5a5a5;
-  margin-bottom: 15px;
 }
 
 main section.user .content form {
@@ -493,13 +492,66 @@ main section.list.tile ul.tile .box.link > .post > .summary {
   display: none;
 }
 
-main section.list.table .header {
+main section.list.board .thread {
+  display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  height: auto;
-  padding: 5px 5px 10px;
-  border-bottom: 1px solid #a5a5a5;
+  align-items: start;
+  justify-content: start;
+  flex-wrap: nowrap;
+  width: 100%;
   margin-bottom: 15px;
+}
+
+main section.list.board .thread .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  min-width: 96px;
+  font-size: 1.35em;
+  margin-right: 15px;
+}
+
+main section.list.board .thread .header .number {
+  padding: 5px;
+  background-color: white;
+}
+
+main section.list.board .thread .content {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 720px;
+}
+
+main section.list.board .thread .content .message {
+  border: 1px solid #a5a5a5;
+  padding: 10px 15px;
+  border-radius: 15px;
+  background-color: aliceblue;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+main section.list.board .thread .content .message.left {
+  margin-right: 50px;
+}
+
+main section.list.board .thread .content .info {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: end;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+main section.list.board .thread .content .info > *:not(:last-child) {
+  margin-right: 15px;
 }
 
 #loading {

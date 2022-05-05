@@ -63,7 +63,7 @@ table {
   width: 100%;
   width: -webkit-fill-available;
   border-collapse: collapse;
-  white-space: nowrap;
+  // white-space: nowrap;
   * {
     font-size: 1em;
   }
@@ -74,7 +74,7 @@ table {
     text-align: center;
   }
   td {
-    text-align: center;
+    text-align: left;
   }
 }
 

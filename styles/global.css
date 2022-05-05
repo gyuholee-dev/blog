@@ -69,7 +69,6 @@ table {
   width: 100%;
   width: -webkit-fill-available;
   border-collapse: collapse;
-  white-space: nowrap;
 }
 
 table * {
@@ -85,7 +84,7 @@ table th {
 }
 
 table td {
-  text-align: center;
+  text-align: left;
 }
 
 #container {
