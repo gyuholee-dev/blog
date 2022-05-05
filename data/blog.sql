@@ -19,21 +19,24 @@ link 링크
 content 내용
 tags 태그(차후 추가)
 pinned 상단고정
+threadid 댓글 쓰레드
 allow 권한: ????
 */
 
 CREATE TABLE post (
-  postid INT AUTO_INCREMENT PRIMARY KEY,
+  postid INT AUTO_INCREMENT,
   wdate INT,
   title VARCHAR(80),
   writer VARCHAR(20),
-  category VARCHAR(20),
+  category CHAR(10),
   posttype CHAR(10),
   file VARCHAR(80),
   link VARCHAR(80),
   content TEXT,
   tags VARCHAR(80),
-  pinned BOOLEAN NOT NULL DEFAULT FALSE
+  pinned BOOLEAN DEFAULT FALSE,
+  secret BOOLEAN DEFAULT FALSE,
+  PRIMARY KEY(postid)
 );
 
 /* user 유저
@@ -47,13 +50,14 @@ usergroup 권한그룹: admin, user
 */
 
 CREATE TABLE user (
-  userid VARCHAR(20) NOT NULL PRIMARY KEY,
-  password VARCHAR(20),
+  userid CHAR(20) NOT NULL,
+  password BLOB,
   nickname VARCHAR(20),
   email VARCHAR(30),
   avatar VARCHAR(80),
   link VARCHAR(80),
-  usergroup VARCHAR(20) DEFAULT 'user'
+  usergroup CHAR(10) DEFAULT 'user',
+  PRIMARY KEY(userid)
 );
 
 /* board 보드
@@ -68,13 +72,14 @@ hits 조회수
 */
 
 CREATE TABLE board (
-  idx INT AUTO_INCREMENT PRIMARY KEY,
+  idx INT AUTO_INCREMENT,
   category CHAR(10),
   wdate INT,
   userid CHAR(20),
   nickname VARCHAR(20),
   content VARCHAR(140),
-  secret BOOLEAN DEFAULT 0
+  secret BOOLEAN DEFAULT FALSE,
+  PRIMARY KEY(idx)
 );
 
 INSERT INTO board 
@@ -108,7 +113,7 @@ thread 쓰레드
 */
 
 CREATE TABLE thread (
-  threadid INT AUTO_INCREMENT PRIMARY KEY,
+  threadid INT AUTO_INCREMENT,
   wdate INT,
   userid CHAR(20),
   nickname VARCHAR(20),
@@ -116,8 +121,13 @@ CREATE TABLE thread (
   threadtype CHAR(10) DEFAULT 'thread',
   parent INT,
   child INT,
-  pinned BOOLEAN NOT NULL DEFAULT FALSE
-  secret BOOLEAN NOT NULL DEFAULT FALSE
+  pinned BOOLEAN DEFAULT FALSE,
+  secret BOOLEAN DEFAULT FALSE,
+  PRIMARY KEY(threadid)
 );
 
-
+INSERT INTO thread 
+(wdate, userid, nickname, content)
+VALUES
+(UNIX_TIMESTAMP(), 'gyuholee', 'Gyuholee', 
+'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque fuga commodi obcaecati delectus quaerat earum ad odit ducimus placeat dolorem');

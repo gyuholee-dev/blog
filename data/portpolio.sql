@@ -3,13 +3,12 @@
 */
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, file, link, content) 
+(wdate, title, writer, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'Travel Guide',
   'LeeGyuho',
   'portpolio',
-  '',
   'media',
   'localhost_html_0318_travel_.png',
   '',
@@ -17,13 +16,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, file, link, content) 
+(wdate, title, writer, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'DD Bakery',
   'LeeGyuho',
   'portpolio',
-  '',
   'media',
   'localhost_html_0318_bakery_.png',
   '',
@@ -31,13 +29,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, file, link, content) 
+(wdate, title, writer, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'HS Hotel',
   'LeeGyuho',
   'portpolio',
-  '',
   'media',
   'localhost_html_0316_hshotel_.png',
   '',

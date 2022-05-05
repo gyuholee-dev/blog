@@ -4,13 +4,12 @@
 
 -- 프로필
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, file, link, content) 
+(wdate, title, writer, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '이규호의 프로필',
   'LeeGyuho',
   'profile',
-  '',
   'text',
   'BI-header_r.png',
   '',
@@ -20,13 +19,12 @@ VALUES (
 ---------------------------- 링크 (네개) ----------------------------
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, file, link, content) 
+(wdate, title, writer, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'GITHUB',
   'LeeGyuho',
   'profile',
-  'link',
   'link',
   'images(3).jpg',
   'https://github.com/leegyuho-dev',
@@ -34,13 +32,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, file, link, content) 
+(wdate, title, writer, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'ART & GRAPHIC',
   'LeeGyuho',
   'profile',
-  'link',
   'link',
   'images(2).jpg',
   'https://www.artstation.com/geoflowerstudio',
@@ -48,13 +45,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, file, link, content) 
+(wdate, title, writer, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'DEVELOPMENT',
   'LeeGyuho',
   'profile',
-  'link',
   'link',
   'images(1).jpg',
   'main.php?page=portpolio',
@@ -62,13 +58,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, subcategory, posttype, file, link, content) 
+(wdate, title, writer, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'PROFILE',
   'LeeGyuho',
   'profile',
-  'link',
   'link',
   'BI-header_r.png',
   'main.php?page=profile',
