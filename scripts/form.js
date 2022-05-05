@@ -121,9 +121,9 @@ function sendLogin() {
   document.login.submit();
 }
 
-function checkForm(msg) {
+function checkForm(msg, self) {
   if (confirm(msg)) {
-    return true;
+    self.submit();
   }
   return false;
 }

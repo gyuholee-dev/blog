@@ -3,6 +3,9 @@
 // 템플릿을 로드하여 html 엘리먼트 생성
 function renderElement(string $template, array $data=array()) : string 
 {
+  // default data
+  $data['main'] = MAIN;
+  
   if (!file_exists($template)) return '';
   $html = file_get_contents($template);
   foreach ($data as $key => $value) {
@@ -306,11 +309,11 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
 
 // 페이지 넘버 출력
 function makePageNumber() {
-  global $PAGE;
+  // global $PAGE;
 }
 
 // 유저페이지 출력
-// TODO: 유저 조건은 로직으로 보냄
+// TODO: main.php 문자열을 MAIN 상수로 변경
 function makeUserPage() : string
 {
   global $DB, $USER, $DO;
@@ -329,8 +332,8 @@ function makeUserPage() : string
       'avatar' => $data['avatar'],
       'link' => $data['link']
     );
-  
     $html = renderElement(TPL.'mypage.html', $mypage_data);
+    
   } else {
     $html = renderElement(TPL.$DO.'.html');
   }

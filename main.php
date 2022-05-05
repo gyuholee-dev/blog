@@ -30,20 +30,26 @@ switch ($ACT) {
     break;
 
   case 'user':
-    include INC.'user.php';
     if ($USER) {
-        switch ($DO) {
+      switch ($DO) {
+        case 'mypage':
+          $content .= makeUserPage();
+          break;
         case 'logout':
           logout();
-          header('Location: main.php');
+          header("Location: $MAIN");
           break;
-        case 'delete':
+        case 'signout':
+          signout();
+          header("Location: $MAIN");
           break;
+          
         default:
-          $content .= makeUserPage();
+          header("Location: $MAIN?action=$ACT&do=mypage");
           break;
       }
     } else {
+      include INC.'user.php';
       switch ($DO) {
         case 'login':
           $content .= renderElement(TPL.'login.html');

@@ -3,11 +3,13 @@
     <div class="title">로그인</div>
   </div>
   <div class="content">
-    <form name="login" method="post" action="main.php?action=user&do=login">
+    <form name="login" method="post" action="{main}?action=user&do=login" autocomplete="off">
       <table class="table login">
         <tr>
           <th>아이디</th>
-          <td><input type="text" name="userid" value=""></td>
+          <td>
+            <input type="text" name="userid" value="">
+          </td>
         </tr>
         <tr>
           <th>비밀번호</th>

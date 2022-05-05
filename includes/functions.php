@@ -123,7 +123,6 @@ function logout() : void
   global $MSG;
   unsetUserData();
   pushLog('로그아웃되었습니다.', 'info');
-  $_SESSION['MSG'] = $MSG;
   header('Location: main.php');
 }
 
@@ -134,6 +133,33 @@ function unsetUserData() : bool
   $USER = null;
   unset($_SESSION['USER']);
   setcookie('USER', '', time()-3600);
+  return true;
+}
+
+// 유저 데이터 삭제
+function deleteUserData($userid) : bool
+{
+  global $DB;
+  $sql = "DELETE FROM user WHERE userid = '$userid' ";
+  $res = mysqli_query($DB, $sql);
+  return $res;
+}
+
+// 회원탈퇴
+function signout() : bool
+{
+  global $MSG;
+  global $USER;
+  if (!$USER) return false;
+  if ($USER['groups'] == 'admin') {
+    pushLog('관리자는 탈퇴할 수 없습니다.', 'error');
+    header('Location: main.php');
+    return false;
+  }
+  $userid = $USER['userid'];
+  deleteUserData($userid);
+  unsetUserData();
+  pushLog('회원탈퇴하였습니다.', 'error');
   return true;
 }
 

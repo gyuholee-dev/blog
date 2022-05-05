@@ -3,7 +3,7 @@
     <div class="title">회원정보 수정</div>
   </div>
   <div class="content">
-    <form name="edit" method="post" action="main.php?action=user&do=edit" autocomplete="off">
+    <form name="edit" method="post" action="{main}?action=user&do=edit" autocomplete="off">
       <table class="table edit">
         <tr>
           <th>아이디</th>
@@ -59,11 +59,11 @@
     <div class="title">회원탈퇴</div>
   </div>
   <div class="content">
-    <form name="delete" method="post" action="main.php?action=user&do=delete">
+    <form name="signout" method="post" action="{main}?action=user&do=signout">
       <div class="buttons">
-        <b class="xi-warning red">회원탈퇴시 모든 정보가 삭제됩니다.</b>
+        <b class="xi-warning red">회원정보가 삭제됩니다.</b>
         <input type="hidden" name="confirm" value="true">
-        <input class="btn" type="button" value="회원탈퇴" onclick="checkForm('회원탈퇴하시겠습니까?')">
+        <input class="btn" type="button" value="회원탈퇴" onclick="checkForm('회원탈퇴하시겠습니까?', signout)">
       </div>
     </form>
   </div>

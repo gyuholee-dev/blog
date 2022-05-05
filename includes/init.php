@@ -25,6 +25,8 @@ global $INFO, $CONF, $DBCONF;
 global $DB, $USER;
 global $ACT, $CAT, $DO;
 global $ID, $PAGE, $NUMB;
+global $MAIN;
+$MAIN = MAIN;
 
 // 메시지
 if (isset($_SESSION['MSG'])) {

@@ -6,22 +6,30 @@ if (isset($_POST['confirm'])) {
     case 'login': 
       $userid = $_POST['userid'];
       $password = $_POST['password'];
-      $sql = "SELECT * FROM user 
-              WHERE userid='$userid' 
-              AND password='$password' ";
+    
+      $sql = "SELECT * FROM user WHERE userid='$userid'";
       $res = mysqli_query($DB, $sql);
+
       if (mysqli_num_rows($res) == 1) {
         $userdata = mysqli_fetch_assoc($res);
-        setUserData([
-          'userid' => $userdata['userid'],
-          'nickname' => $userData['nickname'],
-          'groups' => $userData['groups']
-        ]);
-        header('Location: main.php');
+        if (isset($userdata['password']) && $userdata['password'] == AES_ENCRYPT($password, $password)) {
+          setUserData([
+            'userid' => $userdata['userid'],
+            'nickname' => $userData['nickname'],
+            'groups' => $userData['groups']
+          ]);
+          unset($_SESSION['MSG']);
+          if ($ACT=='user' && $DO=='login') {
+            header("Location: $MAIN");
+            break;
+          }
+        } else {
+          pushLog('로그인을 실패하였습니다.', 'error');
+        }
       } else {
-        pushLog('로그인을 실패하였습니다.', 'error');
-        header('Location: main.php?action=user&do=login');
+        pushLog('아이디가 존재하지 않습니다.', 'error');
       }
+      header("Location: $MAIN?action=$ACT&do=$DO");
       break;
 
     case 'signup':
@@ -36,7 +44,7 @@ if (isset($_POST['confirm'])) {
       $sql = "INSERT INTO user 
               (userid, password, nickname, email, avatar, link) 
               VALUES
-              ('$userid', '$password', '$nickname', '$email', '$avatar', '$link') ";
+              ('$userid', AES_ENCRYPT('$password', '$password'), '$nickname', '$email', '$avatar', '$link') ";
       mysqli_query($DB, $sql);
       setUserData([
         'userid' => $userid,
@@ -44,10 +52,11 @@ if (isset($_POST['confirm'])) {
         'groups' => 'user'
       ]);
       pushLog('회원가입을 완료하였습니다.', 'success');
-      header('Location: main.php');
+      header("Location: $MAIN");
       break;
 
     case 'edit':
+      // TODO: 비밀번호 체크
       $userid = $_POST['userid'];
       $password = $_POST['password'];
       $password_check = $_POST['password_check'];
@@ -56,12 +65,12 @@ if (isset($_POST['confirm'])) {
       $avatar = $_POST['avatar'];
       $link = $_POST['link'];
       $sql = "UPDATE user SET 
-              password='$password', 
-              nickname='$nickname', 
-              email='$email', 
-              avatar='$avatar', 
-              link='$link'
-              WHERE userid='$userid' ";
+              password = AES_ENCRYPT('$password', '$password'), 
+              nickname = '$nickname', 
+              email = '$email', 
+              avatar = '$avatar', 
+              link = '$link'
+              WHERE userid = '$userid' ";
       mysqli_query($DB, $sql);
       setUserData([
         'userid' => $userid,
@@ -69,16 +78,8 @@ if (isset($_POST['confirm'])) {
         'groups' => 'user'
       ]);
       pushLog('정보수정을 완료하였습니다.', 'success');
-      header('Location: main.php?action=user&do=mypage');
+      header("Location: $MAIN?action=user&do=mypage");
       break;
-
-    case 'delete':
-      $userid = $_SESSION['USER']['userid'];
-      $sql = "DELETE FROM user WHERE userid = '$userid' ";
-      $res = mysqli_query($DB, $sql);
-      logout();
-      pushLog('회원탈퇴하였습니다.', 'error');
-      header('Location: main.php');
-      break;
+      
   }
 }
