@@ -9,8 +9,8 @@
 
   "libraries" : {
     "styles" : [
-      "styles/global.css?v=0.18",
-      "styles/main.css?v=0.18"
+      "styles/global.css?v=0.19",
+      "styles/main.css?v=0.19"
     ],
     "scripts" : [
       "scripts/functions.js",
