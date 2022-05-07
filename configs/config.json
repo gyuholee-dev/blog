@@ -43,44 +43,56 @@
 
   "pages" : {
     "main" : {
-      "name" : "GyuhoLee",
+      "name" : "",
       "items" : 1,
       "postType": "text",
       "listType": "none",
       "visible": ["post"]
     },
     "profile" : {
-      "name" : "GyuhoLee",
+      "name" : "프로필",
       "items" : 1,
       "postType": "text",
       "listType": "none",
       "visible": ["post"]
     },
     "project" : {
-      "name" : "Project",
+      "name" : "프로젝트",
       "items" : 3,
       "postType": "media",
       "listType": "link",
       "visible": "all"
     },
     "study" : {
-      "name" : "Study",
+      "name" : "스터디",
       "items" : 5,
       "postType": "text",
       "listType": "tile",
       "visible": "all"
     },
     "diary" : {
-      "name" : "Diary",
+      "name" : "다이어리",
       "items" : 5,
       "postType": "media",
       "listType": "text",
       "visible": "all"
     },
     "board" : {
-      "name" : "Board",
+      "name" : "게시판",
       "items" : 10,
       "visible": "all"
+    },
+    "login" : {
+      "name" : "로그인",
+      "visible": "none"
+    },
+    "signup" : {
+      "name" : "회원가입",
+      "visible": "none"
+    },
+    "mypage" : {
+      "name" : "마이페이지",
+      "visible": "none"
     }
   }
 

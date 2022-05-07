@@ -138,6 +138,6 @@ $ACT = isset($_REQUEST['action'])?$_REQUEST['action']:'main';
 $CAT = isset($_REQUEST['category'])?$_REQUEST['category']:'all';
 $DO = isset($_REQUEST['do'])?$_REQUEST['do']:'post';
 
-$ID = isset($_REQUEST['postid'])?$_REQUEST['postid']:0;
+$ID = isset($_REQUEST['postid'])?$_REQUEST['postid']:null;
 $PAGE = isset($_REQUEST['page'])?$_REQUEST['page']:1;
 $NUMB = isset($_REQUEST['numb'])?$_REQUEST['numb']:1;

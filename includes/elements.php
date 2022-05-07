@@ -41,9 +41,15 @@ function renderElement(string $template, array $data=array()) : string
 // TODO: 서브타이틀 변경
 function getSiteTitle() : string
 {
-  global $INFO;
+  global $ACT, $DO, $CONF, $INFO;
   $siteTitle = $INFO['title'];
-  $siteTitle .= ($INFO['subtitle'])??' : '.$INFO['subtitle'];
+  if ($INFO['subtitle']) {
+    $siteTitle .= ' : '.$INFO['subtitle'];
+  } else if ($ACT == 'user' && isset($CONF['pages'][$DO])) {
+    $siteTitle .= ($CONF['pages'][$DO]['name'])?' : '.$CONF['pages'][$DO]['name']:'';
+  } else if (isset($CONF['pages'][$ACT])) {
+    $siteTitle .= ($CONF['pages'][$ACT]['name'])?' : '.$CONF['pages'][$ACT]['name']:'';
+  }
   return $siteTitle;
 }
 
@@ -138,11 +144,17 @@ function getNavmenu($sep=null) : string
 {
   global $CONF, $ACT;
   $main = MAIN;
-  $pages = $CONF['pages'];
+  $pages = array();
+  foreach ($CONF['pages'] as $key => $conf) {
+    if ($conf['visible'] != 'none') {
+      if ($conf['visible'] == 'all' || in_array('menu', $conf['visible'])) {
+          $pages[$key] = $conf;
+      }
+    }
+  }
 
   $navmenu = '';
   foreach ($pages as $key => $conf) {
-    if ($conf['visible'] != 'all' && !in_array('menu', $conf['visible'])) continue;
     $active = ($ACT==$key)?'active':'';
     $navmenu .= "<li class='$active'><a href='$main?action=$key'>$conf[name]</a></li>";
     if ($sep && $key != array_key_last($pages)) {
@@ -205,17 +217,16 @@ function makeFooter() : string
 
 // 포스트 출력
 // TODO: pinned 기능 구현
-function makePost($cat, $postid) 
+function makePost($cat, $requestId=null) : string
 {
-  global $DB;
-  global $CONF;
+  global $ACT, $CONF, $INFO, $DB, $ID;
   $main = MAIN;
   $pages = $CONF['pages'];
 
   $sql = "SELECT * FROM post
   WHERE category = '$cat' ";
-  if ($postid != 0) {
-    $sql .= "AND postid = $postid ";
+  if ($requestId) {
+    $sql .= "AND postid = $requestId ";
   } else {
     $items = $pages[$cat]['items'];
     $sql .= "ORDER BY postid DESC LIMIT 0, $items ";
@@ -226,6 +237,9 @@ function makePost($cat, $postid)
   while ($data = mysqli_fetch_assoc($res)) {
     foreach ($data as $key => $value) {
       $$key = $value;
+    }
+    if ($requestId) {
+      $INFO['subtitle'] = $title;
     }
     $posttype = $pages[$cat]['postType'];
     $posttype .= $pinned?' pinned':'';
