@@ -4,17 +4,14 @@
 
   "theme" : {
     "logo" : "logo.png",
-    "icon" : "icon.png",
-    "favicon" : "favicon.ico",
     "themeColor" : "light"
   },
 
   "libraries" : {
     "styles" : [
-      "styles/fonts.css?v=0.20",
-      "styles/global.css?v=0.20",
-      "styles/theme.css?v=0.20",
-      "styles/main.css?v=0.20"
+      "styles/global.css?v=0.19",
+      "styles/theme.css?v=0.19",
+      "styles/main.css?v=0.19"
     ],
     "scripts" : [
       "scripts/functions.js",
@@ -42,45 +39,35 @@
   },
 
   "pages" : {
-    "main" : {
-      "name" : "GyuhoLee",
-      "items" : 1,
-      "postType": "text",
-      "listType": "none",
-      "visible": ["post"]
-    },
     "profile" : {
       "name" : "GyuhoLee",
       "items" : 1,
       "postType": "text",
-      "listType": "none",
-      "visible": ["post"]
+      "listType": "none"
     },
-    "project" : {
-      "name" : "Project",
+    "portpolio" : {
+      "name" : "Portpolio",
       "items" : 3,
       "postType": "media",
-      "listType": "link",
-      "visible": "all"
+      "listType": "link"
     },
     "study" : {
       "name" : "Study",
       "items" : 5,
       "postType": "text",
-      "listType": "tile",
-      "visible": "all"
+      "listType": "tile"
     },
     "diary" : {
       "name" : "Diary",
       "items" : 5,
       "postType": "media",
-      "listType": "text",
-      "visible": "all"
+      "listType": "text"
     },
     "board" : {
       "name" : "Board",
       "items" : 10,
-      "visible": "all"
+      "postType": "text",
+      "listType": "list"
     }
   }
 

@@ -1,12 +1,21 @@
-document.addEventListener("DOMContentLoaded", async function () {
-  console.log("DOMContentLoaded");
-
+DOMLoaded = async ()=>{
+  console.log("DOM LOADED");
   // 로그 출력
   printLog();
+  
+  // Doc.getQuery('header>.wrap')
+  //   .classList.remove('hide');
+  // Win.scroll({
+  //   top: 140,
+  //   left: 0,
+  // });
 
-});
+}
+WindowLoaded = async ()=>{
+  console.log("WINDOW LOADED");
 
-window.addEventListener("load", async function() {
-  console.log("WindowLoaded");
+}
 
-});
+
+Doc.addEvent("DOMContentLoaded", DOMLoaded);
+Win.addEvent("load", WindowLoaded);

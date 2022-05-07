@@ -1,11 +1,32 @@
 <?php
+// 프리로드
+// https://web.dev/i18n/ko/preload-critical-assets/
+// Link: </css/style.css>; rel="preload"; as="style"
+function preloadLibrary() : void
+{
+  global $CONF;
+  $library = $CONF['libraries'];
+  $html = '';
+  foreach ($library as $key => $libs) {
+    foreach ($libs as $lib) {
+      if ($key == 'styles') {
+        header("Link: <$lib>; rel=preload; as=style;");
+      } elseif ($key == 'scripts') {
+        header("Link: <$lib>; rel=preload; as=script;");
+      } elseif ($key == 'postscripts') {
+        header("Link: <$lib>; rel=preload; as=script;");
+      }
+    }
+  }
+}
+
 
 // 템플릿을 로드하여 html 엘리먼트 생성
 function renderElement(string $template, array $data=array()) : string 
 {
   // default data
   $data['main'] = MAIN;
-  
+
   if (!file_exists($template)) return '';
   $html = file_get_contents($template);
   foreach ($data as $key => $value) {
@@ -27,28 +48,57 @@ function getSiteTitle() : string
 }
 
 // 헤더링크
-function getHeaderLink() : string
+function getHeaderLink($type='logo') : string
 {
-  global $CONF, $INFO;
+  global $ACT, $CONF, $INFO;
+  $active = ($ACT == 'main') ? 'active' : '';
   $theme = $CONF['theme'];
   $siteUrl = ($_SERVER['HTTP_HOST']=='localhost')?MAIN:$INFO['url'];
-  $headerLink = "<a href='$siteUrl'><img src='images/$theme[logo]'></a>";
+  if ($type == 'logo') {
+    $logo = IMG.'icons/'.$theme['logo'];
+    $link = "<a href='$siteUrl'><img src='$logo'></a>";
+  } else if ($type == 'title') {
+    $icon = '<i class="logo BI-icon-SL"></i>';
+    $link = "<a href='$siteUrl'>$icon<span>$INFO[title]</span></a>";
+  }
+
+  $headerLink = <<<HTML
+    <div class="title $active">
+      $link<span class="sep"><i class="xi-angle-right"></i></span>
+    </div>
+  HTML;
+
   return $headerLink;
 }
 
 // 로그인링크
-function getLoginLink() : string
+function getLoginLink($type='link') : string
 {
+  global $USER;
   $main = MAIN;
-  $loginLink = "
-    <a href='$main?action=user&do=login'>Login</a>
-    <a href='$main?action=user&do=signup'>Signup</a>
-  ";
-  if (isset($_SESSION['USER'])) {
-    $loginLink = "
-      <a href='$main?action=user&do=mypage'>Mypage</a>
-      <a href='$main?action=user&do=logout'>Logout</a>
-    ";
+  if ($type == 'link') {
+    if ($USER) {
+      $loginLink = "
+        <a href='$main?action=user&do=mypage'>Mypage</a>
+        <a href='$main?action=user&do=logout'>Logout</a>
+      ";
+    } else {
+      $loginLink = "
+        <a href='$main?action=user&do=login'>Login</a>
+        <a href='$main?action=user&do=signup'>Signup</a>
+      ";
+    }
+  } else if ($type == 'icon') {
+    if ($USER) {
+      $loginLink = "
+        <a href='$main?action=user&do=mypage'><i class='xi-user-o'></i></a>
+      ";
+    } else {
+      $loginLink = "
+        <a href='$main?action=user&do=login'><i class='xi-log-in'></i></a>
+      ";
+    }
+
   }
   return $loginLink;
 }
@@ -83,6 +133,28 @@ function getLibraries($key = 'styles') : string
   
 }
 
+// 네비게이션 출력
+function getNavmenu($sep=null) : string
+{
+  global $CONF, $ACT;
+  $main = MAIN;
+  $pages = $CONF['pages'];
+
+  $navmenu = '';
+  foreach ($pages as $key => $conf) {
+    if ($conf['visible'] != 'all' && !in_array('menu', $conf['visible'])) continue;
+    $active = ($ACT==$key)?'active':'';
+    $navmenu .= "<li class='$active'><a href='$main?action=$key'>$conf[name]</a></li>";
+    if ($sep && $key != array_key_last($pages)) {
+      $navmenu .= "<span class='sep'>$sep</span>";
+    }
+  }
+  
+  $navmenu = '<ul class="menu main">'.$navmenu.'</ul>';
+  return $navmenu;
+
+}
+
 // --------------------------------------------------------------------------
   
 // 헤드 출력
@@ -92,12 +164,13 @@ function makeHead() : string
   $siteTitle = getSiteTitle();
   $description = $INFO['description'];
   $libraries = $CONF['libraries'];
+  $favicon = IMG.'icons/'.$CONF['theme']['favicon'];
 
   $head = <<<HTML
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="$favicon">
     <title>$siteTitle</title>
     <meta name="description" content="$description">
   HTML;
@@ -112,28 +185,12 @@ function makeHead() : string
 function makeHeader() : string
 {
   $header_data = array(
-    'headerLink' => getHeaderLink(),
-    'loginLink' => getLoginLink()
+    'navmenu' => getNavmenu('<i class="xi-minus xi-rotate-90"></i>'),
+    'headerLink' => getHeaderLink('title'),
+    'loginLink' => getLoginLink('icon')
   );
   $header = renderElement(TPL.'header.html', $header_data);
   return $header;
-}
-
-// 네비게이션 출력
-function makeNav() : string
-{
-  global $CONF, $ACT;
-  $main = MAIN;
-  $pages = $CONF['pages'];
-
-  $nav = '';
-  foreach ($pages as $key => $conf) {
-    $active = ($ACT==$key)?'active':'';
-    $nav .= "<li class='$active'><a href='$main?action=$key'>$conf[name]</a></li>";
-  }
-  $nav = '<ul class="menu main">'.$nav.'</ul>';
-
-  return $nav;
 }
 
 // 푸터 출력
@@ -152,6 +209,7 @@ function makePost($cat, $postid)
 {
   global $DB;
   global $CONF;
+  $main = MAIN;
   $pages = $CONF['pages'];
 
   $sql = "SELECT * FROM post
@@ -170,23 +228,30 @@ function makePost($cat, $postid)
       $$key = $value;
     }
     $posttype = $pages[$cat]['postType'];
+    $posttype .= $pinned?' pinned':'';
 
     $headerClass = 'header';
     $headerBG = '';
     $wdate = date("Y-m-d H:i:s", $wdate);
+    if ($pinned) {
+      $wdate = '[고정됨] '.$wdate;
+    }
 
     if ($pinned == true && $file != '') {
-      $headerClass = 'header pinned img';
+      $headerClass = 'header img';
       $headerBG = "<div class='bg' style='background-image:url(\"files/$file\")'></div>";
       $file = '';
-    } 
+    }
     
-    if ($posttype == 'media' && $file != '') {
+    if (!$pinned && $posttype == 'media' && $file != '') {
       $file = "<img src='files/$file'>";
     }
 
-    $category = ($category!='')?"<a href='main.php?page=$category'>$category</a>":$category;
+    $category = ($category!='')?"<a href='$main?action=$category'>$category</a>":$category;
     $tags = getTagLink($tags);
+
+    $textClass = ($posttype == 'media')?'center':'left';
+    $content = "<p class='$textClass'>$content</p>";
 
     $post_data = array( 
       'posttype' => $posttype,

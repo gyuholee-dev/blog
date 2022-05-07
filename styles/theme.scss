@@ -1,0 +1,30 @@
+@import "_variables.scss";
+
+// light theme
+$color-background: $grey-95;
+$color-text: $grey-5;
+$color-header: rgba($white, 0.65);
+$color-section: $white;
+$color-footer: $white;
+
+// dark theme
+// $color-background: $grey-5;
+// $color-text: $grey-85;
+// $color-header: $black;
+// $gradient-header: linear-gradient(to top, rgba($black, 0.65), $black);
+// $color-section: $grey-20;
+// $color-footer: $black;
+
+body {
+  background-color: $color-background;
+  color: $color-text;
+}
+header {
+  background-color: $color-header;
+}
+section {
+  background-color: $color-section;
+}
+footer {
+  background-color: $color-footer;
+}

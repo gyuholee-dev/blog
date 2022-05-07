@@ -1,6 +1,6 @@
 <section class="user">
   <div class="header">
-    <div class="title">회원정보 수정</div>
+    <div class="title">회원정보</div>
   </div>
   <div class="content">
     <form name="edit" method="post" action="{main}?action=user&do=edit" autocomplete="off">
@@ -47,7 +47,8 @@
       <div class="buttons">
         <input type="hidden" name="confirm" value="true">
         <input class="btn" type="button" value="정보수정" onclick="sendEdit()">
-        <input class="btn" type="reset" value="재입력">
+        <!-- <input class="btn" type="reset" value="재입력"> -->
+        <input class="btn" type="button" value="로그아웃" onclick="location.href='{main}?action=user&do=logout'">
       </div>
 
     </form>

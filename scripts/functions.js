@@ -1,3 +1,4 @@
+console.log('FUNCTIONS LOADED');
 // Promise XMLHttpRequest
 async function requestData(file, param = null) {
   let requestUrl = file;
@@ -55,7 +56,8 @@ async function printLog() {
       logs += `<div class="log ${type}">${log}</div>`;
     }
   }
-  logs = `<div id="message">${logs}</div>`;
+  // logs = `<div id="message">${logs}</div>`;
   // https://developer.mozilla.org/ko/docs/Web/API/Element/insertAdjacentHTML
-  document.body.insertAdjacentHTML('afterbegin', logs);
+  // document.body.insertAdjacentHTML('afterbegin', logs);
+  document.querySelector('#message').insertAdjacentHTML('afterbegin', logs);
 }

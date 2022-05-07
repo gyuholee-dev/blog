@@ -12,11 +12,9 @@
 
 body {
   @include font();
-  color: $black;
   font-size: 18px;
   line-height: 1.6;
   word-break: break-all;
-  background-color: $shine;
 }
 
 // FIXME: 인풋 자동완성 폰트사이즈 수정 요망
@@ -87,12 +85,15 @@ table {
   min-height: 100vh;
 }
 
-header,
+header, footer, nav {
+  @include flex(center, center);
+  width: 100%;
+  position: relative;
+}
+
 main,
-footer,
 article,
 section,
-nav,
 aside {
   @include flex(start, center);
   width: 100%;
@@ -131,6 +132,7 @@ b, span, a, .btn {
   &[class*=" xi-"], 
   &[class^=xi-] {
     &:before {
+      font-family: 'xeicon';
       margin-right: 5px;
       font-size: 1.15em;
       position: relative;

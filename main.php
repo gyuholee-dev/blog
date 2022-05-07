@@ -6,15 +6,13 @@ require_once 'includes/elements.php';
 $content = '';
 switch ($ACT) {
   case 'main':
-    $content .= makeList('바로가기', 'tile', 'portpolio', 'link', 0, 4);
-    $content .= makeList('최신 게시물', 'tile', 'all', 'all', 0, 12);
-    break;
-  case 'profile':
     $content .= makePost($ACT, 1);
+    $content .= makeList('최신 게시물', 'tile', 'all', 'all', 0, 12);
+    $content .= makeList('바로가기', 'tile', 'project', 'link', 0, 4);
     break;
-  case 'portpolio':
+  case 'project':
     $content .= makePost($ACT, $ID);
-    $content .= makeList('바로가기', 'tile', 'portpolio', 'link', 0, 4);
+    $content .= makeList('바로가기', 'tile', 'project', 'link', 0, 4);
     break;
   case 'study':
     $content .= makePost($ACT, $ID);
@@ -67,17 +65,19 @@ switch ($ACT) {
     break;
 
   default : // main
-    $content .= makeList('바로가기', 'tile', 'portpolio', 'link', 0, 4);
-    $content .= makeList('최신 게시물', 'tile', 'all', 'all', 0, 12);
+    header("Location: $MAIN");
+    break;
 }
 
 //------------------------ 랜더링 ------------------------
+// 프리로드
+preloadLibrary();
 
 $html_data = array(
   'head' => makeHead(),
   // 'message' => printLog(),
   'header' => makeHeader(),
-  'nav' => makeNav(),
+  // 'nav' => makeNav(),
   'content' => $content,
   'aside' => '',
   'footer' => makeFooter(),
