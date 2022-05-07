@@ -77,7 +77,8 @@ $BI-icon-SS-O: "\ffef";
   }
   &:after {
     content: $BI-icon-SL-path2;  
-    margin-left: -1em;  
+    position: absolute;
+    left: 0; 
     color: inherit;
   }
 }

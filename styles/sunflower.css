@@ -11,7 +11,7 @@
 
 .BI-icon-SL:before { content: "￣"; color: inherit; opacity: 0.3; }
 
-.BI-icon-SL:after { content: "￤"; margin-left: -1em; color: inherit; }
+.BI-icon-SL:after { content: "￤"; position: absolute; left: 0; color: inherit; }
 
 .BI-icon-SS:before { content: "￭"; }
 
