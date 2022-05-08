@@ -45,6 +45,7 @@ header {
       a {
         @include flex(center, center);
         height: inherit;
+        padding: 6px;
         .logo {
           filter:grayscale(1) opacity(0.5);
         }
@@ -74,7 +75,7 @@ header {
     a {
       display: block;
       height: 100%;
-      padding: 6px;
+      padding: 6px 0;
 
       &:hover {
         cursor: pointer;
@@ -113,26 +114,6 @@ main {
 
   a:hover {
     color: $blue;
-  }
-
-  // TODO: 인풋 및 버튼 css 분리
-  .btn, button,
-  input[type=button] {
-    font-size: 1em;
-    padding: 5px;
-    min-width: 120px;
-  }
-
-  input:not([type=radio]), 
-  select,
-  textarea {
-    border: 1px solid #858585;
-    border-radius: 4px;
-    &:focus-visible {
-      border: 1px solid #29cdff;
-      outline: 1px solid #0072ff;
-      box-shadow: 0 0 6px #0014ff;
-    }
   }
 
   article {
@@ -185,7 +166,6 @@ main {
       font-size: 1.125em;
       word-break: keep-all;
       // letter-spacing: 1;
-      line-height: 1.5;
     }
 
     >.footer {
@@ -233,7 +213,7 @@ main {
         margin-top: 10px;
         z-index: 1;
         >span:not(:last-child) {
-          margin-right: 10px;
+          margin-right: 15px;
         }
       }
 
@@ -264,7 +244,7 @@ main {
 
     >.footer {
       >span:not(:last-child) {
-        margin-right: 10px;
+        margin-right: 15px;
       }
       >span:nth-child(2) {
         margin-left: auto;
@@ -321,12 +301,7 @@ main {
         td:last-child {
           padding-right: 60px;
         }
-        
-        input, 
-        select,
-        textarea {
-          padding: 5px;
-        }
+
         input[type=text],
         input[type=number],
         input[type=password],
@@ -335,7 +310,7 @@ main {
           width: 100%;
         }
         select {
-          width: 120px;
+          width: 140px;
         }
         input[type=radio],
         input[type=checkbox] {
@@ -348,9 +323,11 @@ main {
         }
 
         &.signup {
-          input[name=userid],
+          input[name=userid] {
+            width: calc(100% - 104px);
+          }
           input[name=email] {
-            width: calc(100% - 128px);
+            width: calc(100% - 148px);
           }
         }
       }
@@ -503,40 +480,102 @@ main {
 
   // 섹션 보드
   section.list.board {
-    .thread {
-      @include flex(start, start);
-      width: 100%;
-      margin-bottom: 15px;
-      .header {
-        @include flex(center, center, column);
-        min-width: 96px;
-        font-size: 1.35em;
-        margin-right: 15px;
-        .number {
-          padding: 5px;
-          background-color: white;
-        }
+    .chain {
+      &:not(:last-of-type) {
+        border-bottom: 1px solid $light;
+        margin-bottom: 10px;
       }
-      .content {
-        @include flex(start, start, column);
+      .post {
+        @include flex(stretch, space-between);
         width: 100%;
-        max-width: 720px;
-        .message {
-          border: 1px solid $light;
-          padding: 10px 15px;
-          border-radius: 15px;
-          background-color: aliceblue;
-          width: 100%;
-          margin-bottom: 10px;
-          &.left {
-            margin-right: 50px;
+        .header {
+          @include flex(start, start, column);
+          flex-grow: 1;
+          // min-width: 96px;
+          font-size: 1.35em;
+          margin-right: 15px;
+          position: relative;
+          .number {
+            padding: 5px;
+            background-color: white;
+            color: $grey-50;
+            z-index: 1;
+            position: relative;
+            left: -6px;
+          }
+          .quot {
+            position: absolute;
+            left: 23px;
+            background-color: $grey-90;
+            &.line-v {
+              width: 2px;
+              height: 100%;
+            }
+            &.line-h {
+              width: calc(100% - 23px);
+              height: 2px;
+              top: calc(50% - 30px);
+            }
           }
         }
-        .info {
-          @include flex(start, end);
-          width: 100%;
-          >*:not(:last-child) {
-            margin-right: 15px;
+        &.thread .header {
+          display: none;
+        }
+        .content {
+          @include flex(start, start, column);
+          // width: 100%;
+          // max-width: 720px;
+          // min-width: 540px;
+          z-index: 1;
+          .title {
+            font-size: 1.35em;
+            padding: 5px;
+          }
+          .message {
+            border: 1px solid $light;
+            padding: 10px 15px;
+            border-radius: 15px;
+            background-color: aliceblue;
+            width: 100%;
+            margin-bottom: 10px;
+            &.left {
+              margin-right: 50px;
+            }
+          }
+          .info {
+            @include flex(center, end);
+            width: 100%;
+            margin-bottom: 15px;
+            >span:not(:last-child) {
+              margin-right: 15px;
+            }
+            >span:nth-of-type(2) {
+              margin-left: auto;
+            }
+          }
+          .buttons {
+            >*:not(:last-child) {
+              margin-right: 10px;
+            }
+          }
+        }
+        &.reply {
+          .content {
+            width: 100%;
+            max-width: 760px;
+            .message {
+              // max-width: 720px;
+              background-color: antiquewhite;
+            }
+          }
+        }
+        &:last-child {
+          .header {
+            .quot {
+              &.line-v {
+                height: calc(50% - 30px);
+              }
+            }
           }
         }
       }

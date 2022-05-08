@@ -10,70 +10,11 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
+html {
   @include font();
   font-size: 18px;
   line-height: 1.6;
   word-break: break-all;
-}
-
-// FIXME: 인풋 자동완성 폰트사이즈 수정 요망
-// REF: https://stackoverflow.com/questions/57195620/css-autocomplete-font-size
-input:-webkit-autofill::first-line {
-  font-family: inherit;
-  font-size: inherit;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.btn {
-  cursor: pointer;
-}
-
-button {
-  @include font;
-}
-
-img {
-  width: 100%;
-}
-
-.btn,
-button,
-input[type=button],
-input[type=reset] {
-  cursor: pointer;
-  font-size: 1em;
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: #d5d5d5;
-  }
-}
-input[readonly] {
-  background-color: #ddd;
-}
-
-table {
-  width: 100%;
-  width: -webkit-fill-available;
-  border-collapse: collapse;
-  // white-space: nowrap;
-  * {
-    font-size: 1em;
-  }
-  th, td {
-    padding: 5px;
-  }
-  th {
-    text-align: center;
-  }
-  td {
-    text-align: left;
-  }
 }
 
 #container {
@@ -110,7 +51,7 @@ aside {
     padding: 5px 10px;
     background-color: gray;
     color: white;
-    font-size: 0.9em;
+    font-size: 0.9rem;
     text-align: center;
 
     &.info {
@@ -127,26 +68,155 @@ aside {
   }
 }
 
+// FIXME: 인풋 자동완성 폰트사이즈 수정 요망
+// REF: https://stackoverflow.com/questions/57195620/css-autocomplete-font-size
+input:-webkit-autofill::first-line {
+  font-family: inherit;
+  font-size: inherit;
+}
 
-b, span, a, .btn {
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  width: -webkit-fill-available;
+  border-collapse: collapse;
+  // white-space: nowrap;
+  * {
+    font-size: 1rem;
+  }
+  th, td {
+    padding: 5px;
+  }
+  th {
+    text-align: center;
+    white-space: nowrap;
+  }
+  td {
+    text-align: left;
+  }
+}
+
+.btn,
+button,
+input[type=submit],
+input[type=button],
+input[type=reset] {
+  @include font;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.12;
+  padding: 8px 12px;
+  min-width: 112px;
+  background-color: $grey-95;
+  border: 1px solid rgba(black,0.35);
+  border-radius: 8px;
+  box-shadow: inset 0 0 4px rgba(white, 0.25);
+  &:hover,
+  &:active,
+  &:focus {
+    border: 1px solid rgba(black,0.5);
+    text-shadow: 0 0 24px rgba(white, 0.5);
+    box-shadow: inset 0 0 48px rgba(black, 0.1);
+  }
+}
+.btn {
+  &.inline {
+    font-size: 0.9rem;
+    padding: 6px 8px;
+    min-width: 96px;
+  }
+  &.min {
+    font-size: 0.9rem;
+    padding: 6px 8px;
+    min-width: initial;
+  }
+  &.none {
+    padding: 0;
+    border: none;
+    background-color: initial;
+    box-shadow: none;
+    text-shadow: none;
+    min-width: initial;
+    line-height: inherit;
+  }
+  &.icon {
+    min-width: initial;
+  }
+  &.red {
+    background-color: $red;
+    color: white;
+  }
+  &.green {
+    background-color: $green;
+    color: white;
+  }
+  &.blue {
+    background-color: $blue;
+    color: white;
+  }
+}
+
+input[type=text],
+input[type=number],
+input[type=password],
+input[type=email],
+select, textarea {
+  padding: 5px;
+  border: 1px solid $grey-50;
+  border-radius: 6px;
+  &:focus-visible {
+    border: 1px solid #29cdff;
+    outline: 1px solid #0072ff;
+    box-shadow: 0 0 6px #0014ff;
+  }
+}
+input[readonly],input[disabled] {
+  background-color: $grey-90;
+  &:focus-visible {
+    border: 1px solid $grey-50;
+    outline: none;
+    box-shadow: none;
+  }
+}
+input[type=radio],
+input[type=checkbox] {
+  cursor: pointer;
+  margin-right: 5px;
+}
+label {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+b, span, a, label {
+  &.red {
+    color: red;
+  }
+  &.green {
+    color: green;
+  }
+  &.blue {
+    color: #5f5fff;
+  }
+}
+b, span, a, label, .btn {
   &[class*=" xi-"], 
   &[class^=xi-] {
     &:before {
       font-family: 'xeicon';
       margin-right: 5px;
-      font-size: 1.15em;
+      font-size: 1.15rem;
       position: relative;
-      top: 0.075em;
+      top: 0.075rem;
     }
   }
-}
-
-.red {
-  color: red;
-}
-.green {
-  color: green;
-}
-.blue {
-  color: #5f5fff;
 }

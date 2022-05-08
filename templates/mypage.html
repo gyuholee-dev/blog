@@ -47,7 +47,6 @@
       <div class="buttons">
         <input type="hidden" name="confirm" value="true">
         <input class="btn" type="button" value="정보수정" onclick="sendEdit()">
-        <!-- <input class="btn" type="reset" value="재입력"> -->
         <input class="btn" type="button" value="로그아웃" onclick="location.href='{main}?action=user&do=logout'">
       </div>
 
@@ -64,7 +63,7 @@
       <div class="buttons">
         <b class="xi-warning red">회원정보가 삭제됩니다.</b>
         <input type="hidden" name="confirm" value="true">
-        <input class="btn" type="button" value="회원탈퇴" onclick="checkForm('회원탈퇴하시겠습니까?', signout)">
+        <input class="btn red" type="button" value="회원탈퇴" onclick="checkForm('회원탈퇴하시겠습니까?', signout)">
       </div>
     </form>
   </div>

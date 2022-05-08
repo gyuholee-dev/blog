@@ -8,11 +8,11 @@ header nav > .title { display: flex; flex-direction: row; align-items: start; ju
 
 header nav > .title .logo { font-size: 24px; margin-right: 5px; color: orangered; }
 
-header nav > .title a { display: flex; flex-direction: row; align-items: center; justify-content: center; flex-wrap: nowrap; height: inherit; }
+header nav > .title a { display: flex; flex-direction: row; align-items: center; justify-content: center; flex-wrap: nowrap; height: inherit; padding: 6px; }
 
 header nav > .title a .logo { filter: grayscale(1) opacity(0.5); }
 
-header nav > .title.active { color: #34a3e7; }
+header nav > .title.active { color: #21abff; }
 
 header nav > .title.active a .logo, header nav > .title a:hover .logo { filter: grayscale(0) opacity(1); transition: filter 0.25s; }
 
@@ -20,25 +20,19 @@ header nav .btn { width: 50px; height: inherit; text-align: center; font-size: 2
 
 header nav .btn:hover { background-color: initial; }
 
-header nav a { display: block; height: 100%; padding: 6px; }
+header nav a { display: block; height: 100%; padding: 6px 0; }
 
-header nav a:hover { cursor: pointer; color: #34a3e7; }
+header nav a:hover { cursor: pointer; color: #21abff; }
 
 header nav .menu { display: flex; flex-direction: row; align-items: start; justify-content: center; flex-wrap: nowrap; margin-right: auto; height: inherit; overflow: hidden; }
 
 header nav .menu > li { width: 86px; height: 40px; text-align: center; align-self: end; overflow: hidden; }
 
-header nav .menu > li.active { border-bottom: 4px solid #34a3e7; }
+header nav .menu > li.active { border-bottom: 4px solid #21abff; }
 
 main { overflow-x: hidden; flex-grow: 1; }
 
-main a:hover { color: #34a3e7; }
-
-main .btn, main button, main input[type=button] { font-size: 1em; padding: 5px; min-width: 120px; }
-
-main input:not([type=radio]), main select, main textarea { border: 1px solid #858585; border-radius: 4px; }
-
-main input:not([type=radio]):focus-visible, main select:focus-visible, main textarea:focus-visible { border: 1px solid #29cdff; outline: 1px solid #0072ff; box-shadow: 0 0 6px #0014ff; }
+main a:hover { color: #21abff; }
 
 main article { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; max-width: 1000px; padding: 20px 0; }
 
@@ -54,7 +48,7 @@ main section > .header { display: flex; flex-direction: row; align-items: center
 
 main section > .header > .title { font-size: 2em; line-height: 1; z-index: 1; }
 
-main section > .content { display: flex; flex-direction: column; align-items: center; justify-content: start; flex-wrap: nowrap; width: 100%; padding: 0 10px; margin-bottom: 15px; font-size: 1.125em; word-break: keep-all; line-height: 1.5; }
+main section > .content { display: flex; flex-direction: column; align-items: center; justify-content: start; flex-wrap: nowrap; width: 100%; padding: 0 10px; margin-bottom: 15px; font-size: 1.125em; word-break: keep-all; }
 
 main section > .footer { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; width: 100%; height: 22px; }
 
@@ -70,7 +64,7 @@ main section.post > .header > .bg { width: 100%; height: 100%; position: absolut
 
 main section.post > .header .info { height: 22px; display: flex; margin-top: 10px; z-index: 1; }
 
-main section.post > .header .info > span:not(:last-child) { margin-right: 10px; }
+main section.post > .header .info > span:not(:last-child) { margin-right: 15px; }
 
 main section.post .content img { display: block; width: auto; max-width: calc(100% + 30px); margin-bottom: 15px; }
 
@@ -80,7 +74,7 @@ main section.post .content .img.left, main section.post .content p.left { justif
 
 main section.post .content .img.right, main section.post .content p.right { justify-self: end; }
 
-main section.post > .footer > span:not(:last-child) { margin-right: 10px; }
+main section.post > .footer > span:not(:last-child) { margin-right: 15px; }
 
 main section.post > .footer > span:nth-child(2) { margin-left: auto; }
 
@@ -104,17 +98,17 @@ main section.user .content table td.hr::before { content: ""; display: block; wi
 
 main section.user .content table td:last-child { padding-right: 60px; }
 
-main section.user .content table input, main section.user .content table select, main section.user .content table textarea { padding: 5px; }
-
 main section.user .content table input[type=text], main section.user .content table input[type=number], main section.user .content table input[type=password], main section.user .content table input[type=email], main section.user .content table textarea { width: 100%; }
 
-main section.user .content table select { width: 120px; }
+main section.user .content table select { width: 140px; }
 
 main section.user .content table input[type=radio], main section.user .content table input[type=checkbox] { cursor: pointer; margin-right: 5px; }
 
 main section.user .content table label { cursor: pointer; margin-right: 5px; }
 
-main section.user .content table.signup input[name=userid], main section.user .content table.signup input[name=email] { width: calc(100% - 128px); }
+main section.user .content table.signup input[name=userid] { width: calc(100% - 104px); }
+
+main section.user .content table.signup input[name=email] { width: calc(100% - 148px); }
 
 main section.user .buttons { display: flex; flex-direction: row; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; }
 
@@ -154,21 +148,43 @@ main section.list.tile ul.tile .box.link > .post > .title, main section.list.til
 
 main section.list.tile ul.tile .box.link > .post > .summary { display: none; }
 
-main section.list.board .thread { display: flex; flex-direction: row; align-items: start; justify-content: start; flex-wrap: nowrap; width: 100%; margin-bottom: 15px; }
+main section.list.board .chain:not(:last-of-type) { border-bottom: 1px solid #a5a5a5; margin-bottom: 10px; }
 
-main section.list.board .thread .header { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-wrap: nowrap; min-width: 96px; font-size: 1.35em; margin-right: 15px; }
+main section.list.board .chain .post { display: flex; flex-direction: row; align-items: stretch; justify-content: space-between; flex-wrap: nowrap; width: 100%; }
 
-main section.list.board .thread .header .number { padding: 5px; background-color: white; }
+main section.list.board .chain .post .header { display: flex; flex-direction: column; align-items: start; justify-content: start; flex-wrap: nowrap; flex-grow: 1; font-size: 1.35em; margin-right: 15px; position: relative; }
 
-main section.list.board .thread .content { display: flex; flex-direction: column; align-items: start; justify-content: start; flex-wrap: nowrap; width: 100%; max-width: 720px; }
+main section.list.board .chain .post .header .number { padding: 5px; background-color: white; color: gray; z-index: 1; position: relative; left: -6px; }
 
-main section.list.board .thread .content .message { border: 1px solid #a5a5a5; padding: 10px 15px; border-radius: 15px; background-color: aliceblue; width: 100%; margin-bottom: 10px; }
+main section.list.board .chain .post .header .quot { position: absolute; left: 23px; background-color: #e6e6e6; }
 
-main section.list.board .thread .content .message.left { margin-right: 50px; }
+main section.list.board .chain .post .header .quot.line-v { width: 2px; height: 100%; }
 
-main section.list.board .thread .content .info { display: flex; flex-direction: row; align-items: start; justify-content: end; flex-wrap: nowrap; width: 100%; }
+main section.list.board .chain .post .header .quot.line-h { width: calc(100% - 23px); height: 2px; top: calc(50% - 30px); }
 
-main section.list.board .thread .content .info > *:not(:last-child) { margin-right: 15px; }
+main section.list.board .chain .post.thread .header { display: none; }
+
+main section.list.board .chain .post .content { display: flex; flex-direction: column; align-items: start; justify-content: start; flex-wrap: nowrap; z-index: 1; }
+
+main section.list.board .chain .post .content .title { font-size: 1.35em; padding: 5px; }
+
+main section.list.board .chain .post .content .message { border: 1px solid #a5a5a5; padding: 10px 15px; border-radius: 15px; background-color: aliceblue; width: 100%; margin-bottom: 10px; }
+
+main section.list.board .chain .post .content .message.left { margin-right: 50px; }
+
+main section.list.board .chain .post .content .info { display: flex; flex-direction: row; align-items: center; justify-content: end; flex-wrap: nowrap; width: 100%; margin-bottom: 15px; }
+
+main section.list.board .chain .post .content .info > span:not(:last-child) { margin-right: 15px; }
+
+main section.list.board .chain .post .content .info > span:nth-of-type(2) { margin-left: auto; }
+
+main section.list.board .chain .post .content .buttons > *:not(:last-child) { margin-right: 10px; }
+
+main section.list.board .chain .post.reply .content { width: 100%; max-width: 760px; }
+
+main section.list.board .chain .post.reply .content .message { background-color: antiquewhite; }
+
+main section.list.board .chain .post:last-child .header .quot.line-v { height: calc(50% - 30px); }
 
 #loading { width: 100%; text-align: center; font-size: 1.5em; margin: 10px 0; color: #808080; }
 

@@ -1,33 +1,7 @@
 @charset "UTF-8";
 * { margin: 0; padding: 0; list-style: none; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-body { font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; font-size: 18px; line-height: 1.6; word-break: break-all; }
-
-input:-webkit-autofill::first-line { font-family: inherit; font-size: inherit; }
-
-a { text-decoration: none; color: inherit; }
-
-.btn { cursor: pointer; }
-
-button { font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; }
-
-img { width: 100%; }
-
-.btn, button, input[type=button], input[type=reset] { cursor: pointer; font-size: 1em; }
-
-.btn:hover, .btn:active, .btn:focus, button:hover, button:active, button:focus, input[type=button]:hover, input[type=button]:active, input[type=button]:focus, input[type=reset]:hover, input[type=reset]:active, input[type=reset]:focus { background-color: #d5d5d5; }
-
-input[readonly] { background-color: #ddd; }
-
-table { width: 100%; width: -webkit-fill-available; border-collapse: collapse; }
-
-table * { font-size: 1em; }
-
-table th, table td { padding: 5px; }
-
-table th { text-align: center; }
-
-table td { text-align: left; }
+html { font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; font-size: 18px; line-height: 1.6; word-break: break-all; }
 
 #container { display: flex; flex-direction: column; align-items: center; justify-content: start; flex-wrap: nowrap; width: 100%; margin: 0 auto; position: relative; min-height: 100vh; }
 
@@ -39,7 +13,7 @@ aside { width: 0; }
 
 #message { width: 100%; }
 
-#message .log { padding: 5px 10px; background-color: gray; color: white; font-size: 0.9em; text-align: center; }
+#message .log { padding: 5px 10px; background-color: gray; color: white; font-size: 0.9rem; text-align: center; }
 
 #message .log.info { background-color: #5f5fff; }
 
@@ -47,10 +21,56 @@ aside { width: 0; }
 
 #message .log.error { background-color: red; }
 
-b[class*=" xi-"]:before, b[class^=xi-]:before, span[class*=" xi-"]:before, span[class^=xi-]:before, a[class*=" xi-"]:before, a[class^=xi-]:before, .btn[class*=" xi-"]:before, .btn[class^=xi-]:before { font-family: 'xeicon'; margin-right: 5px; font-size: 1.15em; position: relative; top: 0.075em; }
+input:-webkit-autofill::first-line { font-family: inherit; font-size: inherit; }
 
-.red { color: red; }
+a { text-decoration: none; color: inherit; }
 
-.green { color: green; }
+img { width: 100%; }
 
-.blue { color: #5f5fff; }
+table { width: 100%; width: -webkit-fill-available; border-collapse: collapse; }
+
+table * { font-size: 1rem; }
+
+table th, table td { padding: 5px; }
+
+table th { text-align: center; white-space: nowrap; }
+
+table td { text-align: left; }
+
+.btn, button, input[type=submit], input[type=button], input[type=reset] { font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; cursor: pointer; font-size: 1rem; font-weight: bold; line-height: 1.12; padding: 8px 12px; min-width: 112px; background-color: #f2f2f2; border: 1px solid rgba(0, 0, 0, 0.35); border-radius: 8px; box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.25); }
+
+.btn:hover, .btn:active, .btn:focus, button:hover, button:active, button:focus, input[type=submit]:hover, input[type=submit]:active, input[type=submit]:focus, input[type=button]:hover, input[type=button]:active, input[type=button]:focus, input[type=reset]:hover, input[type=reset]:active, input[type=reset]:focus { border: 1px solid rgba(0, 0, 0, 0.5); text-shadow: 0 0 24px rgba(255, 255, 255, 0.5); box-shadow: inset 0 0 48px rgba(0, 0, 0, 0.1); }
+
+.btn.inline { font-size: 0.9rem; padding: 6px 8px; min-width: 96px; }
+
+.btn.min { font-size: 0.9rem; padding: 6px 8px; min-width: initial; }
+
+.btn.none { padding: 0; border: none; background-color: initial; box-shadow: none; text-shadow: none; min-width: initial; line-height: inherit; }
+
+.btn.icon { min-width: initial; }
+
+.btn.red { background-color: #ff4200; color: white; }
+
+.btn.green { background-color: #34c234; color: white; }
+
+.btn.blue { background-color: #21abff; color: white; }
+
+input[type=text], input[type=number], input[type=password], input[type=email], select, textarea { padding: 5px; border: 1px solid gray; border-radius: 6px; }
+
+input[type=text]:focus-visible, input[type=number]:focus-visible, input[type=password]:focus-visible, input[type=email]:focus-visible, select:focus-visible, textarea:focus-visible { border: 1px solid #29cdff; outline: 1px solid #0072ff; box-shadow: 0 0 6px #0014ff; }
+
+input[readonly], input[disabled] { background-color: #e6e6e6; }
+
+input[readonly]:focus-visible, input[disabled]:focus-visible { border: 1px solid gray; outline: none; box-shadow: none; }
+
+input[type=radio], input[type=checkbox] { cursor: pointer; margin-right: 5px; }
+
+label { cursor: pointer; margin-right: 5px; }
+
+b.red, span.red, a.red, label.red { color: red; }
+
+b.green, span.green, a.green, label.green { color: green; }
+
+b.blue, span.blue, a.blue, label.blue { color: #5f5fff; }
+
+b[class*=" xi-"]:before, b[class^=xi-]:before, span[class*=" xi-"]:before, span[class^=xi-]:before, a[class*=" xi-"]:before, a[class^=xi-]:before, label[class*=" xi-"]:before, label[class^=xi-]:before, .btn[class*=" xi-"]:before, .btn[class^=xi-]:before { font-family: 'xeicon'; margin-right: 5px; font-size: 1.15rem; position: relative; top: 0.075rem; }
