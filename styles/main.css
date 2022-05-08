@@ -40,6 +40,8 @@ main section { display: flex; flex-direction: column; align-items: center; justi
 
 main section:not(:last-of-type) { margin-bottom: 20px; }
 
+main section > div:not(:last-of-type) { margin-bottom: 15px; }
+
 main section > .title { padding: 5px 10px 0; font-size: 1.2em; }
 
 main section > .title::before { position: relative; top: 1px; margin-right: 5px; }
@@ -48,7 +50,7 @@ main section > .header { display: flex; flex-direction: row; align-items: center
 
 main section > .header > .title { font-size: 2em; line-height: 1; z-index: 1; }
 
-main section > .content { display: flex; flex-direction: column; align-items: center; justify-content: start; flex-wrap: nowrap; width: 100%; padding: 0 10px; margin-bottom: 15px; font-size: 1.125em; word-break: keep-all; }
+main section > .content { display: flex; flex-direction: column; align-items: center; justify-content: start; flex-wrap: nowrap; width: 100%; padding: 0 10px; font-size: 1.125em; word-break: keep-all; }
 
 main section > .footer { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; width: 100%; height: 22px; }
 
@@ -180,12 +182,28 @@ main section.list.board .chain .post .content .info > span:nth-of-type(2) { marg
 
 main section.list.board .chain .post .content .buttons > *:not(:last-child) { margin-right: 10px; }
 
-main section.list.board .chain .post.reply .content { width: 100%; max-width: 760px; }
+main section.list.board .chain .post.reply .content { width: 100%; max-width: 800px; }
 
 main section.list.board .chain .post.reply .content .message { background-color: antiquewhite; }
 
 main section.list.board .chain .post:last-child .header .quot.line-v { height: calc(50% - 30px); }
 
-#loading { width: 100%; text-align: center; font-size: 1.5em; margin: 10px 0; color: #808080; }
+#loading { width: 100%; text-align: center; font-size: 1.5em; margin-bottom: -15px; color: gray; }
+
+aside { position: absolute; width: 100%; z-index: 9; max-width: calc(1000px + 84px + 20px); padding: 0 15px; }
+
+aside#leftmenu { align-items: start; }
+
+aside#rightmenu { align-items: end; }
+
+aside button { background-color: white !important; position: fixed; transform: scale(1.15); }
+
+aside button:hover { color: #21abff; }
+
+aside button.top { top: calc(40px + 15px); }
+
+aside button.bottom { bottom: 15px; }
+
+aside button:nth-child(2):not(:last-of-type).top { top: calc(40px + 15px + 48px + 14px); }
 
 footer { width: 100%; height: 60px; align-items: center; margin: 0 auto; border-top: 1px solid rgba(0, 0, 0, 0.25); font-size: 0.9em; }

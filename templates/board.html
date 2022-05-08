@@ -4,5 +4,18 @@
   </div>
   <div class="content">
     {list}
+    <div id="loading">
+      <i class="xi-spinner-3 xi-spin"></i>
+      <form name="form">
+        <input type="hidden" name="target" value="test">
+      </form>
+      <script>
+        onVisible(loading, ()=> {
+          console.log("LOAD THREAD:", form.target.value);
+          // getThreadList(form.target.value);
+          // makeThreadList(form);
+        });
+      </script>
+    </div>
   </div>
 </section>

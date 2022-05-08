@@ -34,14 +34,15 @@ header, footer, nav {
 
 main,
 article,
-section,
-aside {
+section {
   @include flex(start, center);
   width: 100%;
   position: relative;
 }
 
 aside {
+  @include flex(center, start, column);
+  position: relative;
   width: 0;
 }
 
@@ -151,6 +152,18 @@ input[type=reset] {
   &.icon {
     min-width: initial;
   }
+  &.float {
+    text-align: center;
+    background-color: initial;
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+    min-width: initial;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    box-shadow: none !important;
+  }
+
   &.red {
     background-color: $red;
     color: white;

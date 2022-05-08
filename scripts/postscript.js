@@ -2,13 +2,9 @@ DOMLoaded = async ()=>{
   console.log("DOM LOADED");
   // 로그 출력
   printLog();
-  
-  // Doc.getQuery('header>.wrap')
-  //   .classList.remove('hide');
-  // Win.scroll({
-  //   top: 140,
-  //   left: 0,
-  // });
+
+  // const threadList = await getThreadList();
+  // console.log(threadList);
 
 }
 WindowLoaded = async ()=>{

@@ -75,11 +75,10 @@ preloadLibrary();
 // 랜더링
 $html_data = array(
   'head' => makeHead(),
-  // 'message' => printLog(),
   'header' => makeHeader(),
-  // 'nav' => makeNav(),
   'content' => $content,
-  'aside' => '',
+  'leftmenu' => makeSidemenu('left'),
+  'rightmenu' => makeSidemenu('right'),
   'footer' => makeFooter(),
   'postScript' => getLibraries('postscripts'),
 );

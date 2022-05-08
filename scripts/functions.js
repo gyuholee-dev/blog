@@ -33,7 +33,7 @@ async function requestData(file, param = null) {
   }
 }
 // XHR Excute PHP function
-async function xhr(func, param = null) {
+async function xhr(func, param = null, useHtml=false) {
   if (param === null) {
     param = {};
   }
@@ -60,4 +60,29 @@ async function printLog() {
   // https://developer.mozilla.org/ko/docs/Web/API/Element/insertAdjacentHTML
   // document.body.insertAdjacentHTML('afterbegin', logs);
   document.querySelector('#message').insertAdjacentHTML('afterbegin', logs);
+}
+
+// ---------------------------------------------------------------------------------------
+
+// 윈도우 스크롤탑
+function scrollToTop(speed = 'smooth') {
+  window.scroll({top: 0, behavior: speed});
+}
+
+// 온비지블 이벤트
+function onVisible(element, callback) {
+  new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if(entry.intersectionRatio > 0) {
+        callback(element);
+        // observer.disconnect();
+      }
+    });
+  }).observe(element);
+}
+
+// 쓰레드리스트 출력
+async function getThreadList() {
+  const threadList = await xhr('getThreadList');
+  return threadList;
 }

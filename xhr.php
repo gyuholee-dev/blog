@@ -1,5 +1,6 @@
 <?php // xhr.php
 require_once('includes/init.php');
+require_once('includes/elements.php');
 // session_start();
 
 // XHR 함수명 선언
@@ -7,26 +8,26 @@ $callFN = 'xhr_test';
 
 // 함수 리퀘스트
 if (isset($_GET['call'])) {
-    $call = $_GET['call'];
+  $call = $_GET['call'];
 } else {
-    echo 'XHR_INVALID_ACCESS';
-    exit();
+  echo 'XHR_INVALID_ACCESS';
+  exit();
 }
 $callFN = 'xhr_'.$call;
 
 // 리퀘스트 들어온 함수를 실행한다
 if (function_exists($callFN)) {
-    $callFN();
+  $callFN();
 } else {
-    echo json_encode('XHR_CALL_UNKNOWN_FUNCTION: '.$callFN);
-    exit();
+  echo json_encode('XHR_CALL_UNKNOWN_FUNCTION: '.$callFN);
+  exit();
 }
 
 // XHR 테스트함수
 // echo 로 리턴
 // 리턴값을 받아 console.log 로 출력해봄
 function xhr_test() {
-    echo json_encode($_GET);
+  echo json_encode($_GET);
 }
 
 // XHR 함수 ------------------------------------------------
@@ -35,14 +36,18 @@ function xhr_test() {
 
 // XHR MSG
 function xhr_getMsg() {
-    global $MSG;
-    if (isset($MSG)) {
-        echo json_encode($MSG);
-        unset($_SESSION['MSG']);
-    }
+  global $MSG;
+  if (isset($MSG)) {
+    echo json_encode($MSG);
+    unset($_SESSION['MSG']);
+  }
 }
 
 // XHR 유저아이디 검사
 function xhr_checkId() {
-    echo checkId($_GET['userid']);
+  echo checkId($_GET['userid']);
+}
+
+function xhr_getThreadList() {
+  echo json_encode(makeThreadList());
 }

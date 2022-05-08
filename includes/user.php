@@ -12,12 +12,8 @@ if (isset($_POST['confirm'])) {
 
       if (mysqli_num_rows($res) == 1) {
         $userdata = mysqli_fetch_assoc($res);
-        if (isset($userdata['password']) && $userdata['password'] == AES_ENCRYPT($password, $password)) {
-          setUserData([
-            'userid' => $userdata['userid'],
-            'nickname' => $userData['nickname'],
-            'groups' => $userData['groups']
-          ]);
+        if ($userdata['password'] == AES_ENCRYPT($password, $password)) {
+          setUserData($userdata);
           unset($_SESSION['MSG']);
           if ($ACT=='user' && $DO=='login') {
             header("Location: $MAIN");

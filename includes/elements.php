@@ -380,7 +380,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
     if ($posttype=='link') {
       $linkUrl = $link;
     } else {
-      $linkUrl = "$main?action=$category&postid=$postid";
+      $linkUrl = "$main?action=$category&do=post&postid=$postid";
     }
     if ($posttype=='link' || $posttype=='media') {
       if ($data['file'] != '') {
@@ -524,5 +524,39 @@ function makeUserPage() : string
     $html = renderElement(TPL.$DO.'.html');
   }
   
+  return $html;
+}
+
+// 사이드메뉴 출력
+// TODO: 팝업 스크립트 실행
+function makeSidemenu($position)
+{
+  global $ACT, $DO, $USER;
+  
+  $html = "";
+  if ($position == 'left') {
+
+  } elseif ($position == 'right') {
+    if ($USER && $USER['groups'] == 'admin' && ($DO == 'post' || $DO == 'list')) {
+      $html .= "
+        <button class='btn float top' id='write-post' class='button'>
+          <i class='xi-pen-o'></i>
+        </button>
+      ";
+    }
+    if ($USER && $ACT != 'main'&& ($DO == 'post' || $DO == 'thread')) {
+      $html .= "
+        <button class='btn float top' id='write-post' class='button'>
+          <i class='xi-plus'></i>
+        </button>
+      ";
+    }
+    $html .= "
+      <button class='btn float bottom' id='back-to-top' onclick='scrollToTop()'>
+        <i class='xi-angle-up'></i>
+      </button>
+    ";
+  }
+
   return $html;
 }

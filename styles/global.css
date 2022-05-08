@@ -7,9 +7,9 @@ html { font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun G
 
 header, footer, nav { display: flex; flex-direction: row; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; position: relative; }
 
-main, article, section, aside { display: flex; flex-direction: row; align-items: start; justify-content: center; flex-wrap: nowrap; width: 100%; position: relative; }
+main, article, section { display: flex; flex-direction: row; align-items: start; justify-content: center; flex-wrap: nowrap; width: 100%; position: relative; }
 
-aside { width: 0; }
+aside { display: flex; flex-direction: column; align-items: center; justify-content: start; flex-wrap: nowrap; position: relative; width: 0; }
 
 #message { width: 100%; }
 
@@ -48,6 +48,8 @@ table td { text-align: left; }
 .btn.none { padding: 0; border: none; background-color: initial; box-shadow: none; text-shadow: none; min-width: initial; line-height: inherit; }
 
 .btn.icon { min-width: initial; }
+
+.btn.float { text-align: center; background-color: initial; width: 42px; height: 42px; padding: 9px; min-width: initial; border-radius: 50%; font-size: 1.25rem; box-shadow: none !important; }
 
 .btn.red { background-color: #ff4200; color: white; }
 
