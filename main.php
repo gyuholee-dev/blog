@@ -23,8 +23,7 @@ switch ($ACT) {
 
   case 'board':
     include INC.'board.php';
-    $content .= $board_content;
-    // $content .= renderElement(TPL.'board.html');
+    $content .= makeThreadList();
     break;
 
   case 'user':
@@ -73,6 +72,7 @@ switch ($ACT) {
 // 프리로드
 preloadLibrary();
 
+// 랜더링
 $html_data = array(
   'head' => makeHead(),
   // 'message' => printLog(),
