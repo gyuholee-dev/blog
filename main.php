@@ -6,7 +6,7 @@ require_once 'includes/elements.php';
 $content = '';
 switch ($ACT) {
   case 'main':
-    $content .= makePostPage($ACT, $ID);
+    $content .= makePostPage($ACT, 1);
     $content .= makeList('최신 게시물', 'tile', 'all', 'all', 0, 12);
     $content .= makeList('바로가기', 'tile', 'project', 'link', 0, 4);
     break;
