@@ -129,7 +129,7 @@ main {
     max-width: calc(#{$max-width} - 30px);
     padding: 25px;
     border-radius: 10px;
-    &:not(:last-of-type) {
+    &:not(:last-child) {
       margin-bottom: 20px;
     }
     >div:not(:last-of-type) {
@@ -595,6 +595,7 @@ main {
 }
 
 // 로딩
+// TODO: 상태값에 따라 아이콘 변경
 #loading {
   width: 100%;
   text-align: center;
@@ -602,7 +603,13 @@ main {
   line-height: 1;
   color: $grey-65;
   position: relative;
-  bottom: -8px;
+  // top: -8px;
+  // bottom: -8px;
+}
+section.board {
+  #loading {
+    bottom: -8px;
+  }
 }
 
 aside {
@@ -633,6 +640,9 @@ aside {
     }
     &:nth-child(2):not(:last-of-type).top {
       top: calc(#{$height-nav} + 15px + 48px + 14px);
+    }
+    &:nth-last-child(2):not(:last-of-type).bottom {
+      bottom: calc(15px + 48px + 14px);
     }
   }
 }

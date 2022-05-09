@@ -77,6 +77,25 @@ function getHeaderLink($type='logo') : string
   return $headerLink;
 }
 
+// 라이브러리 링크
+function getLibraries($key = 'styles') : string
+{
+  global $CONF;
+  $library = $CONF['libraries'][$key];
+  $html = '';
+  foreach ($library as $lib) {
+    if ($key == 'styles') {
+      $html .= "<link rel='stylesheet' href='$lib'>";
+    } elseif ($key == 'scripts') {
+      $html .= "<script type='text/javascript' src='$lib'></script>";
+    } elseif ($key == 'postscripts') {
+      $html .= "<script type='text/javascript' src='$lib'></script>";
+    }
+  }
+  return $html;
+  
+}
+
 // 로그인링크
 function getLoginLink($type='link') : string
 {
@@ -119,24 +138,6 @@ function getTagLink(string $tags) : string
     $html .= "<a href='#'>$tag</a>";
   }
   return $html;
-}
-
-function getLibraries($key = 'styles') : string
-{
-  global $CONF;
-  $library = $CONF['libraries'][$key];
-  $html = '';
-  foreach ($library as $lib) {
-    if ($key == 'styles') {
-      $html .= "<link rel='stylesheet' href='$lib'>";
-    } elseif ($key == 'scripts') {
-      $html .= "<script type='text/javascript' src='$lib'></script>";
-    } elseif ($key == 'postscripts') {
-      $html .= "<script type='text/javascript' src='$lib'></script>";
-    }
-  }
-  return $html;
-  
 }
 
 // 네비게이션 출력
@@ -196,18 +197,22 @@ function getButton($type, $label='', $attr=array()) : string
   return $button;
 }
 
-function getLoading($start, $items, $count) : string
+// 로딩서클
+// TODO: 상태값에 따라 아이콘 변경
+function getLoading($target, $start, $items, $count) : string
 {
+  global $ACT;
   $html = <<<HTML
     <div id="loading">
       <i class="xi-spinner-3 xi-spin"></i>
-      <form name="thread">
+      <form name="$target">
+        <input type="hidden" name="action" value="$ACT">
         <input type="hidden" name="start" value="$start">
         <input type="hidden" name="items" value="$items">
         <input type="hidden" name="count" value="$count">
       </form>
       <script>
-        setLoadingEvent(loading, thread);
+        setLoadingEvent(loading, $target);
       </script>
     </div>
   HTML;
@@ -263,88 +268,123 @@ function makeFooter() : string
 }
 
 // 포스트 출력
-// TODO: pinned 기능 구현
 // TODO: 버튼 권한 체크
-function makePost($cat, $requestId=null) : string
+function makePost($data) : string
 {
-  global $ACT, $CONF, $INFO, $DB, $ID;
+  global $ACT, $INFO, $CONF, $DO, $ID;
   $main = MAIN;
-  $pages = $CONF['pages'];
 
-  $sql = "SELECT * FROM post
-  WHERE category = '$cat' ";
-  if ($requestId) {
-    $sql .= "AND postid = $requestId ";
-  } else {
-    $items = $pages[$cat]['items'];
-    $sql .= "ORDER BY postid DESC LIMIT 0, $items ";
+  foreach ($data as $key => $value) {
+    $$key = $value;
   }
+  if ($DO == 'post' && $ID) {
+    $INFO['subtitle'] = $title;
+  }
+  // $posttype = $data['posttype'];
+  $posttype = $CONF['pages'][$ACT]['postType'];
+  $posttype .= $pinned?' pinned':'';
+
+  $headerClass = 'header';
+  $headerBG = '';
+  $wdate = date("Y-m-d H:i:s", $wdate);
+  if ($pinned) {
+    $wdate = '[고정됨] '.$wdate;
+  }
+
+  if ($pinned == true && $file != '') {
+    $headerClass = 'header img';
+    $headerBG = "<div class='bg' style='background-image:url(\"files/$file\")'></div>";
+    $file = '';
+  }
+  
+  if (!$pinned && $posttype == 'media' && $file != '') {
+    $file = "<img src='files/$file'>";
+  }
+
+  $category = ($category!='')?"<a href='$main?action=$category'>$category</a>":$category;
+  $tags = getTagLink($tags);
+
+  $textClass = ($posttype == 'media')?'center':'left';
+  $content = "<p class='$textClass'>$content</p>";
+
+  $buttonEdit =
+    getButton('button', '수정', ['class'=>'min']).
+    getButton('button', '삭제', ['class'=>'min']);
+
+  $post_data = array( 
+    'posttype' => $posttype,
+    'headerClass' => $headerClass,
+    'headerBG' => $headerBG,
+    'title' => $title,
+    'category' => $category,
+    'wdate' => $wdate,
+    'writer' => $writer,
+    'tags' => $tags,
+    'file' => $file,
+    'content' => $content,
+    'buttonEdit' => $buttonEdit,
+  );
+  
+  return renderElement(TPL.'post.html', $post_data);
+}
+
+// 포스트 리스트 출력
+function makePostList($start=0, $items=5, $category=null, $pinned=0) : string
+{
+  global $ACT, $DB;
+  $category = (!$category)?$ACT:$category;
+
+  $sql = "SELECT * FROM post 
+          WHERE category = '$category' AND pinned = '$pinned'
+          ORDER BY postid DESC LIMIT $start, $items ";
   $res = mysqli_query($DB, $sql);
 
+  $html = "";
+  if ($start == 0 && $pinned == 0) {
+    $html .= makePostList(0, $items, $category, 1); // pinned
+  }
+
   $html = '';
-  while ($data = mysqli_fetch_assoc($res)) {
-    foreach ($data as $key => $value) {
-      $$key = $value;
+  if (mysqli_num_rows($res) > 0) {
+    while ($data = mysqli_fetch_assoc($res)) {
+      $html .= makePost($data);
+      // 답글 추가
+      // if ($data['replycnt'] > 0) {
     }
-    if ($requestId) {
-      $INFO['subtitle'] = $title;
-    }
-    $posttype = $pages[$cat]['postType'];
-    $posttype .= $pinned?' pinned':'';
-
-    $headerClass = 'header';
-    $headerBG = '';
-    $wdate = date("Y-m-d H:i:s", $wdate);
-    if ($pinned) {
-      $wdate = '[고정됨] '.$wdate;
-    }
-
-    if ($pinned == true && $file != '') {
-      $headerClass = 'header img';
-      $headerBG = "<div class='bg' style='background-image:url(\"files/$file\")'></div>";
-      $file = '';
-    }
-    
-    if (!$pinned && $posttype == 'media' && $file != '') {
-      $file = "<img src='files/$file'>";
-    }
-
-    $category = ($category!='')?"<a href='$main?action=$category'>$category</a>":$category;
-    $tags = getTagLink($tags);
-
-    $textClass = ($posttype == 'media')?'center':'left';
-    $content = "<p class='$textClass'>$content</p>";
-
-    $buttonEdit =
-      getButton('button', '수정', ['class'=>'min']).
-      getButton('button', '삭제', ['class'=>'min']);
-
-    $post_data = array( 
-      'posttype' => $posttype,
-      'headerClass' => $headerClass,
-      'headerBG' => $headerBG,
-      'title' => $title,
-      'category' => $category,
-      'wdate' => $wdate,
-      'writer' => $writer,
-      'tags' => $tags,
-      'file' => $file,
-      'content' => $content,
-      'buttonEdit' => $buttonEdit,
-    );
-    
-    $html .= renderElement(TPL.'post.html', $post_data);
   }
 
   return $html;
 
 }
 
+// 포스트 페이지 출력
+function makePostPage($category, $requestId=null) : string
+{
+  global $DB, $CONF;
+  $start = 0;
+  $items = $CONF['pages'][$category]['items'];
+
+  $html = '';
+  if ($requestId) {
+    $sql = "SELECT * FROM post WHERE postid = $requestId";
+    $res = mysqli_query($DB, $sql);
+    $html .= makePost(mysqli_fetch_assoc($res));
+  } else {
+    $sql = "SELECT COUNT(*) FROM post 
+            WHERE category = '$category' AND pinned = 0";
+    $res = mysqli_query($DB, $sql);
+    $count = mysqli_fetch_row($res)[0];
+    $html .= makePostList($start, $items, $category);
+    $html .= getLoading('post', $start+$items, $items, $count);
+  }
+  return $html;
+}
+
 // 리스트 출력
 // TODO: 테이블 리스트 출력 기능 추가
-function makeList($listTitle='리스트', $listType='tile', $category='all', $posttype='all', $start=false, $end=false) {
+function makeList($listTitle='리스트', $listType='tile', $category='all', $posttype='all', $start=false, $end=false) : string 
+{
   global $DB;
-  
   $main = MAIN;
   $postCount = 0;
   $whereSql = '';
@@ -451,6 +491,9 @@ function makeThread($data) {
     $type = 'thread';
     $postId = $threadid;
     $postTitle = "#$postId $title";
+    if ($pinned) {
+      $postTitle = "[고정됨] $title";
+    }
     $buttonReply = getButton('button', '답글', ['class'=>'min']);
     $buttonEdit =
       getButton('button', '수정', ['class'=>'min']).
@@ -477,7 +520,8 @@ function makeThread($data) {
 }
 
 // 쓰레드리스트 출력
-function makeThreadList($start=0, $items=10, $postid=0, $pinned=0) {
+function makeThreadList($start=0, $items=5, $postid=0, $pinned=0) : string
+{
   global $DB;
 
   $sql = "SELECT * FROM thread 
@@ -511,7 +555,7 @@ function makeThreadList($start=0, $items=10, $postid=0, $pinned=0) {
 }
 
 // 보드 출력
-function makeBoard() {
+function makeBoardPage() {
   global $DB, $CONF;
   $start = 0;
   $items = $CONF['pages']['board']['items'];
@@ -523,7 +567,7 @@ function makeBoard() {
 
   $board_data = array(
     'list' => makeThreadList($start, $items),
-    'loading' => getLoading($start+$items, $items, $count),
+    'loading' => getLoading('thread', $start+$items, $items, $count),
   );
   return renderElement(TPL.'board.html', $board_data);
 }
@@ -564,6 +608,8 @@ function makeUserPage() : string
 
 // 사이드메뉴 출력
 // TODO: 팝업 스크립트 실행
+// TODO: 버튼 권한 체크
+// TODO: 버튼호버 라벨출력
 function makeSidemenu($position)
 {
   global $ACT, $DO, $USER;
@@ -579,9 +625,10 @@ function makeSidemenu($position)
         </button>
       ";
     }
-    if ($USER && $ACT != 'main'&& ($DO == 'post' || $DO == 'thread')) {
+    // if ($USER && $ACT != 'main'&& ($DO == 'post' || $DO == 'thread')) {
+    if ($ACT != 'main'&& ($DO == 'post' || $DO == 'thread')) {
       $html .= "
-        <button class='btn float top' id='write-post' class='button'>
+        <button class='btn float bottom' id='write-post' class='button'>
           <i class='xi-plus'></i>
         </button>
       ";

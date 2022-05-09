@@ -38,7 +38,7 @@ main article { display: flex; flex-direction: column; align-items: center; justi
 
 main section { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; max-width: calc(1000px - 30px); padding: 25px; border-radius: 10px; }
 
-main section:not(:last-of-type) { margin-bottom: 20px; }
+main section:not(:last-child) { margin-bottom: 20px; }
 
 main section > div:not(:last-of-type) { margin-bottom: 15px; }
 
@@ -190,7 +190,9 @@ main section.list.board .chain .post.reply .content .message { background-color:
 
 main section.list.board .chain .post:last-child .header .quot.line-v { height: calc(50% - 30px); }
 
-#loading { width: 100%; text-align: center; font-size: 1.5em; line-height: 1; color: #a6a6a6; position: relative; bottom: -8px; }
+#loading { width: 100%; text-align: center; font-size: 1.5em; line-height: 1; color: #a6a6a6; position: relative; }
+
+section.board #loading { bottom: -8px; }
 
 aside { position: absolute; width: 100%; z-index: 9; max-width: calc(1000px + 84px + 20px); padding: 0 15px; }
 
@@ -207,5 +209,7 @@ aside button.top { top: calc(40px + 15px); }
 aside button.bottom { bottom: 15px; }
 
 aside button:nth-child(2):not(:last-of-type).top { top: calc(40px + 15px + 48px + 14px); }
+
+aside button:nth-last-child(2):not(:last-of-type).bottom { bottom: calc(15px + 48px + 14px); }
 
 footer { width: 100%; height: 60px; align-items: center; margin: 0 auto; border-top: 1px solid rgba(0, 0, 0, 0.25); font-size: 0.9em; }

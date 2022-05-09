@@ -6,24 +6,24 @@ require_once 'includes/elements.php';
 $content = '';
 switch ($ACT) {
   case 'main':
-    $content .= makePost($ACT, $ID);
+    $content .= makePostPage($ACT, $ID);
     $content .= makeList('최신 게시물', 'tile', 'all', 'all', 0, 12);
     $content .= makeList('바로가기', 'tile', 'project', 'link', 0, 4);
     break;
   case 'project':
-    $content .= makePost($ACT, $ID);
     $content .= makeList('바로가기', 'tile', 'project', 'link', 0, 4);
+    $content .= makePostPage($ACT, $ID);
     break;
   case 'study':
-    $content .= makePost($ACT, $ID);
+    $content .= makePostPage($ACT, $ID);
     break;
   case 'diary':
-    $content .= makePost($ACT, $ID);
+    $content .= makePostPage($ACT, $ID);
     break;
 
   case 'board':
     include INC.'board.php';
-    $content .= makeBoard();
+    $content .= makeBoardPage();
     break;
 
   case 'user':

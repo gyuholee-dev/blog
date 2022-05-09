@@ -103,6 +103,7 @@ function checkId($userid)
 
 // 로그인 처리
 // 로그인은 별도 함수로 만들지 않음
+// TODO: 권한 정수값 추가
 function setUserData(array $userData) : bool
 {
   global $USER;

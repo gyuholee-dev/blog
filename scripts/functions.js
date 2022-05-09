@@ -2,6 +2,7 @@
 // Promise XMLHttpRequest
 async function requestData(file, param = null) {
   let requestUrl = file;
+
   if (param !== null) {
     let i = 0;
     for (let key in param) {
@@ -13,6 +14,7 @@ async function requestData(file, param = null) {
       i++;
     }
   }
+  // console.log('XHR:', requestUrl);
 
   try {
     const xhr = new XMLHttpRequest();
@@ -60,6 +62,20 @@ function onVisible(element, callback) {
   }).observe(element);
 }
 
+// 비동기 지연
+// https://coder-question-ko.com/cq-ko-blog/81552
+// await timeout(1000);
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// 윈도우 스크롤탑
+function scrollToTop(speed = 'smooth') {
+  window.scroll({top: 0, behavior: speed});
+}
+
+// ---------------------------------------------------------------------------------------
+
 // 로그 출력
 async function printLog() {
   const msg = await xhr('getMsg');
@@ -76,18 +92,10 @@ async function printLog() {
   document.querySelector('#message').insertAdjacentHTML('afterbegin', logs);
 }
 
-// 비동기 지연
-// https://coder-question-ko.com/cq-ko-blog/81552
-// await timeout(1000);
-function timeout(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// ---------------------------------------------------------------------------------------
-
-// 윈도우 스크롤탑
-function scrollToTop(speed = 'smooth') {
-  window.scroll({top: 0, behavior: speed});
+// 포스트리스트 출력
+async function makePostList(start, items, action) {
+  const postList = await xhr('getPostList', {start: start, items: items, action: action});
+  return postList;
 }
 
 // 쓰레드리스트 출력
@@ -96,25 +104,36 @@ async function makeThreadList(start, items) {
   return threadList;
 }
 
+// ---------------------------------------------------------------------------------------
+
 // 로딩 이벤트 핸들링
-function setLoadingEvent(loading, form) {
+// TODO: 활성화 전환
+function setLoadingEvent(loading, form, delay=350) {
+  // return false;
   onVisible(loading, async()=> {
+    let action = form.action.value;
     let start = Number(form.start.value);
     let items = Number(form.items.value);
     let count = Number(form.count.value);
-    if (start > count) { 
+    console.log('XHR LOAD:',form.name, start, items, count);
+    if (start >= count) { 
       loading.remove();
       return false; 
     }
-    console.log('LOAD:',form.name, start, items);
-    // await timeout(500); // 지연
-    // let threadList = await makeThreadList(start, items);
-    let promises = [
-      makeThreadList(start, items),
-      timeout(250), // 지연
-    ];
-    let threadList = await Promise.all(promises);
-    loading.insertAdjacentHTML('beforebegin', threadList[0]);
+    let promises;
+    if (form.name == 'post') {
+      promises = [
+        makePostList(start, items, action),
+        timeout(delay),
+      ];
+    } else if (form.name == 'thread') {
+      promises = [
+        makeThreadList(start, items),
+        timeout(delay),
+      ];
+    }
+    let result = await Promise.all(promises);
+    loading.insertAdjacentHTML('beforebegin', result[0]);
     form.start.value = start + items;
   });
 }

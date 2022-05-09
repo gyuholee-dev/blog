@@ -48,10 +48,17 @@ function xhr_checkId() {
   echo checkId($_GET['userid']);
 }
 
+// 포스트리스트
+function xhr_getPostList() {
+  $action = $_GET['action'];
+  $start = $_GET['start'];
+  $items = $_GET['items'];
+  echo json_encode(makePostList($start, $items, $action));
+}
+
 // 쓰레드리스트
 function xhr_getThreadList() {
   $start = $_GET['start'];
   $items = $_GET['items'];
-  // echo json_encode($start.' '.$items.'<br>');
   echo json_encode(makeThreadList($start, $items));
 }
