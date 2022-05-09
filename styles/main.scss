@@ -248,7 +248,7 @@ main {
     >.footer {
       .buttons {
         >*:not(:last-child) {
-          margin-right: 10px;
+          margin-right: 12px;
         }
       }
       >span:not(:last-child) {
@@ -513,14 +513,14 @@ main {
           }
           .quot {
             position: absolute;
-            left: 23px;
+            left: 32px;
             background-color: $grey-90;
             &.line-v {
               width: 2px;
               height: 100%;
             }
             &.line-h {
-              width: calc(100% - 23px);
+              width: calc(100% - 32px);
               height: 2px;
               top: calc(50% - 30px);
             }
@@ -553,6 +553,7 @@ main {
           .info {
             @include flex(center, end);
             width: 100%;
+            padding: 0 10px;
             margin-bottom: 15px;
             >span:not(:last-child) {
               margin-right: 15px;
@@ -563,7 +564,7 @@ main {
           }
           .buttons {
             >*:not(:last-child) {
-              margin-right: 10px;
+              margin-right: 12px;
             }
           }
         }
@@ -599,9 +600,9 @@ main {
   text-align: center;
   font-size: 1.5em;
   line-height: 1;
-  color: $grey-50;
-  // position: relative;
-  // bottom: -8px;
+  color: $grey-65;
+  position: relative;
+  bottom: -8px;
 }
 
 aside {
