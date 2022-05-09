@@ -97,7 +97,6 @@ async function makeThreadList(start, items) {
 }
 
 // 로딩 이벤트 핸들링
-// TODO: item이 20 이상일 경우 ',' 가 붙어나오는 버그 수정
 function setLoadingEvent(loading, form) {
   onVisible(loading, async()=> {
     let start = Number(form.start.value);
@@ -112,10 +111,10 @@ function setLoadingEvent(loading, form) {
     // let threadList = await makeThreadList(start, items);
     let promises = [
       makeThreadList(start, items),
-      timeout(500), // 지연
+      timeout(250), // 지연
     ];
     let threadList = await Promise.all(promises);
-    loading.insertAdjacentHTML('beforebegin', threadList);
+    loading.insertAdjacentHTML('beforebegin', threadList[0]);
     form.start.value = start + items;
   });
 }
