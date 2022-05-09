@@ -1,4 +1,4 @@
-console.log('FUNCTIONS LOADED');
+// console.log('FUNCTIONS LOADED');
 // Promise XMLHttpRequest
 async function requestData(file, param = null) {
   let requestUrl = file;
@@ -46,6 +46,20 @@ async function xhr(func, param = null, useHtml=false) {
   }
 }
 
+// onVisible Event
+// https://stackoverflow.com/questions/1462138/event-listener-for-when-element-becomes-visible
+// https://velog.io/@dev-tinkerbell/%EB%AC%B4%ED%95%9C%EC%8A%A4%ED%81%AC%EB%A1%A4-%EA%B5%AC%ED%98%84%EB%B0%A9%EB%B2%95
+function onVisible(element, callback) {
+  new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if(entry.intersectionRatio > 0) {
+        callback(element);
+        // observer.disconnect();
+      }
+    });
+  }).observe(element);
+}
+
 // 로그 출력
 async function printLog() {
   const msg = await xhr('getMsg');
@@ -62,6 +76,13 @@ async function printLog() {
   document.querySelector('#message').insertAdjacentHTML('afterbegin', logs);
 }
 
+// 비동기 지연
+// https://coder-question-ko.com/cq-ko-blog/81552
+// await timeout(1000);
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // ---------------------------------------------------------------------------------------
 
 // 윈도우 스크롤탑
@@ -69,20 +90,32 @@ function scrollToTop(speed = 'smooth') {
   window.scroll({top: 0, behavior: speed});
 }
 
-// 온비지블 이벤트
-function onVisible(element, callback) {
-  new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if(entry.intersectionRatio > 0) {
-        callback(element);
-        // observer.disconnect();
-      }
-    });
-  }).observe(element);
+// 쓰레드리스트 출력
+async function makeThreadList(start, items) {
+  const threadList = await xhr('getThreadList', {start: start, items: items});
+  return threadList;
 }
 
-// 쓰레드리스트 출력
-async function getThreadList() {
-  const threadList = await xhr('getThreadList');
-  return threadList;
+// 로딩 이벤트 핸들링
+// TODO: item이 20 이상일 경우 ',' 가 붙어나오는 버그 수정
+function setLoadingEvent(loading, form) {
+  onVisible(loading, async()=> {
+    let start = Number(form.start.value);
+    let items = Number(form.items.value);
+    let count = Number(form.count.value);
+    if (start > count) { 
+      loading.remove();
+      return false; 
+    }
+    console.log('LOAD:',form.name, start, items);
+    // await timeout(500); // 지연
+    // let threadList = await makeThreadList(start, items);
+    let promises = [
+      makeThreadList(start, items),
+      timeout(500), // 지연
+    ];
+    let threadList = await Promise.all(promises);
+    loading.insertAdjacentHTML('beforebegin', threadList);
+    form.start.value = start + items;
+  });
 }

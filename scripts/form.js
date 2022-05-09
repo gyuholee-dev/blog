@@ -1,4 +1,4 @@
-console.log('FORM SCRIPT LOADED');
+// console.log('FORM SCRIPT LOADED');
 async function checkId() {
   if (signup.userid.value=='') {
     alert('아이디를 입력하세요');

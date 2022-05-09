@@ -23,7 +23,7 @@ switch ($ACT) {
 
   case 'board':
     include INC.'board.php';
-    $content .= makeThreadList();
+    $content .= makeBoard();
     break;
 
   case 'user':

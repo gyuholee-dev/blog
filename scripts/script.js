@@ -1,4 +1,4 @@
-console.log('SCRIPT LOADED');
+// console.log('SCRIPT LOADED');
 
 const Win = window;
 Win.addEvent = window.addEventListener;

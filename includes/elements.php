@@ -196,6 +196,24 @@ function getButton($type, $label='', $attr=array()) : string
   return $button;
 }
 
+function getLoading($start, $items, $count) : string
+{
+  $html = <<<HTML
+    <div id="loading">
+      <i class="xi-spinner-3 xi-spin"></i>
+      <form name="thread">
+        <input type="hidden" name="start" value="$start">
+        <input type="hidden" name="items" value="$items">
+        <input type="hidden" name="count" value="$count">
+      </form>
+      <script>
+        setLoadingEvent(loading, thread);
+      </script>
+    </div>
+  HTML;
+  return $html;
+}
+
 // --------------------------------------------------------------------------
   
 // 헤드 출력
@@ -246,6 +264,7 @@ function makeFooter() : string
 
 // 포스트 출력
 // TODO: pinned 기능 구현
+// TODO: 버튼 권한 체크
 function makePost($cat, $requestId=null) : string
 {
   global $ACT, $CONF, $INFO, $DB, $ID;
@@ -296,6 +315,10 @@ function makePost($cat, $requestId=null) : string
     $textClass = ($posttype == 'media')?'center':'left';
     $content = "<p class='$textClass'>$content</p>";
 
+    $buttonEdit =
+      getButton('button', '수정', ['class'=>'min']).
+      getButton('button', '삭제', ['class'=>'min']);
+
     $post_data = array( 
       'posttype' => $posttype,
       'headerClass' => $headerClass,
@@ -307,6 +330,7 @@ function makePost($cat, $requestId=null) : string
       'tags' => $tags,
       'file' => $file,
       'content' => $content,
+      'buttonEdit' => $buttonEdit,
     );
     
     $html .= renderElement(TPL.'post.html', $post_data);
@@ -416,6 +440,8 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
 }
 
 // 쓰레드 출력
+// TODO: 버튼 권한 체크
+// TODO: pinned 표시
 function makeThread($data) {
   foreach ($data as $key => $value) {
     $$key = $value;
@@ -451,44 +477,53 @@ function makeThread($data) {
 }
 
 // 쓰레드리스트 출력
-// TODO: 공지사항 pinned 구현
-function makeThreadList() {
+function makeThreadList($start=0, $items=10, $postid=0, $pinned=0) {
   global $DB;
 
-  $items = 10;
-  $page = 1;
-  $postCount = 0;
-  $pageCount = 0;
-
-  $sql = "SELECT COUNT(*) FROM thread";
-  $res = mysqli_query($DB, $sql);
-  $postCount = mysqli_fetch_row($res)[0];
-  $pageCount = ceil($postCount / $items);
-
   $sql = "SELECT * FROM thread 
-          WHERE postid = 0
-          ORDER BY threadid DESC 
-          LIMIT 0, $items ";
+          WHERE postid = '$postid' AND pinned = '$pinned'
+          ORDER BY threadid DESC LIMIT $start, $items ";
   $res = mysqli_query($DB, $sql);
 
   $html = "";
-  while ($data = mysqli_fetch_assoc($res)) {
-    $html .= '<div class="wrap chain">';
-    $html .= makeThread($data);
-    // 답글
-    if ($data['replycnt'] > 0) {
-      $sql = "SELECT * FROM reply 
-              WHERE threadid = '$data[threadid]' ";
-      $reply_res = mysqli_query($DB, $sql);
-      while ($reply_data = mysqli_fetch_assoc($reply_res)) {
-        $html .= makeThread($reply_data);
-      } 
-    }
-    $html .= '</div>';
+  if ($start == 0 && $pinned == 0) {
+    $html .= makeThreadList(0, 10, 0, 1); // pinned
   }
 
+  if (mysqli_num_rows($res) > 0) {
+    while ($data = mysqli_fetch_assoc($res)) {
+      $html .= '<div class="wrap chain">';
+      $html .= makeThread($data);
+      // 답글
+      if ($data['replycnt'] > 0) {
+        $sql = "SELECT * FROM reply 
+                WHERE threadid = '$data[threadid]' ";
+        $reply_res = mysqli_query($DB, $sql);
+        while ($reply_data = mysqli_fetch_assoc($reply_res)) {
+          $html .= makeThread($reply_data);
+        } 
+      }
+      $html .= '</div>';
+    }
+  }
+
+  return $html;
+}
+
+// 보드 출력
+function makeBoard() {
+  global $DB, $CONF;
+  $start = 0;
+  $items = $CONF['pages']['board']['items'];
+
+  $sql = "SELECT COUNT(*) FROM thread 
+          WHERE postid = 0 AND pinned = 0";
+  $res = mysqli_query($DB, $sql);
+  $count = mysqli_fetch_row($res)[0];
+
   $board_data = array(
-    'list' => $html,
+    'list' => makeThreadList($start, $items),
+    'loading' => getLoading($start+$items, $items, $count),
   );
   return renderElement(TPL.'board.html', $board_data);
 }

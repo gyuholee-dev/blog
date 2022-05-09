@@ -246,6 +246,11 @@ main {
     }
 
     >.footer {
+      .buttons {
+        >*:not(:last-child) {
+          margin-right: 10px;
+        }
+      }
       >span:not(:last-child) {
         margin-right: 15px;
       }
@@ -532,7 +537,7 @@ main {
           z-index: 1;
           .title {
             font-size: 1.35em;
-            padding: 5px;
+            padding: 5px 0;
           }
           .message {
             border: 1px solid $light;
@@ -593,8 +598,10 @@ main {
   width: 100%;
   text-align: center;
   font-size: 1.5em;
-  margin-bottom: -15px;
+  line-height: 1;
   color: $grey-50;
+  // position: relative;
+  // bottom: -8px;
 }
 
 aside {
