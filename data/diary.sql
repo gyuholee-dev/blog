@@ -3,11 +3,12 @@
 */
 
 INSERT INTO post 
-(wdate, title, writer, category, posttype, file, link, content) 
+(wdate, title, userid, nickname, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '어제 일기',
-  'LeeGyuho',
+  'gyuholee',
+  'GyuhoLee',
   'diary',
   'text',
   '',
@@ -16,11 +17,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, posttype, file, link, content) 
+(wdate, title, userid, nickname, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '어제 사진',
-  'LeeGyuho',
+  'gyuholee',
+  'GyuhoLee',
   'diary',
   'media',
   'images(4).jpg',
@@ -29,11 +31,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, posttype, file, link, content) 
+(wdate, title, userid, nickname, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '오늘 일기',
-  'LeeGyuho',
+  'gyuholee',
+  'GyuhoLee',
   'diary',
   'text',
   '',
@@ -42,11 +45,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, posttype, file, link, content) 
+(wdate, title, userid, nickname, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '오늘 사진',
-  'LeeGyuho',
+  'gyuholee',
+  'GyuhoLee',
   'diary',
   'media',
   'images(4).jpg',
@@ -55,11 +59,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, posttype, file, link, content) 
+(wdate, title, userid, nickname, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '오늘 영상',
-  'LeeGyuho',
+  'gyuholee',
+  'GyuhoLee',
   'diary',
   'media',
   'cat-typing.gif',

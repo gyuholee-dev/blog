@@ -11,7 +11,8 @@ https://blueamor.tistory.com/618
 postid 인덱스: 자동증가 정수
 wdate 날짜: 타임스탬프
 title 타이틀
-writer 이름
+userid 작성자 id
+nickname 작성자 이름
 category 분류: profile, portpolio...
 posttype: text, media, link...
 file 파일
@@ -28,7 +29,8 @@ CREATE TABLE post (
   postid INT AUTO_INCREMENT,
   wdate INT,
   title VARCHAR(80),
-  writer VARCHAR(20),
+  userid CHAR(20),
+  nickname VARCHAR(20),
   category CHAR(10),
   posttype CHAR(10),
   file VARCHAR(80),

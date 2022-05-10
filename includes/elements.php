@@ -268,7 +268,7 @@ function makeFooter() : string
 }
 
 // 포스트 출력
-// TODO: 버튼 권한 체크
+// TODO: 비밀글 처리
 function makePost($data) : string
 {
   global $ACT, $INFO, $CONF, $DO, $ID;
@@ -307,9 +307,9 @@ function makePost($data) : string
   $textClass = ($posttype == 'media')?'center':'left';
   $content = "<p class='$textClass'>$content</p>";
 
-  $buttonEdit =
+  $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
     getButton('button', '수정', ['class'=>'min']).
-    getButton('button', '삭제', ['class'=>'min']);
+    getButton('button', '삭제', ['class'=>'min']):'';
 
   $post_data = array( 
     'posttype' => $posttype,
@@ -318,7 +318,7 @@ function makePost($data) : string
     'title' => $title,
     'category' => $category,
     'wdate' => $wdate,
-    'writer' => $writer,
+    'nickname' => $nickname,
     'tags' => $tags,
     'file' => $file,
     'content' => $content,
@@ -462,7 +462,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
       '{category}' => $category,
       '{content}' => $content,
       '{wdate}' => $wdate,
-      '{writer}' => $writer,
+      '{nickname}' => $nickname,
     );
 
     $listItem .= strtr($itemTemplate, $item_values); 
@@ -481,7 +481,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
 
 // 쓰레드 출력
 // TODO: 버튼 권한 체크
-// TODO: pinned 표시
+// TODO: 비밀글 처리
 function makeThread($data) {
   foreach ($data as $key => $value) {
     $$key = $value;
@@ -494,16 +494,17 @@ function makeThread($data) {
     if ($pinned) {
       $postTitle = "[고정됨] $title";
     }
-    $buttonReply = getButton('button', '답글', ['class'=>'min']);
-    $buttonEdit =
+    $buttonReply = (checkPerm() >= 1)? getButton('button', '답글', ['class'=>'min']):'';
+    $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
       getButton('button', '수정', ['class'=>'min']).
-      getButton('button', '삭제', ['class'=>'min']);
+      getButton('button', '삭제', ['class'=>'min']):'';
   } else {
     $type = 'reply';
     $postId = $replyid;
     $postTitle = '';
     $buttonReply = '';
-    $buttonEdit = getButton('button', '삭제', ['class'=>'min']);
+    $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
+      getButton('button', '삭제', ['class'=>'min']):'';
   }
   $wdate = date("Y-m-d H:i:s", $data['wdate']);
 
@@ -618,27 +619,76 @@ function makeSidemenu($position)
   if ($position == 'left') {
 
   } elseif ($position == 'right') {
-    if ($USER && $USER['groups'] == 'admin' && ($DO == 'post' || $DO == 'list')) {
-      $html .= "
-        <button class='btn float top' id='write-post' class='button'>
-          <i class='xi-pen-o'></i>
-        </button>
-      ";
+    // 포스트 작성
+    if (checkPerm() >= 4 && ($DO == 'post' || $DO == 'list')) {
+      $html .= getButton('button', '<i class="xi-pen-o"></i>', 
+        ['id'=>'post_write', 'class'=>'float top', 'onclick'=>""]
+      );
     }
-    // if ($USER && $ACT != 'main'&& ($DO == 'post' || $DO == 'thread')) {
-    if ($ACT != 'main'&& ($DO == 'post' || $DO == 'thread')) {
-      $html .= "
-        <button class='btn float bottom' id='write-post' class='button'>
-          <i class='xi-plus'></i>
-        </button>
-      ";
+    // 게시판 작성
+    if (checkPerm() >= 1 && $ACT != 'main' && ($DO == 'post' || $DO == 'thread')) {
+      $html .= getButton('button', '<i class="xi-plus"></i>', 
+        ['id'=>'thread_write', 'class'=>'float bottom', 'onclick'=>"openPopup(popup_thread_write)"]
+      );
     }
-    $html .= "
-      <button class='btn float bottom' id='back-to-top' onclick='scrollToTop()'>
-        <i class='xi-angle-up'></i>
-      </button>
-    ";
+    // 스크롤탑
+    $html .= getButton('button', '<i class="xi-angle-up"></i>', 
+      ['id'=>'back_to_top', 'class'=>'float bottom', 'onclick'=>"scrollToTop()"]
+    );
   }
 
   return $html;
+}
+
+// 팝업 출력
+function getPopup($name, array $data) : string
+{
+  global $ACT, $DO, $DB, $USER;
+
+  $popupId = 'popup_'.$name;
+
+  $closeButton = getButton(
+    'button', '<i class="xi-close"></i>', 
+    ['class'=>'close', 'onclick'=>"closePopup($popupId)"]
+  );
+  $popup_data = array('closeButton' => $closeButton);
+  foreach ($data as $key => $value) {
+    $popup_data[$key] = $value;
+  }
+  $popupContent = renderElement(TPL.$name.'.html', $popup_data);
+
+  $html = "
+    <div id='$popupId' class='modal'>
+      <div class='dim'></div>
+      $popupContent
+    </div>
+  ";
+
+  return $html;
+
+}
+
+// 팝업 출력
+function makePopup() : string
+{
+  global $ACT, $DO, $DB, $USER;
+
+  $name = 'default';
+  $popups = array(
+    'thread_write' => [
+      'title' => '새 글 작성',
+      'action' => 'board',
+      'do' => 'write',
+      'pinnedCheckbox' => (checkPerm() >= 8)?
+        '<label><input type="checkbox" name="secret">고정글</label>':'',
+    ],
+  );
+
+  $html = '';
+  foreach ($popups as $name => $data) {
+    $html .= getPopup($name, $data);
+  }
+
+  return $html;
+
 }

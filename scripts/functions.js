@@ -19,6 +19,8 @@ async function requestData(file, param = null) {
   try {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', requestUrl);
+    // http.open('POST', requestUrl, true);
+    // http://daplus.net/javascript-xmlhttprequest%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-post-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B3%B4%EB%82%B4%EA%B8%B0/
     xhr.send();
     const request = await new Promise((resolve, reject) => {
       xhr.onload = function () {
@@ -74,34 +76,20 @@ function scrollToTop(speed = 'smooth') {
   window.scroll({top: 0, behavior: speed});
 }
 
-// ---------------------------------------------------------------------------------------
-
-// 로그 출력
-async function printLog() {
-  const msg = await xhr('getMsg');
-  let logs = '';
-  for (type in msg) {
-    let log = msg[type];
-    if (log) {
-      logs += `<div class="log ${type}">${log}</div>`;
-    }
+// 팝업 오픈
+function openPopup(element) {
+  if (element.classList.contains('active')) {
+    return false;
   }
-  // logs = `<div id="message">${logs}</div>`;
-  // https://developer.mozilla.org/ko/docs/Web/API/Element/insertAdjacentHTML
-  // document.body.insertAdjacentHTML('afterbegin', logs);
-  document.querySelector('#message').insertAdjacentHTML('afterbegin', logs);
+  element.classList.add('show');
+  element.classList.add('active');
 }
 
-// 포스트리스트 출력
-async function makePostList(start, items, action) {
-  const postList = await xhr('getPostList', {start: start, items: items, action: action});
-  return postList;
-}
-
-// 쓰레드리스트 출력
-async function makeThreadList(start, items) {
-  const threadList = await xhr('getThreadList', {start: start, items: items});
-  return threadList;
+// 팝업 클로즈
+async function closePopup(element, delay=350) {
+  element.classList.remove('active');
+  await timeout(delay);
+  element.classList.remove('show');
 }
 
 // ---------------------------------------------------------------------------------------
@@ -136,4 +124,34 @@ function setLoadingEvent(loading, form, delay=350) {
     loading.insertAdjacentHTML('beforebegin', result[0]);
     form.start.value = start + items;
   });
+}
+
+// ---------------------------------------------------------------------------------------
+
+// 로그 출력
+async function printLog() {
+  const msg = await xhr('getMsg');
+  let logs = '';
+  for (type in msg) {
+    let log = msg[type];
+    if (log) {
+      logs += `<div class="log ${type}">${log}</div>`;
+    }
+  }
+  // logs = `<div id="message">${logs}</div>`;
+  // https://developer.mozilla.org/ko/docs/Web/API/Element/insertAdjacentHTML
+  // document.body.insertAdjacentHTML('afterbegin', logs);
+  document.querySelector('#message').insertAdjacentHTML('afterbegin', logs);
+}
+
+// 포스트리스트 출력
+async function makePostList(start, items, action) {
+  const postList = await xhr('getPostList', {start: start, items: items, action: action});
+  return postList;
+}
+
+// 쓰레드리스트 출력
+async function makeThreadList(start, items) {
+  const threadList = await xhr('getThreadList', {start: start, items: items});
+  return threadList;
 }

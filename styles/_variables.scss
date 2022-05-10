@@ -48,6 +48,9 @@ $media-width-min: 680px;
 }
 
 @mixin font() {
-  // font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
   font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+}
+
+@mixin font_default() {
+  font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
 }

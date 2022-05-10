@@ -85,6 +85,11 @@ img {
   width: 100%;
 }
 
+form {
+  @include flex(start, center, column);
+  width: 100%;
+}
+
 table {
   width: 100%;
   width: -webkit-fill-available;
@@ -102,6 +107,24 @@ table {
   }
   td {
     text-align: left;
+  }
+  td.hr::before {
+    content: "";
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid $light;
+  }
+
+  input[type=text],
+  input[type=number],
+  input[type=password],
+  input[type=email],
+  textarea {
+    width: 100%;
+  }
+  textarea {
+    min-height: 120px;
+    resize: none;
   }
 }
 
@@ -129,6 +152,7 @@ input[type=reset] {
     box-shadow: inset 0 0 48px rgba(black, 0.1);
   }
 }
+
 .btn {
   &.inline {
     font-size: 0.9rem;
@@ -163,6 +187,17 @@ input[type=reset] {
     font-size: 1.25rem;
     box-shadow: none !important;
   }
+  &.close {
+    text-align: center;
+    background-color: initial;
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+    min-width: initial;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    box-shadow: none !important;
+  }
 
   &.red {
     background-color: $red;
@@ -183,6 +218,7 @@ input[type=number],
 input[type=password],
 input[type=email],
 select, textarea {
+  @include font_default;
   padding: 5px;
   border: 1px solid $grey-50;
   border-radius: 6px;
@@ -204,9 +240,15 @@ input[type=radio],
 input[type=checkbox] {
   cursor: pointer;
   margin-right: 5px;
+  width: 1rem;
+  height: 1rem;
+  position: relative;
+  top: 0.15rem;
 }
 label {
+  font-size: 1rem;
   cursor: pointer;
+  font-weight: bold;
   margin-right: 5px;
 }
 

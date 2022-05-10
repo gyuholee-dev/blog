@@ -4,11 +4,12 @@
 
 -- 프로필
 INSERT INTO post 
-(wdate, title, writer, category, posttype, file, link, content) 
+(wdate, title, userid, nickname, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   '이규호의 프로필',
-  'LeeGyuho',
+  'gyuholee',
+  'GyuhoLee',
   'profile',
   'text',
   'BI-header_r.png',
@@ -19,11 +20,12 @@ VALUES (
 ---------------------------- 링크 (네개) ----------------------------
 
 INSERT INTO post 
-(wdate, title, writer, category, posttype, file, link, content) 
+(wdate, title, userid, nickname, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'GITHUB',
-  'LeeGyuho',
+  'gyuholee',
+  'GyuhoLee',
   'profile',
   'link',
   'images(3).jpg',
@@ -32,11 +34,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, posttype, file, link, content) 
+(wdate, title, userid, nickname, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'ART & GRAPHIC',
-  'LeeGyuho',
+  'gyuholee',
+  'GyuhoLee',
   'profile',
   'link',
   'images(2).jpg',
@@ -45,11 +48,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, posttype, file, link, content) 
+(wdate, title, userid, nickname, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'DEVELOPMENT',
-  'LeeGyuho',
+  'gyuholee',
+  'GyuhoLee',
   'profile',
   'link',
   'images(1).jpg',
@@ -58,11 +62,12 @@ VALUES (
 );
 
 INSERT INTO post 
-(wdate, title, writer, category, posttype, file, link, content) 
+(wdate, title, userid, nickname, category, posttype, file, link, content) 
 VALUES (
   UNIX_TIMESTAMP(),
   'PROFILE',
-  'LeeGyuho',
+  'gyuholee',
+  'GyuhoLee',
   'profile',
   'link',
   'BI-header_r.png',

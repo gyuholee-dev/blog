@@ -218,6 +218,9 @@ main {
         >span:not(:last-child) {
           margin-right: 15px;
         }
+        .category {
+          text-transform: capitalize;
+        }
       }
 
     }
@@ -246,12 +249,15 @@ main {
     }
 
     >.footer {
-      .buttons {
+      .buttons:last-child {
+        &:not(:empty) {
+          margin-left: 15px;
+        }
         >*:not(:last-child) {
           margin-right: 12px;
         }
       }
-      >span:not(:last-child) {
+      >span:not(:last-child):not(:nth-last-child(2)) {
         margin-right: 15px;
       }
       >span:nth-child(2) {
@@ -295,39 +301,17 @@ main {
       table {
         max-width: 600px;
         margin: 0 15px 15px;
+        
+        select {
+          width: 140px;
+        }
+
         &.login {
           max-width: 400px;
         }
 
-        td.hr::before {
-          content: "";
-          display: block;
-          width: 100%;
-          border-bottom: 1px solid $light;
-        }
-
         td:last-child {
           padding-right: 60px;
-        }
-
-        input[type=text],
-        input[type=number],
-        input[type=password],
-        input[type=email],
-        textarea {
-          width: 100%;
-        }
-        select {
-          width: 140px;
-        }
-        input[type=radio],
-        input[type=checkbox] {
-          cursor: pointer;
-          margin-right: 5px;
-        }
-        label {
-          cursor: pointer;
-          margin-right: 5px;
         }
 
         &.signup {
@@ -489,6 +473,7 @@ main {
   // 섹션 보드
   section.list.board {
     .chain {
+      width: 100%;
       &:not(:last-of-type) {
         border-bottom: 1px solid $light;
         margin-bottom: 10px;
@@ -531,7 +516,7 @@ main {
         }
         .content {
           @include flex(start, start, column);
-          // width: 100%;
+          width: 100%;
           // max-width: 720px;
           // min-width: 540px;
           z-index: 1;
@@ -555,16 +540,19 @@ main {
             width: 100%;
             padding: 0 10px;
             margin-bottom: 15px;
-            >span:not(:last-child) {
+            .buttons:last-child {
+              &:not(:empty) {
+                margin-left: 15px;
+              }
+              >*:not(:last-child) {
+                margin-right: 12px;
+              }
+            }
+            >span:not(:last-child):not(:nth-last-child(2)) {
               margin-right: 15px;
             }
             >span:nth-of-type(2) {
               margin-left: auto;
-            }
-          }
-          .buttons {
-            >*:not(:last-child) {
-              margin-right: 12px;
             }
           }
         }
@@ -590,26 +578,11 @@ main {
         }
       }
     }
+    #loading {
+      bottom: -8px;
+    }
   }
 
-}
-
-// 로딩
-// TODO: 상태값에 따라 아이콘 변경
-#loading {
-  width: 100%;
-  text-align: center;
-  font-size: 1.5em;
-  line-height: 1;
-  color: $grey-65;
-  position: relative;
-  // top: -8px;
-  // bottom: -8px;
-}
-section.board {
-  #loading {
-    bottom: -8px;
-  }
 }
 
 aside {
@@ -656,3 +629,89 @@ footer {
   border-top: 1px solid rgba(black, 0.25);
   font-size: 0.9em;
 }
+
+// 로딩
+// TODO: 상태값에 따라 아이콘 변경
+#loading {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 1;
+  color: $grey-65;
+  position: relative;
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+}
+
+// 팝업
+[id^=popup_] {
+  @include flex(center, center, column);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  opacity: 0;
+  display: none;
+  transition: opacity 0.35s;
+  &.show {
+    display: flex;
+  }
+  &.active {
+    opacity: 1;
+  }
+
+  &.modal {
+    width: 100%;
+    height: 100%;
+    .dim {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(black, 0.5);
+      // backdrop-filter: blur(5px);
+    }
+  }
+  section.popup {
+    width: auto;
+    min-width: 640px;
+    max-width: initial;
+    z-index: 1;
+    table {
+      td:last-child {
+        padding-right: 32px;
+      }
+    }
+
+    .buttons {
+      @include flex(center, center);
+      width: 100%;
+      >.btn:not(:last-child) {
+        margin-right: 25px;
+      }
+      >label {
+        margin-right: 15px;
+        &:last-of-type {
+          margin-right: 25px;
+        }
+      }
+    }
+  }
+
+  .btn.close {
+    background-color: white !important;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 9;
+    border: 1px solid transparent;
+    transform: translate(50%, -50%) scale(1.15);
+    transform: translate(calc(100% + 15px), -50%) scale(1.15);
+    &:hover {
+      color: $red;
+      // border-color: red;
+    }
+  }
+}
+

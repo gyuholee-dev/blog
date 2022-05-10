@@ -122,6 +122,21 @@ function sendLogin() {
   document.login.submit();
 }
 
+function sendThread(form) {
+  if (form.title !== undefined && form.title.value=='') {
+    alert('제목을 입력하세요');
+    form.title.focus();
+    return false;
+  }
+  if (form.content.value=='') {
+    alert('내용을 입력하세요');
+    form.content.focus();
+    return false;
+  }
+  form.confirm.value = true;
+  form.submit();
+}
+
 function checkForm(msg, self) {
   if (confirm(msg)) {
     self.submit();

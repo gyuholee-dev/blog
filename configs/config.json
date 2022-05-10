@@ -34,11 +34,13 @@
     "timezoneOffset" : "+0900"
   },
 
-  "userGroup" : {
-    "owner" : 0,
-    "admin" : 1,
+  "permission" : {
+    "siteOwner" : 99,
+    "admin" : 9,
+    "manager" : 8,
+    "team" : 4,
     "user" : 3,
-    "guest" : 9
+    "guest" : 1
   },
 
   "pages" : {

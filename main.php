@@ -8,11 +8,11 @@ switch ($ACT) {
   case 'main':
     $content .= makePostPage($ACT, 1);
     $content .= makeList('최신 게시물', 'tile', 'all', 'all', 0, 12);
-    $content .= makeList('바로가기', 'tile', 'project', 'link', 0, 4);
+    $content .= makeList('바로가기', 'tile', 'main', 'link', 0, 4);
     break;
   case 'project':
-    $content .= makeList('바로가기', 'tile', 'project', 'link', 0, 4);
     $content .= makePostPage($ACT, $ID);
+    $content .= makeList('바로가기', 'tile', 'main', 'link', 0, 4);
     break;
   case 'study':
     $content .= makePostPage($ACT, $ID);
@@ -81,5 +81,6 @@ $html_data = array(
   'rightmenu' => makeSidemenu('right'),
   'footer' => makeFooter(),
   'postScript' => getLibraries('postscripts'),
+  'popup' => makePopup(),
 );
 echo renderElement(TPL.'template.html', $html_data);
