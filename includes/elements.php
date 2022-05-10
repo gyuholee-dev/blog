@@ -287,9 +287,9 @@ function makePost($data) : string
   $headerClass = 'header';
   $headerBG = '';
   $wdate = date("Y-m-d H:i:s", $wdate);
-  if ($pinned) {
-    $wdate = '[고정됨] '.$wdate;
-  }
+  // if ($pinned) {
+  //   $wdate = '[고정됨] '.$wdate;
+  // }
 
   if ($pinned == true && $file != '') {
     $headerClass = 'header img';
@@ -307,6 +307,9 @@ function makePost($data) : string
   $textClass = ($posttype == 'media')?'center':'left';
   $content = "<p class='$textClass'>$content</p>";
 
+  $buttonReply = (!$pinned && checkPerm() >= 2)? 
+    getButton('button', '답글', ['class'=>'min']):'';
+
   $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
     getButton('button', '수정', ['class'=>'min']).
     getButton('button', '삭제', ['class'=>'min']):'';
@@ -322,6 +325,7 @@ function makePost($data) : string
     'tags' => $tags,
     'file' => $file,
     'content' => $content,
+    'buttonReply' => $buttonReply,
     'buttonEdit' => $buttonEdit,
   );
   
@@ -479,10 +483,19 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
 
 }
 
+function getThreadData($threadid) : array
+{
+  global $DB;
+  $sql = "SELECT * FROM thread WHERE threadid = $threadid";
+  $res = mysqli_query($DB, $sql);
+  return mysqli_fetch_assoc($res);
+}
+
 // 쓰레드 출력
-// TODO: 버튼 권한 체크
 // TODO: 비밀글 처리
+// TODO: 쓰레드 삭제 JS 처리
 function makeThread($data) {
+  global $ACT;
   foreach ($data as $key => $value) {
     $$key = $value;
   }
@@ -490,14 +503,27 @@ function makeThread($data) {
   if ($isThread) {
     $type = 'thread';
     $postId = $threadid;
-    $postTitle = "#$postId $title";
+    $postTitle = "<span class='label'>#$postId</span>$title";
     if ($pinned) {
-      $postTitle = "[고정됨] $title";
+      $type = 'thread pinned';
+      $postTitle = "<i class='label xi-bookmark-o'></i>$title";
     }
-    $buttonReply = (checkPerm() >= 1)? getButton('button', '답글', ['class'=>'min']):'';
+    $buttonReply = (!$pinned && checkPerm() >= 2)? 
+      getButton('button', '답글', ['class'=>'min', 'onclick'=>"openPopup(popup_reply_write, setReplyData($threadid))"]):'';
     $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
-      getButton('button', '수정', ['class'=>'min']).
-      getButton('button', '삭제', ['class'=>'min']):'';
+      getButton('button', '수정', 
+        ['class'=>'min', 'onclick'=>"openPopup(popup_thread_update, setThreadData($threadid, threadUpdate))"]).
+        "
+          <form name='threadDelete_$threadid' method='post' style='display:inline;'>
+          <input type='hidden' name='thread' value='true'>
+          <input type='hidden' name='action' value='$ACT'>
+          <input type='hidden' name='do' value='delete'>
+          <input type='hidden' name='threadid' value='$threadid'>
+          <input type='hidden' name='confirm' value='false'>
+        ".
+      getButton('button', '삭제', 
+        ['class'=>'min', 'onclick'=>"deleteThread(threadDelete_$threadid)"]).
+      '</form>':'';
   } else {
     $type = 'reply';
     $postId = $replyid;
@@ -673,6 +699,9 @@ function makePopup() : string
 {
   global $ACT, $DO, $DB, $USER;
 
+  // TODO: action 및 do 체크
+  // TODO: 권한 체크
+
   $name = 'default';
   $popups = array(
     'thread_write' => [
@@ -680,7 +709,19 @@ function makePopup() : string
       'action' => 'board',
       'do' => 'write',
       'pinnedCheckbox' => (checkPerm() >= 8)?
-        '<label><input type="checkbox" name="secret">고정글</label>':'',
+        '<label><input type="checkbox" name="pinned">고정글</label>':'',
+    ],
+    'thread_update' => [
+      'title' => '글 수정',
+      'action' => 'board',
+      'do' => 'update',
+      'pinnedCheckbox' => (checkPerm() >= 8)?
+        '<label><input type="checkbox" name="pinned">고정글</label>':'',
+    ],
+    'reply_write' => [
+      'title' => '답글 작성',
+      'action' => 'board',
+      'do' => 'write'
     ],
   );
 

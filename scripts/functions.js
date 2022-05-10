@@ -15,7 +15,6 @@ async function requestData(file, param = null) {
     }
   }
   // console.log('XHR:', requestUrl);
-
   try {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', requestUrl);
@@ -77,11 +76,13 @@ function scrollToTop(speed = 'smooth') {
 }
 
 // 팝업 오픈
-function openPopup(element) {
+async function openPopup(element, callFN) {
   if (element.classList.contains('active')) {
     return false;
   }
+  if (callFN) await callFN;
   element.classList.add('show');
+  await timeout(50);
   element.classList.add('active');
 }
 
@@ -154,4 +155,32 @@ async function makePostList(start, items, action) {
 async function makeThreadList(start, items) {
   const threadList = await xhr('getThreadList', {start: start, items: items});
   return threadList;
+}
+
+
+async function getThreadData(threadid) {
+  const threadData = await xhr('getThreadData', {threadid: threadid});
+  return threadData;
+}
+async function setThreadData(threadid, form) {
+  const threadData = await getThreadData(threadid);
+  form.title.value = threadData.title;
+  form.content.value = threadData.content;
+  form.threadid.value = threadData.threadid;
+  if (form.pinned !== undefined) {
+    form.pinned.checked = (threadData.pinned == 1) ? true : false;
+  }
+  if (form.secret !== undefined) {
+    form.secret.checked = (threadData.secret == 1) ? true : false;
+  }
+
+  let title = popup_thread_update.querySelector('.title');
+  const titleText = title.getAttribute('data');
+  title.innerHTML = `
+    <span class="label">#${threadData.threadid}</span>${titleText}
+  `;
+}
+
+function setReplyData(threadid) {
+  return false;
 }

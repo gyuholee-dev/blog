@@ -62,3 +62,8 @@ function xhr_getThreadList() {
   $items = $_GET['items'];
   echo json_encode(makeThreadList($start, $items));
 }
+
+function xhr_getThreadData() {
+  $threadid = $_GET['threadid'];
+  echo json_encode(getThreadData($threadid));
+}

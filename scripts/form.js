@@ -134,7 +134,11 @@ function sendThread(form) {
     return false;
   }
   form.confirm.value = true;
-  form.submit();
+  checkForm('등록하시겠습니까?', form);
+}
+
+function deleteThread(form) {
+  checkForm('삭제하시겠습니까?', form);
 }
 
 function checkForm(msg, self) {

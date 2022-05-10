@@ -1,10 +1,10 @@
 <section class="popup">
   {closeButton}
   <div class="header">
-    <span class="title">{title}</span>
+    <span class="title" data="{title}">{title}</span>
   </div>
   <div class="content">
-    <form name="threadWrite" method="post" action="" autocomplete="off">
+    <form name="threadUpdate" method="post" action="" autocomplete="off">
       <table class="table column">
         <tr>
           <td>
@@ -25,11 +25,12 @@
         <input type="hidden" name="thread" value="true">
         <input type="hidden" name="action" value="{action}">
         <input type="hidden" name="do" value="{do}">
+        <input type="hidden" name="threadid" value="">
         <input type="hidden" name="confirm" value="false">
         {pinnedCheckbox}
         <label><input type="checkbox" name="secret">비밀글</label>
-        <input class="btn" type="button" value="등록" onclick="sendThread(threadWrite)">
-        <input class="btn" type="button" value="취소" onclick="closePopup(popup_thread_write)">
+        <input class="btn" type="button" value="등록" onclick="sendThread(threadUpdate)">
+        <input class="btn" type="button" value="취소" onclick="closePopup(popup_thread_update)">
       </div>
 
     </form>
