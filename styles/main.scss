@@ -591,6 +591,9 @@ main {
             width: 100%;
             // max-width: 760px;
             max-width: 800px;
+            .title {
+              padding: 0;
+            }
             .message {
               // max-width: 720px;
               background-color: antiquewhite;
@@ -708,6 +711,7 @@ footer {
     max-width: 800px;
     padding: 25px;
     z-index: 1;
+    
     .header {
       margin-bottom: 5px;
       .title>.label {
@@ -740,6 +744,10 @@ footer {
             min-height: 240px;
           }
         }
+        input.subject {
+          padding: 5px 10px;
+          font-size: 1.25em;
+        }
       }
     }
     .buttons {
@@ -754,6 +762,29 @@ footer {
         &:last-of-type {
           margin-right: 25px;
         }
+      }
+    }
+
+    &.small {
+      max-width: 640px;
+      min-height: 240px;
+      .header {
+        margin-bottom: 15px;
+      }
+      .content {
+        padding: 0 10px;
+        height: 100%;
+        form {
+          align-items: center;
+          height: 100%;
+        }
+        .message {
+          @include flex(center, center);
+          height: 100%;
+        }
+      }
+      .buttons {
+        margin-top: 15px;
       }
     }
   }

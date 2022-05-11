@@ -157,30 +157,8 @@ async function makeThreadList(start, items) {
   return threadList;
 }
 
-
+// 쓰레드 데이터
 async function getThreadData(threadid) {
   const threadData = await xhr('getThreadData', {threadid: threadid});
   return threadData;
-}
-async function setThreadData(threadid, form) {
-  const threadData = await getThreadData(threadid);
-  form.title.value = threadData.title;
-  form.content.value = threadData.content;
-  form.threadid.value = threadData.threadid;
-  if (form.pinned !== undefined) {
-    form.pinned.checked = (threadData.pinned == 1) ? true : false;
-  }
-  if (form.secret !== undefined) {
-    form.secret.checked = (threadData.secret == 1) ? true : false;
-  }
-
-  let title = popup_thread_update.querySelector('.title');
-  const titleText = title.getAttribute('data');
-  title.innerHTML = `
-    <span class="label">#${threadData.threadid}</span>${titleText}
-  `;
-}
-
-function setReplyData(threadid) {
-  return false;
 }

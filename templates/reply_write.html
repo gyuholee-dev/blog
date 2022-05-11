@@ -1,14 +1,20 @@
 <section class="popup">
   {closeButton}
   <div class="header">
-    <span class="title">{title}</span>
+    <span class="title" data="{popupTitle}"></span>
   </div>
   <div class="content">
-    <form name="replyWrite" method="post" action="" autocomplete="off">
+    <form name="{formName}" method="post" action="" autocomplete="off">
       <table class="table column">
         <tr>
           <td>
-            <label>content</label>
+            <label>thread title</label>
+            <input type="text" class="subject" value="" readonly>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>reply content</label>
             <textarea name="content" required></textarea>
           </td>
         </tr>
@@ -22,8 +28,8 @@
         <input type="hidden" name="threadid" value="">
         <input type="hidden" name="confirm" value="false">
         <label><input type="checkbox" name="secret">비밀글</label>
-        <input class="btn" type="button" value="등록" onclick="sendReply(replyWrite)">
-        <input class="btn" type="button" value="취소" onclick="closePopup(popup_reply_write)">
+        <input class="btn" type="button" value="등록" onclick="sendReply({formName})">
+        <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
       </div>
 
     </form>

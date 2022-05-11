@@ -137,6 +137,16 @@ function sendThread(form) {
   checkForm('등록하시겠습니까?', form);
 }
 
+function sendReply(form) {
+  if (form.content.value=='') {
+    alert('내용을 입력하세요');
+    form.content.focus();
+    return false;
+  }
+  form.confirm.value = true;
+  checkForm('등록하시겠습니까?', form);
+}
+
 function deleteThread(form) {
   checkForm('삭제하시겠습니까?', form);
 }

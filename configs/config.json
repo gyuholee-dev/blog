@@ -18,6 +18,7 @@
     ],
     "scripts" : [
       "scripts/functions.js",
+      "scripts/popup.js",
       "scripts/form.js",
       "scripts/script.js"
     ],

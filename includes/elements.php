@@ -509,21 +509,13 @@ function makeThread($data) {
       $postTitle = "<i class='label xi-bookmark-o'></i>$title";
     }
     $buttonReply = (!$pinned && checkPerm() >= 2)? 
-      getButton('button', '답글', ['class'=>'min', 'onclick'=>"openPopup(popup_reply_write, setReplyData($threadid))"]):'';
+      getButton('button', '답글', 
+      ['class'=>'min', 'onclick'=>"openPopup(popup_reply_write, setReplyWrite($threadid, replyWrite))"]):'';
     $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
       getButton('button', '수정', 
-        ['class'=>'min', 'onclick'=>"openPopup(popup_thread_update, setThreadData($threadid, threadUpdate))"]).
-        "
-          <form name='threadDelete_$threadid' method='post' style='display:inline;'>
-          <input type='hidden' name='thread' value='true'>
-          <input type='hidden' name='action' value='$ACT'>
-          <input type='hidden' name='do' value='delete'>
-          <input type='hidden' name='threadid' value='$threadid'>
-          <input type='hidden' name='confirm' value='false'>
-        ".
+      ['class'=>'min', 'onclick'=>"openPopup(popup_thread_update, setThreadUpdate($threadid, threadUpdate))"]).
       getButton('button', '삭제', 
-        ['class'=>'min', 'onclick'=>"deleteThread(threadDelete_$threadid)"]).
-      '</form>':'';
+      ['class'=>'min', 'onclick'=>"openPopup(popup_thread_delete, setThreadDelete($threadid, threadDelete))"]):'';
   } else {
     $type = 'reply';
     $postId = $replyid;
@@ -667,7 +659,7 @@ function makeSidemenu($position)
 }
 
 // 팝업 출력
-function getPopup($name, array $data) : string
+function getPopup($name, array $data, $class=null) : string
 {
   global $ACT, $DO, $DB, $USER;
 
@@ -677,7 +669,10 @@ function getPopup($name, array $data) : string
     'button', '<i class="xi-close"></i>', 
     ['class'=>'close', 'onclick'=>"closePopup($popupId)"]
   );
-  $popup_data = array('closeButton' => $closeButton);
+  $popup_data = array(
+    'closeButton' => $closeButton,
+    'popupId' => $popupId,
+  );
   foreach ($data as $key => $value) {
     $popup_data[$key] = $value;
   }
@@ -705,23 +700,33 @@ function makePopup() : string
   $name = 'default';
   $popups = array(
     'thread_write' => [
-      'title' => '새 글 작성',
+      'popupTitle' => '새 글 작성',
+      'formName' => 'threadWrite',
       'action' => 'board',
       'do' => 'write',
       'pinnedCheckbox' => (checkPerm() >= 8)?
         '<label><input type="checkbox" name="pinned">고정글</label>':'',
     ],
     'thread_update' => [
-      'title' => '글 수정',
+      'popupTitle' => '글 수정',
+      'formName' => 'threadUpdate',
       'action' => 'board',
       'do' => 'update',
       'pinnedCheckbox' => (checkPerm() >= 8)?
         '<label><input type="checkbox" name="pinned">고정글</label>':'',
     ],
-    'reply_write' => [
-      'title' => '답글 작성',
+    'thread_delete' => [
+      'popupTitle' => '글 삭제',
+      'formName' => 'threadDelete',
+      'message' => '글을 삭제하시겠습니까?',
       'action' => 'board',
-      'do' => 'write'
+      'do' => 'delete',
+    ],
+    'reply_write' => [
+      'popupTitle' => '답글 작성',
+      'formName' => 'replyWrite',
+      'action' => 'board',
+      'do' => 'write',
     ],
   );
 

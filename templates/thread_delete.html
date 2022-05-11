@@ -1,35 +1,21 @@
-<section class="popup">
+<section class="popup small">
   {closeButton}
   <div class="header">
     <span class="title" data="{popupTitle}"></span>
   </div>
   <div class="content">
     <form name="{formName}" method="post" action="" autocomplete="off">
-      <table class="table column">
-        <tr>
-          <td>
-            <label>thread title</label>
-            <input type="text" class="subject" name="title" required>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>thread content</label>
-            <textarea name="content" required></textarea>
-          </td>
-        </tr>
-
-      </table>
+      
+      <div class="message" data="{message}"></div>
 
       <div class="buttons">
         <input type="hidden" name="thread" value="true">
         <input type="hidden" name="action" value="{action}">
         <input type="hidden" name="do" value="{do}">
+        <input type="hidden" name="title" value="{title}">
         <input type="hidden" name="threadid" value="">
         <input type="hidden" name="confirm" value="false">
-        {pinnedCheckbox}
-        <label><input type="checkbox" name="secret">비밀글</label>
-        <input class="btn" type="button" value="등록" onclick="sendThread({formName})">
+        <input class="btn" type="button" value="삭제" onclick="sendThread({formName})">
         <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
       </div>
 
