@@ -148,7 +148,8 @@ function sendReply(form) {
 }
 
 function deleteThread(form) {
-  checkForm('삭제하시겠습니까?', form);
+  // checkForm('삭제하시겠습니까?', form);
+  form.submit();
 }
 
 function checkForm(msg, self) {

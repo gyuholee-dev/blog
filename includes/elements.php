@@ -180,10 +180,7 @@ function getButton($type, $label='', $attr=array()) : string
     $class .= ' '.$attr['class'];
   }
 
-  $button = "<$tag class='$class' ";
-  if ($tag != 'button' && $tag != $type) {
-    $button .= "type='$type' ";
-  }
+  $button = "<$tag class='$class' type='$type' ";
   foreach ($attr as $key => $value) {
     $button .= "$key='$value' ";
   }
@@ -493,19 +490,18 @@ function getThreadData($threadid) : array
 
 // 쓰레드 출력
 // TODO: 비밀글 처리
-// TODO: 쓰레드 삭제 JS 처리
 function makeThread($data) {
   global $ACT;
   foreach ($data as $key => $value) {
     $$key = $value;
   }
-  $isThread= !isset($replyid);
+
+  $isThread = !isset($replyid);
   if ($isThread) {
     $type = 'thread';
     $postId = $threadid;
     $postTitle = "<span class='label'>#$postId</span>$title";
     if ($pinned) {
-      $type = 'thread pinned';
       $postTitle = "<i class='label xi-bookmark-o'></i>$title";
     }
     $buttonReply = (!$pinned && checkPerm() >= 2)? 
@@ -522,20 +518,31 @@ function makeThread($data) {
     $postTitle = '';
     $buttonReply = '';
     $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
-      getButton('button', '삭제', ['class'=>'min']):'';
+      getButton('button', '삭제', 
+      ['class'=>'min', 'onclick'=>"openPopup(popup_thread_delete, setReplyDelete($threadid, threadDelete))"]):'';
   }
   $wdate = date("Y-m-d H:i:s", $data['wdate']);
 
   $thread_data = array(
-    'type' => $type,
+    'formId' => $type.'_'.$postId,
+    'class' => isset($pinnded)?$type.' pinned':$type,
+    
     'postTitle' => $postTitle,
     'content' => $content,
     'buttonReply' => $buttonReply,
     'wdate' => $wdate,
     'nickname' => $nickname,
-    'buttonEdit' => $buttonEdit
+    'buttonEdit' => $buttonEdit,
+
+    // 'type' => $type,
+    // 'threadid' => isset($threadid)?$threadid:'',
+    // 'replyid' => isset($replyid)?$replyid:'',
+    // 'title' => isset($title)?$title:'',
+    // 'content' => isset($content)?$content:'',
+    // 'pinned' => isset($pinned)?$pinned:0,
+    // 'secret' => isset($secret)?$secret:0,
   );
-  return renderElement(TPL.'list_thread.html', $thread_data);
+  return renderElement(TPL.'thread.html', $thread_data);
 }
 
 // 쓰레드리스트 출력

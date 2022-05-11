@@ -1,14 +1,15 @@
-// 쓰레드 쓰기 팝업
+// 쓰레드 수정 팝업
 async function setThreadUpdate(threadid, form) {
   const threadData = await getThreadData(threadid);
-  form.title.value = threadData.title;
-  form.content.value = threadData.content;
-  form.threadid.value = threadData.threadid;
+  // const threadData = Doc.getId('thread_'+threadid);
+  form.title.value = threadData.title.value;
+  form.content.value = threadData.content.value;
+  form.threadid.value = threadData.threadid.value;
   if (form.pinned !== undefined) {
-    form.pinned.checked = (threadData.pinned == 1) ? true : false;
+    form.pinned.checked = (threadData.pinned.value == 1) ? true : false;
   }
   if (form.secret !== undefined) {
-    form.secret.checked = (threadData.secret == 1) ? true : false;
+    form.secret.checked = (threadData.secret.value == 1) ? true : false;
   }
 
   let popupTitle = popup_thread_update.querySelector('.title');
@@ -42,9 +43,6 @@ async function setThreadDelete(threadid, form) {
 async function setReplyWrite(threadid, form) {
   const threadData = await getThreadData(threadid);
   form.threadid.value = threadid;
-  if (form.secret !== undefined) {
-    form.secret.checked = (threadData.secret == 1) ? true : false;
-  }
 
   let popupTitle = popup_reply_write.querySelector('.title');
   const titleText = popupTitle.getAttribute('data');
@@ -53,4 +51,9 @@ async function setReplyWrite(threadid, form) {
   `;
   let popupSubject = popup_reply_write.querySelector('.subject');
   popupSubject.value = threadData.title;
+}
+
+// 답글 삭제 팝업
+async function setReplyDelete(replyid, form) {
+
 }
