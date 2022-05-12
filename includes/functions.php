@@ -70,11 +70,12 @@ function makeCode($max=32, $upper=false)
   return $code;
 }
 
-// 값이 date 인지 검사
-function isDate($str)
-{
-  $d = date('Y-m-d', strtotime($str));
-  return $d == $str;
+// 카멜케이스 변환
+function toSnake($string) {
+  return ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $string)), '_');
+}
+function toCamel($string) {
+  return lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $string))));
 }
 
 // 숫자를 자릿수 맞춰서 문자열로 변환

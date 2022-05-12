@@ -1,10 +1,10 @@
 <section class="popup">
   {closeButton}
   <div class="header">
-    <span class="title">{popupTitle}</span>
+    <span class="title" data="">{popupTitle}</span>
   </div>
   <div class="content">
-    <form name="{formName}" method="post" action="" autocomplete="off">
+    <form name="{formName}" method="post" autocomplete="off">
       <table class="table column">
         <tr>
           <td>
@@ -18,16 +18,15 @@
             <textarea name="content" required></textarea>
           </td>
         </tr>
-
       </table>
 
       <div class="buttons">
         <input type="hidden" name="thread" value="true">
-        <input type="hidden" name="action" value="{action}">
-        <input type="hidden" name="do" value="{do}">
-        <input type="hidden" name="confirm" value="false">
+        <input type="hidden" name="action" value="board">
+        <input type="hidden" name="do" value="write">
+        <input type="hidden" name="confirm" value="true">
         {pinnedCheckbox}
-        <label><input type="checkbox" name="secret">비밀글</label>
+        {secretCheckbox}
         <input class="btn" type="button" value="등록" onclick="sendThread({formName})">
         <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
       </div>

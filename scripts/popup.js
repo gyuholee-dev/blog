@@ -1,10 +1,32 @@
+// 팝업 핸들링
+async function setPopup(postId, form) {
+  switch(form.name) {
+    case 'threadUpdate':
+      await setThreadUpdate(postId, form, popup_thread_update);
+      return popup_thread_update;
+    
+    case 'threadDelete':
+      await setThreadDelete(postId, form, popup_thread_delete);
+      return popup_thread_delete;
+
+    case 'replyWrite':
+      await setReplyWrite(postId, form, popup_reply_write);
+      return popup_reply_write;
+
+    case 'replyDelete':
+      await setReplyDelete(postId, form, popup_reply_delete);
+      return popup_reply_delete;
+  }
+}
+
+
 // 쓰레드 수정 팝업
-async function setThreadUpdate(threadid, form) {
+async function setThreadUpdate(threadid, form, popup) {
   const threadData = await getThreadData(threadid);
-  // const threadData = Doc.getId('thread_'+threadid);
   form.title.value = threadData.title;
   form.content.value = threadData.content;
   form.threadid.value = threadData.threadid;
+
   if (form.pinned !== undefined) {
     form.pinned.checked = (threadData.pinned.value == 1) ? true : false;
   }
@@ -12,7 +34,7 @@ async function setThreadUpdate(threadid, form) {
     form.secret.checked = (threadData.secret.value == 1) ? true : false;
   }
 
-  let popupTitle = popup_thread_update.querySelector('.title');
+  let popupTitle = popup.querySelector('.title');
   const titleText = popupTitle.getAttribute('data');
   popupTitle.innerHTML = `
     <span class="label">#${threadid}</span>${titleText}
@@ -20,7 +42,7 @@ async function setThreadUpdate(threadid, form) {
 }
 
 // 쓰레드 삭제 팝업
-async function setThreadDelete(threadid, form) {
+async function setThreadDelete(threadid, form=threadDelete) {
   const threadData = await getThreadData(threadid);
   form.threadid.value = threadid;
 
@@ -33,14 +55,13 @@ async function setThreadDelete(threadid, form) {
   const messageText = message.getAttribute('data');
   message.innerHTML = `
     <span class="msg">
-      <span class="label">"${threadData.title}"</span> 
-      <b class="red">${messageText}</b>
+      <b class="red">"${threadData.title}" ${messageText}</b>
     </span>
   `;
 }
 
 // 답글 쓰기 팝업
-async function setReplyWrite(threadid, form) {
+async function setReplyWrite(threadid, form=replyWrite) {
   const threadData = await getThreadData(threadid);
   form.threadid.value = threadid;
 
@@ -54,6 +75,6 @@ async function setReplyWrite(threadid, form) {
 }
 
 // 답글 삭제 팝업
-async function setReplyDelete(replyid, form) {
+async function setReplyDelete(replyid, form=threadDelete) {
 
 }

@@ -4,12 +4,12 @@
     <span class="title" data="{popupTitle}"></span>
   </div>
   <div class="content">
-    <form name="{formName}" method="post" action="" autocomplete="off">
+    <form name="{formName}" method="post" autocomplete="off">
       <table class="table column">
         <tr>
           <td>
             <label>thread title</label>
-            <input type="text" class="subject" value="" readonly>
+            <input type="text" class="subject" name="title" readonly>
           </td>
         </tr>
         <tr>
@@ -23,11 +23,11 @@
 
       <div class="buttons">
         <input type="hidden" name="reply" value="true">
-        <input type="hidden" name="action" value="{action}">
-        <input type="hidden" name="do" value="{do}">
+        <input type="hidden" name="action" value="board">
+        <input type="hidden" name="do" value="write">
+        <input type="hidden" name="confirm" value="true">
         <input type="hidden" name="threadid" value="">
-        <input type="hidden" name="confirm" value="false">
-        <label><input type="checkbox" name="secret">비밀글</label>
+        {secretCheckbox}
         <input class="btn" type="button" value="등록" onclick="sendReply({formName})">
         <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
       </div>
