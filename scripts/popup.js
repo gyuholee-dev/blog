@@ -2,9 +2,9 @@
 async function setThreadUpdate(threadid, form) {
   const threadData = await getThreadData(threadid);
   // const threadData = Doc.getId('thread_'+threadid);
-  form.title.value = threadData.title.value;
-  form.content.value = threadData.content.value;
-  form.threadid.value = threadData.threadid.value;
+  form.title.value = threadData.title;
+  form.content.value = threadData.content;
+  form.threadid.value = threadData.threadid;
   if (form.pinned !== undefined) {
     form.pinned.checked = (threadData.pinned.value == 1) ? true : false;
   }
