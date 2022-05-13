@@ -506,13 +506,12 @@ function makeThread($data) {
     }
     $buttonReply = (!$pinned && checkPerm() >= 2)? 
       getButton('button', '답글', 
-      ['class'=>'min', 'onclick'=>"openPopup(popup_reply_write, setReplyWrite($threadid))"]):'';
+      ['class'=>'min', 'onclick'=>"openPopup(setReplyWrite($threadid))"]):'';
     $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
       getButton('button', '수정', 
-      // ['class'=>'min', 'onclick'=>"openPopup(popup_thread_update, setThreadUpdate($threadid))"]).
-      ['class'=>'min', 'onclick'=>"openPopup(setPopup($threadid, threadUpdate))"]).
+      ['class'=>'min', 'onclick'=>"openPopup(setThreadUpdate($threadid))"]).
       getButton('button', '삭제', 
-      ['class'=>'min', 'onclick'=>"openPopup(popup_thread_delete, setThreadDelete($threadid))"]):'';
+      ['class'=>'min', 'onclick'=>"openPopup(setThreadDelete($threadid))"]):'';
   } else {
     $type = 'reply';
     $postId = $replyid;
@@ -520,7 +519,7 @@ function makeThread($data) {
     $buttonReply = '';
     $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
       getButton('button', '삭제', 
-      ['class'=>'min', 'onclick'=>"openPopup(popup_reply_delete, setReplyDelete($threadid))"]):'';
+      ['class'=>'min', 'onclick'=>"openPopup(setReplyDelete($replyid))"]):'';
   }
   $wdate = date("Y-m-d H:i:s", $data['wdate']);
 
@@ -724,6 +723,7 @@ function makePopup() : string
     'reply_delete' => [
       'popupTitle' => '답글 삭제',
       'formName' => 'replyDelete',
+      'message' => '답글을 삭제하시겠습니까?',
     ],
   );
 

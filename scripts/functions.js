@@ -76,21 +76,11 @@ function scrollToTop(speed = 'smooth') {
 }
 
 // 팝업 오픈
-/* async function openPopup(element, callFN) {
-  if (element.classList.contains('active')) {
-    return false;
-  }
-  if (callFN) await callFN;
-  element.classList.add('show');
-  await timeout(50);
-  element.classList.add('active');
-} */
-async function openPopup(element, callFN=null) {
+async function openPopup(element) {
   const elem = await element;
   if (elem.classList.contains('active')) {
     return false;
   }
-  if (callFN) await callFN;
   elem.classList.add('show');
   await timeout(50);
   elem.classList.add('active');

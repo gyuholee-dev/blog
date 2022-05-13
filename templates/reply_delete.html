@@ -4,7 +4,7 @@
     <span class="title" data="{popupTitle}"></span>
   </div>
   <div class="content">
-    <form name="{formName}" method="post" action="" autocomplete="off">
+    <form name="{formName}" method="post" autocomplete="off">
       
       <div class="message" data="{message}"></div>
 
@@ -13,7 +13,7 @@
         <input type="hidden" name="action" value="board">
         <input type="hidden" name="do" value="delete">
         <input type="hidden" name="confirm" value="true">
-        <input type="hidden" name="threadid" value="">
+        <input type="hidden" name="replyid" value="">
         <input class="btn" type="button" value="삭제" onclick="deleteThread({formName})">
         <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
       </div>
