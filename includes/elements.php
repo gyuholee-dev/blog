@@ -498,9 +498,10 @@ function makeThread($data) {
   $isThread = !isset($replyid);
   if ($isThread) {
     $type = 'thread';
-    $postTitle = "<span class='label'>#$threadid</span>$title";
     if ($pinned) {
       $postTitle = "<i class='label xi-bookmark-o'></i>$title";
+    } else {
+      $postTitle = $title;
     }
     $buttonReply = (!$pinned && checkPerm(PERM_REPLY_WRITE))? 
       getButton('button', '답글', 
