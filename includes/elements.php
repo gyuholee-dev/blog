@@ -699,7 +699,6 @@ function makePopup(string $name) : string
           '<label><input type="checkbox" name="pinned">고정글</label>':'',
         'secretCheckbox' => checkPerm(PERM_THREAD_WRITE)?
           '<label><input type="checkbox" name="secret">비밀글</label>':'',
-        // 'popupConfirm' => getPopup('confirm', ['confirmCall'=>'sendThread(threadWrite)']),
       );
       break;
     
