@@ -641,7 +641,7 @@ function makeSidemenu($position)
     // 게시판 작성
     if (checkPerm(PERM_THREAD_WRITE) && $ACT != 'main' && ($DO == 'post' || $DO == 'thread')) {
       $html .= getButton('button', '<i class="xi-plus"></i>', 
-        ['id'=>'thread_write', 'class'=>'float bottom', 'onclick'=>"openPopup(popup_thread_write)"]);
+        ['id'=>'thread_write', 'class'=>'float bottom', 'onclick'=>"openPopup(threadWrite)"]);
     }
     // 스크롤탑
     $html .= getButton('button', '<i class="xi-angle-up"></i>', 
@@ -652,12 +652,11 @@ function makeSidemenu($position)
 }
 
 // 팝업 출력
-function getPopup($name, array $data, $class=null) : string
+function getPopup($name, array $data=array(), $class=null) : string
 {
   global $ACT, $DO, $DB, $USER;
 
   $popupId = 'popup_'.$name;
-
   $closeButton = getButton(
     'button', '<i class="xi-close"></i>', 
     ['class'=>'close', 'onclick'=>"closePopup($popupId)"]
@@ -671,12 +670,11 @@ function getPopup($name, array $data, $class=null) : string
   }
   $popupContent = renderElement(TPL.$name.'.html', $popup_data);
 
-  $html = "
-    <div id='$popupId' class='modal $class'>
-      <div class='dim'></div>
-      $popupContent
-    </div>
-  ";
+  $html = (isset($data['formName']))?
+    "<form id='$popupId' name='$data[formName]' method='post' class='modal $class'>":
+    "<div id='$popupId' class='modal $class'>";
+  $html .= "<div class='dim'></div>$popupContent";
+  $html .= (isset($data['formName']))?"</form>":"</div>";
 
   return $html;
 }
@@ -687,19 +685,20 @@ function makePopup($name) : string
   switch ($name) {
     case 'thread_write':
       $data = array(
-        'popupTitle' => '새 글 작성',
         'formName' => 'threadWrite',
+        'popupTitle' => '새 글 작성',
         'pinnedCheckbox' => checkPerm(PERM_USER_MANAGER)?
           '<label><input type="checkbox" name="pinned">고정글</label>':'',
         'secretCheckbox' => checkPerm(PERM_THREAD_WRITE)?
           '<label><input type="checkbox" name="secret">비밀글</label>':'',
+        // 'popupConfirm' => getPopup('confirm', ['confirmCall'=>'sendThread(threadWrite)']),
       );
       break;
     
     case 'thread_update':
       $data = array(
-        'popupTitle' => '글 수정',
         'formName' => 'threadUpdate',
+        'popupTitle' => '글 수정',
         'pinnedCheckbox' => checkPerm(PERM_USER_MANAGER)?
           '<label><input type="checkbox" name="pinned">고정글</label>':'',
         'secretCheckbox' => checkPerm(PERM_THREAD_UPDATE)?
@@ -709,16 +708,16 @@ function makePopup($name) : string
 
     case 'thread_delete':
       $data = array(
-        'popupTitle' => '글 삭제',
         'formName' => 'threadDelete',
+        'popupTitle' => '글 삭제',
         'message' => '글을 삭제하시겠습니까?',
       );
       break;
 
     case 'reply_write':
       $data = array(
-        'popupTitle' => '답글 작성',
         'formName' => 'replyWrite',
+        'popupTitle' => '답글 작성',
         'secretCheckbox' => checkPerm(PERM_REPLY_WRITE)?
           '<label><input type="checkbox" name="secret">비밀글</label>':'',
       );
@@ -726,8 +725,8 @@ function makePopup($name) : string
 
     case 'reply_delete':
       $data = array(
-        'popupTitle' => '답글 삭제',
         'formName' => 'replyDelete',
+        'popupTitle' => '답글 삭제',
         'message' => '답글을 삭제하시겠습니까?',
       );
       break;

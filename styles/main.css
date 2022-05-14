@@ -226,64 +226,64 @@ footer { width: 100%; height: 60px; align-items: center; margin: 0 auto; border-
 
 #loading:not(:last-child) { margin-bottom: 15px; }
 
-[id^=popup_] { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-wrap: nowrap; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; opacity: 0; display: none; transition: opacity 0.35s; }
+[id^=popup_], form.popup { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-wrap: nowrap; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; opacity: 0; display: none; transition: opacity 0.35s; }
 
-[id^=popup_].show { display: flex; }
+[id^=popup_].show, form.popup.show { display: flex; }
 
-[id^=popup_].active { opacity: 1; }
+[id^=popup_].active, form.popup.active { opacity: 1; }
 
-[id^=popup_].modal { width: 100%; height: 100%; }
+[id^=popup_].modal, form.popup.modal { width: 100%; height: 100%; }
 
-[id^=popup_].modal .dim { position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+[id^=popup_].modal .dim, form.popup.modal .dim { position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
 
-[id^=popup_] section.popup { width: 100%; max-width: 800px; padding: 25px; z-index: 1; }
+[id^=popup_] section.popup, form.popup section.popup { width: 100%; max-width: 800px; padding: 25px; z-index: 1; }
 
-[id^=popup_] section.popup .header { margin-bottom: 5px; }
+[id^=popup_] section.popup .header, form.popup section.popup .header { margin-bottom: 5px; }
 
-[id^=popup_] section.popup .header .title > .label { margin-right: 8px; }
+[id^=popup_] section.popup .header .title > .label, form.popup section.popup .header .title > .label { margin-right: 8px; }
 
-[id^=popup_] section.popup .content { padding: 0; }
+[id^=popup_] section.popup .content, form.popup section.popup .content { padding: 0; }
 
-[id^=popup_] section.popup .content table.row td:last-child { padding-right: 32px; }
+[id^=popup_] section.popup .content table.row td:last-child, form.popup section.popup .content table.row td:last-child { padding-right: 32px; }
 
-[id^=popup_] section.popup .content table.column label { text-transform: capitalize; cursor: default; padding: 0 5px; }
+[id^=popup_] section.popup .content table.column label, form.popup section.popup .content table.column label { text-transform: capitalize; cursor: default; padding: 0 5px; }
 
-[id^=popup_] section.popup .content table.column td { padding: 2.5px 0; }
+[id^=popup_] section.popup .content table.column td, form.popup section.popup .content table.column td { padding: 2.5px 0; }
 
-[id^=popup_] section.popup .content table.column textarea { min-height: 240px; }
+[id^=popup_] section.popup .content table.column textarea, form.popup section.popup .content table.column textarea { min-height: 240px; }
 
-[id^=popup_] section.popup .content table input.subject { padding: 5px 10px; font-size: 1.25em; }
+[id^=popup_] section.popup .content table input.subject, form.popup section.popup .content table input.subject { padding: 5px 10px; font-size: 1.25em; }
 
-[id^=popup_] section.popup .content .center { text-align: center; }
+[id^=popup_] section.popup .content .center, form.popup section.popup .content .center { text-align: center; }
 
-[id^=popup_] section.popup .buttons { display: flex; flex-direction: row; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; margin-top: 5px; }
+[id^=popup_] section.popup .buttons, form.popup section.popup .buttons { display: flex; flex-direction: row; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; margin-top: 5px; }
 
-[id^=popup_] section.popup .buttons > .btn:not(:last-child) { margin-right: 25px; }
+[id^=popup_] section.popup .buttons > .btn:not(:last-child), form.popup section.popup .buttons > .btn:not(:last-child) { margin-right: 25px; }
 
-[id^=popup_] section.popup .buttons > label { margin-right: 15px; }
+[id^=popup_] section.popup .buttons > label, form.popup section.popup .buttons > label { margin-right: 15px; }
 
-[id^=popup_] section.popup .buttons > label:last-of-type { margin-right: 25px; }
+[id^=popup_] section.popup .buttons > label:last-of-type, form.popup section.popup .buttons > label:last-of-type { margin-right: 25px; }
 
-[id^=popup_] section.popup.small { max-width: 640px; min-height: 240px; }
+[id^=popup_] section.popup.small, form.popup section.popup.small { max-width: 640px; min-height: 240px; }
 
-[id^=popup_] section.popup.small .header { margin-bottom: 15px; }
+[id^=popup_] section.popup.small .header, form.popup section.popup.small .header { margin-bottom: 15px; }
 
-[id^=popup_] section.popup.small .content { padding: 0 10px; height: 100%; }
+[id^=popup_] section.popup.small .content, form.popup section.popup.small .content { padding: 0 10px; height: 100%; }
 
-[id^=popup_] section.popup.small .content form { align-items: center; height: 100%; }
+[id^=popup_] section.popup.small .content form, form.popup section.popup.small .content form { align-items: center; height: 100%; }
 
-[id^=popup_] section.popup.small .content .text:not(:empty) { width: 100%; border: 1px solid #a5a5a5; padding: 10px 15px; border-radius: 10px; margin-bottom: 5px; }
+[id^=popup_] section.popup.small .content .text:not(:empty), form.popup section.popup.small .content .text:not(:empty) { width: 100%; border: 1px solid #a5a5a5; padding: 10px 15px; border-radius: 10px; margin-bottom: 5px; }
 
-[id^=popup_] section.popup.small .content .message { display: flex; flex-direction: column; align-items: start; justify-content: center; flex-wrap: nowrap; height: 100%; font-weight: bold; }
+[id^=popup_] section.popup.small .content .message, form.popup section.popup.small .content .message { display: flex; flex-direction: column; align-items: start; justify-content: center; flex-wrap: nowrap; height: 100%; font-weight: bold; }
 
-[id^=popup_] section.popup.small .buttons { margin-top: 10px; }
+[id^=popup_] section.popup.small .buttons, form.popup section.popup.small .buttons { margin-top: 10px; }
 
-[id^=popup_] section.popup.small.thread .content .text { background-color: aliceblue; }
+[id^=popup_] section.popup.small.thread .content .text, form.popup section.popup.small.thread .content .text { background-color: aliceblue; }
 
-[id^=popup_] section.popup.small.reply .content .text { background-color: antiquewhite; }
+[id^=popup_] section.popup.small.reply .content .text, form.popup section.popup.small.reply .content .text { background-color: antiquewhite; }
 
-[id^=popup_] .btn.close { position: absolute; right: 5px; top: 5px; z-index: 9; border: none; transform: scale(1.15); color: #b3b3b3; }
+[id^=popup_] .btn.close, form.popup .btn.close { position: absolute; right: 5px; top: 5px; z-index: 9; border: none; transform: scale(1.15); color: #b3b3b3; }
 
-[id^=popup_] .btn.close.outer { background-color: white !important; border: 1px solid transparent; transform: translate(50%, -50%) scale(1.15); transform: translate(calc(100% + 15px), -50%) scale(1.15); }
+[id^=popup_] .btn.close.outer, form.popup .btn.close.outer { background-color: white !important; border: 1px solid transparent; transform: translate(50%, -50%) scale(1.15); transform: translate(calc(100% + 15px), -50%) scale(1.15); }
 
-[id^=popup_] .btn.close:hover { color: #ff4200; }
+[id^=popup_] .btn.close:hover, form.popup .btn.close:hover { color: #ff4200; }

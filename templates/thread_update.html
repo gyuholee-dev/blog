@@ -4,34 +4,30 @@
     <span class="title" data="{popupTitle}"></span>
   </div>
   <div class="content">
-    <form name="{formName}" method="post" autocomplete="off">
-      <table class="table column">
-        <tr>
-          <td>
-            <label>thread title</label>
-            <input type="text" class="subject" name="title" required>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>thread content</label>
-            <textarea name="content" required></textarea>
-          </td>
-        </tr>
-      </table>
-
-      <div class="buttons">
-        <input type="hidden" name="thread" value="true">
-        <input type="hidden" name="action" value="board">
-        <input type="hidden" name="do" value="update">
-        <input type="hidden" name="confirm" value="true">
-        <input type="hidden" name="threadid" value="">
-        {pinnedCheckbox}
-        {secretCheckbox}
-        <input class="btn" type="button" value="등록" onclick="sendThread({formName})">
-        <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
-      </div>
-
-    </form>
+    <table class="table column">
+      <tr>
+        <td>
+          <label>thread title</label>
+          <input type="text" class="subject" name="title" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>thread content</label>
+          <textarea name="content" required></textarea>
+        </td>
+      </tr>
+    </table>
+    <div class="buttons">
+      <input type="hidden" name="thread" value="true">
+      <input type="hidden" name="action" value="board">
+      <input type="hidden" name="do" value="update">
+      <input type="hidden" name="confirm" value="true">
+      <input type="hidden" name="threadid" value="">
+      {pinnedCheckbox}
+      {secretCheckbox}
+      <input class="btn" type="button" value="등록" onclick="sendThread({formName})">
+      <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
+    </div>
   </div>
 </section>

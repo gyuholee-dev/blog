@@ -678,7 +678,8 @@ footer {
 }
 
 // 팝업
-[id^=popup_] {
+[id^=popup_],
+form.popup {
   @include flex(center, center, column);
   position: fixed;
   top: 50%;

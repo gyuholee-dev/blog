@@ -4,21 +4,16 @@
     <span class="title" data="{popupTitle}"></span>
   </div>
   <div class="content">
-    <form name="{formName}" method="post" autocomplete="off">
-      
-      <p class="text"></p>
-      <span class="message red">{message}</span>
-
-      <div class="buttons">
-        <input type="hidden" name="reply" value="true">
-        <input type="hidden" name="action" value="board">
-        <input type="hidden" name="do" value="delete">
-        <input type="hidden" name="confirm" value="true">
-        <input type="hidden" name="replyid" value="">
-        <input class="btn" type="button" value="삭제" onclick="deleteReply({formName})">
-        <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
-      </div>
-
-    </form>
+    <p class="text"></p>
+    <span class="message red">{message}</span>
+    <div class="buttons">
+      <input type="hidden" name="reply" value="true">
+      <input type="hidden" name="action" value="board">
+      <input type="hidden" name="do" value="delete">
+      <input type="hidden" name="confirm" value="true">
+      <input type="hidden" name="replyid" value="">
+      <input class="btn" type="button" value="삭제" onclick="deleteReply({formName})">
+      <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
+    </div>
   </div>
 </section>

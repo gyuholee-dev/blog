@@ -6,7 +6,7 @@ require_once 'includes/elements.php';
 // 사이트 로직 ------------------------------------------------
 
 $content = '';
-$popup = '';
+$popup = getPopup('confirm');
 switch ($ACT) {
   case 'main':
     $content .= makePostPage($ACT, 1);
@@ -28,12 +28,11 @@ switch ($ACT) {
     // TODO: user, do 권한 체크해서 로그인 분기
     include INC.'board.php';
     $content .= makeBoardPage();
-    $popup .= checkPerm(1)?makePopup('thread_write'):'';
-    $popup .= checkPerm(2)?
-      makePopup('thread_update').
-      makePopup('thread_delete').
-      makePopup('reply_write').
-      makePopup('reply_delete'):'';
+    $popup .= checkPerm(PERM_THREAD_WRITE)?makePopup('thread_write'):'';
+    $popup .= checkPerm(PERM_THREAD_UPDATE)?makePopup('thread_update'):'';
+    $popup .= checkPerm(PERM_THREAD_DELETE)?makePopup('thread_delete'):'';
+    $popup .= checkPerm(PERM_REPLY_WRITE)?makePopup('reply_write'):'';
+    $popup .= checkPerm(PERM_REPLY_DELETE)?makePopup('reply_delete'):'';
     break;
 
   case 'user':

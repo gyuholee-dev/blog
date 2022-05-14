@@ -4,11 +4,8 @@
     <span class="title" data="{popupTitle}"></span>
   </div>
   <div class="content">
-    <form name="{formName}" method="post" autocomplete="off">
-      
       <p class="text"></p>
       <span class="message red">{message}</span>
-
       <div class="buttons">
         <input type="hidden" name="thread" value="true">
         <input type="hidden" name="action" value="board">
@@ -18,7 +15,5 @@
         <input class="btn" type="button" value="삭제" onclick="deleteThread({formName})">
         <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
       </div>
-
-    </form>
   </div>
 </section>

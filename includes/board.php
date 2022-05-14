@@ -2,7 +2,6 @@
 
 // 컨펌 처리
 if (isset($_POST['confirm'])) {
-  // TODO: 메시지
   if (isset($_POST['thread'])) {
     switch ($DO) {
       case 'write':
