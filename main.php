@@ -28,11 +28,11 @@ switch ($ACT) {
     // TODO: user, do 권한 체크해서 로그인 분기
     include INC.'board.php';
     $content .= makeBoardPage();
-    $popups[] = checkPerm(PERM_THREAD_WRITE)?'thread_write':'';
-    $popups[] = checkPerm(PERM_THREAD_UPDATE)?'thread_update':'';
-    $popups[] = checkPerm(PERM_THREAD_DELETE)?'thread_delete':'';
-    $popups[] = checkPerm(PERM_REPLY_WRITE)?'reply_write':'';
-    $popups[] = checkPerm(PERM_REPLY_DELETE)?'reply_delete':'';
+    checkPerm(PERM_THREAD_WRITE)?$popups[]='thread_write':null;
+    checkPerm(PERM_THREAD_UPDATE)?$popups[]='thread_update':null;
+    checkPerm(PERM_THREAD_DELETE)?$popups[]='thread_delete':null;
+    checkPerm(PERM_REPLY_WRITE)?$popups[]='reply_write':null;
+    checkPerm(PERM_REPLY_DELETE)?$popups[]='reply_delete':null;
     break;
 
   case 'user':
