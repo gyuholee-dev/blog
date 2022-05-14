@@ -254,6 +254,8 @@ footer { width: 100%; height: 60px; align-items: center; margin: 0 auto; border-
 
 [id^=popup_] section.popup .content table input.subject { padding: 5px 10px; font-size: 1.25em; }
 
+[id^=popup_] section.popup .content .center { text-align: center; }
+
 [id^=popup_] section.popup .buttons { display: flex; flex-direction: row; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; margin-top: 5px; }
 
 [id^=popup_] section.popup .buttons > .btn:not(:last-child) { margin-right: 25px; }
@@ -270,9 +272,15 @@ footer { width: 100%; height: 60px; align-items: center; margin: 0 auto; border-
 
 [id^=popup_] section.popup.small .content form { align-items: center; height: 100%; }
 
-[id^=popup_] section.popup.small .content .message { display: flex; flex-direction: row; align-items: center; justify-content: center; flex-wrap: nowrap; height: 100%; }
+[id^=popup_] section.popup.small .content .text:not(:empty) { width: 100%; border: 1px solid #a5a5a5; padding: 10px 15px; border-radius: 10px; margin-bottom: 5px; }
 
-[id^=popup_] section.popup.small .buttons { margin-top: 15px; }
+[id^=popup_] section.popup.small .content .message { display: flex; flex-direction: column; align-items: start; justify-content: center; flex-wrap: nowrap; height: 100%; font-weight: bold; }
+
+[id^=popup_] section.popup.small .buttons { margin-top: 10px; }
+
+[id^=popup_] section.popup.small.thread .content .text { background-color: aliceblue; }
+
+[id^=popup_] section.popup.small.reply .content .text { background-color: antiquewhite; }
 
 [id^=popup_] .btn.close { position: absolute; right: 5px; top: 5px; z-index: 9; border: none; transform: scale(1.15); color: #b3b3b3; }
 

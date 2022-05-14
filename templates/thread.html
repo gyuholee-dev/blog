@@ -1,4 +1,4 @@
-<div id="{contentId}" class="post {class}">
+<form id="{contentId}" class="post {class}">
   <div class="header">
     <div class="quot line-v"></div>
     <div class="quot line-h"></div>
@@ -12,5 +12,15 @@
       <span class="username">{nickname}</span>
       <span class="buttons edit">{buttonEdit}</span>
     </div>
+    <div class="data">
+      <input type="hidden" name="type" value="{type}">
+      <input type="hidden" name="threadid" value="{threadid}">
+      <input type="hidden" name="replyid" value="{replyid}">
+      <input type="hidden" name="confirm" value="false">
+      <input type="hidden" name="title" value="{title}">
+      <input type="hidden" name="content" value="{content}">
+      <input type="hidden" name="pinned" value="{pinned}">
+      <input type="hidden" name="secret" value="{secret}">
+    </div>
   </div>
-</div>
+</form>

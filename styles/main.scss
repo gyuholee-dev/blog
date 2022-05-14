@@ -749,6 +749,9 @@ footer {
           font-size: 1.25em;
         }
       }
+      .center {
+        text-align: center;
+      }
     }
     .buttons {
       @include flex(center, center);
@@ -778,13 +781,28 @@ footer {
           align-items: center;
           height: 100%;
         }
+        .text:not(:empty) {
+          width: 100%;
+          border: 1px solid #a5a5a5;
+          padding: 10px 15px;
+          border-radius: 10px;
+          margin-bottom: 5px;
+        }
         .message {
-          @include flex(center, center);
+          @include flex(start, center, column);
           height: 100%;
+          font-weight: bold;
         }
       }
       .buttons {
-        margin-top: 15px;
+        margin-top: 10px;
+      }
+
+      &.thread .content .text {
+        background-color: aliceblue;
+      }
+      &.reply .content .text {
+        background-color: antiquewhite;
       }
     }
   }

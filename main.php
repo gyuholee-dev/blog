@@ -3,7 +3,10 @@
 require_once 'includes/init.php';
 require_once 'includes/elements.php';
 
+// 사이트 로직 ------------------------------------------------
+
 $content = '';
+$popup = '';
 switch ($ACT) {
   case 'main':
     $content .= makePostPage($ACT, 1);
@@ -22,8 +25,15 @@ switch ($ACT) {
     break;
 
   case 'board':
+    // TODO: user, do 권한 체크해서 로그인 분기
     include INC.'board.php';
     $content .= makeBoardPage();
+    $popup .= checkPerm(1)?makePopup('thread_write'):'';
+    $popup .= checkPerm(2)?
+      makePopup('thread_update').
+      makePopup('thread_delete').
+      makePopup('reply_write').
+      makePopup('reply_delete'):'';
     break;
 
   case 'user':
@@ -68,7 +78,7 @@ switch ($ACT) {
     break;
 }
 
-//------------------------ 랜더링 ------------------------
+// 랜더링 ------------------------------------------------
 // 프리로드
 preloadLibrary();
 
@@ -81,6 +91,6 @@ $html_data = array(
   'rightmenu' => makeSidemenu('right'),
   'footer' => makeFooter(),
   'postScript' => getLibraries('postscripts'),
-  'popup' => makePopup(),
+  'popup' => $popup,
 );
 echo renderElement(TPL.'template.html', $html_data);

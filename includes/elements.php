@@ -304,10 +304,10 @@ function makePost($data) : string
   $textClass = ($posttype == 'media')?'center':'left';
   $content = "<p class='$textClass'>$content</p>";
 
-  $buttonReply = (!$pinned && checkPerm() >= 2)? 
+  $buttonReply = (!$pinned && checkPerm(PERM_USER_FRIEND))? 
     getButton('button', '답글', ['class'=>'min']):'';
 
-  $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
+  $buttonEdit = (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER))?
     getButton('button', '수정', ['class'=>'min']).
     getButton('button', '삭제', ['class'=>'min']):'';
 
@@ -499,39 +499,41 @@ function makeThread($data) {
   $isThread = !isset($replyid);
   if ($isThread) {
     $type = 'thread';
-    $postId = $threadid;
-    $postTitle = "<span class='label'>#$postId</span>$title";
+    $postTitle = "<span class='label'>#$threadid</span>$title";
     if ($pinned) {
       $postTitle = "<i class='label xi-bookmark-o'></i>$title";
     }
-    $buttonReply = (!$pinned && checkPerm() >= 2)? 
+    $buttonReply = (!$pinned && checkPerm(PERM_REPLY_WRITE))? 
       getButton('button', '답글', 
       ['class'=>'min', 'onclick'=>"openPopup(setReplyWrite($threadid))"]):'';
-    $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
+    $buttonEdit = (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER))?
       getButton('button', '수정', 
       ['class'=>'min', 'onclick'=>"openPopup(setThreadUpdate($threadid))"]).
       getButton('button', '삭제', 
       ['class'=>'min', 'onclick'=>"openPopup(setThreadDelete($threadid))"]):'';
   } else {
     $type = 'reply';
-    $postId = $replyid;
-    $postTitle = '';
-    $buttonReply = '';
-    $buttonEdit = (isOwner($data['userid']) || checkPerm() >= 8)?
+    $buttonEdit = (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER))?
       getButton('button', '삭제', 
       ['class'=>'min', 'onclick'=>"openPopup(setReplyDelete($replyid))"]):'';
   }
   $wdate = date("Y-m-d H:i:s", $data['wdate']);
 
   $thread_data = array(
-    'contentId' => $type.'_'.$postId,
+    'contentId' => $isThread?$type.'_'.$threadid:$type.'_'.$replyid,
     'class' => isset($pinnded)?$type.' pinned':$type,
-    'postTitle' => $postTitle,
+    'type' => $type,
+    'threadid' => isset($threadid)?$threadid:'',
+    'replyid' => isset($replyid)?$replyid:'',
+    'title' => isset($title)?$title:'',
+    'postTitle' => isset($postTitle)?$postTitle:'',
     'content' => $content,
-    'buttonReply' => $buttonReply,
     'wdate' => $wdate,
     'nickname' => $nickname,
-    'buttonEdit' => $buttonEdit,
+    'buttonReply' => isset($buttonReply)?$buttonReply:'',
+    'buttonEdit' => isset($buttonEdit)?$buttonEdit:'',
+    'pinned' => isset($pinned)?$pinned:0,
+    'secret' => isset($secret)?$secret:0,
   );
   return renderElement(TPL.'thread.html', $thread_data);
 }
@@ -636,12 +638,12 @@ function makeSidemenu($position)
 
   } elseif ($position == 'right') {
     // 포스트 작성
-    if (checkPerm() >= 4 && ($DO == 'post' || $DO == 'list')) {
+    if (checkPerm(PERM_POST_WRITE) && ($DO == 'post' || $DO == 'list')) {
       $html .= getButton('button', '<i class="xi-pen-o"></i>', 
         ['id'=>'post_write', 'class'=>'float top', 'onclick'=>""]);
     }
     // 게시판 작성
-    if (checkPerm() >= 1 && $ACT != 'main' && ($DO == 'post' || $DO == 'thread')) {
+    if (checkPerm(PERM_THREAD_WRITE) && $ACT != 'main' && ($DO == 'post' || $DO == 'thread')) {
       $html .= getButton('button', '<i class="xi-plus"></i>', 
         ['id'=>'thread_write', 'class'=>'float bottom', 'onclick'=>"openPopup(popup_thread_write)"]);
     }
@@ -674,7 +676,7 @@ function getPopup($name, array $data, $class=null) : string
   $popupContent = renderElement(TPL.$name.'.html', $popup_data);
 
   $html = "
-    <div id='$popupId' class='modal'>
+    <div id='$popupId' class='modal $class'>
       <div class='dim'></div>
       $popupContent
     </div>
@@ -684,53 +686,57 @@ function getPopup($name, array $data, $class=null) : string
 }
 
 // 팝업 출력
-function makePopup() : string
+function makePopup($name) : string
 {
-  global $ACT, $DO, $DB, $USER;
+  switch ($name) {
+    case 'thread_write':
+      $data = array(
+        'popupTitle' => '새 글 작성',
+        'formName' => 'threadWrite',
+        'pinnedCheckbox' => checkPerm(PERM_USER_MANAGER)?
+          '<label><input type="checkbox" name="pinned">고정글</label>':'',
+        'secretCheckbox' => checkPerm(PERM_THREAD_WRITE)?
+          '<label><input type="checkbox" name="secret">비밀글</label>':'',
+      );
+      break;
+    
+    case 'thread_update':
+      $data = array(
+        'popupTitle' => '글 수정',
+        'formName' => 'threadUpdate',
+        'pinnedCheckbox' => checkPerm(PERM_USER_MANAGER)?
+          '<label><input type="checkbox" name="pinned">고정글</label>':'',
+        'secretCheckbox' => checkPerm(PERM_THREAD_UPDATE)?
+          '<label><input type="checkbox" name="secret">비밀글</label>':'',
+      );
+      break;
 
-  // TODO: action 및 do 체크
-  // TODO: 권한 체크
+    case 'thread_delete':
+      $data = array(
+        'popupTitle' => '글 삭제',
+        'formName' => 'threadDelete',
+        'message' => '글을 삭제하시겠습니까?',
+      );
+      break;
 
-  $name = 'default';
-  $popups = array(
-    'thread_write' => [
-      'popupTitle' => '새 글 작성',
-      'formName' => 'threadWrite',
-      'pinnedCheckbox' => (checkPerm() >= 8)?
-        '<label><input type="checkbox" name="pinned">고정글</label>':'',
-      'secretCheckbox' => (checkPerm() >= 1)?
-        '<label><input type="checkbox" name="secret">비밀글</label>':'',
-    ],
-    'thread_update' => [
-      'popupTitle' => '글 수정',
-      'formName' => 'threadUpdate',
-      'pinnedCheckbox' => (checkPerm() >= 8)?
-        '<label><input type="checkbox" name="pinned">고정글</label>':'',
-      'secretCheckbox' => (checkPerm() >= 1)?
-        '<label><input type="checkbox" name="secret">비밀글</label>':'',
-    ],
-    'thread_delete' => [
-      'popupTitle' => '글 삭제',
-      'formName' => 'threadDelete',
-      'message' => '글을 삭제하시겠습니까?',
-    ],
-    'reply_write' => [
-      'popupTitle' => '답글 작성',
-      'formName' => 'replyWrite',
-      'secretCheckbox' => (checkPerm() >= 1)?
-        '<label><input type="checkbox" name="secret">비밀글</label>':'',
-    ],
-    'reply_delete' => [
-      'popupTitle' => '답글 삭제',
-      'formName' => 'replyDelete',
-      'message' => '답글을 삭제하시겠습니까?',
-    ],
-  );
+    case 'reply_write':
+      $data = array(
+        'popupTitle' => '답글 작성',
+        'formName' => 'replyWrite',
+        'secretCheckbox' => checkPerm(PERM_REPLY_WRITE)?
+          '<label><input type="checkbox" name="secret">비밀글</label>':'',
+      );
+      break;
 
-  $html = '';
-  foreach ($popups as $name => $data) {
-    $html .= getPopup($name, $data);
+    case 'reply_delete':
+      $data = array(
+        'popupTitle' => '답글 삭제',
+        'formName' => 'replyDelete',
+        'message' => '답글을 삭제하시겠습니까?',
+      );
+      break;
+    
   }
 
-  return $html;
+  return getPopup($name, $data);
 }

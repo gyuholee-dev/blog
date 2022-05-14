@@ -70,6 +70,14 @@ function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// 문자열 잘라내기
+function substrMax(str, max, ellipsis='&#8230;') {
+  if (str.length > max) {
+    str = str.substr(0, max)+' '+ellipsis;
+  }
+  return str;
+}
+
 // 윈도우 스크롤탑
 function scrollToTop(speed = 'smooth') {
   window.scroll({top: 0, behavior: speed});

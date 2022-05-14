@@ -19,6 +19,25 @@ define('SCT', './scripts/');
 define('TPL', './templates/');
 define('MAIN', 'main.php');
 
+// 퍼미션 상수 선언
+define('PERM_POST_WRITE', 4);
+define('PERM_THREAD_WRITE', 1);
+define('PERM_THREAD_EDIT', 2);
+define('PERM_THREAD_UPDATE', 2);
+define('PERM_THREAD_DELETE', 2);
+define('PERM_REPLY_WRITE', 2);
+define('PERM_REPLY_EDIT', 2);
+define('PERM_REPLY_DELETE', 2);
+
+define('PERM_USER_SITEOWNER', 99);
+define('PERM_USER_ADMIN', 9);
+define('PERM_USER_MANAGER', 8);
+define('PERM_USER_TEAM', 4);
+define('PERM_USER_FRIEND', 3);
+define('PERM_USER_CERTIFIED', 2);
+define('PERM_USER_LOGINED', 1);
+define('PERM_USER_NONE', 0);
+
 //글로벌 변수
 global $MSG;
 global $INFO, $CONF, $DBCONF; 

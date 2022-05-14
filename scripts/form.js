@@ -152,6 +152,11 @@ function deleteThread(form) {
   form.submit();
 }
 
+function deleteReply(form) {
+  // checkForm('삭제하시겠습니까?', form);
+  form.submit();
+}
+
 function checkForm(msg, self) {
   if (confirm(msg)) {
     self.submit();

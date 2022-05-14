@@ -12,6 +12,7 @@ function alert(string $msg, string $url=null) : void
 }
 
 // 로그 입력
+// info, success, error
 function pushLog(string $log, string $class='info') : bool
 {
   global $MSG;
@@ -102,13 +103,13 @@ function numStr($numb, $numSize)
   // 2 : 인증 유저, 게시판 작성 및 답글 가능, 자기 글 수정삭제 가능,
   // 1 : (user) 일반 유저(비로그인 최대), 게시판 작성 가능,
   // 0 : (guest) 게스트, 모든 기능 불가
-function checkPerm() : INT
+function checkPerm(int $require) : bool
 {
   global $USER, $CONF;
   if (!$USER) {
-    return $CONF['permission']['guest'];
+    return ($CONF['permission']['guest'] >= $require);
   }
-  return $CONF['permission'][$USER['groups']];
+  return ($CONF['permission'][$USER['groups']] >= $require);
 }
 
 // 글 작성자 체크

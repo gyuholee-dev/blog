@@ -2,10 +2,6 @@
 
 // 컨펌 처리
 if (isset($_POST['confirm'])) {
-  // TODO: 권한 체크 한번 더
-  // if (!checkPerm()>=1) {
-  //   header("Location: $MAIN?action=board");
-  // }
   // TODO: 메시지
   if (isset($_POST['thread'])) {
     switch ($DO) {
@@ -23,6 +19,7 @@ if (isset($_POST['confirm'])) {
                 VALUES
                 ('$wdate', '$userid', '$nickname', '$title', '$content', '$pinned', '$secret')";
         mysqli_query($DB, $sql);
+        pushLog('새 글을 작성하였습니다.', 'success');
         header("Location: $MAIN?action=board");
         break;
 
@@ -43,13 +40,16 @@ if (isset($_POST['confirm'])) {
                 secret = '$secret'
                 WHERE threadid = '$threadid'";
         mysqli_query($DB, $sql);
+        pushLog('글을 수정하였습니다.', 'success');
         header("Location: $MAIN?action=board");
         break;
 
       case 'delete':
+        // TODO: 답글도 전부 삭제
         $threadid = $_POST['threadid'];
         $sql = "DELETE FROM thread WHERE threadid = '$threadid'";
         mysqli_query($DB, $sql);
+        pushLog('글을 삭제하였습니다.', 'success');
         header("Location: $MAIN?action=board");
         break;
 
@@ -69,12 +69,21 @@ if (isset($_POST['confirm'])) {
                 VALUES
                 ('$wdate', '$userid', '$nickname', '$content', '$threadid', '$secret')";
         mysqli_query($DB, $sql);
-
+        
         $sql = "UPDATE thread SET
                 replycnt = replycnt + 1
                 WHERE threadid = '$threadid'";
         mysqli_query($DB, $sql);
-        
+
+        pushLog('답글을 작성하였습니다.', 'success');
+        header("Location: $MAIN?action=board");
+        break;
+
+      case 'delete':
+        $replyid = $_POST['replyid'];
+        $sql = "DELETE FROM reply WHERE replyid = '$replyid'";
+        mysqli_query($DB, $sql);
+        pushLog('답글을 삭제하였습니다.', 'success');
         header("Location: $MAIN?action=board");
         break;
 

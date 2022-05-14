@@ -10,5 +10,5 @@ WindowLoaded = async ()=>{
 }
 
 
-Doc.addEvent("DOMContentLoaded", DOMLoaded);
-Win.addEvent("load", WindowLoaded);
+document.addEventListener("DOMContentLoaded", DOMLoaded);
+window.addEventListener("load", WindowLoaded);

@@ -1,12 +1,13 @@
-<section class="popup small">
+<section class="popup small thread">
   {closeButton}
   <div class="header">
     <span class="title" data="{popupTitle}"></span>
   </div>
   <div class="content">
-    <form name="{formName}" method="post" action="" autocomplete="off">
+    <form name="{formName}" method="post" autocomplete="off">
       
-      <div class="message" data="{message}"></div>
+      <p class="text"></p>
+      <span class="message red">{message}</span>
 
       <div class="buttons">
         <input type="hidden" name="thread" value="true">
