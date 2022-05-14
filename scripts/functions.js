@@ -1,27 +1,29 @@
 // console.log('FUNCTIONS LOADED');
 // Promise XMLHttpRequest
-async function requestData(file, param = null) {
-  let requestUrl = file;
-
+async function requestData(file, param = null) {  
+  let request = '';
   if (param !== null) {
-    let i = 0;
     for (let key in param) {
-      if (i === 0) {
-        requestUrl += '?' + key + '=' + param[key];
+      if (key === Object.keys(param)[0]) {
+        request += key+'='+param[key];
       } else {
-        requestUrl += '&' + key + '=' + param[key];
+        request += '&'+key+'='+param[key];
       }
-      i++;
     }
   }
-  // console.log('XHR:', requestUrl);
+  // console.log('XHR:', request);
   try {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', requestUrl);
-    // http.open('POST', requestUrl, true);
+    // get 전송
+    // xhr.open('GET', file+'?'+request);
+    // xhr.send();
+    // post 전송
     // http://daplus.net/javascript-xmlhttprequest%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-post-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B3%B4%EB%82%B4%EA%B8%B0/
-    xhr.send();
-    const request = await new Promise((resolve, reject) => {
+    xhr.open('POST', file, true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send(request);
+
+    const result = await new Promise((resolve, reject) => {
       xhr.onload = function () {
         if (xhr.status == 200) {
           resolve(xhr.response);
@@ -30,7 +32,7 @@ async function requestData(file, param = null) {
         }
       };
     });
-    return request;
+    return result;
   } catch (error) {
     throw Error(error);
   }

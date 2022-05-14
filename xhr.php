@@ -7,8 +7,8 @@ require_once('includes/elements.php');
 $callFN = 'xhr_test';
 
 // 함수 리퀘스트
-if (isset($_GET['call'])) {
-  $call = $_GET['call'];
+if (isset($_POST['call'])) {
+  $call = $_POST['call'];
 } else {
   echo 'XHR_INVALID_ACCESS';
   exit();
@@ -27,7 +27,7 @@ if (function_exists($callFN)) {
 // echo 로 리턴
 // 리턴값을 받아 console.log 로 출력해봄
 function xhr_test() {
-  echo json_encode($_GET);
+  echo json_encode($_POST);
 }
 
 // XHR 함수 ------------------------------------------------
@@ -45,25 +45,25 @@ function xhr_getMsg() {
 
 // XHR 유저아이디 검사
 function xhr_checkId() {
-  echo checkId($_GET['userid']);
+  echo checkId($_POST['userid']);
 }
 
 // 포스트리스트
 function xhr_getPostList() {
-  $action = $_GET['action'];
-  $start = $_GET['start'];
-  $items = $_GET['items'];
+  $action = $_POST['action'];
+  $start = $_POST['start'];
+  $items = $_POST['items'];
   echo json_encode(makePostList($start, $items, $action));
 }
 
 // 쓰레드리스트
 function xhr_getThreadList() {
-  $start = $_GET['start'];
-  $items = $_GET['items'];
+  $start = $_POST['start'];
+  $items = $_POST['items'];
   echo json_encode(makeThreadList($start, $items));
 }
 
 function xhr_getThreadData() {
-  $threadid = $_GET['threadid'];
+  $threadid = $_POST['threadid'];
   echo json_encode(getThreadData($threadid));
 }
