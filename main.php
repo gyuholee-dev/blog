@@ -6,7 +6,7 @@ require_once 'includes/elements.php';
 // 사이트 로직 ------------------------------------------------
 
 $content = '';
-$popup = getPopup('confirm');
+$popups = [];
 switch ($ACT) {
   case 'main':
     $content .= makePostPage($ACT, 1);
@@ -28,11 +28,11 @@ switch ($ACT) {
     // TODO: user, do 권한 체크해서 로그인 분기
     include INC.'board.php';
     $content .= makeBoardPage();
-    $popup .= checkPerm(PERM_THREAD_WRITE)?makePopup('thread_write'):'';
-    $popup .= checkPerm(PERM_THREAD_UPDATE)?makePopup('thread_update'):'';
-    $popup .= checkPerm(PERM_THREAD_DELETE)?makePopup('thread_delete'):'';
-    $popup .= checkPerm(PERM_REPLY_WRITE)?makePopup('reply_write'):'';
-    $popup .= checkPerm(PERM_REPLY_DELETE)?makePopup('reply_delete'):'';
+    $popups[] = checkPerm(PERM_THREAD_WRITE)?'thread_write':'';
+    $popups[] = checkPerm(PERM_THREAD_UPDATE)?'thread_update':'';
+    $popups[] = checkPerm(PERM_THREAD_DELETE)?'thread_delete':'';
+    $popups[] = checkPerm(PERM_REPLY_WRITE)?'reply_write':'';
+    $popups[] = checkPerm(PERM_REPLY_DELETE)?'reply_delete':'';
     break;
 
   case 'user':
@@ -76,6 +76,7 @@ switch ($ACT) {
     header("Location: $MAIN");
     break;
 }
+$popups[] = 'confirm';
 
 // 랜더링 ------------------------------------------------
 // 프리로드
@@ -90,6 +91,6 @@ $html_data = array(
   'rightmenu' => makeSidemenu('right'),
   'footer' => makeFooter(),
   'postScript' => getLibraries('postscripts'),
-  'popup' => $popup,
+  'popup' => makePopupList($popups),
 );
 echo renderElement(TPL.'template.html', $html_data);

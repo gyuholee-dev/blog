@@ -157,9 +157,8 @@ function deleteReply(form) {
   form.submit();
 }
 
-function checkForm(msg, self) {
-  if (confirm(msg)) {
-    self.submit();
-  }
-  return false;
+function checkForm(msg, form) {
+  popConfirm.querySelector('.message').innerHTML = msg;
+  popConfirm.confirm.onclick = ()=>{ form.submit(); };
+  openPopup(popConfirm);
 }

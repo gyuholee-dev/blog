@@ -679,10 +679,17 @@ function getPopup($name, array $data=array(), $class=null) : string
   return $html;
 }
 
-// 팝업 출력
-function makePopup($name) : string
+// 팝업 데이터
+function makePopup(string $name) : string
 {
   switch ($name) {
+    case 'confirm':
+      $data = array(
+        'formName' => 'popConfirm',
+        'popupTitle' => '확인',
+      );
+      break;
+
     case 'thread_write':
       $data = array(
         'formName' => 'threadWrite',
@@ -734,4 +741,14 @@ function makePopup($name) : string
   }
 
   return getPopup($name, $data);
+}
+
+// 팝업 출력
+function makePopupList(array $popups) : string
+{
+  $html = '';
+  foreach ($popups as $name) {
+    $html .= makePopup($name);
+  }
+  return "<div class='popups'>$html</div>";
 }

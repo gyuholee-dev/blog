@@ -38,7 +38,7 @@ main article { display: flex; flex-direction: column; align-items: center; justi
 
 main section { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; max-width: calc(1000px - 30px); padding: 25px; border-radius: 10px; }
 
-main section:not(:last-child) { margin-bottom: 20px; }
+main section:not(:last-of-type) { margin-bottom: 20px; }
 
 main section > div:not(:last-of-type) { margin-bottom: 15px; }
 
@@ -264,23 +264,27 @@ footer { width: 100%; height: 60px; align-items: center; margin: 0 auto; border-
 
 [id^=popup_] section.popup .buttons > label:last-of-type, form.popup section.popup .buttons > label:last-of-type { margin-right: 25px; }
 
-[id^=popup_] section.popup.small, form.popup section.popup.small { max-width: 640px; min-height: 240px; }
+[id^=popup_] section.popup.small, form.popup section.popup.small { max-width: 640px; }
 
-[id^=popup_] section.popup.small .header, form.popup section.popup.small .header { margin-bottom: 15px; }
+[id^=popup_] section.popup.min, form.popup section.popup.min { max-width: 480px; }
 
-[id^=popup_] section.popup.small .content, form.popup section.popup.small .content { padding: 0 10px; height: 100%; }
+[id^=popup_] section.popup.small, [id^=popup_] section.popup.min, form.popup section.popup.small, form.popup section.popup.min { min-height: 240px; }
 
-[id^=popup_] section.popup.small .content form, form.popup section.popup.small .content form { align-items: center; height: 100%; }
+[id^=popup_] section.popup.small .header, [id^=popup_] section.popup.min .header, form.popup section.popup.small .header, form.popup section.popup.min .header { margin-bottom: 15px; }
 
-[id^=popup_] section.popup.small .content .text:not(:empty), form.popup section.popup.small .content .text:not(:empty) { width: 100%; border: 1px solid #a5a5a5; padding: 10px 15px; border-radius: 10px; margin-bottom: 5px; }
+[id^=popup_] section.popup.small .content, [id^=popup_] section.popup.min .content, form.popup section.popup.small .content, form.popup section.popup.min .content { padding: 0 10px; height: 100%; }
 
-[id^=popup_] section.popup.small .content .message, form.popup section.popup.small .content .message { display: flex; flex-direction: column; align-items: start; justify-content: center; flex-wrap: nowrap; height: 100%; font-weight: bold; }
+[id^=popup_] section.popup.small .content form, [id^=popup_] section.popup.min .content form, form.popup section.popup.small .content form, form.popup section.popup.min .content form { align-items: center; height: 100%; }
 
-[id^=popup_] section.popup.small .buttons, form.popup section.popup.small .buttons { margin-top: 10px; }
+[id^=popup_] section.popup.small .content .text:not(:empty), [id^=popup_] section.popup.min .content .text:not(:empty), form.popup section.popup.small .content .text:not(:empty), form.popup section.popup.min .content .text:not(:empty) { width: 100%; border: 1px solid #a5a5a5; padding: 10px 15px; border-radius: 10px; margin-bottom: 5px; }
 
-[id^=popup_] section.popup.small.thread .content .text, form.popup section.popup.small.thread .content .text { background-color: aliceblue; }
+[id^=popup_] section.popup.small .content .message, [id^=popup_] section.popup.min .content .message, form.popup section.popup.small .content .message, form.popup section.popup.min .content .message { display: flex; flex-direction: column; align-items: start; justify-content: center; flex-wrap: nowrap; height: 100%; font-weight: bold; }
 
-[id^=popup_] section.popup.small.reply .content .text, form.popup section.popup.small.reply .content .text { background-color: antiquewhite; }
+[id^=popup_] section.popup.small .buttons, [id^=popup_] section.popup.min .buttons, form.popup section.popup.small .buttons, form.popup section.popup.min .buttons { margin-top: 10px; }
+
+[id^=popup_] section.popup.small.thread .content .text, [id^=popup_] section.popup.min.thread .content .text, form.popup section.popup.small.thread .content .text, form.popup section.popup.min.thread .content .text { background-color: aliceblue; }
+
+[id^=popup_] section.popup.small.reply .content .text, [id^=popup_] section.popup.min.reply .content .text, form.popup section.popup.small.reply .content .text, form.popup section.popup.min.reply .content .text { background-color: antiquewhite; }
 
 [id^=popup_] .btn.close, form.popup .btn.close { position: absolute; right: 5px; top: 5px; z-index: 9; border: none; transform: scale(1.15); color: #b3b3b3; }
 

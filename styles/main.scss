@@ -129,7 +129,7 @@ main {
     max-width: calc(#{$max-width} - 30px);
     padding: 25px;
     border-radius: 10px;
-    &:not(:last-child) {
+    &:not(:last-of-type) {
       margin-bottom: 20px;
     }
     >div:not(:last-of-type) {
@@ -771,6 +771,12 @@ form.popup {
 
     &.small {
       max-width: 640px;
+    }
+    &.min {
+      max-width: 480px;
+    }
+
+    &.small, &.min {
       min-height: 240px;
       .header {
         margin-bottom: 15px;
