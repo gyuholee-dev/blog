@@ -38,7 +38,6 @@ function renderElement(string $template, array $data=array()) : string
 // ------------------------ 블로그 엘리먼트 함수 ------------------------
 
 // 사이트 타이틀
-// TODO: 서브타이틀 변경
 function getSiteTitle() : string
 {
   global $ACT, $DO, $CONF, $INFO;
@@ -597,7 +596,6 @@ function makePageNumber() {
 }
 
 // 유저페이지 출력
-// TODO: main.php 문자열을 MAIN 상수로 변경
 function makeUserPage() : string
 {
   global $DB, $USER, $DO;
@@ -626,8 +624,6 @@ function makeUserPage() : string
 }
 
 // 사이드메뉴 출력
-// TODO: 팝업 스크립트 실행
-// TODO: 버튼 권한 체크
 // TODO: 버튼호버 라벨출력
 function makeSidemenu($position)
 {
