@@ -6,39 +6,37 @@ require_once 'includes/elements.php';
 // 사이트 로직 ------------------------------------------------
 
 $content = '';
-$popups = [];
+$popupData = [];
 switch ($ACT) {
+  // TODO: user, do 권한 체크해서 로그인 분기
   case 'main':
     $content .= makePostPage($ACT, 1);
     $content .= makeList('최신 게시물', 'tile', 'all', 'all', 0, 12);
     $content .= makeList('바로가기', 'tile', 'main', 'link', 0, 4);
+    $popupData = makePopupData($ACT, $popupData);
     break;
-  case 'project':
-    $content .= makePostPage($ACT, $ID);
-    $content .= makeList('바로가기', 'tile', 'main', 'link', 0, 4);
-    break;
+    
+  case 'project': 
   case 'study':
-    $content .= makePostPage($ACT, $ID);
-    include INC.'thread.php';
-    checkPerm(PERM_USER_FRIEND)?$popups[]='thread_write':null;
-    checkPerm(PERM_USER_FRIEND)?$popups[]='thread_update':null;
-    checkPerm(PERM_USER_FRIEND)?$popups[]='thread_delete':null;
-    checkPerm(PERM_USER_FRIEND)?$popups[]='reply_write':null;
-    checkPerm(PERM_USER_FRIEND)?$popups[]='reply_delete':null;
-    break;
   case 'diary':
-    $content .= makePostPage($ACT, $ID);
-    break;
-
   case 'board':
-    // TODO: user, do 권한 체크해서 로그인 분기
     include INC.'thread.php';
-    $content .= makeThreadList();
-    checkPerm(PERM_THREAD_WRITE)?$popups[]='thread_write':null;
-    checkPerm(PERM_THREAD_UPDATE)?$popups[]='thread_update':null;
-    checkPerm(PERM_THREAD_DELETE)?$popups[]='thread_delete':null;
-    checkPerm(PERM_REPLY_WRITE)?$popups[]='reply_write':null;
-    checkPerm(PERM_REPLY_DELETE)?$popups[]='reply_delete':null;
+    $popupData = makePopupData($ACT, $popupData);
+    switch ($ACT) {
+      case 'project':
+        $content .= makePostPage($ACT, $ID);
+        $content .= makeList('바로가기', 'tile', 'main', 'link', 0, 4);
+        break;
+      case 'study':
+        $content .= makePostPage($ACT, $ID);
+        break;
+      case 'diary':
+        $content .= makePostPage($ACT, $ID);
+        break;
+      case 'board':
+        $content .= makeThreadList();
+        break;
+    }
     break;
 
   case 'user':
@@ -82,7 +80,7 @@ switch ($ACT) {
     header("Location: $MAIN");
     break;
 }
-$popups[] = 'confirm';
+$popupData[] = 'confirm';
 
 // 랜더링 ------------------------------------------------
 // 프리로드
@@ -97,6 +95,6 @@ $html_data = array(
   'rightmenu' => makeSidemenu('right'),
   'footer' => makeFooter(),
   'postScript' => getLibraries('postscripts'),
-  'popup' => makePopupList($popups),
+  'popup' => makePopupList($popupData),
 );
 echo renderElement(TPL.'template.html', $html_data);

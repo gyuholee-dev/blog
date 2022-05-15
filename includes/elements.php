@@ -799,6 +799,31 @@ function makePopup(string $name) : string
   return getPopup($name, $data);
 }
 
+function makePopupData($act, $data=array()) : array
+{
+  switch ($act) {
+    case 'main':
+      break;
+    case 'project': 
+    case 'study':
+    case 'diary':
+      checkPerm(PERM_USER_FRIEND)?$data[]='thread_write':null;
+      checkPerm(PERM_USER_FRIEND)?$data[]='thread_update':null;
+      checkPerm(PERM_USER_FRIEND)?$data[]='thread_delete':null;
+      checkPerm(PERM_USER_FRIEND)?$data[]='reply_write':null;
+      checkPerm(PERM_USER_FRIEND)?$data[]='reply_delete':null;
+      break;
+    case 'board':
+      checkPerm(PERM_THREAD_WRITE)?$data[]='thread_write':null;
+      checkPerm(PERM_THREAD_UPDATE)?$data[]='thread_update':null;
+      checkPerm(PERM_THREAD_DELETE)?$data[]='thread_delete':null;
+      checkPerm(PERM_REPLY_WRITE)?$data[]='reply_write':null;
+      checkPerm(PERM_REPLY_DELETE)?$data[]='reply_delete':null;
+      break;
+  }
+  return $data;
+}
+
 // 팝업 출력
 function makePopupList(array $popups) : string
 {
