@@ -273,6 +273,9 @@ label {
   margin-right: 5px;
 }
 
+i {
+  position: relative;
+}
 p, b, span, a, label,
 h1, h2, h3, h4, h5, h6 {
   &.red {

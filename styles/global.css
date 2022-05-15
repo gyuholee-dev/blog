@@ -89,6 +89,8 @@ input[type=radio], input[type=checkbox] { background-color: #000000; cursor: poi
 
 label { font-size: 1rem; cursor: pointer; font-weight: bold; margin-right: 5px; }
 
+i { position: relative; }
+
 p.red, b.red, span.red, a.red, label.red, h1.red, h2.red, h3.red, h4.red, h5.red, h6.red { color: red; }
 
 p.green, b.green, span.green, a.green, label.green, h1.green, h2.green, h3.green, h4.green, h5.green, h6.green { color: green; }
