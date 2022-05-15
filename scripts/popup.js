@@ -22,11 +22,16 @@ async function closePopup(element, listener=null) {
 
 // 쓰레드 쓰기 팝업 
 async function setThreadWrite(form=threadWrite) {
+  const maxLength = form.content.getAttribute('maxlength');
+  
   inputHandler = ()=>{
     if (form.title.value != '' || form.content.value != '') {
       form.confirm.disabled = false;
     } else {
       form.confirm.disabled = true;
+    }
+    if (form.content.value.length > maxLength) {
+      form.content.value = form.content.value.substr(0, maxLength);
     }
   }
   form.addEventListener('input', inputHandler);
@@ -38,6 +43,8 @@ async function setThreadWrite(form=threadWrite) {
 async function setThreadUpdate(threadid, form=threadUpdate) {
   const data = document.getElementById('thread_'+threadid);
   const threadnumb = data.threadnumb.value;
+  const maxLength = form.content.getAttribute('maxlength');
+
   form.title.value = data.title.value;
   form.content.value = data.content.value;
   form.threadid.value = data.threadid.value;
@@ -74,6 +81,9 @@ async function setThreadUpdate(threadid, form=threadUpdate) {
     } else {
       form.confirm.disabled = true;
     }
+    if (form.content.value.length > maxLength) {
+      form.content.value = form.content.value.substr(0, maxLength);
+    }
   }
   form.addEventListener('input', inputHandler);
   
@@ -108,6 +118,8 @@ async function setThreadDelete(threadid, form=threadDelete) {
 async function setReplyWrite(threadid, form=replyWrite) {
   const data = document.getElementById('thread_'+threadid);
   const threadnumb = data.threadnumb.value;
+  const maxLength = form.content.getAttribute('maxlength');
+
   form.threadid.value = threadid;
   form.threadnumb.value = threadnumb;
   if (data.secret.value == 1) {
@@ -127,6 +139,9 @@ async function setReplyWrite(threadid, form=replyWrite) {
       form.confirm.disabled = false;
     } else {
       form.confirm.disabled = true;
+    }
+    if (form.content.value.length > maxLength) {
+      form.content.value = form.content.value.substr(0, maxLength);
     }
   }
   form.addEventListener('input', inputHandler);
