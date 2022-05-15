@@ -44,7 +44,7 @@ main article i.sharp { top: 0.1em; }
 
 main article i.sharp::before { content: '#'; }
 
-main section { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; max-width: calc(1000px - 30px); padding: 25px; border-radius: 10px; }
+main section { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; max-width: calc(1000px - 30px); padding: 25px; border-radius: 12px; }
 
 main section:not(:last-of-type) { margin-bottom: 20px; }
 
@@ -56,7 +56,7 @@ main section > .title::before { position: relative; top: 1px; margin-right: 5px;
 
 main section > .header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; width: 100%; padding: 5px 5px 10px; position: relative; overflow: hidden; border-bottom: 1px solid #a5a5a5; margin-bottom: 15px; }
 
-main section > .header > .title { font-size: 2em; line-height: 1; z-index: 1; }
+main section > .header > .title { font-size: 2rem; line-height: 1; z-index: 1; }
 
 main section .label { margin-right: 6px; color: #595959; }
 
@@ -64,7 +64,7 @@ main section .label > i { margin-right: 0; }
 
 main section > .content { display: flex; flex-direction: column; align-items: center; justify-content: start; flex-wrap: nowrap; width: 100%; padding: 0 10px; font-size: 1.125rem; word-break: break-word; }
 
-main section > .footer { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; width: 100%; font-size: 1.125rem; }
+main section > .footer { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; width: 100%; padding: 0 10px; font-size: 1.125rem; }
 
 main section.post > .header { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-wrap: nowrap; }
 
@@ -162,51 +162,55 @@ main section.list.tile ul.tile .box.link > .post > .title, main section.list.til
 
 main section.list.tile ul.tile .box.link > .post > .summary { display: none; }
 
-main section.list.board .chain { width: 100%; }
+main section.list.thread { font-size: 1.125rem; word-break: break-word; padding: 15px 25px 10px 25px; }
 
-main section.list.board .chain:not(:last-of-type) { border-bottom: 1px solid #a5a5a5; margin-bottom: 10px; }
+main section.list.thread .chain { width: 100%; }
 
-main section.list.board .chain .post { display: flex; flex-direction: row; align-items: stretch; justify-content: space-between; flex-wrap: nowrap; width: 100%; }
+main section.list.thread .chain:not(:last-of-type) { border-bottom: 1px solid #a5a5a5; margin-bottom: 10px; }
 
-main section.list.board .chain .post .header { display: flex; flex-direction: column; align-items: start; justify-content: start; flex-wrap: nowrap; flex-grow: 1; font-size: 1.35em; margin-right: 15px; position: relative; }
+main section.list.thread > .content { padding: 0 5px; }
 
-main section.list.board .chain .post .header .number { padding: 5px; background-color: white; color: gray; z-index: 1; position: relative; left: -6px; }
+main section.list.thread .post { display: flex; flex-direction: row; align-items: stretch; justify-content: space-between; flex-wrap: nowrap; width: 100%; }
 
-main section.list.board .chain .post .header .quot { position: absolute; left: 32px; background-color: #e6e6e6; }
+main section.list.thread .post .header { display: flex; flex-direction: column; align-items: start; justify-content: start; flex-wrap: nowrap; flex-grow: 1; font-size: 1.35em; margin-right: 15px; position: relative; }
 
-main section.list.board .chain .post .header .quot.line-v { width: 2px; height: 100%; }
+main section.list.thread .post .header .number { padding: 5px; background-color: white; color: gray; z-index: 1; position: relative; left: -6px; }
 
-main section.list.board .chain .post .header .quot.line-h { width: calc(100% - 32px); height: 2px; top: calc(50% - 30px); }
+main section.list.thread .post .header .quot { position: absolute; left: 32px; background-color: #e6e6e6; }
 
-main section.list.board .chain .post.thread .header { display: none; }
+main section.list.thread .post .header .quot.line-v { width: 2px; height: 100%; }
 
-main section.list.board .chain .post .content { display: flex; flex-direction: column; align-items: start; justify-content: start; flex-wrap: nowrap; width: 100%; z-index: 1; }
+main section.list.thread .post .header .quot.line-h { width: calc(100% - 32px); height: 2px; top: calc(50% - 30px); }
 
-main section.list.board .chain .post .content .title { width: 100%; font-size: 1.35em; padding: 5px 0; }
+main section.list.thread .post.thread .header { display: none; }
 
-main section.list.board .chain .post .content .message { border: 1px solid #a5a5a5; padding: 10px 15px; border-radius: 15px; background-color: aliceblue; width: 100%; margin-bottom: 10px; }
+main section.list.thread .post .content { display: flex; flex-direction: column; align-items: start; justify-content: start; flex-wrap: nowrap; width: 100%; z-index: 1; }
 
-main section.list.board .chain .post .content .message.left { margin-right: 50px; }
+main section.list.thread .post .content .title { width: 100%; font-size: 1.35em; padding: 5px 0; }
 
-main section.list.board .chain .post .content .info { display: flex; flex-direction: row; align-items: center; justify-content: end; flex-wrap: nowrap; width: 100%; padding: 0 10px; margin-bottom: 15px; }
+main section.list.thread .post .content .message { border: 1px solid #a5a5a5; padding: 10px 15px; border-radius: 10px; background-color: aliceblue; width: 100%; margin-bottom: 10px; }
 
-main section.list.board .chain .post .content .info .buttons:last-child:not(:empty) { margin-left: 15px; }
+main section.list.thread .post .content .message.left { margin-right: 50px; }
 
-main section.list.board .chain .post .content .info .buttons:last-child > *:not(:last-child) { margin-right: 12px; }
+main section.list.thread .post .content .info { display: flex; flex-direction: row; align-items: center; justify-content: end; flex-wrap: nowrap; width: 100%; padding: 0 10px; margin-bottom: 15px; }
 
-main section.list.board .chain .post .content .info > span:not(:last-child):not(:nth-last-child(2)) { margin-right: 15px; }
+main section.list.thread .post .content .info .buttons:last-child:not(:empty) { margin-left: 15px; }
 
-main section.list.board .chain .post .content .info > span:nth-of-type(2) { margin-left: auto; }
+main section.list.thread .post .content .info .buttons:last-child > *:not(:last-child) { margin-right: 12px; }
 
-main section.list.board .chain .post.reply .content { width: 100%; max-width: 800px; }
+main section.list.thread .post .content .info > span:not(:last-child):not(:nth-last-child(2)) { margin-right: 15px; }
 
-main section.list.board .chain .post.reply .content .title { padding: 0; }
+main section.list.thread .post .content .info > span:nth-of-type(2) { margin-left: auto; }
 
-main section.list.board .chain .post.reply .content .message { background-color: antiquewhite; }
+main section.list.thread .post.reply .content { width: 100%; max-width: 800px; }
 
-main section.list.board .chain .post:last-child .header .quot.line-v { height: calc(50% - 30px); }
+main section.list.thread .post.reply .content .title { padding: 0; }
 
-main section.list.board #loading { bottom: -8px; }
+main section.list.thread .post.reply .content .message { background-color: antiquewhite; }
+
+main section.list.thread .post:last-child .header .quot.line-v { height: calc(50% - 30px); }
+
+main section.list.thread #loading { bottom: -8px; }
 
 aside { position: absolute; width: 100%; z-index: 9; max-width: calc(1000px + 84px + 20px); padding: 0 15px; }
 

@@ -195,7 +195,7 @@ function getButton($type, $label='', $attr=array()) : string
 
 // 로딩서클
 // TODO: 상태값에 따라 아이콘 변경
-function getLoading($target, $start, $items, $count) : string
+function getLoading($target, $start, $items, $postid, $count) : string
 {
   global $ACT;
   $html = <<<HTML
@@ -205,6 +205,7 @@ function getLoading($target, $start, $items, $count) : string
         <input type="hidden" name="action" value="$ACT">
         <input type="hidden" name="start" value="$start">
         <input type="hidden" name="items" value="$items">
+        <input type="hidden" name="postid" value="$postid">
         <input type="hidden" name="count" value="$count">
       </form>
       <script>
@@ -304,7 +305,7 @@ function makePost($data) : string
   $content = "<p class='$textClass'>$content</p>";
 
   $buttonReply = (!$pinned && checkPerm(PERM_USER_FRIEND))? 
-    getButton('button', '답글', ['class'=>'min']):'';
+    getButton('button', '쓰레드', ['class'=>'min']):'';
 
   $buttonEdit = (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER))?
     getButton('button', '수정', ['class'=>'min']).
@@ -365,17 +366,21 @@ function makePostPage($category, $requestId=null) : string
   $items = $CONF['pages'][$category]['items'];
 
   $html = '';
-  if ($requestId) {
+  if ($requestId) { // 한페이지
     $sql = "SELECT * FROM post WHERE postid = $requestId";
     $res = mysqli_query($DB, $sql);
-    $html .= makePost(mysqli_fetch_assoc($res));
-  } else {
+    $data = mysqli_fetch_assoc($res);
+    $html .= makePost($data);
+    if ($data['threadcnt'] > 0) {
+      $html .= makeThreadList($requestId);
+    }
+  } else { // 여러페이지
     $sql = "SELECT COUNT(*) FROM post 
             WHERE category = '$category' AND pinned = 0";
     $res = mysqli_query($DB, $sql);
     $count = mysqli_fetch_row($res)[0];
     $html .= makePostList($start, $items, $category);
-    $html .= getLoading('post', $start+$items, $items, $count);
+    $html .= getLoading('post', $start+$items, $items, 0, $count);
   }
   return $html;
 }
@@ -479,6 +484,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
 
 }
 
+// 쓰레드 데이터
 function getThreadData($threadid) : array
 {
   global $DB;
@@ -488,7 +494,7 @@ function getThreadData($threadid) : array
 }
 
 // 쓰레드 출력
-function makeThread($data) {
+function getThread($data) {
   global $ACT;
   foreach ($data as $key => $value) {
     $$key = $value;
@@ -564,7 +570,7 @@ function makeThread($data) {
 }
 
 // 쓰레드리스트 출력
-function makeThreadList($start=0, $items=5, $postid=0, $pinned=0) : string
+function makeThread($start=0, $items=5, $postid=0, $pinned=0) : string
 {
   global $DB;
 
@@ -575,45 +581,54 @@ function makeThreadList($start=0, $items=5, $postid=0, $pinned=0) : string
 
   $html = "";
   if ($start == 0 && $pinned == 0) {
-    $html .= makeThreadList(0, 10, 0, 1); // pinned
+    $html .= makeThread(0, 10, $postid, 1); // pinned
   }
 
   if (mysqli_num_rows($res) > 0) {
     while ($data = mysqli_fetch_assoc($res)) {
-      $html .= '<div class="wrap chain">';
-      $html .= makeThread($data);
+      // $html .= '<div class="wrap chain">';
+      $html .= '<section class="list thread chain">';
+      $html .= getThread($data);
       // 답글
       if ($pinned == 0 && $data['replycnt'] > 0) {
         $sql = "SELECT * FROM reply 
                 WHERE threadid = '$data[threadid]' ";
         $reply_res = mysqli_query($DB, $sql);
         while ($reply_data = mysqli_fetch_assoc($reply_res)) {
-          $html .= makeThread($reply_data);
+          $html .= getThread($reply_data);
         } 
       }
-      $html .= '</div>';
+      // $html .= '</div>';
+      $html .= '</section>';
     }
   }
 
   return $html;
 }
 
-// 보드 출력
-function makeBoardPage() {
+// 쓰레드리스트 출력
+function makeThreadList($postid=0) : string
+{
   global $DB, $CONF;
   $start = 0;
   $items = $CONF['pages']['board']['items'];
 
   $sql = "SELECT COUNT(*) FROM thread 
-          WHERE postid = 0 AND pinned = 0";
+          WHERE postid = '$postid' AND pinned = 0";
   $res = mysqli_query($DB, $sql);
   $count = mysqli_fetch_row($res)[0];
 
-  $board_data = array(
-    'list' => makeThreadList($start, $items),
-    'loading' => getLoading('thread', $start+$items, $items, $count),
-  );
-  return renderElement(TPL.'board.html', $board_data);
+  // $board_data = array(
+  //   'title' => '게시판',
+  //   'list' => makeThread($start, $items),
+  //   'loading' => getLoading('thread', $start+$items, $items, 0, $count),
+  // );
+  // return renderElement(TPL.'board_thread.html', $board_data);
+
+  $html = makeThread($start, $items, $postid);
+  $html .= getLoading('thread', $start+$items, $items, $postid, $count);
+
+  return $html;
 }
 
 // 페이지 넘버 출력
@@ -665,7 +680,8 @@ function makeSidemenu($position)
         ['id'=>'post_write', 'class'=>'float top', 'onclick'=>""]);
     }
     // 게시판 작성
-    if (checkPerm(PERM_THREAD_WRITE) && $ACT != 'main' && ($DO == 'post' || $DO == 'thread')) {
+    if (checkPerm(PERM_USER_FRIEND) && $ACT != 'main' && $DO == 'post' ||
+        checkPerm(PERM_THREAD_WRITE) && $ACT == 'board') {
       $html .= getButton('button', '<i class="xi-plus"></i>', 
         ['id'=>'thread_write', 'class'=>'float bottom', 'onclick'=>"openPopup(setThreadWrite())"]);
     }
@@ -680,7 +696,7 @@ function makeSidemenu($position)
 // 팝업 출력
 function getPopup($name, array $data=array(), $class=null) : string
 {
-  global $ACT, $DO, $DB, $USER;
+  global $ACT, $ID;
 
   $popupId = 'popup_'.$name;
   $closeButton = getButton(
@@ -690,6 +706,8 @@ function getPopup($name, array $data=array(), $class=null) : string
   $popup_data = array(
     'closeButton' => $closeButton,
     'popupId' => $popupId,
+    'action' => $ACT,
+    'postid' => $ID,
   );
   foreach ($data as $key => $value) {
     $popup_data[$key] = $value;

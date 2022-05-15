@@ -11,10 +11,10 @@
 
   "libraries" : {
     "styles" : [
-      "styles/fonts.css?v=0.22",
-      "styles/global.css?v=0.22",
-      "styles/theme.css?v=0.22",
-      "styles/main.css?v=0.22"
+      "styles/fonts.css?v=0.23",
+      "styles/global.css?v=0.23",
+      "styles/theme.css?v=0.23",
+      "styles/main.css?v=0.23"
     ],
     "scripts" : [
       "scripts/functions.js",

@@ -19,6 +19,12 @@ switch ($ACT) {
     break;
   case 'study':
     $content .= makePostPage($ACT, $ID);
+    include INC.'thread.php';
+    checkPerm(PERM_USER_FRIEND)?$popups[]='thread_write':null;
+    checkPerm(PERM_USER_FRIEND)?$popups[]='thread_update':null;
+    checkPerm(PERM_USER_FRIEND)?$popups[]='thread_delete':null;
+    checkPerm(PERM_USER_FRIEND)?$popups[]='reply_write':null;
+    checkPerm(PERM_USER_FRIEND)?$popups[]='reply_delete':null;
     break;
   case 'diary':
     $content .= makePostPage($ACT, $ID);
@@ -26,8 +32,8 @@ switch ($ACT) {
 
   case 'board':
     // TODO: user, do 권한 체크해서 로그인 분기
-    include INC.'board.php';
-    $content .= makeBoardPage();
+    include INC.'thread.php';
+    $content .= makeThreadList();
     checkPerm(PERM_THREAD_WRITE)?$popups[]='thread_write':null;
     checkPerm(PERM_THREAD_UPDATE)?$popups[]='thread_update':null;
     checkPerm(PERM_THREAD_DELETE)?$popups[]='thread_delete':null;

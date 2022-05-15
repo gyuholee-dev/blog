@@ -95,8 +95,9 @@ function setLoadingEvent(loading, form, delay=350) {
     let action = form.action.value;
     let start = Number(form.start.value);
     let items = Number(form.items.value);
+    let postid = Number(form.postid.value);
     let count = Number(form.count.value);
-    console.log('XHR LOAD:',form.name, start, items, count);
+    console.log('XHR LOAD:',form.name, start, items, postid, count);
     if (start >= count) { 
       loading.remove();
       return false; 
@@ -109,7 +110,7 @@ function setLoadingEvent(loading, form, delay=350) {
       ];
     } else if (form.name == 'thread') {
       promises = [
-        makeThreadList(start, items),
+        makeThreadList(start, items, postid),
         timeout(delay),
       ];
     }
@@ -144,8 +145,8 @@ async function makePostList(start, items, action) {
 }
 
 // 쓰레드리스트 출력
-async function makeThreadList(start, items) {
-  const threadList = await xhr('getThreadList', {start: start, items: items});
+async function makeThreadList(start, items, postid) {
+  const threadList = await xhr('getThreadList', {start: start, items: items, postid: postid});
   return threadList;
 }
 

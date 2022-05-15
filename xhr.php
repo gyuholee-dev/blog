@@ -60,9 +60,11 @@ function xhr_getPostList() {
 function xhr_getThreadList() {
   $start = $_POST['start'];
   $items = $_POST['items'];
-  echo json_encode(makeThreadList($start, $items));
+  $postid = $_POST['postid'];
+  echo json_encode(makeThread($start, $items, $postid));
 }
 
+// 쓰레드데이터
 function xhr_getThreadData() {
   $threadid = $_POST['threadid'];
   echo json_encode(getThreadData($threadid));
