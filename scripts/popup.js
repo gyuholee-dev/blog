@@ -110,7 +110,11 @@ async function setReplyWrite(threadid, form=replyWrite) {
   const threadnumb = data.threadnumb.value;
   form.threadid.value = threadid;
   form.threadnumb.value = threadnumb;
-  form.title.value = data.title.value;
+  if (data.secret.value == 1) {
+    form.title.value = '비밀글';
+  } else {
+    form.title.value = data.title.value;
+  }
 
   const title = form.querySelector('.title');
   const titleText = title.getAttribute('data');
@@ -134,7 +138,7 @@ async function setReplyWrite(threadid, form=replyWrite) {
 async function setReplyDelete(replyid, form=replyDelete) {
   const data = document.getElementById('reply_'+replyid);
   const threadid = data.threadid.value;
-  const threadnumb = data.threadnumb.value;
+  const threadnumb = document.getElementById('thread_'+threadid).threadnumb.value;
   form.replyid.value = replyid;
   form.threadid.value = threadid;
   form.threadnumb.value = threadnumb;

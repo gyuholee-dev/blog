@@ -111,10 +111,8 @@ reply 답글
   wdate 작성일
   userid 작성자 id
   nickname 작성자 이름
-  title 쓰레드 타이틀
   content 본문 (280자 제한)
   threadid 쓰레드id
-  threadnumb 쓰레드 번호
   secret 비밀글, 부모가 비밀일 경우 자동으로 적용.
 */
 
@@ -124,10 +122,8 @@ CREATE TABLE reply (
   wdate INT,
   userid CHAR(20),
   nickname VARCHAR(20),
-  title VARCHAR(80),
   content VARCHAR(280),
   threadid INT,
-  threadnumb INT,
   secret BOOLEAN DEFAULT FALSE,
   PRIMARY KEY(replyid)
 );

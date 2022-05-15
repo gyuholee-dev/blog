@@ -103,7 +103,6 @@ if (isset($_POST['submit'])) {
       case 'write':
         $threadid = $_POST['threadid'];
         $threadnumb = $_POST['threadnumb'];
-        $title = $_POST['title'];
         $content = $_POST['content'];
         $secret = (isset($_POST['secret']))?1:0;
         $userid = ($USER)?$USER['userid']:$_SERVER['REMOTE_ADDR'];
@@ -111,9 +110,9 @@ if (isset($_POST['submit'])) {
         $wdate = time();
 
         $sql = "INSERT INTO reply
-                (wdate, userid, nickname, title, content, threadid, threadnumb, secret)
+                (wdate, userid, nickname, content, threadid, secret)
                 VALUES
-                ('$wdate', '$userid', '$nickname', '$title', '$content', '$threadid', '$threadnumb', '$secret')";
+                ('$wdate', '$userid', '$nickname', '$content', '$threadid', '$secret')";
         mysqli_query($DB, $sql);
         
         $sql = "UPDATE thread SET
