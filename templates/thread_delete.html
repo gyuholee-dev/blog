@@ -4,16 +4,18 @@
     <span class="title" data="{popupTitle}"></span>
   </div>
   <div class="content">
-      <p class="text"></p>
-      <span class="message red">{message}</span>
-      <div class="buttons">
-        <input type="hidden" name="thread" value="true">
-        <input type="hidden" name="action" value="board">
-        <input type="hidden" name="do" value="delete">
-        <input type="hidden" name="confirm" value="true">
-        <input type="hidden" name="threadid" value="">
-        <input class="btn" type="button" value="삭제" onclick="deleteThread({formName})">
-        <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
-      </div>
+    <p class="text"></p>
+    <span class="message red">{message}</span>
+    <div class="buttons">
+      <input type="hidden" name="thread" value="true">
+      <input type="hidden" name="action" value="board">
+      <input type="hidden" name="do" value="delete">
+      <input type="hidden" name="submit" value="true">
+      <input type="hidden" name="threadid" value="">
+      <input type="hidden" name="threadnumb" value="">
+      <input type="hidden" name="pinned" value="">
+      <input class="btn" name="confirm" type="button" value="삭제" onclick="deleteThread({formName})">
+      <input class="btn" name="cancel" type="button" value="취소" onclick="closePopup({popupId})">
+    </div>
   </div>
 </section>

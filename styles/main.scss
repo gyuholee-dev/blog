@@ -121,6 +121,21 @@ main {
     width: 100%;
     max-width: $max-width;
     padding: 20px 0;
+    i {
+      position: relative;
+      font-size: 1.1em;
+      margin-right: 4px;
+      &[class*=" xi-"], 
+      &[class^=xi-] {
+        top: 0.125em;
+      }
+      &.sharp {
+        top: 0.1em;
+        &::before {
+          content: '#';
+        }
+      }
+    }
   }
 
   section {
@@ -161,14 +176,12 @@ main {
       }
     }
 
-    .title>.label {
+    .label {
       margin-right: 6px;
       color: $grey-35;
-    }
-    .title>i {
-      position: relative;
-      font-size: 1.1em;
-      top: 0.125em;
+      >i {
+        margin-right: 0;
+      }
     }
 
     >.content {
@@ -497,18 +510,21 @@ main {
       .post {
         @include flex(stretch, space-between);
         width: 100%;
-        &.pinned {
+        // &.pinned {
           // .title {
-          //   >.label {
-          //     color: $blue;
-          //   }
+            // &::before {
+              // content: '📌';
+            // }
+            // >.label {
+            //   color: $blue;
+            // }
           // }
-          .content .message {
-            padding: 0 5px;
-            border: none;
-            background-color: initial;
-          }
-        }
+          // .content .message {
+          //   padding: 0 5px;
+          //   border: none;
+          //   background-color: initial;
+          // }
+        // }
         .header {
           @include flex(start, start, column);
           flex-grow: 1;

@@ -488,19 +488,34 @@ function getThreadData($threadid) : array
 }
 
 // 쓰레드 출력
-// TODO: 비밀글 처리
 function makeThread($data) {
   global $ACT;
   foreach ($data as $key => $value) {
     $$key = $value;
   }
+  $message = $content;
 
   $isThread = !isset($replyid);
   if ($isThread) {
-    $type = 'thread';
-    $postTitle = "<span class='label'>#$threadid</span>$title";
-    if ($pinned) {
+    $type = $class = 'thread';
+    $class .= ($pinned)?' pinned':'';
+    $class .= ($secret)?' secret':'';
+    $class .= ($pullupcnt>0)?' pullup':'';
+    if ($secret) {
+      if (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER)) {
+        $postTitle = "<i class='label xi-lock-o'></i>$title";
+        $message = "<i class='xi-lock-o'></i>$message";
+      } else {
+        $postTitle = "<i class='label xi-lock-o'></i>비밀글";
+        $message = "<i class='xi-lock-o'></i>작성자와 관리자만 열람할수 있습니다.";
+        $title = $content = '';
+      }
+    } else if ($pinned) {
       $postTitle = "<i class='label xi-bookmark-o'></i>$title";
+    } else if ($pullupcnt>0) {
+      $postTitle = "<span class='label'><i class='label xi-arrow-up'></i>$threadnumb</span>$title";
+    } else {
+      $postTitle = "<span class='label'><i class='sharp'></i>$threadnumb</span>$title";
     }
     $buttonReply = (!$pinned && checkPerm(PERM_REPLY_WRITE))? 
       getButton('button', '답글', 
@@ -511,7 +526,16 @@ function makeThread($data) {
       getButton('button', '삭제', 
       ['class'=>'min', 'onclick'=>"openPopup(setThreadDelete($threadid))"]):'';
   } else {
-    $type = 'reply';
+    $type = $class = 'reply';
+    $class .= ($secret)?' secret':'';
+    if ($secret) {
+      if (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER)) {
+        $message = "<i class='xi-lock-o'></i>$message";
+      } else {
+        $message = "<i class='xi-lock-o'></i>작성자와 관리자만 열람할수 있습니다.";
+        $title = $content = '';
+      }
+    }
     $buttonEdit = (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER))?
       getButton('button', '삭제', 
       ['class'=>'min', 'onclick'=>"openPopup(setReplyDelete($replyid))"]):'';
@@ -520,14 +544,16 @@ function makeThread($data) {
 
   $thread_data = array(
     'contentId' => $isThread?$type.'_'.$threadid:$type.'_'.$replyid,
-    'class' => isset($pinnded)?$type.' pinned':$type,
+    'class' => $class,
     'type' => $type,
     'threadid' => isset($threadid)?$threadid:'',
+    'threadnumb' => isset($threadnumb)?$threadnumb:'',
     'replyid' => isset($replyid)?$replyid:'',
     'title' => isset($title)?$title:'',
     'postTitle' => isset($postTitle)?$postTitle:'',
     'content' => $content,
-    'wdate' => $wdate,
+    'message' => $message,
+    'wdate' => (isset($pullupcnt)&&$pullupcnt>0)?"<i class='label xi-arrow-up'></i>$wdate":$wdate,
     'nickname' => $nickname,
     'buttonReply' => isset($buttonReply)?$buttonReply:'',
     'buttonEdit' => isset($buttonEdit)?$buttonEdit:'',
@@ -544,7 +570,7 @@ function makeThreadList($start=0, $items=5, $postid=0, $pinned=0) : string
 
   $sql = "SELECT * FROM thread 
           WHERE postid = '$postid' AND pinned = '$pinned'
-          ORDER BY threadid DESC LIMIT $start, $items ";
+          ORDER BY wdate DESC LIMIT $start, $items ";
   $res = mysqli_query($DB, $sql);
 
   $html = "";
@@ -557,7 +583,7 @@ function makeThreadList($start=0, $items=5, $postid=0, $pinned=0) : string
       $html .= '<div class="wrap chain">';
       $html .= makeThread($data);
       // 답글
-      if ($data['replycnt'] > 0) {
+      if ($pinned == 0 && $data['replycnt'] > 0) {
         $sql = "SELECT * FROM reply 
                 WHERE threadid = '$data[threadid]' ";
         $reply_res = mysqli_query($DB, $sql);
@@ -641,7 +667,7 @@ function makeSidemenu($position)
     // 게시판 작성
     if (checkPerm(PERM_THREAD_WRITE) && $ACT != 'main' && ($DO == 'post' || $DO == 'thread')) {
       $html .= getButton('button', '<i class="xi-plus"></i>', 
-        ['id'=>'thread_write', 'class'=>'float bottom', 'onclick'=>"openPopup(threadWrite)"]);
+        ['id'=>'thread_write', 'class'=>'float bottom', 'onclick'=>"openPopup(setThreadWrite())"]);
     }
     // 스크롤탑
     $html .= getButton('button', '<i class="xi-angle-up"></i>', 
@@ -706,9 +732,13 @@ function makePopup(string $name) : string
         'formName' => 'threadUpdate',
         'popupTitle' => '글 수정',
         'pinnedCheckbox' => checkPerm(PERM_USER_MANAGER)?
+          '<input type="hidden" name="pinchanged" value="0">'.
           '<label><input type="checkbox" name="pinned">고정글</label>':'',
         'secretCheckbox' => checkPerm(PERM_THREAD_UPDATE)?
+          '<input type="hidden" name="secchanged" value="0">'.
           '<label><input type="checkbox" name="secret">비밀글</label>':'',
+        'pullupCheckbox' => checkPerm(PERM_THREAD_UPDATE)?
+          '<label><input type="checkbox" name="pullup">끌어올림</label>':'',
       );
       break;
 
@@ -716,7 +746,7 @@ function makePopup(string $name) : string
       $data = array(
         'formName' => 'threadDelete',
         'popupTitle' => '글 삭제',
-        'message' => '글을 삭제하시겠습니까?',
+        'message' => '글과 답글을 삭제하시겠습니까?',
       );
       break;
 

@@ -66,7 +66,8 @@ CREATE TABLE user (
 
 /*
 thread 쓰레드
-  threadid 쓰레드 인덱스
+  threadid 쓰레드 인덱스 자동증가
+  threadnumb 쓰레드 넘버 (포스트, 공지사항 제외 증가)
   wdate 작성일
   userid 작성자 id
   nickname 작성자 이름
@@ -77,8 +78,10 @@ thread 쓰레드
   replycnt 답글수, 0이면 조회 생략
 */
 
+DROP TABLE IF EXISTS thread;
 CREATE TABLE thread (
   threadid INT AUTO_INCREMENT,
+  threadnumb INT,
   wdate INT,
   title VARCHAR(80),
   userid CHAR(20),
@@ -87,7 +90,8 @@ CREATE TABLE thread (
   postid INT DEFAULT 0,
   pinned BOOLEAN DEFAULT FALSE,
   secret BOOLEAN DEFAULT FALSE,
-  replycnt INT DEFAULT 0
+  pullupcnt INT DEFAULT 0,
+  replycnt INT DEFAULT 0,
   PRIMARY KEY(threadid)
 );
 
@@ -107,18 +111,23 @@ reply 답글
   wdate 작성일
   userid 작성자 id
   nickname 작성자 이름
+  title 쓰레드 타이틀
   content 본문 (280자 제한)
   threadid 쓰레드id
+  threadnumb 쓰레드 번호
   secret 비밀글, 부모가 비밀일 경우 자동으로 적용.
 */
 
+DROP TABLE IF EXISTS reply;
 CREATE TABLE reply (
   replyid INT AUTO_INCREMENT,
   wdate INT,
   userid CHAR(20),
   nickname VARCHAR(20),
+  title VARCHAR(80),
   content VARCHAR(280),
   threadid INT,
+  threadnumb INT,
   secret BOOLEAN DEFAULT FALSE,
   PRIMARY KEY(replyid)
 );

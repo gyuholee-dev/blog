@@ -22,11 +22,12 @@
       <input type="hidden" name="reply" value="true">
       <input type="hidden" name="action" value="board">
       <input type="hidden" name="do" value="write">
-      <input type="hidden" name="confirm" value="true">
+      <input type="hidden" name="submit" value="true">
       <input type="hidden" name="threadid" value="">
+      <input type="hidden" name="threadnumb" value="">
       {secretCheckbox}
-      <input class="btn" type="button" value="등록" onclick="sendReply({formName})">
-      <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
+      <input class="btn" name="confirm" type="button" value="등록" onclick="sendReply({formName})" disabled>
+      <input class="btn" name="cancel" type="button" value="취소" onclick="closePopup({popupId},inputHandler)">
     </div>
   </div>
 </section>

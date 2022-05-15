@@ -1,7 +1,7 @@
 <section class="popup small reply">
   {closeButton}
   <div class="header">
-    <span class="title">{popupTitle}</span>
+    <span class="title" data="{popupTitle}"></span>
   </div>
   <div class="content">
     <p class="text"></p>
@@ -10,10 +10,12 @@
       <input type="hidden" name="reply" value="true">
       <input type="hidden" name="action" value="board">
       <input type="hidden" name="do" value="delete">
-      <input type="hidden" name="confirm" value="true">
+      <input type="hidden" name="submit" value="true">
       <input type="hidden" name="replyid" value="">
-      <input class="btn" type="button" value="삭제" onclick="deleteReply({formName})">
-      <input class="btn" type="button" value="취소" onclick="closePopup({popupId})">
+      <input type="hidden" name="threadid" value="">
+      <input type="hidden" name="threadnumb" value="">
+      <input class="btn" name="confirm" type="button" value="삭제" onclick="deleteReply({formName})">
+      <input class="btn" name="cancel" type="button" value="취소" onclick="closePopup({popupId})">
     </div>
   </div>
 </section>

@@ -85,24 +85,6 @@ function scrollToTop(speed = 'smooth') {
   window.scroll({top: 0, behavior: speed});
 }
 
-// 팝업 오픈
-async function openPopup(element) {
-  const elem = await element;
-  if (elem.classList.contains('active')) {
-    return false;
-  }
-  elem.classList.add('show');
-  await timeout(50);
-  elem.classList.add('active');
-}
-
-// 팝업 클로즈
-async function closePopup(element, delay=350) {
-  element.classList.remove('active');
-  await timeout(delay);
-  element.classList.remove('show');
-}
-
 // ---------------------------------------------------------------------------------------
 
 // 로딩 이벤트 핸들링

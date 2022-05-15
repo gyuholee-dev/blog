@@ -45,9 +45,11 @@ table input[type=text], table input[type=number], table input[type=password], ta
 
 table textarea { min-height: 120px; resize: none; }
 
-.btn, button, input[type=submit], input[type=button], input[type=reset] { font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; cursor: pointer; font-size: 1rem; font-weight: bold; line-height: 1.12; padding: 8px 12px; min-width: 112px; background-color: #f2f2f2; border: 1px solid rgba(0, 0, 0, 0.35); border-radius: 8px; box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.25); }
+.btn, button, input[type=submit], input[type=button], input[type=reset] { font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; cursor: pointer; color: inherit; font-size: 1rem; font-weight: bold; line-height: 1.12; padding: 8px 12px; min-width: 112px; background-color: #f2f2f2; border: 1px solid rgba(0, 0, 0, 0.35); border-radius: 8px; box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.25); }
 
 .btn:hover, .btn:active, .btn:focus, button:hover, button:active, button:focus, input[type=submit]:hover, input[type=submit]:active, input[type=submit]:focus, input[type=button]:hover, input[type=button]:active, input[type=button]:focus, input[type=reset]:hover, input[type=reset]:active, input[type=reset]:focus { border: 1px solid rgba(0, 0, 0, 0.5); text-shadow: 0 0 24px rgba(255, 255, 255, 0.5); box-shadow: inset 0 0 48px rgba(0, 0, 0, 0.1); }
+
+.btn:disabled, button:disabled, input[type=submit]:disabled, input[type=button]:disabled, input[type=reset]:disabled { color: inherit; opacity: 0.5; pointer-events: none; }
 
 .btn.inline { font-size: 0.9rem; padding: 6px 8px; min-width: 96px; }
 
@@ -86,3 +88,9 @@ p.green, b.green, span.green, a.green, label.green, h1.green, h2.green, h3.green
 p.blue, b.blue, span.blue, a.blue, label.blue, h1.blue, h2.blue, h3.blue, h4.blue, h5.blue, h6.blue { color: #5f5fff; }
 
 b[class*=" xi-"]:before, b[class^=xi-]:before, span[class*=" xi-"]:before, span[class^=xi-]:before, a[class*=" xi-"]:before, a[class^=xi-]:before, label[class*=" xi-"]:before, label[class^=xi-]:before, .btn[class*=" xi-"]:before, .btn[class^=xi-]:before { font-family: 'xeicon'; margin-right: 5px; font-size: 1.15rem; position: relative; top: 0.075rem; }
+
+p.text-left, .div h1.text-left, h2.text-left, h3.text-left, h4.text-left, h5.text-left, h6.text-left { text-align: left; }
+
+p.text-center, .div h1.text-center, h2.text-center, h3.text-center, h4.text-center, h5.text-center, h6.text-center { text-align: center; }
+
+p.text-right, .div h1.text-right, h2.text-right, h3.text-right, h4.text-right, h5.text-right, h6.text-right { text-align: right; }

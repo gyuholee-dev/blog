@@ -1,4 +1,7 @@
 // console.log('FORM SCRIPT LOADED');
+
+// 회원 폼 ---------------------------------------------------
+
 async function checkId() {
   if (signup.userid.value=='') {
     alert('아이디를 입력하세요');
@@ -122,43 +125,26 @@ function sendLogin() {
   document.login.submit();
 }
 
+// 쓰레드 폼 ---------------------------------------------------
+
 function sendThread(form) {
-  if (form.title !== undefined && form.title.value=='') {
-    alert('제목을 입력하세요');
-    form.title.focus();
-    return false;
-  }
-  if (form.content.value=='') {
-    alert('내용을 입력하세요');
-    form.content.focus();
-    return false;
-  }
-  form.confirm.value = true;
   checkForm('등록하시겠습니까?', form);
 }
 
 function sendReply(form) {
-  if (form.content.value=='') {
-    alert('내용을 입력하세요');
-    form.content.focus();
-    return false;
-  }
-  form.confirm.value = true;
   checkForm('등록하시겠습니까?', form);
 }
 
 function deleteThread(form) {
-  // checkForm('삭제하시겠습니까?', form);
-  form.submit();
+  form.requestSubmit();
 }
 
 function deleteReply(form) {
-  // checkForm('삭제하시겠습니까?', form);
-  form.submit();
+  form.requestSubmit();
 }
 
 function checkForm(msg, form) {
-  popConfirm.querySelector('.message').innerHTML = msg;
-  popConfirm.confirm.onclick = ()=>{ form.submit(); };
   openPopup(popConfirm);
+  popConfirm.querySelector('.message').innerHTML = msg;
+  popConfirm.confirm.onclick = ()=> form.requestSubmit();
 }
