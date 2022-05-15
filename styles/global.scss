@@ -1,5 +1,7 @@
 // 변수
-@import "_variables.scss";
+// @import "_variables.scss";
+// @import "_theme_light.scss";
+@import "_theme_dark.scss";
 
 // 엘리먼트 기본값
 * {
@@ -71,10 +73,10 @@ aside {
 
 // FIXME: 인풋 자동완성 폰트사이즈 수정 요망
 // REF: https://stackoverflow.com/questions/57195620/css-autocomplete-font-size
-input:-webkit-autofill::first-line {
-  font-family: inherit;
-  font-size: inherit;
-}
+// input:-webkit-autofill::first-line {
+//   font-family: inherit;
+//   font-size: 1rem !important;
+// }
 
 a {
   text-decoration: none;
@@ -141,18 +143,21 @@ input[type=reset] {
   line-height: 1.12;
   padding: 8px 12px;
   min-width: 112px;
-  background-color: $grey-95;
+  background-color: $color-button;
   border: 1px solid rgba(black,0.35);
   border-radius: 8px;
-  box-shadow: inset 0 0 4px rgba(white, 0.25);
+  // box-shadow: inset 0 0 4px rgba(white, 0.25);
+  overflow: hidden;
   &:hover,
   &:active,
   &:focus {
+    color: $color-text-emp;
     border: 1px solid rgba(black,0.5);
     text-shadow: 0 0 24px rgba(white, 0.5);
     box-shadow: inset 0 0 48px rgba(black, 0.1);
   }
   &:disabled {
+    background-color: $color-button;
     color: inherit;
     opacity: 0.5;
     pointer-events: none;
@@ -232,14 +237,19 @@ select, textarea {
   padding: 5px;
   border: 1px solid $grey-50;
   border-radius: 6px;
+  background-color: $color-input;
+  color: $color-text;
   &:focus-visible {
-    border: 1px solid #29cdff;
+    border: 1px solid $color-border-emp;
     outline: 1px solid #0072ff;
     box-shadow: 0 0 6px #0014ff;
   }
 }
-input[readonly],input[disabled] {
-  background-color: $grey-90;
+input[readonly],
+input[disabled] {
+  background-color: $color-deactive;
+  opacity: 0.75;
+  color: $color-text-faint;
   &:focus-visible {
     border: 1px solid $grey-50;
     outline: none;
@@ -248,6 +258,7 @@ input[readonly],input[disabled] {
 }
 input[type=radio],
 input[type=checkbox] {
+  background-color: $color-input;
   cursor: pointer;
   margin-right: 5px;
   width: 1rem;

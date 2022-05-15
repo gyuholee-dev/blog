@@ -1,4 +1,6 @@
-@import "_variables.scss";
+// @import "_variables.scss";
+// @import "_theme_light.scss";
+@import "_theme_dark.scss";
 
 // ---------------------------------------------------------
 
@@ -18,7 +20,8 @@ header {
     padding: 9px 0;
     align-self: center;
     font-size: 1em;
-    color: $grey-75;
+    // color: $grey-75;
+    opacity: 0.5;
   }
 
   nav {
@@ -47,11 +50,12 @@ header {
         height: inherit;
         padding: 6px;
         .logo {
-          filter:grayscale(1) opacity(0.5);
+          // color: white;
+          filter:grayscale(1) opacity(0.65);
         }
       }
       &.active {
-        color: $blue;
+        color: $color-text-link;
         // border-bottom: 4px solid $blue;
       }
       &.active a, a:hover {
@@ -79,7 +83,7 @@ header {
 
       &:hover {
         cursor: pointer;
-        color: $blue;
+        color: $color-text-link;
         // transition: color 0.25s;
       }
     }
@@ -99,7 +103,7 @@ header {
         overflow: hidden;
 
         &.active {
-          border-bottom: 4px solid $blue;
+          border-bottom: 4px solid $color-text-link;
         }
       }
     }
@@ -113,7 +117,7 @@ main {
   flex-grow: 1;
 
   a:hover {
-    color: $blue;
+    color: $color-text-link;
   }
 
   article {
@@ -168,10 +172,11 @@ main {
       padding: 5px 5px 10px;
       position: relative;
       overflow: hidden;
-      border-bottom: 1px solid $light;
+      border-bottom: 1px solid $color-border;
       margin-bottom: 15px;
       >.title {
         font-size: 2rem;
+        color: $color-text-emp;
         line-height: 1;
         z-index: 1;
       }
@@ -179,7 +184,8 @@ main {
 
     .label {
       margin-right: 6px;
-      color: $grey-35;
+      // color: $grey-35;
+      opacity: 0.65;
       >i {
         margin-right: 0;
       }
@@ -403,12 +409,12 @@ main {
         width: 100%;
         height: 100%;
         transform: translate(-10px, -10px);
-        background-color: white;
+        background-color: $color-section;
         // background-color: $grey;
         // background-position: center;
         // background-repeat: no-repeat;
         // background-size: auto 100%; 
-        border: 10px solid white;
+        border: 10px solid $color-section;
         // box-shadow: 0 0 0 1px rgba(black, 0.25), inset 0 0 32px rgba(black, 0.25);
         // border-radius: 10px;
         position: relative;
@@ -465,6 +471,9 @@ main {
         }
   
         &:hover {
+          background-color: $color-light;
+          border-color: $color-light;
+          color: $color-text-emp;
           cursor: pointer;
           // background-color: $grey;
           // background-color: $blue;
@@ -509,7 +518,7 @@ main {
     &.empty {
       padding-bottom: 15px;
       .message {
-        background-color: $grey-95 !important;
+        background-color: $color-box-grey !important;
         @include flex(center, space-between);
       }
     }
@@ -560,7 +569,8 @@ main {
         .quot {
           position: absolute;
           left: 32px;
-          background-color: $grey-90;
+          background-color: $color-border;
+          opacity: 0.75;
           &.line-v {
             width: 2px;
             height: 100%;
@@ -584,13 +594,14 @@ main {
         .title {
           width: 100%;
           font-size: 1.35em;
+          color: $color-text-emp;
           padding: 5px 0;
         }
         .message {
-          border: 1px solid $light;
+          border: 1px solid $color-border;
           padding: 10px 15px;
           border-radius: 10px;
-          background-color: aliceblue;
+          background-color: $color-box-blue;
           width: 100%;
           margin-bottom: 10px;
           &.left {
@@ -629,7 +640,7 @@ main {
           }
           .message {
             // max-width: 720px;
-            background-color: antiquewhite;
+            background-color: $color-box-antique;
           }
         }
       }
@@ -665,11 +676,11 @@ aside {
   }
 
   button {
-    background-color: white !important;
+    background-color: $color-button-float !important;
     position: fixed;
     transform: scale(1.15);
     &:hover {
-      color: $blue;
+      color: $color-text-link !important;
     }
     &.top {
       top: calc(#{$height-nav} + 15px);
@@ -745,6 +756,7 @@ form.popup {
     max-width: 800px;
     padding: 25px;
     z-index: 1;
+    border: 1px solid $color-border;
     
     .header {
       margin-bottom: 5px;
@@ -839,10 +851,10 @@ form.popup {
       }
 
       &.thread .content .text {
-        background-color: aliceblue;
+        background-color: $color-box-blue;
       }
       &.reply .content .text {
-        background-color: antiquewhite;
+        background-color: $color-box-antique;
       }
     }
   }
@@ -864,6 +876,7 @@ form.popup {
     }
     &:hover {
       color: $red;
+      text-shadow: none;
       // border-color: red;
     }
   }

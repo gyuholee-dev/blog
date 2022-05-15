@@ -1,4 +1,12 @@
 @charset "UTF-8";
+body { background-color: #1a1a1a; color: #cccccc; }
+
+header { background-color: rgba(0, 0, 0, 0.65); }
+
+section { background-color: #262626; }
+
+footer { background-color: rgba(0, 0, 0, 0.65); }
+
 * { margin: 0; padding: 0; list-style: none; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 html { font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; font-size: 18px; line-height: 1.6; word-break: break-all; }
@@ -20,8 +28,6 @@ aside { display: flex; flex-direction: column; align-items: center; justify-cont
 #message .log.success { background-color: green; }
 
 #message .log.error { background-color: red; }
-
-input:-webkit-autofill::first-line { font-family: inherit; font-size: inherit; }
 
 a { text-decoration: none; color: inherit; }
 
@@ -45,11 +51,11 @@ table input[type=text], table input[type=number], table input[type=password], ta
 
 table textarea { min-height: 120px; resize: none; }
 
-.btn, button, input[type=submit], input[type=button], input[type=reset] { font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; cursor: pointer; color: inherit; font-size: 1rem; font-weight: bold; line-height: 1.12; padding: 8px 12px; min-width: 112px; background-color: #f2f2f2; border: 1px solid rgba(0, 0, 0, 0.35); border-radius: 8px; box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.25); }
+.btn, button, input[type=submit], input[type=button], input[type=reset] { font-family: "나눔스퀘어", "NanumSquare", "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; cursor: pointer; color: inherit; font-size: 1rem; font-weight: bold; line-height: 1.12; padding: 8px 12px; min-width: 112px; background-color: #0d0d0d; border: 1px solid rgba(0, 0, 0, 0.35); border-radius: 8px; overflow: hidden; }
 
-.btn:hover, .btn:active, .btn:focus, button:hover, button:active, button:focus, input[type=submit]:hover, input[type=submit]:active, input[type=submit]:focus, input[type=button]:hover, input[type=button]:active, input[type=button]:focus, input[type=reset]:hover, input[type=reset]:active, input[type=reset]:focus { border: 1px solid rgba(0, 0, 0, 0.5); text-shadow: 0 0 24px rgba(255, 255, 255, 0.5); box-shadow: inset 0 0 48px rgba(0, 0, 0, 0.1); }
+.btn:hover, .btn:active, .btn:focus, button:hover, button:active, button:focus, input[type=submit]:hover, input[type=submit]:active, input[type=submit]:focus, input[type=button]:hover, input[type=button]:active, input[type=button]:focus, input[type=reset]:hover, input[type=reset]:active, input[type=reset]:focus { color: #ffffff; border: 1px solid rgba(0, 0, 0, 0.5); text-shadow: 0 0 24px rgba(255, 255, 255, 0.5); box-shadow: inset 0 0 48px rgba(0, 0, 0, 0.1); }
 
-.btn:disabled, button:disabled, input[type=submit]:disabled, input[type=button]:disabled, input[type=reset]:disabled { color: inherit; opacity: 0.5; pointer-events: none; }
+.btn:disabled, button:disabled, input[type=submit]:disabled, input[type=button]:disabled, input[type=reset]:disabled { background-color: #0d0d0d; color: inherit; opacity: 0.5; pointer-events: none; }
 
 .btn.inline { font-size: 0.9rem; padding: 6px 8px; min-width: 96px; }
 
@@ -71,15 +77,15 @@ table textarea { min-height: 120px; resize: none; }
 
 .btn.blue { background-color: #21abff; color: white; }
 
-input[type=text], input[type=number], input[type=password], input[type=email], select, textarea { font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; padding: 5px; border: 1px solid gray; border-radius: 6px; }
+input[type=text], input[type=number], input[type=password], input[type=email], select, textarea { font-family: "맑은 고딕", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; padding: 5px; border: 1px solid gray; border-radius: 6px; background-color: #000000; color: #cccccc; }
 
 input[type=text]:focus-visible, input[type=number]:focus-visible, input[type=password]:focus-visible, input[type=email]:focus-visible, select:focus-visible, textarea:focus-visible { border: 1px solid #29cdff; outline: 1px solid #0072ff; box-shadow: 0 0 6px #0014ff; }
 
-input[readonly], input[disabled] { background-color: #e6e6e6; }
+input[readonly], input[disabled] { background-color: #0d0d0d; opacity: 0.75; color: #a6a6a6; }
 
 input[readonly]:focus-visible, input[disabled]:focus-visible { border: 1px solid gray; outline: none; box-shadow: none; }
 
-input[type=radio], input[type=checkbox] { cursor: pointer; margin-right: 5px; width: 1rem; height: 1rem; position: relative; top: 0.15rem; }
+input[type=radio], input[type=checkbox] { background-color: #000000; cursor: pointer; margin-right: 5px; width: 1rem; height: 1rem; position: relative; top: 0.15rem; }
 
 label { font-size: 1rem; cursor: pointer; font-weight: bold; margin-right: 5px; }
 

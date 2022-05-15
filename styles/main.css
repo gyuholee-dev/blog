@@ -1,6 +1,14 @@
+body { background-color: #1a1a1a; color: #cccccc; }
+
+header { background-color: rgba(0, 0, 0, 0.65); }
+
+section { background-color: #262626; }
+
+footer { background-color: rgba(0, 0, 0, 0.65); }
+
 header { display: flex; flex-direction: column; align-items: center; justify-content: start; flex-wrap: nowrap; position: sticky; top: 0; z-index: 8; backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 0, 0, 0.25); }
 
-header .sep { height: inherit; width: 18px; padding: 9px 0; align-self: center; font-size: 1em; color: #bfbfbf; }
+header .sep { height: inherit; width: 18px; padding: 9px 0; align-self: center; font-size: 1em; opacity: 0.5; }
 
 header nav { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; height: 40px; width: 100%; max-width: 1000px; white-space: nowrap; font-size: 0.95em; font-weight: bold; letter-spacing: 0.05em; padding: 0 15px; }
 
@@ -10,7 +18,7 @@ header nav > .title .logo { font-size: 24px; margin-right: 5px; color: orangered
 
 header nav > .title a { display: flex; flex-direction: row; align-items: center; justify-content: center; flex-wrap: nowrap; height: inherit; padding: 6px; }
 
-header nav > .title a .logo { filter: grayscale(1) opacity(0.5); }
+header nav > .title a .logo { filter: grayscale(1) opacity(0.65); }
 
 header nav > .title.active { color: #21abff; }
 
@@ -54,11 +62,11 @@ main section > .title { padding: 5px 10px 0; font-size: 1.2em; }
 
 main section > .title::before { position: relative; top: 1px; margin-right: 5px; }
 
-main section > .header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; width: 100%; padding: 5px 5px 10px; position: relative; overflow: hidden; border-bottom: 1px solid #a5a5a5; margin-bottom: 15px; }
+main section > .header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; width: 100%; padding: 5px 5px 10px; position: relative; overflow: hidden; border-bottom: 1px solid #595959; margin-bottom: 15px; }
 
-main section > .header > .title { font-size: 2rem; line-height: 1; z-index: 1; }
+main section > .header > .title { font-size: 2rem; color: #ffffff; line-height: 1; z-index: 1; }
 
-main section .label { margin-right: 6px; color: #595959; }
+main section .label { margin-right: 6px; opacity: 0.65; }
 
 main section .label > i { margin-right: 0; }
 
@@ -140,7 +148,7 @@ main section.list.tile ul.tile > li.wide { width: 40%; }
 
 main section.list.tile ul.tile > li:hover { overflow: visible; }
 
-main section.list.tile ul.tile .box { display: flex; flex-direction: column; box-sizing: content-box; width: 100%; height: 100%; transform: translate(-10px, -10px); background-color: white; border: 10px solid white; position: relative; overflow: hidden; border-radius: 10px; }
+main section.list.tile ul.tile .box { display: flex; flex-direction: column; box-sizing: content-box; width: 100%; height: 100%; transform: translate(-10px, -10px); background-color: #262626; border: 10px solid #262626; position: relative; overflow: hidden; border-radius: 10px; }
 
 main section.list.tile ul.tile .box > .post { display: flex; flex-direction: column; align-items: start; justify-content: center; width: 100%; height: 100%; padding: 5px; z-index: 1; }
 
@@ -152,7 +160,7 @@ main section.list.tile ul.tile .box > .bg { position: absolute; left: 0; top: 0;
 
 main section.list.tile ul.tile .box:not(.active) > .bg { background-blend-mode: darken; filter: grayscale(1); }
 
-main section.list.tile ul.tile .box:hover { cursor: pointer; box-shadow: 0 0 8px rgba(0, 0, 0, 0.25); transform: translate(-10px, -10px) scale(110%); transition: all 0.5s; z-index: 5; }
+main section.list.tile ul.tile .box:hover { background-color: #404040; border-color: #404040; color: #ffffff; cursor: pointer; box-shadow: 0 0 8px rgba(0, 0, 0, 0.25); transform: translate(-10px, -10px) scale(110%); transition: all 0.5s; z-index: 5; }
 
 main section.list.tile ul.tile .box:hover > .bg { background-color: white; filter: grayscale(0); transition: all 0.5s; }
 
@@ -166,7 +174,7 @@ main section.list.thread { font-size: 1.125rem; word-break: break-word; padding:
 
 main section.list.thread.empty { padding-bottom: 15px; }
 
-main section.list.thread.empty .message { background-color: #f2f2f2 !important; display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; }
+main section.list.thread.empty .message { background-color: #1a1a1a !important; display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; }
 
 main section.list.thread .chain { width: 100%; }
 
@@ -180,7 +188,7 @@ main section.list.thread .post .header { display: flex; flex-direction: column; 
 
 main section.list.thread .post .header .number { padding: 5px; background-color: white; color: gray; z-index: 1; position: relative; left: -6px; }
 
-main section.list.thread .post .header .quot { position: absolute; left: 32px; background-color: #e6e6e6; }
+main section.list.thread .post .header .quot { position: absolute; left: 32px; background-color: #595959; opacity: 0.75; }
 
 main section.list.thread .post .header .quot.line-v { width: 2px; height: 100%; }
 
@@ -190,9 +198,9 @@ main section.list.thread .post.thread .header { display: none; }
 
 main section.list.thread .post .content { display: flex; flex-direction: column; align-items: start; justify-content: start; flex-wrap: nowrap; width: 100%; z-index: 1; }
 
-main section.list.thread .post .content .title { width: 100%; font-size: 1.35em; padding: 5px 0; }
+main section.list.thread .post .content .title { width: 100%; font-size: 1.35em; color: #ffffff; padding: 5px 0; }
 
-main section.list.thread .post .content .message { border: 1px solid #a5a5a5; padding: 10px 15px; border-radius: 10px; background-color: aliceblue; width: 100%; margin-bottom: 10px; }
+main section.list.thread .post .content .message { border: 1px solid #595959; padding: 10px 15px; border-radius: 10px; background-color: #0f1a24; width: 100%; margin-bottom: 10px; }
 
 main section.list.thread .post .content .message.left { margin-right: 50px; }
 
@@ -210,7 +218,7 @@ main section.list.thread .post.reply .content { width: 100%; max-width: 800px; }
 
 main section.list.thread .post.reply .content .title { padding: 0; }
 
-main section.list.thread .post.reply .content .message { background-color: antiquewhite; }
+main section.list.thread .post.reply .content .message { background-color: #221b11; }
 
 main section.list.thread .post:last-child .header .quot.line-v { height: calc(50% - 30px); }
 
@@ -222,9 +230,9 @@ aside#leftmenu { align-items: start; }
 
 aside#rightmenu { align-items: end; }
 
-aside button { background-color: white !important; position: fixed; transform: scale(1.15); }
+aside button { background-color: #0d0d0d !important; position: fixed; transform: scale(1.15); }
 
-aside button:hover { color: #21abff; }
+aside button:hover { color: #21abff !important; }
 
 aside button.top { top: calc(40px + 15px); }
 
@@ -250,7 +258,7 @@ footer { width: 100%; height: 60px; align-items: center; margin: 0 auto; border-
 
 [id^=popup_].modal .dim, form.popup.modal .dim { position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
 
-[id^=popup_] section.popup, form.popup section.popup { width: 100%; max-width: 800px; padding: 25px; z-index: 1; }
+[id^=popup_] section.popup, form.popup section.popup { width: 100%; max-width: 800px; padding: 25px; z-index: 1; border: 1px solid #595959; }
 
 [id^=popup_] section.popup .header, form.popup section.popup .header { margin-bottom: 5px; }
 
@@ -296,12 +304,12 @@ footer { width: 100%; height: 60px; align-items: center; margin: 0 auto; border-
 
 [id^=popup_] section.popup.small .buttons, [id^=popup_] section.popup.min .buttons, form.popup section.popup.small .buttons, form.popup section.popup.min .buttons { margin-top: 10px; }
 
-[id^=popup_] section.popup.small.thread .content .text, [id^=popup_] section.popup.min.thread .content .text, form.popup section.popup.small.thread .content .text, form.popup section.popup.min.thread .content .text { background-color: aliceblue; }
+[id^=popup_] section.popup.small.thread .content .text, [id^=popup_] section.popup.min.thread .content .text, form.popup section.popup.small.thread .content .text, form.popup section.popup.min.thread .content .text { background-color: #0f1a24; }
 
-[id^=popup_] section.popup.small.reply .content .text, [id^=popup_] section.popup.min.reply .content .text, form.popup section.popup.small.reply .content .text, form.popup section.popup.min.reply .content .text { background-color: antiquewhite; }
+[id^=popup_] section.popup.small.reply .content .text, [id^=popup_] section.popup.min.reply .content .text, form.popup section.popup.small.reply .content .text, form.popup section.popup.min.reply .content .text { background-color: #221b11; }
 
 [id^=popup_] .btn.close, form.popup .btn.close { position: absolute; right: 5px; top: 5px; z-index: 9; border: none; transform: scale(1.15); color: #b3b3b3; }
 
 [id^=popup_] .btn.close.outer, form.popup .btn.close.outer { background-color: white !important; border: 1px solid transparent; transform: translate(50%, -50%) scale(1.15); transform: translate(calc(100% + 15px), -50%) scale(1.15); }
 
-[id^=popup_] .btn.close:hover, form.popup .btn.close:hover { color: #ff4200; }
+[id^=popup_] .btn.close:hover, form.popup .btn.close:hover { color: #ff4200; text-shadow: none; }
