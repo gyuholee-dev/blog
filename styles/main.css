@@ -64,7 +64,7 @@ main section .label > i { margin-right: 0; }
 
 main section > .content { display: flex; flex-direction: column; align-items: center; justify-content: start; flex-wrap: nowrap; width: 100%; padding: 0 10px; font-size: 1.125rem; word-break: break-word; }
 
-main section > .footer { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; width: 100%; padding: 0 10px; font-size: 1.125rem; }
+main section > .footer { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; width: 100%; font-size: 1.125rem; }
 
 main section.post > .header { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-wrap: nowrap; }
 
@@ -164,6 +164,10 @@ main section.list.tile ul.tile .box.link > .post > .summary { display: none; }
 
 main section.list.thread { font-size: 1.125rem; word-break: break-word; padding: 15px 25px 10px 25px; }
 
+main section.list.thread.empty { padding-bottom: 15px; }
+
+main section.list.thread.empty .message { background-color: #f2f2f2 !important; display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; }
+
 main section.list.thread .chain { width: 100%; }
 
 main section.list.thread .chain:not(:last-of-type) { border-bottom: 1px solid #a5a5a5; margin-bottom: 10px; }
@@ -192,7 +196,7 @@ main section.list.thread .post .content .message { border: 1px solid #a5a5a5; pa
 
 main section.list.thread .post .content .message.left { margin-right: 50px; }
 
-main section.list.thread .post .content .info { display: flex; flex-direction: row; align-items: center; justify-content: end; flex-wrap: nowrap; width: 100%; padding: 0 10px; margin-bottom: 15px; }
+main section.list.thread .post .content .info { display: flex; flex-direction: row; align-items: center; justify-content: end; flex-wrap: nowrap; width: 100%; padding-left: 10px; margin-bottom: 15px; }
 
 main section.list.thread .post .content .info .buttons:last-child:not(:empty) { margin-left: 15px; }
 

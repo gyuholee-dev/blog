@@ -80,25 +80,26 @@ thread 쓰레드
 
 DROP TABLE IF EXISTS thread;
 CREATE TABLE thread (
-  threadid INT AUTO_INCREMENT,
-  threadnumb INT,
-  wdate INT,
-  title VARCHAR(80),
-  userid CHAR(20),
-  nickname VARCHAR(20),
-  content TEXT,
-  postid INT DEFAULT 0,
-  pinned BOOLEAN DEFAULT FALSE,
-  secret BOOLEAN DEFAULT FALSE,
-  pullupcnt INT DEFAULT 0,
-  replycnt INT DEFAULT 0,
-  PRIMARY KEY(threadid)
+	threadid INT AUTO_INCREMENT,
+	threadnumb INT,
+	wdate INT,
+	title VARCHAR(80),
+	userid CHAR(20),
+	nickname VARCHAR(20),
+	content TEXT,
+	postid INT DEFAULT 0,
+	pinned BOOLEAN DEFAULT FALSE,
+	secret BOOLEAN DEFAULT FALSE,
+	pullupcnt INT DEFAULT 0,
+	replycnt INT DEFAULT 0,
+	PRIMARY KEY (threadid)
 );
 
+
 INSERT INTO thread 
-(wdate, userid, nickname, title, content)
+(threadnumb, wdate, userid, nickname, title, content)
 VALUES
-(UNIX_TIMESTAMP(), 'gyuholee', 'GyuhoLee', 
+(1, UNIX_TIMESTAMP(), 'gyuholee', 'GyuhoLee', 
 '게시물 제목 게시물 제목',
 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem sint, fugit eveniet esse doloremque enim delectus itaque debitis voluptatem asperiores voluptatum nostrum tenetur quod libero quo nesciunt dolor modi in!
  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem sint, fugit eveniet esse doloremque enim delectus itaque debitis voluptatem asperiores voluptatum nostrum tenetur quod libero quo nesciunt dolor modi in!
@@ -118,22 +119,13 @@ reply 답글
 
 DROP TABLE IF EXISTS reply;
 CREATE TABLE reply (
-  replyid INT AUTO_INCREMENT,
-  wdate INT,
-  userid CHAR(20),
-  nickname VARCHAR(20),
-  content VARCHAR(280),
-  threadid INT,
-  secret BOOLEAN DEFAULT FALSE,
-  PRIMARY KEY(replyid)
+	replyid INT AUTO_INCREMENT,
+	wdate INT,
+	userid CHAR(20),
+	nickname VARCHAR(20),
+	content VARCHAR(280),
+	threadid INT,
+	secret BOOLEAN DEFAULT FALSE,
+	PRIMARY KEY (replyid)
 );
-
-INSERT INTO reply 
-(wdate, userid, nickname, threadid, content)
-VALUES
-(UNIX_TIMESTAMP(), 'gyuholee', 'GyuhoLee', 64,
-'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem sint, fugit eveniet esse doloremque enim delectus itaque debitis voluptatem asperiores voluptatum nostrum tenetur quod libero quo nesciunt dolor modi in!
- Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem sint, fugit eveniet esse doloremque enim delectus itaque debitis voluptatem asperiores voluptatum nostrum tenetur quod libero quo nesciunt dolor modi in!
- Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem sint, fugit eveniet esse doloremque enim delectus itaque debitis voluptatem asperiores voluptatum nostrum tenetur quod libero quo nesciunt dolor modi in!
- Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem sint, fugit eveniet esse doloremque enim delectus itaque debitis voluptatem asperiores voluptatum nostrum tenetur quod libero quo nesciunt dolor modi in!');
 

@@ -37,8 +37,8 @@ if (isset($_POST['submit'])) {
         }
 
         $msg = ($pinned == 1)?
-          "고정글 #$threadnumb 를 작성하였습니다.":
-          "#$threadnumb 글을 작성하였습니다.";
+          "고정 #$threadnumb 쓰레드를 작성하였습니다.":
+          "#$threadnumb 쓰레드를 작성하였습니다.";
         pushLog($msg, 'success');
         if ($ACT == 'board') {
           header("Location: $MAIN?action=board");
@@ -87,8 +87,8 @@ if (isset($_POST['submit'])) {
         mysqli_query($DB, $sql);
 
         $msg = ($pinned == 1)?
-          "고정글 #$threadnumb 을 수정하였습니다.":
-          "#$threadnumb 글을 수정하였습니다.";
+          "고정 #$threadnumb 쓰레드를 수정하였습니다.":
+          "#$threadnumb 쓰레드를 수정하였습니다.";
         pushLog($msg, 'success');
         if ($ACT == 'board') {
           header("Location: $MAIN?action=board");
@@ -115,8 +115,8 @@ if (isset($_POST['submit'])) {
         }
 
         $msg = ($pinned == 1)?
-          '고정글을 삭제하였습니다.':
-          "#$threadnumb 글과 답글을 삭제하였습니다.";
+          '고정 쓰레드를 삭제하였습니다.':
+          "#$threadnumb 쓰레드와 답글을 삭제하였습니다.";
         pushLog($msg, 'success');
         if ($ACT == 'board') {
           header("Location: $MAIN?action=board");
@@ -149,7 +149,7 @@ if (isset($_POST['submit'])) {
                 WHERE threadid = '$threadid'";
         mysqli_query($DB, $sql);
 
-        pushLog("#$threadnumb 글의 답글을 작성하였습니다.", 'success');
+        pushLog("#$threadnumb 쓰레드의 답글을 작성하였습니다.", 'success');
         if ($ACT == 'board') {
           header("Location: $MAIN?action=board");
         } else {
@@ -171,7 +171,7 @@ if (isset($_POST['submit'])) {
                 WHERE threadid = '$threadid'";
         mysqli_query($DB, $sql);
 
-        pushLog("#$threadnumb 글의 답글을 삭제하였습니다.", 'success');
+        pushLog("#$threadnumb 쓰레드의 답글을 삭제하였습니다.", 'success');
         if ($ACT == 'board') {
           header("Location: $MAIN?action=board");
         } else {

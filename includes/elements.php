@@ -268,8 +268,7 @@ function makeFooter() : string
 // TODO: 비밀글 처리
 function makePost($data) : string
 {
-  global $ACT, $INFO, $CONF, $DO, $ID;
-  $main = MAIN;
+  global $ACT, $INFO, $CONF, $DO, $ID, $MAIN;
 
   foreach ($data as $key => $value) {
     $$key = $value;
@@ -298,14 +297,17 @@ function makePost($data) : string
     $file = "<img src='files/$file'>";
   }
 
-  $category = ($category!='')?"<a href='$main?action=$category'>$category</a>":$category;
+  $category = ($category!='')?"<a href='$MAIN?action=$category'>$category</a>":$category;
   $tags = getTagLink($tags);
 
   $textClass = ($posttype == 'media')?'center':'left';
   $content = "<p class='$textClass'>$content</p>";
 
-  $buttonReply = (!$pinned && checkPerm(PERM_USER_FRIEND))? 
-    getButton('button', '쓰레드', ['class'=>'min']):'';
+  // $buttonReply = (!$ID && !$pinned && checkPerm(PERM_USER_FRIEND))? 
+  $buttonThread = (!$ID && $ACT!='main')? 
+    getButton('button', '쓰레드', ['class'=>'min', 
+      'onclick' => "location.href=\"$MAIN?action=$ACT&do=post&postid=$postid\"'"
+    ]):'';
 
   $buttonEdit = (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER))?
     getButton('button', '수정', ['class'=>'min']).
@@ -322,7 +324,7 @@ function makePost($data) : string
     'tags' => $tags,
     'file' => $file,
     'content' => $content,
-    'buttonReply' => $buttonReply,
+    'buttonThread' => $buttonThread,
     'buttonEdit' => $buttonEdit,
   );
   
@@ -349,8 +351,6 @@ function makePostList($start=0, $items=5, $category=null, $pinned=0) : string
   if (mysqli_num_rows($res) > 0) {
     while ($data = mysqli_fetch_assoc($res)) {
       $html .= makePost($data);
-      // 답글 추가
-      // if ($data['replycnt'] > 0) {
     }
   }
 
@@ -371,7 +371,8 @@ function makePostPage($category, $requestId=null) : string
     $res = mysqli_query($DB, $sql);
     $data = mysqli_fetch_assoc($res);
     $html .= makePost($data);
-    if ($data['threadcnt'] > 0) {
+    // if ($data['threadcnt'] > 0) {
+    if ($data['pinned'] == 0) {
       $html .= makeThreadList($requestId);
     }
   } else { // 여러페이지
@@ -609,7 +610,7 @@ function makeThread($start=0, $items=5, $postid=0, $pinned=0) : string
 // 쓰레드리스트 출력
 function makeThreadList($postid=0) : string
 {
-  global $DB, $CONF;
+  global $DB, $CONF, $ID;
   $start = 0;
   $items = $CONF['pages']['board']['items'];
 
@@ -626,6 +627,14 @@ function makeThreadList($postid=0) : string
   // return renderElement(TPL.'board_thread.html', $board_data);
 
   $html = makeThread($start, $items, $postid);
+  if ($html == '') {
+    $buttonWrite = checkPerm(PERM_USER_FRIEND)? 
+      getButton('button', '작성', 
+        ['class'=>'min', 'onclick'=>"openPopup(setThreadWrite())"]):
+      getButton('button', '작성', 
+        ['class'=>'min', 'disabled'=>""]);
+    $html = renderElement(TPL.'nothread.html', ['buttonWrite'=>$buttonWrite]);
+  }
   $html .= getLoading('thread', $start+$items, $items, $postid, $count);
 
   return $html;
@@ -679,7 +688,7 @@ function makeSidemenu($position)
       $html .= getButton('button', '<i class="xi-pen-o"></i>', 
         ['id'=>'post_write', 'class'=>'float top', 'onclick'=>""]);
     }
-    // 게시판 작성
+    // 쓰레드 작성
     if (checkPerm(PERM_USER_FRIEND) && $ACT != 'main' && $DO == 'post' ||
         checkPerm(PERM_THREAD_WRITE) && $ACT == 'board') {
       $html .= getButton('button', '<i class="xi-plus"></i>', 
@@ -707,7 +716,7 @@ function getPopup($name, array $data=array(), $class=null) : string
     'closeButton' => $closeButton,
     'popupId' => $popupId,
     'action' => $ACT,
-    'postid' => $ID,
+    'postid' => ($ID)?$ID:0,
   );
   foreach ($data as $key => $value) {
     $popup_data[$key] = $value;
@@ -737,7 +746,7 @@ function makePopup(string $name) : string
     case 'thread_write':
       $data = array(
         'formName' => 'threadWrite',
-        'popupTitle' => '새 글 작성',
+        'popupTitle' => '쓰레드 작성',
         'pinnedCheckbox' => checkPerm(PERM_USER_MANAGER)?
           '<label><input type="checkbox" name="pinned">고정글</label>':'',
         'secretCheckbox' => checkPerm(PERM_THREAD_WRITE)?
@@ -748,7 +757,7 @@ function makePopup(string $name) : string
     case 'thread_update':
       $data = array(
         'formName' => 'threadUpdate',
-        'popupTitle' => '글 수정',
+        'popupTitle' => '쓰레드 수정',
         'pinnedCheckbox' => checkPerm(PERM_USER_MANAGER)?
           '<input type="hidden" name="pinchanged" value="0">'.
           '<label><input type="checkbox" name="pinned">고정글</label>':'',
@@ -763,8 +772,8 @@ function makePopup(string $name) : string
     case 'thread_delete':
       $data = array(
         'formName' => 'threadDelete',
-        'popupTitle' => '글 삭제',
-        'message' => '글과 답글을 삭제하시겠습니까?',
+        'popupTitle' => '쓰레드 삭제',
+        'message' => '쓰레드와 답글을 삭제하시겠습니까?',
       );
       break;
 

@@ -55,6 +55,8 @@ table textarea { min-height: 120px; resize: none; }
 
 .btn.min { font-size: 0.9rem; padding: 6px 8px; min-width: initial; }
 
+.btn.min:empty { min-width: 47.5px; min-height: 32px; }
+
 .btn.none { padding: 0; border: none; background-color: initial; box-shadow: none; text-shadow: none; min-width: initial; line-height: inherit; }
 
 .btn.icon { min-width: initial; }
