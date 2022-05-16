@@ -745,7 +745,12 @@ footer {
   color: $grey-65;
   position: relative;
   &:not(:last-child) {
+    margin-top: -5px;
     margin-bottom: 15px;
+  }
+  &:not(:nth-last-child(3)) {
+    margin-top: 15px;
+    margin-bottom: 0;
   }
 }
 
