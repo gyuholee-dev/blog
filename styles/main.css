@@ -225,7 +225,7 @@ main section.list.thread .post.reply .content { width: 100%; max-width: 800px; }
 
 main section.list.thread .post.reply .content .title { padding: 0; }
 
-main section.list.thread .post.reply .content .message { background-color: #2e2018; }
+main section.list.thread .post.reply .content .message { background-color: #24170f; }
 
 main section.list.thread .post:nth-child(2) .header .quot.line-v { top: -24px; height: calc(100% + 24px); }
 
@@ -319,7 +319,7 @@ footer { width: 100%; height: 60px; align-items: center; margin: 0 auto; border-
 
 [id^=popup_] section.popup.small.thread .content .text, [id^=popup_] section.popup.min.thread .content .text, form.popup section.popup.small.thread .content .text, form.popup section.popup.min.thread .content .text { background-color: #0f1a24; }
 
-[id^=popup_] section.popup.small.reply .content .text, [id^=popup_] section.popup.min.reply .content .text, form.popup section.popup.small.reply .content .text, form.popup section.popup.min.reply .content .text { background-color: #2e2018; }
+[id^=popup_] section.popup.small.reply .content .text, [id^=popup_] section.popup.min.reply .content .text, form.popup section.popup.small.reply .content .text, form.popup section.popup.min.reply .content .text { background-color: #24170f; }
 
 [id^=popup_] .btn.close, form.popup .btn.close { position: absolute; right: 5px; top: 5px; z-index: 9; border: none; transform: scale(1.15); color: #b3b3b3; }
 
