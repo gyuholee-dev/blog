@@ -95,7 +95,7 @@ main section.post > .header .info > span:not(:last-child) { margin-right: 15px; 
 
 main section.post > .header .info .category { text-transform: capitalize; }
 
-main section.post .content img { display: block; width: auto; max-width: calc(100% + 30px); margin-bottom: 15px; }
+main section.post .content img { display: block; width: auto; max-width: calc(100% + 30px); margin-bottom: 15px; border-radius: 4px; }
 
 main section.post .content .img.center, main section.post .content p.center { justify-self: center; }
 
@@ -205,7 +205,7 @@ main section.list.thread .post .content { display: flex; flex-direction: column;
 
 main section.list.thread .post .content .title { width: 100%; font-size: 1.35em; color: #ffffff; padding: 5px 0; }
 
-main section.list.thread .post .content .message { border: 1px solid #595959; padding: 10px 15px; border-radius: 10px; background-color: #0f1a24; width: 100%; margin-bottom: 10px; }
+main section.list.thread .post .content .message { border: 1px solid #595959; padding: 10px 15px; border-radius: 8px; background-color: #0f1a24; width: 100%; margin-bottom: 10px; }
 
 main section.list.thread .post .content .message.left { margin-right: 50px; }
 
