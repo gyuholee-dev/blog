@@ -231,6 +231,10 @@ main section.list.thread .post:nth-child(2) .header .quot.line-v { top: -24px; h
 
 main section.list.thread .post:nth-child(2).wable .header .quot.line-v { top: -8px; height: calc(100% + 8px); }
 
+main section.list.thread .post:nth-child(2):last-child .header .quot.line-v { top: -24px; height: calc(50% - 30px + 24px); }
+
+main section.list.thread .post:nth-child(2):last-child.wable .header .quot.line-v { top: -8px; height: calc(50% - 30px + 8px); }
+
 main section.list.thread .post:last-child .header .quot.line-v { height: calc(50% - 30px); }
 
 main section.list.thread:not(.hasreply) .info i.bullet { display: none; }

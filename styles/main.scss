@@ -670,6 +670,18 @@ main {
           }
         }
       }
+      &:nth-child(2):last-child {
+        .header .quot.line-v {
+          top: -24px;
+          height: calc(50% - 30px + 24px);
+        }
+        &.wable {
+          .header .quot.line-v {
+            top: -8px;
+            height: calc(50% - 30px + 8px);
+          }
+        }
+      }
       &:last-child {
         .header .quot.line-v {
           height: calc(50% - 30px);
