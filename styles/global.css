@@ -41,6 +41,8 @@ table * { font-size: 1rem; }
 
 table th, table td { padding: 5px; }
 
+table th.flex, table td.flex { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; }
+
 table th { text-align: center; white-space: nowrap; }
 
 table td { text-align: left; }

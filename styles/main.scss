@@ -139,6 +139,12 @@ main {
           content: '#';
         }
       }
+      &.bullet {
+        top: 0;
+        &::before {
+          content: '•';
+        }
+      } 
     }
   }
 
@@ -558,6 +564,7 @@ main {
         font-size: 1.35em;
         margin-right: 15px;
         position: relative;
+        min-width: 64px;
         .number {
           padding: 5px;
           background-color: white;
@@ -624,6 +631,12 @@ main {
           }
           >span:not(:last-child):not(:nth-last-child(2)) {
             margin-right: 15px;
+            >i.bullet {
+              margin-left: 18.5px;
+              top: -4px;
+              color: $color-border;
+              transform: scale(1.25);
+            }
           }
           >span:nth-of-type(2) {
             margin-left: auto;
@@ -644,14 +657,28 @@ main {
           }
         }
       }
-      &:last-child {
-        .header {
-          .quot {
-            &.line-v {
-              height: calc(50% - 30px);
-            }
+      &:nth-child(2) {
+        .header .quot.line-v {
+          top: -24px;
+          height: calc(100% + 24px);
+        }
+        &.wable {
+          .header .quot.line-v {
+            top: -8px;
+            height: calc(100% + 8px);
           }
         }
+      }
+      &:last-child {
+        .header .quot.line-v {
+          height: calc(50% - 30px);
+        }
+      }
+    }
+
+    &:not(.hasreply) {
+      .info i.bullet {
+        display: none;
       }
     }
 

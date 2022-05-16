@@ -102,6 +102,9 @@ table {
   }
   th, td {
     padding: 5px;
+    &.flex {
+      @include flex(center, space-between);
+    }
   }
   th {
     text-align: center;

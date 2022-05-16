@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body { background-color: #1a1a1a; color: #cccccc; }
 
 header { background-color: rgba(0, 0, 0, 0.65); }
@@ -51,6 +52,10 @@ main article i[class*=" xi-"], main article i[class^=xi-] { top: 0.125em; }
 main article i.sharp { top: 0.1em; }
 
 main article i.sharp::before { content: '#'; }
+
+main article i.bullet { top: 0; }
+
+main article i.bullet::before { content: '•'; }
 
 main section { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-wrap: nowrap; width: 100%; max-width: calc(1000px - 30px); padding: 25px; border-radius: 12px; }
 
@@ -184,7 +189,7 @@ main section.list.thread > .content { padding: 0 5px; }
 
 main section.list.thread .post { display: flex; flex-direction: row; align-items: stretch; justify-content: space-between; flex-wrap: nowrap; width: 100%; }
 
-main section.list.thread .post .header { display: flex; flex-direction: column; align-items: start; justify-content: start; flex-wrap: nowrap; flex-grow: 1; font-size: 1.35em; margin-right: 15px; position: relative; }
+main section.list.thread .post .header { display: flex; flex-direction: column; align-items: start; justify-content: start; flex-wrap: nowrap; flex-grow: 1; font-size: 1.35em; margin-right: 15px; position: relative; min-width: 64px; }
 
 main section.list.thread .post .header .number { padding: 5px; background-color: white; color: gray; z-index: 1; position: relative; left: -6px; }
 
@@ -212,15 +217,23 @@ main section.list.thread .post .content .info .buttons:last-child > *:not(:last-
 
 main section.list.thread .post .content .info > span:not(:last-child):not(:nth-last-child(2)) { margin-right: 15px; }
 
+main section.list.thread .post .content .info > span:not(:last-child):not(:nth-last-child(2)) > i.bullet { margin-left: 18.5px; top: -4px; color: #595959; transform: scale(1.25); }
+
 main section.list.thread .post .content .info > span:nth-of-type(2) { margin-left: auto; }
 
 main section.list.thread .post.reply .content { width: 100%; max-width: 800px; }
 
 main section.list.thread .post.reply .content .title { padding: 0; }
 
-main section.list.thread .post.reply .content .message { background-color: #221b11; }
+main section.list.thread .post.reply .content .message { background-color: #2e2018; }
+
+main section.list.thread .post:nth-child(2) .header .quot.line-v { top: -24px; height: calc(100% + 24px); }
+
+main section.list.thread .post:nth-child(2).wable .header .quot.line-v { top: -8px; height: calc(100% + 8px); }
 
 main section.list.thread .post:last-child .header .quot.line-v { height: calc(50% - 30px); }
+
+main section.list.thread:not(.hasreply) .info i.bullet { display: none; }
 
 main section.list.thread #loading { bottom: -8px; }
 
@@ -306,7 +319,7 @@ footer { width: 100%; height: 60px; align-items: center; margin: 0 auto; border-
 
 [id^=popup_] section.popup.small.thread .content .text, [id^=popup_] section.popup.min.thread .content .text, form.popup section.popup.small.thread .content .text, form.popup section.popup.min.thread .content .text { background-color: #0f1a24; }
 
-[id^=popup_] section.popup.small.reply .content .text, [id^=popup_] section.popup.min.reply .content .text, form.popup section.popup.small.reply .content .text, form.popup section.popup.min.reply .content .text { background-color: #221b11; }
+[id^=popup_] section.popup.small.reply .content .text, [id^=popup_] section.popup.min.reply .content .text, form.popup section.popup.small.reply .content .text, form.popup section.popup.min.reply .content .text { background-color: #2e2018; }
 
 [id^=popup_] .btn.close, form.popup .btn.close { position: absolute; right: 5px; top: 5px; z-index: 9; border: none; transform: scale(1.15); color: #b3b3b3; }
 

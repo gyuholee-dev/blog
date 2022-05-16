@@ -526,7 +526,7 @@ function getThread($data) {
     }
     $buttonReply = (!$pinned && checkPerm(PERM_REPLY_WRITE))? 
       getButton('button', '답글', 
-      ['class'=>'min', 'onclick'=>"openPopup(setReplyWrite($threadid))"]):'';
+      ['class'=>'min', 'onclick'=>"openPopup(setReplyWrite($threadid))"]):'<i class="bullet"></i>';
     $buttonEdit = (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER))?
       getButton('button', '수정', 
       ['class'=>'min', 'onclick'=>"openPopup(setThreadUpdate($threadid))"]).
@@ -535,6 +535,7 @@ function getThread($data) {
   } else {
     $type = $class = 'reply';
     $class .= ($secret)?' secret':'';
+    $class .= checkPerm(PERM_REPLY_WRITE)?' wable':'';
     if ($secret) {
       if (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER)) {
         $message = "<i class='xi-lock-o'></i>$message";
@@ -588,7 +589,9 @@ function makeThread($start=0, $items=5, $postid=0, $pinned=0) : string
   if (mysqli_num_rows($res) > 0) {
     while ($data = mysqli_fetch_assoc($res)) {
       // $html .= '<div class="wrap chain">';
-      $html .= '<section class="list thread chain">';
+      $class= 'list thread chain';
+      $class .= ($data['replycnt']>0)?' hasreply':'';
+      $html .= "<section class='$class'>";
       $html .= getThread($data);
       // 답글
       if ($pinned == 0 && $data['replycnt'] > 0) {
