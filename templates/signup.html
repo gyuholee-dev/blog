@@ -3,7 +3,7 @@
     <div class="title">회원가입</div>
   </div>
   <div class="content">
-    <form name="signup" method="post" action="{main}?action=user&do=signup" autocomplete="off">
+    <form name="signup" method="post" action="{main}?action=user&do=signup" autocomplete="on">
       <table class="table signup">
         <tr>
           <th>아이디</th>
@@ -14,7 +14,7 @@
         </tr>
         <tr>
           <th>비밀번호</th>
-          <td><input type="password" name="password" required></td>
+          <td><input type="password" name="password" required autocomplete="new-password"></td>
         </tr>
         <tr>
           <th>비밀번호 확인</th>

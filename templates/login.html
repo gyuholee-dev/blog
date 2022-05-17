@@ -3,17 +3,20 @@
     <div class="title">로그인</div>
   </div>
   <div class="content">
-    <form name="login" method="post" autocomplete="off">
+    <form name="login" method="post" autocomplete="on">
       <table class="table login">
         <tr>
           <th>아이디</th>
           <td>
-            <input type="text" name="userid" value="" required>
+            <input type="text" name="userid" required>
           </td>
         </tr>
         <tr>
           <th>비밀번호</th>
-          <td><input type="password" name="password" value="" required></td>
+          <td>
+            <input type="password" name="password" required autocomplete="new-password">
+            <input type="password" name="fakepw" style="display: none;">
+          </td>
         </tr>
       </table>
       <div class="buttons">
