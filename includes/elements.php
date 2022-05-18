@@ -4,17 +4,22 @@
 // Link: </css/style.css>; rel="preload"; as="style"
 function preloadLibrary() : void
 {
-  global $CONF;
+  global $CONF, $VER, $DEV;
+  $version = $VER;
+  if ($DEV) {
+    // 개발모드일 경우 1일마다 캐시 갱신
+    $version .= '.'.date('ymd');
+  }
   $library = $CONF['libraries'];
   $html = '';
   foreach ($library as $key => $libs) {
     foreach ($libs as $lib) {
       if ($key == 'styles') {
-        header("Link: <$lib>; rel=preload; as=style;");
+        header("Link: <$lib?v=$version>; rel=preload; as=style;");
       } elseif ($key == 'scripts') {
-        header("Link: <$lib>; rel=preload; as=script;");
+        header("Link: <$lib?v=$version>; rel=preload; as=script;");
       } elseif ($key == 'postscripts') {
-        header("Link: <$lib>; rel=preload; as=script;");
+        header("Link: <$lib?v=$version>; rel=preload; as=script;");
       }
     }
   }
@@ -98,7 +103,6 @@ function getLibraries($key = 'styles') : string
     }
   }
   return $html;
-  
 }
 
 // 로그인링크
