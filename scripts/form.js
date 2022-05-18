@@ -9,9 +9,7 @@ async function checkId() {
     return false;
   }
 
-  let check = await requestData(
-    'xhr.php?call=checkId&userid='+signup.userid.value
-  );
+  let check = await xhr('checkId', {userid:signup.userid.value});
 
   if (check == 0) {
     alert('아이디 사용 가능');
