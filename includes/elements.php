@@ -79,16 +79,22 @@ function getHeaderLink($type='logo') : string
 // 라이브러리 링크
 function getLibraries($key = 'styles') : string
 {
-  global $CONF;
+  global $CONF, $VER, $DEV;
+  $version = $VER;
+  if ($DEV) {
+    // 개발모드일 경우 1일마다 캐시 갱신
+    $version .= '.'.date('ymd');
+  }
+
   $library = $CONF['libraries'][$key];
   $html = '';
   foreach ($library as $lib) {
     if ($key == 'styles') {
-      $html .= "<link rel='stylesheet' href='$lib'>";
+      $html .= "<link rel='stylesheet' href='$lib?v=$version'>";
     } elseif ($key == 'scripts') {
-      $html .= "<script type='text/javascript' src='$lib'></script>";
+      $html .= "<script type='text/javascript' src='$lib?v=$version'></script>";
     } elseif ($key == 'postscripts') {
-      $html .= "<script type='text/javascript' src='$lib'></script>";
+      $html .= "<script type='text/javascript' src='$lib?v=$version'></script>";
     }
   }
   return $html;

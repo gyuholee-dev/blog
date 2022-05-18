@@ -41,6 +41,7 @@ define('PERM_USER_NONE', 0);
 //글로벌 변수
 global $MSG;
 global $INFO, $CONF, $DBCONF; 
+global $VER, $DEV;
 global $DB, $USER;
 global $ACT, $CAT, $DO;
 global $ID, $PAGE, $NUMB;
@@ -63,6 +64,10 @@ if (isset($_SESSION['MSG'])) {
 $CONF = openJson(CONF.'config.json');
 $INFO = openJson(CONF.'info.json');
 
+// 버전, 개발모드
+$VER = $CONF['version'];
+$DEV = $CONF['devMode'];
+
 // DB 초기화 ------------------------------------------------
 
 // DB 설정파일 로드
@@ -77,7 +82,8 @@ $dbLog = '';
 $DB = connectDB($DBCONF);
 if (!$DB) {
   $dbLog = 'DB 접속에 실패하였습니다.';
-} else {
+} 
+// else {
   // FIXME: 테이블 리스트를 컨피그에서 받아옴
   // $fileList = glob(DATA.'travel_*.sql');
   // foreach ($fileList as $file) {
@@ -88,7 +94,7 @@ if (!$DB) {
   //     break;
   //   }
   // }
-}
+// }
 if ($dbLog) {
   pushLog($dbLog.' 셋업을 실행해 주세요. [<a href="setup.php">바로가기</a>]', 'error');
 }

@@ -1,3 +1,4 @@
+// console.log('POST SCRIPT LOADED');
 DOMLoaded = async ()=>{
   // console.log("DOM LOADED");
   // 로그 출력

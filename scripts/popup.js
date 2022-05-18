@@ -1,3 +1,4 @@
+// console.log('POPUP SCRIPT LOADED');
 // 팝업 오픈
 async function openPopup(element) {
   const elem = await element;
