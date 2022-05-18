@@ -15,18 +15,18 @@ if (isset($_POST['confirm'])) {
         if ($userdata['password'] == AES_ENCRYPT($password, $password)) {
           setUserData($userdata);
           unset($_SESSION['MSG']);
+          // pushLog('로그인 성공. 환영합니다.', 'success');
+          if ($_GET['action'] == 'user' && $_GET['do'] == 'login') {
+            header("Location: $MAIN");
+            break;
+          } 
         } else {
           pushLog('로그인을 실패하였습니다. 비밀번호를 확인해 주세요', 'error');
         }
       } else {
         pushLog('로그인을 실패하였습니다. 아이디가 존재하지 않습니다.', 'error');
       }
-      // pushLog('로그인 성공. 환영합니다.', 'success');
-      if ($_GET['action'] == 'user' && $_GET['do'] == 'login') {
-        header("Location: $MAIN");
-      } else {
-        header("Location: $MAIN?action=$_GET[action]&do=$_GET[do]");
-      }
+      header("Location: $MAIN?action=$_GET[action]&do=$_GET[do]");
       break;
 
     case 'signup':
