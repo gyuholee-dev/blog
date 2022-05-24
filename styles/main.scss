@@ -209,7 +209,7 @@ main {
     }
 
     >.footer {
-      @include flex(center, space-between);
+      @include flex(center, space-between, row, wrap);
       width: 100%;
       // height: 22px;
       // padding: 0 10px;
@@ -395,7 +395,7 @@ main {
       // flex-wrap: wrap;
       display: grid;
       // grid-template-columns: repeat(5, 1fr);
-      // grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      // grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       grid-auto-flow: dense;
   

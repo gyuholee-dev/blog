@@ -137,6 +137,7 @@ input[type=reset] {
   font-size: 1rem;
   font-weight: bold;
   line-height: 1.12;
+  white-space: nowrap;
   padding: 8px 12px;
   min-width: 112px;
   background-color: $color-button;
