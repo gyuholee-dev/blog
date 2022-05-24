@@ -145,35 +145,35 @@ main section.list.tile { padding: 5px; }
 
 main section.list.tile .title { width: 100%; }
 
-main section.list.tile ul.tile { width: 100%; display: flex; flex-wrap: wrap; padding: 5px; }
+main section.list.tile ul.tile { width: 100%; padding: 5px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); grid-auto-flow: dense; }
 
-main section.list.tile ul.tile > li { height: 180px; min-width: 180px; padding: 5px; flex-grow: 1; width: 20%; overflow: hidden; }
+main section.list.tile ul.tile > li { height: 180px; min-width: 180px; padding: 5px; flex-grow: 1; overflow: hidden; }
 
-main section.list.tile ul.tile > li.wide { width: 40%; }
+main section.list.tile ul.tile > li.wide { grid-column: span 2; }
 
 main section.list.tile ul.tile > li:hover { overflow: visible; }
 
-main section.list.tile ul.tile .box { display: flex; flex-direction: column; box-sizing: content-box; width: 100%; height: 100%; transform: translate(-10px, -10px); background-color: #262626; border: 10px solid #262626; position: relative; overflow: hidden; border-radius: 10px; }
+main section.list.tile ul.tile > li > .box { display: flex; flex-direction: column; box-sizing: content-box; width: 100%; height: 100%; transform: translate(-10px, -10px); background-color: #262626; border: 10px solid #262626; position: relative; overflow: hidden; border-radius: 10px; }
 
-main section.list.tile ul.tile .box > .post { display: flex; flex-direction: column; align-items: start; justify-content: center; width: 100%; height: 100%; padding: 5px; z-index: 1; }
+main section.list.tile ul.tile > li > .box > .post { display: flex; flex-direction: column; align-items: start; justify-content: center; width: 100%; height: 100%; padding: 5px; z-index: 1; }
 
-main section.list.tile ul.tile .box > .post > .title { font-size: 1.5em; line-height: 1.25; }
+main section.list.tile ul.tile > li > .box > .post > .title { font-size: 1.5em; line-height: 1.25; }
 
-main section.list.tile ul.tile .box > .post > .summary { max-height: 108px; margin-top: 10px; overflow: hidden; line-height: 1.5; }
+main section.list.tile ul.tile > li > .box > .post > .summary { max-height: 108px; margin-top: 10px; overflow: hidden; line-height: 1.5; }
 
-main section.list.tile ul.tile .box > .bg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: #808080; background-position: center; background-repeat: no-repeat; background-size: cover; border-radius: 5px; }
+main section.list.tile ul.tile > li > .box > .bg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: #808080; background-position: center; background-repeat: no-repeat; background-size: cover; border-radius: 5px; }
 
-main section.list.tile ul.tile .box:not(.active) > .bg { background-blend-mode: darken; filter: grayscale(1); }
+main section.list.tile ul.tile > li > .box:not(.active) > .bg { background-blend-mode: darken; filter: grayscale(1); }
 
-main section.list.tile ul.tile .box:hover { background-color: #404040; border-color: #404040; color: #ffffff; cursor: pointer; box-shadow: 0 0 8px rgba(0, 0, 0, 0.25); transform: translate(-10px, -10px) scale(110%); transition: all 0.5s; z-index: 5; }
+main section.list.tile ul.tile > li > .box:hover { background-color: #404040; border-color: #404040; color: #ffffff; cursor: pointer; box-shadow: 0 0 8px rgba(0, 0, 0, 0.25); transform: translate(-10px, -10px) scale(110%); transition: all 0.5s; z-index: 5; }
 
-main section.list.tile ul.tile .box:hover > .bg { background-color: white; filter: grayscale(0); transition: all 0.5s; }
+main section.list.tile ul.tile > li > .box:hover > .bg { background-color: white; filter: grayscale(0); transition: all 0.5s; }
 
-main section.list.tile ul.tile .box.link, main section.list.tile ul.tile .box.media { color: white; text-shadow: 0 1px 4px black; }
+main section.list.tile ul.tile > li > .box.link, main section.list.tile ul.tile > li > .box.media { color: white; text-shadow: 0 1px 4px black; }
 
-main section.list.tile ul.tile .box.link > .post > .title, main section.list.tile ul.tile .box.media > .post > .title { font-size: 2em; line-height: 1; }
+main section.list.tile ul.tile > li > .box.link > .post > .title, main section.list.tile ul.tile > li > .box.media > .post > .title { font-size: 2em; line-height: 1; }
 
-main section.list.tile ul.tile .box.link > .post > .summary { display: none; }
+main section.list.tile ul.tile > li > .box.link > .post > .summary { display: none; }
 
 main section.list.thread { font-size: 1.125rem; word-break: break-word; padding: 15px 25px 10px 25px; }
 
