@@ -429,6 +429,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
   $sql = "SELECT * FROM post ";
   $sql .= $whereSql.$orderSql.$limitSql;
   $res = mysqli_query($DB, $sql);
+  $itemCount = mysqli_num_rows($res);
 
 
   $listTemplate = file_get_contents(TPL.'list_'.$listType.'.html');
@@ -485,12 +486,15 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
     $i++;
   }
 
+  $listClass = $listType;
+  $listClass .= ($listType=='tile')?' grid':'';
+  $listClass .= ($itemCount>5)?' long':' short';
   $listTemplate = preg_replace($reg, '{listItem}', $listTemplate);
   $list_values = array(
+    '{listClass}' => $listClass,
     '{listTitle}' => $listTitle,
     '{listItem}' => $listItem,
   );
-
   return strtr($listTemplate, $list_values);
 
 }

@@ -145,11 +145,26 @@ main section.list.tile { padding: 5px; }
 
 main section.list.tile .title { width: 100%; }
 
-main section.list.tile ul.tile { width: 100%; padding: 5px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); grid-auto-flow: dense; }
+main section.list.tile ul.tile { width: 100%; padding: 5px; display: flex; flex-wrap: wrap; }
 
-main section.list.tile ul.tile > li { height: 180px; min-width: 180px; padding: 5px; flex-grow: 1; overflow: hidden; }
+main section.list.tile ul.tile.grid { display: grid; grid-template-columns: repeat(5, 1fr); grid-auto-flow: dense; }
 
-main section.list.tile ul.tile > li.wide { grid-column: span 2; }
+main section.list.tile ul.tile.grid > li { min-width: initial; width: auto; }
+
+main section.list.tile ul.tile.grid > li.wide { width: auto; grid-column: span 2; }
+
+@media (max-width: 959px) { main section.list.tile ul.tile.grid { grid-template-columns: repeat(4, 1fr); }
+  main section.list.tile ul.tile.grid.short li.wide { grid-column: span 1; } }
+
+@media (max-width: 767px) { main section.list.tile ul.tile.grid.long { grid-template-columns: repeat(3, 1fr); }
+  main section.list.tile ul.tile.grid.long li.wide { grid-column: span 1; }
+  main section.list.tile ul.tile.grid.short { grid-template-columns: repeat(2, 1fr); } }
+
+@media (max-width: 639px) { main section.list.tile ul.tile.grid.long { grid-template-columns: repeat(2, 1fr); } }
+
+main section.list.tile ul.tile > li { height: 180px; min-width: 180px; padding: 5px; flex-grow: 1; width: 20%; overflow: hidden; }
+
+main section.list.tile ul.tile > li.wide { width: 40%; }
 
 main section.list.tile ul.tile > li:hover { overflow: visible; }
 
