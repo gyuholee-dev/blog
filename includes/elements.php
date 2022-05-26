@@ -227,16 +227,18 @@ function getLoading($target, $start, $items, $postid, $count) : string
 // 헤드 출력
 function makeHead() : string
 {
-  global $CONF, $INFO;
+  global $CONF, $INFO, $DEVICE;
   $siteTitle = getSiteTitle();
   $description = $INFO['description'];
   $libraries = $CONF['libraries'];
   $favicon = IMG.'icons/'.$CONF['theme']['favicon'];
 
+  $scale = ($DEVICE=='mobile')?'0.75':'1.0';
+
   $head = <<<HTML
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=0.75">
+    <meta name="viewport" content="width=device-width, initial-scale=$scale">
     <link rel="shortcut icon" href="$favicon">
     <title>$siteTitle</title>
     <meta name="description" content="$description">

@@ -92,6 +92,7 @@ preloadLibrary();
 // 랜더링
 $html_data = array(
   'head' => makeHead(),
+  'device' => $DEVICE,
   'header' => makeHeader(),
   'content' => $content,
   'leftmenu' => makeSidemenu('left'),

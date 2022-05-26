@@ -45,6 +45,7 @@ global $VER, $DEV;
 global $DB, $USER;
 global $ACT, $CAT, $DO;
 global $ID, $PAGE, $NUMB;
+global $DEVICE;
 global $MAIN;
 $MAIN = MAIN;
 
@@ -63,6 +64,9 @@ if (isset($_SESSION['MSG'])) {
 // 설정파일 로드
 $CONF = openJson(CONF.'config.json');
 $INFO = openJson(CONF.'info.json');
+
+// 디바이스
+$DEVICE = detectDevice();
 
 // 버전, 개발모드
 $VER = $CONF['version'];
