@@ -78,27 +78,15 @@ if (!fileExists(CONF.$dbConfigFile)) {
 $DBCONF = openJson(CONF.$dbConfigFile);
 
 // DB설정 체크, 접속, 테이블 검사
-$dbLog = '';
 $DB = connectDB($DBCONF);
-if (!$DB) {
-  $dbLog = 'DB 접속에 실패하였습니다.';
-} 
-// else {
-  // FIXME: 테이블 리스트를 컨피그에서 받아옴
-  // $fileList = glob(DATA.'travel_*.sql');
-  // foreach ($fileList as $file) {
-  //   $table = str_replace('.sql', '', basename($file));
-  //   if (!checkTable($table)) {
-  //     $dbLog = '테이블이 존재하지 않습니다.';
-  //     $DB = disconnectDB($DB);
-  //     break;
-  //   }
-  // }
+// $dbLog = '';
+// if (!$DB) {
+//   $dbLog = 'DB 접속에 실패하였습니다.';
 // }
-if ($dbLog) {
-  pushLog($dbLog.' 셋업을 실행해 주세요. [<a href="setup.php">바로가기</a>]', 'error');
-}
-unset($dbConfigFile, $dbLog);
+// if ($dbLog) {
+//   pushLog($dbLog.' 셋업을 실행해 주세요. [<a href="setup.php">바로가기</a>]', 'error');
+// }
+unset($dbConfigFile);
 
 // 유저 초기화 ------------------------------------------------
 
@@ -164,5 +152,11 @@ $CAT = isset($_REQUEST['category'])?$_REQUEST['category']:'all';
 $DO = ($ACT=='board')?'thread':'list';
 $DO = isset($_REQUEST['do'])?$_REQUEST['do']:$DO;
 $ID = isset($_REQUEST['postid'])?$_REQUEST['postid']:null;
-$PAGE = isset($_REQUEST['page'])?$_REQUEST['page']:1;
-$NUMB = isset($_REQUEST['numb'])?$_REQUEST['numb']:1;
+// $PAGE = isset($_REQUEST['page'])?$_REQUEST['page']:1;
+// $NUMB = isset($_REQUEST['numb'])?$_REQUEST['numb']:1;
+
+// 테이블 네임
+if (isset($CONF['pages'][$ACT])) {
+  $DB->table = $DBCONF['prefix'].$CONF['pages'][$ACT]['table'];
+}
+
