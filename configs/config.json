@@ -15,7 +15,8 @@
     "styles" : [
       "styles/fonts.css",
       "styles/global.css",
-      "styles/main.css"
+      "styles/main.css",
+      "styles/break.css"
     ],
     "scripts" : [
       "scripts/functions.js",
@@ -45,58 +46,55 @@
     "guest" : 1
   },
 
+  "_types" : {
+    "postView": [
+      "media", "text", "link"
+    ],
+    "listView": [
+      "tile", "list"
+    ],
+    "postType": [
+      "post", "html", "link"
+    ]
+  },
+
   "pages" : {
     "main" : {
-      "name" : "",
+      "title" : "GyuhoLee",
+      "table" : "post",
       "items" : 1,
-      "postType": "text",
-      "listType": "none",
-      "visible": ["post"]
-    },
-    "profile" : {
-      "name" : "프로필",
-      "items" : 1,
-      "postType": "text",
-      "listType": "none",
-      "visible": ["post"]
+      "postView": "media",
+      "listView": "tile"
     },
     "project" : {
-      "name" : "프로젝트",
+      "title" : "프로젝트",
+      "table" : "post",
       "items" : 3,
-      "postType": "media",
-      "listType": "link",
-      "visible": "all"
+      "postView": "media",
+      "listView": "link",
+      "categories": {}
     },
     "study" : {
-      "name" : "스터디",
+      "title" : "스터디",
+      "table" : "post",
       "items" : 5,
-      "postType": "text",
-      "listType": "tile",
-      "visible": "all"
+      "postView": "text",
+      "listView": "tile",
+      "categories": {}
     },
     "diary" : {
-      "name" : "다이어리",
+      "title" : "다이어리",
+      "table" : "post",
       "items" : 5,
-      "postType": "media",
-      "listType": "text",
-      "visible": "all"
+      "postView": "media",
+      "listView": "text",
+      "categories": {}
     },
     "board" : {
-      "name" : "게시판",
+      "title" : "게시판",
+      "table" : "thread",
       "items" : 5,
-      "visible": "all"
-    },
-    "login" : {
-      "name" : "로그인",
-      "visible": "none"
-    },
-    "signup" : {
-      "name" : "회원가입",
-      "visible": "none"
-    },
-    "mypage" : {
-      "name" : "마이페이지",
-      "visible": "none"
+      "categories": {}
     }
   }
 

@@ -49,16 +49,14 @@ function getSiteTitle() : string
   $siteTitle = $INFO['title'];
   if ($INFO['subtitle']) {
     $siteTitle .= ' : '.$INFO['subtitle'];
-  } else if ($ACT == 'user' && isset($CONF['pages'][$DO])) {
-    $siteTitle .= ($CONF['pages'][$DO]['name'])?' : '.$CONF['pages'][$DO]['name']:'';
   } else if (isset($CONF['pages'][$ACT])) {
-    $siteTitle .= ($CONF['pages'][$ACT]['name'])?' : '.$CONF['pages'][$ACT]['name']:'';
+    $siteTitle .= ($CONF['pages'][$ACT]['title'])?' : '.$CONF['pages'][$ACT]['title']:'';
   }
   return $siteTitle;
 }
 
 // 헤더링크
-function getHeaderLink($type='logo') : string
+function getHeaderLink($type='logo', $sep='') : string
 {
   global $ACT, $CONF, $INFO;
   $active = ($ACT == 'main') ? 'active' : '';
@@ -69,12 +67,15 @@ function getHeaderLink($type='logo') : string
     $link = "<a href='$siteUrl'><img src='$logo'></a>";
   } else if ($type == 'title') {
     $icon = '<i class="logo BI-icon-SL"></i>';
-    $link = "<a href='$siteUrl'>$icon<span>$INFO[title]</span></a>";
+    $link = "<a href='$siteUrl'>$icon<label>$INFO[title]</label></a>";
+  }
+  if ($sep) {
+    $sep = "<span class='sep'>$sep</span>";
   }
 
   $headerLink = <<<HTML
     <div class="title $active">
-      $link<span class="sep"><i class="xi-angle-right"></i></span>
+      $link$sep
     </div>
   HTML;
 
@@ -154,19 +155,14 @@ function getNavmenu($sep=null) : string
 {
   global $CONF, $ACT;
   $main = MAIN;
-  $pages = array();
-  foreach ($CONF['pages'] as $key => $conf) {
-    if ($conf['visible'] != 'none') {
-      if ($conf['visible'] == 'all' || in_array('menu', $conf['visible'])) {
-          $pages[$key] = $conf;
-      }
-    }
-  }
+  $pages = $CONF['pages'];
 
   $navmenu = '';
-  foreach ($pages as $key => $conf) {
+  foreach ($pages as $key => $data) {
+    if (!isset($data['categories'])) continue;
+
     $active = ($ACT==$key)?'active':'';
-    $navmenu .= "<li class='$active'><a href='$main?action=$key'>$conf[name]</a></li>";
+    $navmenu .= "<li class='$active'><a href='$main?action=$key'>$data[title]</a></li>";
     if ($sep && $key != array_key_last($pages)) {
       $navmenu .= "<span class='sep'>$sep</span>";
     }
@@ -257,7 +253,7 @@ function makeHeader() : string
 {
   $header_data = array(
     'navmenu' => getNavmenu('<i class="xi-minus xi-rotate-90"></i>'),
-    'headerLink' => getHeaderLink('title'),
+    'headerLink' => getHeaderLink('title', '<i class="xi-angle-right"></i>'),
     'loginLink' => getLoginLink('icon')
   );
   $header = renderElement(TPL.'header.html', $header_data);
@@ -286,9 +282,9 @@ function makePost($data) : string
   if ($DO == 'post' && $ID) {
     $INFO['subtitle'] = $title;
   }
-  // $posttype = $data['posttype'];
-  $posttype = $CONF['pages'][$ACT]['postType'];
-  $posttype .= $pinned?' pinned':'';
+
+  $postView = $CONF['pages'][$ACT]['postView'];
+  $postView .= $pinned?' pinned':'';
 
   $headerClass = 'header';
   $headerBG = '';
@@ -303,28 +299,31 @@ function makePost($data) : string
     $file = '';
   }
   
-  if (!$pinned && $posttype == 'media' && $file != '') {
+  if (!$pinned && $postView == 'media' && $file != '') {
     $file = "<img src='files/$file'>";
   }
 
   $category = ($category!='')?"<a href='$MAIN?action=$category'>$category</a>":$category;
   $tags = getTagLink($tags);
 
-  $textClass = ($posttype == 'media')?'center':'left';
+  $textClass = ($postView == 'media')?'center':'left';
   $content = "<p class='$textClass'>$content</p>";
 
   // $buttonReply = (!$ID && !$pinned && checkPerm(PERM_USER_FRIEND))? 
-  $buttonThread = (!$ID && $ACT!='main')? 
+  $buttonLeft = (!$ID && $ACT!='main')? 
     getButton('button', '쓰레드', ['class'=>'min', 
       'onclick' => "location.href=\"$MAIN?action=$ACT&do=post&postid=$postid\"'"
     ]):'';
+    // getButton('button', '목록', ['class'=>'min', 
+    //   'onclick' => "location.href=\"$MAIN?action=$ACT\"'"
+    // ]);
 
-  $buttonEdit = (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER))?
+  $buttonRight = (isOwner($data['userid']) || checkPerm(PERM_USER_MANAGER))?
     getButton('button', '수정', ['class'=>'min']).
     getButton('button', '삭제', ['class'=>'min']):'';
 
   $post_data = array( 
-    'posttype' => $posttype,
+    'postView' => $postView,
     'headerClass' => $headerClass,
     'headerBG' => $headerBG,
     'title' => $title,
@@ -334,8 +333,8 @@ function makePost($data) : string
     'tags' => $tags,
     'file' => $file,
     'content' => $content,
-    'buttonThread' => $buttonThread,
-    'buttonEdit' => $buttonEdit,
+    'buttonLeft' => $buttonLeft,
+    'buttonRight' => $buttonRight,
   );
   
   return renderElement(TPL.'post.html', $post_data);
@@ -346,8 +345,9 @@ function makePostList($start=0, $items=5, $category=null, $pinned=0) : string
 {
   global $ACT, $DB;
   $category = (!$category)?$ACT:$category;
-
-  $sql = "SELECT * FROM post 
+  
+  $table = $DB->table;
+  $sql = "SELECT * FROM $table 
           WHERE category = '$category' AND pinned = '$pinned'
           ORDER BY postid DESC LIMIT $start, $items ";
   $res = mysqli_query($DB, $sql);
@@ -372,8 +372,6 @@ function makePostList($start=0, $items=5, $category=null, $pinned=0) : string
 function makePostPage($category, $requestId=null) : string
 {
   global $DB, $CONF;
-  $start = 0;
-  $items = $CONF['pages'][$category]['items'];
 
   $html = '';
   if ($requestId) { // 한페이지
@@ -386,6 +384,8 @@ function makePostPage($category, $requestId=null) : string
       $html .= makeThreadList($requestId);
     }
   } else { // 여러페이지
+    $start = 0;
+    $items = $CONF['pages'][$category]['items'];
     $sql = "SELECT COUNT(*) FROM post 
             WHERE category = '$category' AND pinned = 0";
     $res = mysqli_query($DB, $sql);
@@ -398,9 +398,9 @@ function makePostPage($category, $requestId=null) : string
 
 // 리스트 출력
 // TODO: 테이블 리스트 출력 기능 추가
-function makeList($listTitle='리스트', $listType='tile', $category='all', $posttype='all', $start=false, $end=false) : string 
+function makeList($listTitle='리스트', $listView='tile', $category='all', $postType='all', $start=false, $end=false) : string 
 {
-  global $DB;
+  global $CONF, $DB;
   $main = MAIN;
   $postCount = 0;
   $whereSql = '';
@@ -411,8 +411,8 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
   if ($category != 'all') {
     $whereSql .= "AND category = '$category' ";
   }
-  if ($posttype != 'all') {
-    $whereSql .= "AND posttype = '$posttype' ";
+  if ($postType != 'all') {
+    $whereSql .= "AND posttype = '$postType' ";
   }
 
   $sql = "SELECT COUNT(*) FROM post $whereSql";
@@ -432,7 +432,7 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
   $itemCount = mysqli_num_rows($res);
 
 
-  $listTemplate = file_get_contents(TPL.'list_'.$listType.'.html');
+  $listTemplate = file_get_contents(TPL.'list_'.$listView.'.html');
   
   $reg = '/\{listItem start\}(.+)\{listItem end\}/is';
   preg_match($reg, $listTemplate, $matches);
@@ -444,29 +444,29 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
     foreach ($data as $key => $value) {
       $$key = $value;
     }
+    $postView = $CONF["pages"][$category]["postView"];
 
-    $itemClass = 'item';
-    $boxClass = 'box '.$posttype;
+    $itemClass = 'item ';
+    $boxClass = "box $posttype ";
     $headerBG = '';
     $linkUrl = '';
     $listBG = '';
     $wdate = date("Y-m-d H:i:s", $wdate);
 
-    if ($posttype == 'link' && $i == 0 || $posttype=='media') {
-      $itemClass .= ' wide';
-    }
-    if ($posttype == 'link' && $i == 0 || $posttype=='media') {
-      $boxClass .= ' active';
-    }
-    if ($posttype=='link') {
-      $linkUrl = $link;
-    } else {
-      $linkUrl = "$main?action=$category&do=post&postid=$postid";
-    }
-    if ($posttype=='link' || $posttype=='media') {
-      if ($data['file'] != '') {
-        $listBG = "<div class='bg' style='background-image:url(\"files/$file\")'></div>";
+    if ($posttype == 'post') {
+        $itemClass .= ($file)?'wide':'';
+        $boxClass .= ($file)?'media':'text';
+        $linkUrl = "$main?action=$category&do=post&postid=$postid";
+    } else if ($posttype == 'link') {
+      if ($i == 0) {
+        $itemClass .= ($file)?'wide':'';
+        $boxClass .= 'active';
       }
+      $linkUrl = $link;
+    }
+
+    if ($file) {
+      $listBG = "<div class='bg' style='background-image:url(\"files/$file\")'></div>";
     }
 
     $item_values = array( 
@@ -486,8 +486,8 @@ function makeList($listTitle='리스트', $listType='tile', $category='all', $po
     $i++;
   }
 
-  $listClass = $listType;
-  $listClass .= ($listType=='tile')?' grid':'';
+  $listClass = $listView;
+  $listClass .= ($listView=='tile')?' grid':'';
   $listClass .= ($itemCount>5)?' long':' short';
   $listTemplate = preg_replace($reg, '{listItem}', $listTemplate);
   $list_values = array(
