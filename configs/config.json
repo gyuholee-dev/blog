@@ -70,21 +70,27 @@
       "items" : 3,
       "postView": "media",
       "listView": "link",
-      "categories": {}
+      "categories": {
+        "project" : "프로젝트"
+      }
     },
     "study" : {
       "title" : "스터디",
       "items" : 5,
       "postView": "text",
       "listView": "tile",
-      "categories": {}
+      "categories": {
+        "study" : "스터디"
+      }
     },
     "diary" : {
       "title" : "다이어리",
       "items" : 5,
       "postView": "media",
       "listView": "text",
-      "categories": {}
+      "categories": {
+        "diary" : "다이어리"
+      }
     },
     "board" : {
       "title" : "게시판",
