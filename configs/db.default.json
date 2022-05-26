@@ -4,6 +4,5 @@
   "password" : null,
   "database" : "blog",
   "port" : 3306,
-  "socket" : null,
-  "prefix" : ""
+  "socket" : null
 }

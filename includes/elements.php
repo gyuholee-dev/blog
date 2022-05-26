@@ -346,8 +346,7 @@ function makePostList($start=0, $items=5, $category=null, $pinned=0) : string
   global $ACT, $DB;
   $category = (!$category)?$ACT:$category;
   
-  $table = $DB->table;
-  $sql = "SELECT * FROM $table 
+  $sql = "SELECT * FROM post 
           WHERE category = '$category' AND pinned = '$pinned'
           ORDER BY postid DESC LIMIT $start, $items ";
   $res = mysqli_query($DB, $sql);
@@ -371,7 +370,7 @@ function makePostList($start=0, $items=5, $category=null, $pinned=0) : string
 // 포스트 페이지 출력
 function makePostPage($category, $requestId=null) : string
 {
-  global $DB, $CONF;
+  global $ACT, $DB, $CONF;
 
   $html = '';
   if ($requestId) { // 한페이지
@@ -379,7 +378,6 @@ function makePostPage($category, $requestId=null) : string
     $res = mysqli_query($DB, $sql);
     $data = mysqli_fetch_assoc($res);
     $html .= makePost($data);
-    // if ($data['threadcnt'] > 0) {
     if ($data['pinned'] == 0) {
       $html .= makeThreadList($requestId);
     }
@@ -636,13 +634,6 @@ function makeThreadList($postid=0) : string
   $res = mysqli_query($DB, $sql);
   $count = mysqli_fetch_row($res)[0];
 
-  // $board_data = array(
-  //   'title' => '게시판',
-  //   'list' => makeThread($start, $items),
-  //   'loading' => getLoading('thread', $start+$items, $items, 0, $count),
-  // );
-  // return renderElement(TPL.'board_thread.html', $board_data);
-
   $html = makeThread($start, $items, $postid);
   if ($html == '') {
     $buttonWrite = checkPerm(PERM_USER_FRIEND)? 
@@ -655,11 +646,6 @@ function makeThreadList($postid=0) : string
   $html .= getLoading('thread', $start+$items, $items, $postid, $count);
 
   return $html;
-}
-
-// 페이지 넘버 출력
-function makePageNumber() {
-  // global $PAGE;
 }
 
 // 유저페이지 출력
@@ -691,7 +677,6 @@ function makeUserPage() : string
 }
 
 // 사이드메뉴 출력
-// TODO: 버튼호버 라벨출력
 function makeSidemenu($position)
 {
   global $ACT, $DO, $USER;

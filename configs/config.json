@@ -61,14 +61,12 @@
   "pages" : {
     "main" : {
       "title" : "GyuhoLee",
-      "table" : "post",
       "items" : 1,
       "postView": "media",
       "listView": "tile"
     },
     "project" : {
       "title" : "프로젝트",
-      "table" : "post",
       "items" : 3,
       "postView": "media",
       "listView": "link",
@@ -76,7 +74,6 @@
     },
     "study" : {
       "title" : "스터디",
-      "table" : "post",
       "items" : 5,
       "postView": "text",
       "listView": "tile",
@@ -84,7 +81,6 @@
     },
     "diary" : {
       "title" : "다이어리",
-      "table" : "post",
       "items" : 5,
       "postView": "media",
       "listView": "text",
@@ -92,7 +88,6 @@
     },
     "board" : {
       "title" : "게시판",
-      "table" : "thread",
       "items" : 5,
       "categories": {}
     }

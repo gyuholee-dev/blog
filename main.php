@@ -45,7 +45,6 @@ switch ($ACT) {
         case 'edit':
           include INC.'user.php';
           break;
-
         case 'mypage':
           $content .= makeUserPage();
           break;

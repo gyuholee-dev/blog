@@ -154,9 +154,3 @@ $DO = isset($_REQUEST['do'])?$_REQUEST['do']:$DO;
 $ID = isset($_REQUEST['postid'])?$_REQUEST['postid']:null;
 // $PAGE = isset($_REQUEST['page'])?$_REQUEST['page']:1;
 // $NUMB = isset($_REQUEST['numb'])?$_REQUEST['numb']:1;
-
-// 테이블 네임
-if (isset($CONF['pages'][$ACT])) {
-  $DB->table = $DBCONF['prefix'].$CONF['pages'][$ACT]['table'];
-}
-
