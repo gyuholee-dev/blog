@@ -42,6 +42,10 @@ switch ($ACT) {
   case 'user':
     if ($USER) {
       switch ($DO) {
+        case 'edit':
+          include INC.'user.php';
+          break;
+
         case 'mypage':
           $content .= makeUserPage();
           break;

@@ -1,5 +1,15 @@
 <?php // user.php
 
+$INFO['subtitle'] = match($DO) {
+  'login' => '로그인',
+  'signup' => '회원가입',
+  // 'logout' => '로그아웃',
+  // 'signout' => '회원탈퇴',
+  'mypage' => '마이페이지',
+  // 'edit' => '회원정보 수정',
+  default => null,
+};
+
 // 컨펌 처리
 if (isset($_POST['confirm'])) {
   switch ($DO) {

@@ -3,7 +3,7 @@
     <div class="title">회원정보</div>
   </div>
   <div class="content">
-    <form name="edit" method="post" action="{main}?action=user&do=edit" autocomplete="off">
+    <form name="edit" method="post" autocomplete="off">
       <table class="table edit">
         <tr>
           <th>아이디</th>
@@ -46,6 +46,8 @@
 
       <div class="buttons">
         <input type="hidden" name="confirm" value="true">
+        <input type="hidden" name="action" value="user">
+        <input type="hidden" name="do" value="edit">
         <input class="btn" type="button" value="정보수정" onclick="sendEdit()">
         <input class="btn" type="button" value="로그아웃" onclick="location.href='{main}?action=user&do=logout'">
       </div>
