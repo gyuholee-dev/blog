@@ -11,7 +11,7 @@ header { display: flex; flex-direction: column; align-items: center; justify-con
 
 header .sep { height: inherit; width: 18px; padding: 7px 0; align-self: center; font-size: 1em; opacity: 0.5; text-align: center; flex-shrink: 1; position: relative; }
 
-header nav { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; height: 40px; width: 100%; max-width: 1000px; white-space: nowrap; font-size: 0.95em; font-weight: bold; letter-spacing: 0.05em; }
+header nav { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; height: 40px; width: 100%; max-width: 1000px; white-space: nowrap; font-size: 0.95em; font-weight: bold; letter-spacing: 0.05em; position: relative; }
 
 header nav > .title { display: flex; flex-direction: row; align-items: start; justify-content: center; flex-wrap: nowrap; width: auto; height: inherit; }
 

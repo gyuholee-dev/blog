@@ -1,0 +1,26 @@
+// @import "_theme_light.scss";
+@import "_theme_dark.scss";
+
+#container.mobile {
+  header {
+    height: 60px;
+    &:before {
+      position: absolute;
+      content: "MOBILE UI";
+    }
+    nav {
+      // display: none;
+      top: 20px;
+
+      ul.menu {
+        display: none;
+      }
+
+      .btn.search {
+        display: none;
+      }
+    }
+  }
+
+
+}

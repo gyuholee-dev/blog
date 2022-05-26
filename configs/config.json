@@ -16,7 +16,8 @@
       "styles/fonts.css",
       "styles/global.css",
       "styles/main.css",
-      "styles/break.css"
+      "styles/break.css",
+      "styles/mobile.css"
     ],
     "scripts" : [
       "scripts/functions.js",
