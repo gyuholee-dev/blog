@@ -17,11 +17,14 @@ header {
   .sep {
     height: inherit;
     width: 18px;
-    padding: 9px 0;
+    padding: 7px 0;
     align-self: center;
     font-size: 1em;
     // color: $grey-75;
     opacity: 0.5;
+    text-align: center;
+    flex-shrink: 1;
+    position: relative;
   }
 
   nav {
@@ -33,13 +36,12 @@ header {
     font-size: 0.95em;
     font-weight: bold;
     letter-spacing: 0.05em;
-    padding: 0 15px;
+    // padding: 0 15px;
 
     >.title {
       @include flex(start, center);
       width: auto;
       height: inherit;
-      overflow: hidden;
       .logo {
         font-size: 24px;
         margin-right: 5px;
@@ -48,15 +50,20 @@ header {
       a {
         @include flex(center, center);
         height: inherit;
-        padding: 6px;
+        padding: 6px 0;
+        padding-left: 10px;
         .logo {
           // color: white;
           filter:grayscale(1) opacity(0.65);
         }
       }
+
       &.active {
         color: $color-text-link;
         // border-bottom: 4px solid $blue;
+        .sep {
+          opacity: 1;
+        }
       }
       &.active a, a:hover {
         .logo {
@@ -67,7 +74,7 @@ header {
     }
 
     .btn {
-      width: 50px;
+      min-width: 38px !important;
       height: inherit;
       text-align: center;
       font-size: 22px;
@@ -88,19 +95,27 @@ header {
       }
     }
 
-    .menu {
-      @include flex(start, center);
-      // width: 100%;
-      margin-right: auto;
+    ul.menu {
+      @include flex(start, start);
+      width: 100%;
+      // margin-right: auto;
+      margin-right: 10px;
       height: inherit;
       overflow: hidden;
 
+      .sep>i {
+        width: 0;
+        position: absolute;
+        top: 2px;
+      }
+
       >li {
-        width: 86px;
+        max-width: 86px;
         height: $height-nav;
         text-align: center;
         align-self: end;
         overflow: hidden;
+        flex-grow: 1;
 
         &.active {
           border-bottom: 4px solid $color-text-link;
@@ -209,11 +224,13 @@ main {
     }
 
     >.footer {
-      @include flex(center, space-between, row, wrap);
+      @include flex(center, end, row);
       width: 100%;
       // height: 22px;
       // padding: 0 10px;
       font-size: 1.125rem;
+      white-space: nowrap;
+      line-height: 1.8;
     }
   }
 
@@ -289,29 +306,44 @@ main {
     }
 
     >.footer {
-      >span:not(:last-child):not(:nth-last-child(2)) {
-        margin-right: 15px;
-      }
-      >span:nth-child(3) {
-        margin-left: auto;
-      }
       .buttons {
-        &:first-child:empty {
-          margin-right: 0;
+        &.left {
+          margin-right: 15px;
         }
-        &:last-child {
-          &:not(:empty) {
-            margin-left: 15px;
-          }
-          >*:not(:last-child) {
-            margin-right: 12px;
-          }
+        &.right {
+          margin-left: 15px;
+        }
+        &:empty {
+          margin: 0 !important;
+        }
+        >.btn:not(:last-child) {
+          margin-right: 12px;
         }
       }
       .tags {
+        order: 1;
         font-size: 0.9em;
         >a:not(:last-child) {
           margin-right: 5px;
+        }
+      }
+      .info {
+        @include flex(center, end);
+        overflow: hidden;
+        &.start {
+          margin-right: 15px;
+        }
+        &.end {
+          margin-left: auto;
+          >.buttons.left {
+            display: none;
+          }
+        }
+        .wdate {
+          margin-left: auto;
+          margin-right: 15px;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -409,32 +441,6 @@ main {
           }
         }
       }
-      @include breakpoint(960) {
-        &.grid {
-          grid-template-columns: repeat(4, 1fr);
-        }
-        &.grid.short {
-          li.wide {
-            grid-column: span 1;
-          }
-        }
-      }
-      @include breakpoint(768) {
-        &.grid.long {
-          grid-template-columns: repeat(3, 1fr);
-          li.wide {
-            grid-column: span 1;
-          }
-        }
-        &.grid.short {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @include breakpoint(640) {
-        &.grid.long {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
   
       >li {
         height: 180px;
@@ -496,19 +502,18 @@ main {
             background-color: $grey;
             background-position: center;
             background-repeat: no-repeat;
-            // background-size: auto 100%;
             background-size: cover;
             // background-blend-mode: overlay;
             // filter: grayscale(1);
             border-radius: 5px;
           }
     
-          &:not(.active) {
-            >.bg {
-              background-blend-mode: darken;
-              filter: grayscale(1);
-            }
-          }
+          // &:not(.active) {
+          //   >.bg {
+          //     background-blend-mode: darken;
+          //     filter: grayscale(1);
+          //   }
+          // }
     
           &:hover {
             background-color: $color-light;
@@ -522,12 +527,12 @@ main {
             transition: all 0.5s;
             z-index: 5;
             // filter: grayscale(0);
-            >.bg {
+            // >.bg {
               // background-color: $grey;
-              background-color: white;
-              filter: grayscale(0);
-              transition: all 0.5s;
-            }
+              // background-color: white;
+              // filter: grayscale(0);
+              // transition: all 0.5s;
+            // }
           }
     
           &.link, &.media {
@@ -538,16 +543,21 @@ main {
               line-height: 1;
             } 
           }
-    
+
+          &.media {
+            >.post>.summary {
+              max-height: 80px;
+            }
+          }
           &.link {
             >.post>.summary {
               display: none;
             }
           }
-        } //.box
-      } //>li
-    }//ul.tile
-  }//section.list.tile
+        }
+      }
+    }
+  }
 
   // 섹션 쓰레드
   section.list.thread {
@@ -608,7 +618,7 @@ main {
         }
         .quot {
           position: absolute;
-          left: 32px;
+          left: 24px;
           background-color: $color-border;
           opacity: 0.75;
           &.line-v {
@@ -616,7 +626,7 @@ main {
             height: 100%;
           }
           &.line-h {
-            width: calc(100% - 32px);
+            width: calc(100% - 24px);
             height: 2px;
             top: calc(50% - 30px);
           }
@@ -651,7 +661,7 @@ main {
         .info {
           @include flex(center, end);
           width: 100%;
-          padding-left: 10px;
+          // padding-left: 10px;
           margin-bottom: 15px;
           // font-size: 1rem;
           .buttons:last-child {
@@ -665,7 +675,7 @@ main {
           >span:not(:last-child):not(:nth-last-child(2)) {
             margin-right: 15px;
             >i.bullet {
-              margin-left: 18.5px;
+              margin-left: 20.5px;
               top: -4px;
               color: $color-border;
               transform: scale(1.25);

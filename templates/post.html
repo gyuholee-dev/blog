@@ -1,4 +1,4 @@
-<section class="post {posttype}">
+<section class="post {postView}">
   <div class="{headerClass}">
     {headerBG}
     <div class="title">{title}</div>
@@ -11,10 +11,15 @@
     {content}
   </div>
   <div class="footer">
-    <span class='buttons'>{buttonThread}</span>
-    <span class="tags">{tags}</span>
-    <span class="wdate">{wdate}</span>
-    <span class="username">{nickname}</span>
-    <span class='buttons'>{buttonEdit}</span>
+    <div class="info start">
+      <span class='buttons left'>{buttonLeft}</span>
+      <span class="tags">{tags}</span>
+    </div>
+    <div class="info end">
+      <span class='buttons left'>{buttonLeft}</span>
+      <span class="wdate">{wdate}</span>
+      <span class="username">{nickname}</span>
+      <span class='buttons right'>{buttonRight}</span>
+    </div>
   </div>
 </section>

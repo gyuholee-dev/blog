@@ -1,0 +1,56 @@
+@import "_variables.scss";
+
+@include breakpoint(960) {
+  main section.list.tile ul.tile {
+    &.grid {
+      grid-template-columns: repeat(4, 1fr);
+      li.wide {
+        grid-column: span 1;
+      }
+    }
+    &.grid.short {
+      li.wide {
+        grid-column: span 1;
+      }
+    }
+  }
+}
+
+@include breakpoint(768) {
+  main section.list.tile ul.tile {
+    &.grid.long {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    &.grid.short {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  main section.post > .footer {
+    @include flex (end, start, column);
+    .info.start {
+      margin-right: 0;
+      .buttons.left {
+        display: none;
+      }
+    }
+    .info.end {
+      width: 100%;
+      .buttons.left {
+        display: block;
+      }
+    }
+  }
+}
+
+@include breakpoint(640) {
+  header nav > .title a {
+    > label {
+      display: none;
+    }
+  }
+  main section.list.tile ul.tile {
+    &.grid.long {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
