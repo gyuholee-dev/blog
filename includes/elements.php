@@ -70,7 +70,7 @@ function getHeaderLink($type='logo', $sep='') : string
     $link = "<a href='$siteUrl'>$icon<label>$INFO[title]</label></a>";
   }
   if ($sep) {
-    $sep = "<span class='sep'>$sep</span>";
+    $sep = '<i class="sep xi-angle-right"></i>';
   }
 
   $headerLink = <<<HTML
@@ -151,7 +151,7 @@ function getTagLink(string $tags) : string
 }
 
 // 네비게이션 출력
-function getNavmenu($sep=null) : string
+function getNavmenu($separator=null) : string
 {
   global $CONF, $ACT;
   $main = MAIN;
@@ -161,11 +161,12 @@ function getNavmenu($sep=null) : string
   foreach ($pages as $key => $data) {
     if (!isset($data['categories'])) continue;
 
+    $sep = '';
     $active = ($ACT==$key)?'active':'';
-    $navmenu .= "<li class='$active'><a href='$main?action=$key'>$data[title]</a></li>";
-    if ($sep && $key != array_key_last($pages)) {
-      $navmenu .= "<span class='sep'>$sep</span>";
+    if ($separator && $key != array_key_last($pages)) {
+      $sep = '<i class="sep xi-minus xi-rotate-90"></i>';
     }
+    $navmenu .= "<li class='$active'><a href='$main?action=$key'><label>$data[title]</a></label>$sep</li>";
   }
   
   $navmenu = '<ul class="menu main">'.$navmenu.'</ul>';

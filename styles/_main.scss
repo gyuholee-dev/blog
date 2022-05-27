@@ -6,20 +6,16 @@ header {
   top: 0;
   z-index: 8;
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba($black, 0.25);
+  border-bottom: 1px solid rgba($black, 0.2);
   // height: $height-nav + 1;
 
   .sep {
-    height: inherit;
-    width: 18px;
-    padding: 7px 0;
-    align-self: center;
+    width: 0;
     font-size: 1em;
-    // color: $grey-75;
     opacity: 0.5;
     text-align: center;
-    flex-shrink: 1;
-    position: relative;
+    position: absolute;
+    right: 0;
   }
 
   nav {
@@ -28,16 +24,19 @@ header {
     width: 100%;
     max-width: $max-width;
     white-space: nowrap;
-    font-size: 0.95em;
+    font-size: 0.95rem;
     font-weight: bold;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1rem;
     position: relative;
-    // padding: 0 15px;
+    padding: 10px 0;
 
     >.title {
-      @include flex(start, center);
+      @include flex(center, start);
       width: auto;
-      height: inherit;
+      height: $height-nav - 20px;
+      padding-left: 10px;
+      padding-right: 15px;
+      position: relative;
       .logo {
         font-size: 24px;
         margin-right: 5px;
@@ -46,12 +45,13 @@ header {
       a {
         @include flex(center, center);
         height: inherit;
-        padding: 6px 0;
-        padding-left: 10px;
         .logo {
           // color: white;
           filter:grayscale(1) opacity(0.65);
         }
+      }
+      .sep {
+        right: 15px;
       }
 
       &.active {
@@ -71,7 +71,7 @@ header {
 
     .btn {
       min-width: 38px !important;
-      height: inherit;
+      height: $height-nav - 20px;
       text-align: center;
       font-size: 22px;
       &:hover {
@@ -81,8 +81,9 @@ header {
 
     a {
       display: block;
-      height: 100%;
-      padding: 6px 0;
+      height: inherit;
+      width: 100%;
+      // padding: 6px 0;
 
       &:hover {
         cursor: pointer;
@@ -92,29 +93,32 @@ header {
     }
 
     ul.menu {
-      @include flex(start, start);
+      @include flex(center, start);
       width: 100%;
-      // margin-right: auto;
       margin-right: 10px;
-      height: inherit;
-      overflow: hidden;
-
-      .sep>i {
-        width: 0;
-        position: absolute;
-        top: 2px;
-      }
+      height: $height-nav - 20px;
 
       >li {
-        max-width: 86px;
-        height: $height-nav;
+        @include flex(center, start, column);
+        max-width: 112px;
+        height: inherit;
+        line-height: $height-nav - 20px;
         text-align: center;
-        align-self: end;
-        overflow: hidden;
         flex-grow: 1;
-
+        position: relative;
+        label {
+          display: block;
+          width: calc(100% - 20px);
+          margin: 0 auto;
+          height: $height-nav - 10px;
+          position: relative;
+          letter-spacing: 0.25rem;
+          z-index: -1;
+        }
         &.active {
-          border-bottom: 4px solid $color-text-link;
+          label {
+            border-bottom: 4px solid $color-text-link;
+          }
         }
       }
     }

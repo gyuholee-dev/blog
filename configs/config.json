@@ -89,6 +89,13 @@
         "diary" : "다이어리"
       }
     },
+    "archive" : {
+      "title" : "아카이브",
+      "items" : 10,
+      "postView": "media",
+      "listView": "text",
+      "categories": "all"
+    },
     "board" : {
       "title" : "게시판",
       "items" : 5,
