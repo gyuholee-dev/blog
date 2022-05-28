@@ -107,35 +107,44 @@ function getLibraries($key = 'styles') : string
 }
 
 // 로그인링크
-function getLoginLink($type='link') : string
+function getUserButton($type='link') : string
 {
-  global $USER;
-  $main = MAIN;
+  global $USER, $MAIN;
   if ($type == 'link') {
-    if ($USER) {
-      $loginLink = "
-        <a href='$main?action=user&do=mypage'>Mypage</a>
-        <a href='$main?action=user&do=logout'>Logout</a>
-      ";
-    } else {
-      $loginLink = "
-        <a href='$main?action=user&do=login'>Login</a>
-        <a href='$main?action=user&do=signup'>Signup</a>
-      ";
-    }
+    $mypage = 'Mypage';
+    $logout = 'Logout';
+    $signup = 'Signup';
+    $login = 'Login';
   } else if ($type == 'icon') {
-    if ($USER) {
-      $loginLink = "
-        <a href='$main?action=user&do=mypage'><i class='xi-user-o'></i></a>
-      ";
-    } else {
-      $loginLink = "
-        <a href='$main?action=user&do=login'><i class='xi-log-in'></i></a>
-      ";
-    }
-
+    $mypage = '<i class="xi-user-o"></i>';
+    $logout = '<i class="xi-log-out"></i>';
+    $signup = '<i class="xi-user-plus-o"></i>';
+    $login = '<i class="xi-log-in"></i>';
   }
-  return $loginLink;
+  if ($USER) {
+    $userButton = 
+      getButton('button', $mypage, 
+        ['class'=>'none user', 'onclick'=>"location.href=\"$MAIN?action=user&do=mypage\""]);
+      // getButton('button', $logout, 
+      //   ['class'=>'none user', 'onclick'=>"location.href=\"$MAIN?action=user&do=logout\""]);
+  } else {
+    $userButton = 
+      // getButton('button', $signup, 
+      //   ['class'=>'none user', 'onclick'=>"location.href=\"$MAIN?action=user&do=signup\""]).
+      getButton('button', $login, 
+        ['class'=>'none user', 'onclick'=>"location.href=\"$MAIN?action=user&do=login\""]);
+  }
+  return $userButton;
+}
+
+// 헤더버튼
+function getHeaderButtons() {
+  $headerButtons = '';
+  $headerButtons .= getUserButton('icon');
+  $headerButtons .= getButton('button', '<i class="xi-search"></i>', 
+    ['class'=>'none search', 'onclick'=>'return false']);
+
+  return "<div class='buttons'>$headerButtons</div>";
 }
 
 // 태그링크
@@ -255,7 +264,8 @@ function makeHeader() : string
   $header_data = array(
     'navmenu' => getNavmenu('<i class="xi-minus xi-rotate-90"></i>'),
     'headerLink' => getHeaderLink('title', '<i class="xi-angle-right"></i>'),
-    'loginLink' => getLoginLink('icon')
+    'headerButtons' => getHeaderButtons()
+    // 'loginLink' => getLoginLink('icon')
   );
   $header = renderElement(TPL.'header.html', $header_data);
   return $header;

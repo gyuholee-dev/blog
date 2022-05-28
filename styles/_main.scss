@@ -69,11 +69,15 @@ header {
     }
 
     .btn {
-      min-width: 38px !important;
+      min-width: 35px !important;
       height: $height-nav - 20px;
       text-align: center;
       font-size: 22px;
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
       &:hover {
+        color: $color-text-link;
         background-color: initial;
       }
     }
