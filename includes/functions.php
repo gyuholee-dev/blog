@@ -1,6 +1,28 @@
 <?php // functions.php
 
+// 클래스 오토로드
+function _autoLoad($className) : void
+{
+  $classPath = 'classes/';
+  if (preg_match('/\/?(.+)\/(.+)/i', str_replace('\\', '/', $className), $matches)) {
+    $namespace = $matches[1];
+    $className = $matches[2];
+    if ($namespace != DEFAULT_NAMESPACE) {
+      $classPath = $namespace.'/';
+    }
+  }
+  require INC.$classPath.$className.'.php';
+}
+spl_autoload_register('_autoLoad');
+
 // 기초 함수 ------------------------------------------------
+
+// json5_decode
+// https://github.com/colinodell/json5
+function json5_decode($source, $associative = false, $depth = 512, $options = 0)
+{   
+  return \Json5\Json5Decoder::decode($source, $associative, $depth, $options);
+}
 
 // 디바이스 체크 (2013)
 // https://mobiforge.com/design-development/tablet-and-mobile-device-detection-php
@@ -31,7 +53,8 @@ function detectDevice() : string
     'qwap','sage','sams','sany','sch-','sec-','send','seri','sgh-','shar',
     'sie-','siem','smal','smar','sony','sph-','symb','t-mo','teli','tim-',
     'tosh','tsm-','upg1','upsi','vk-v','voda','wap-','wapa','wapi','wapp',
-    'wapr','webc','winw','winw','xda ','xda-');
+    'wapr','webc','winw','winw','xda ','xda-'
+  );
   
   if (in_array($mobile_ua,$mobile_agents)) {
     $mobile_browser++;
@@ -102,7 +125,8 @@ function openJson($file)
     return false;
   }
   $json = file_get_contents($file);
-  $json = json_decode($json, true);
+  // $json = json_decode($json, true);
+  $json = json5_decode($json, true);
   return $json;
 }
 

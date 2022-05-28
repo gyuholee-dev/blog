@@ -6,6 +6,9 @@ ini_set('session.use_strict_mode', 0);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 session_start();
 
+// 네임스페이스 상수 선언
+define('DEFAULT_NAMESPACE', 'BLOG');
+
 // 패스 상수 선언
 // define('ROOT', '/'.basename(getcwd()).'/');
 define('INC', './includes/');
@@ -62,8 +65,8 @@ if (isset($_SESSION['MSG'])) {
 }
 
 // 설정파일 로드
-$CONF = openJson(CONF.'config.json');
-$INFO = openJson(CONF.'info.json');
+$CONF = openJson(CONF.'config.json5');
+$INFO = openJson(CONF.'info.json5');
 
 // 디바이스
 $DEVICE = detectDevice();
@@ -75,9 +78,9 @@ $DEV = $CONF['devMode'];
 // DB 초기화 ------------------------------------------------
 
 // DB 설정파일 로드
-$dbConfigFile = 'db.blog.json';
+$dbConfigFile = 'db.blog.json5';
 if (!fileExists(CONF.$dbConfigFile)) {
-  $dbConfigFile = 'db.default.json';
+  $dbConfigFile = 'db.default.json5';
 }
 $DBCONF = openJson(CONF.$dbConfigFile);
 
