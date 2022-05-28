@@ -43,18 +43,9 @@
     "guest" : 1
   },
 
-  "_types" : {
-    "postView": [
-      "media", "text", "link"
-    ],
-    "listView": [
-      "tile", "list"
-    ],
-    "postType": [
-      "post", "html", "link"
-    ]
-  },
-
+  // postView: media, text, link
+  // listView: tile, list
+  // postType: post, html, link
   "pages" : {
     "main" : {
       "title" : "GyuhoLee",
