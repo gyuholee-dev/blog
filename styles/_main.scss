@@ -7,11 +7,10 @@ header {
   z-index: 8;
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba($black, 0.2);
-  // height: $height-nav + 1;
+  overflow: hidden;
 
   .sep {
     width: 0;
-    font-size: 1em;
     opacity: 0.5;
     text-align: center;
     position: absolute;
@@ -168,7 +167,7 @@ main {
     @include flex(center, center, column);
     width: 100%;
     max-width: calc(#{$max-width} - 30px);
-    padding: 25px;
+    padding: 15px;
     // border-radius: 10px;
     border-radius: 12px;
     &:not(:last-of-type) {
@@ -191,7 +190,7 @@ main {
     >.header {
       @include flex(center, space-between);
       width: 100%;
-      padding: 5px 5px 10px;
+      padding: 10px;
       position: relative;
       overflow: hidden;
       border-bottom: 1px solid $color-border;
@@ -216,10 +215,10 @@ main {
     >.content {
       @include flex(center, start, column);
       width: 100%;
-      padding: 0 10px;
+      padding: 0 20px;
       // margin-bottom: 15px;
       font-size: 1.125rem;
-      word-break: break-word;
+      // word-break: break-word;
       // letter-spacing: 1;
     }
 
@@ -227,7 +226,7 @@ main {
       @include flex(center, end, row);
       width: 100%;
       // height: 22px;
-      // padding: 0 10px;
+      padding: 5px 10px;
       font-size: 1.125rem;
       white-space: nowrap;
       line-height: 1.8;
@@ -243,8 +242,8 @@ main {
         padding: 10px;
         margin-bottom: 15px;
         text-shadow: 0 1px 4px black;
-        margin-top: -10px;
-        width: calc(100% + 20px);
+        // margin-top: -10px;
+        // width: calc(100% + 20px);
         border-radius: 5px;
         .title, .info {
           color: white;
@@ -563,7 +562,6 @@ main {
   section.list.thread {
     font-size: 1.125rem;
     word-break: break-word;
-    padding: 15px 25px 10px 25px;
     &.empty {
       padding-bottom: 15px;
       .message {
@@ -578,34 +576,16 @@ main {
         margin-bottom: 10px;
       }
     }
-    >.content {
-      padding: 0 5px;
-    }
 
     .post {
       @include flex(stretch, space-between);
       width: 100%;
-      // &.pinned {
-        // .title {
-          // &::before {
-            // content: '📌';
-          // }
-          // >.label {
-          //   color: $blue;
-          // }
-        // }
-        // .content .message {
-        //   padding: 0 5px;
-        //   border: none;
-        //   background-color: initial;
-        // }
-      // }
+      padding: 0 10px;
+
       .header {
         @include flex(start, start, column);
         flex-grow: 1;
-        // min-width: 96px;
-        font-size: 1.35em;
-        margin-right: 15px;
+        margin-right: 10px;
         position: relative;
         min-width: 64px;
         .number {
@@ -618,7 +598,7 @@ main {
         }
         .quot {
           position: absolute;
-          left: 24px;
+          left: 22px;
           background-color: $color-border;
           opacity: 0.75;
           &.line-v {
@@ -626,7 +606,7 @@ main {
             height: 100%;
           }
           &.line-h {
-            width: calc(100% - 24px);
+            width: calc(100% - 22px);
             height: 2px;
             top: calc(50% - 30px);
           }
@@ -638,8 +618,6 @@ main {
       .content {
         @include flex(start, start, column);
         width: 100%;
-        // max-width: 720px;
-        // min-width: 540px;
         z-index: 1;
         .title {
           width: 100%;
@@ -675,7 +653,7 @@ main {
           >span:not(:last-child):not(:nth-last-child(2)) {
             margin-right: 15px;
             >i.bullet {
-              margin-left: 20.5px;
+              margin-left: 19.5px;
               top: -4px;
               color: $color-border;
               transform: scale(1.25);
@@ -725,8 +703,16 @@ main {
         }
       }
       &:last-child {
-        .header .quot.line-v {
-          height: calc(50% - 30px);
+        .header {
+          .quot.line-v {
+            height: calc(50% - 20px);
+          }
+          .quot.line-h {
+            top: calc(50% - 20px);
+          }
+        }
+        .content .info {
+          margin-bottom: 0;
         }
       }
     }

@@ -234,7 +234,8 @@ function makeHead() : string
   $libraries = $CONF['libraries'];
   $favicon = IMG.'icons/'.$CONF['theme']['favicon'];
 
-  $scale = ($DEVICE=='mobile')?'0.75':'1.0';
+  $scale = '1.0';
+  // $scale = ($DEVICE=='mobile')?'0.75':'1.0';
 
   $head = <<<HTML
     <meta charset="UTF-8">

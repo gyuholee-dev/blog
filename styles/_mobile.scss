@@ -1,24 +1,33 @@
 
-#container.mobile {
+html.mobile {
+  font-size: 16px;
+  line-height: 1.5;
+
   header {
-    height: 60px;
-    &:before {
-      position: absolute;
-      content: "MOBILE UI";
-    }
     nav {
-      // display: none;
-      top: 20px;
-
-      ul.menu {
-        display: none;
-      }
-
+      font-size: 0.95rem;
       .btn.search {
         display: none;
       }
     }
   }
-
+  main {
+    section {
+      >.header {
+        padding: 10px 0;
+      }
+      >.content {
+        padding: 0 10px;
+      }
+      >.footer {
+        padding: 0;
+      }
+    }
+    section.list.thread {
+      .post {
+        padding: 0;
+      }
+    }
+  }
 
 }
