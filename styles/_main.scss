@@ -483,11 +483,14 @@ main {
             z-index: 1;
             
             >.title {
-              font-size: 1.5em;
+              // font-size: 1.5rem;
+              font-size: 27px;
               line-height: 1.25;
             }
       
             >.summary {
+              // font-size: 1rem;
+              font-size: 18px;
               // padding: 5px;
               max-height: 108px;
               margin-top: 10px;
@@ -657,7 +660,7 @@ main {
           >span:not(:last-child):not(:nth-last-child(2)) {
             margin-right: 15px;
             >i.bullet {
-              margin-left: 19.5px;
+              margin-left: 18.5px;
               top: -4px;
               color: $color-border;
               transform: scale(1.25);
