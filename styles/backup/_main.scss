@@ -54,7 +54,7 @@ header {
       }
 
       &.active {
-        color: var(--color-text-link);
+        color: $color-text-link;
         // border-bottom: 4px solid $blue;
         .sep {
           opacity: 1;
@@ -77,7 +77,7 @@ header {
         margin-right: 10px;
       }
       &:hover {
-        color: var(--color-text-link);
+        color: $color-text-link;
         background-color: initial;
       }
     }
@@ -90,7 +90,7 @@ header {
 
       &:hover {
         cursor: pointer;
-        color: var(--color-text-link);
+        color: $color-text-link;
         // transition: color 0.25s;
       }
     }
@@ -120,7 +120,7 @@ header {
         }
         &.active {
           label {
-            border-bottom: 4px solid var(--color-text-link);
+            border-bottom: 4px solid $color-text-link;
           }
         }
       }
@@ -136,7 +136,7 @@ main {
   flex-grow: 1;
 
   a:hover {
-    color: var(--color-text-link);
+    color: $color-text-link;
   }
 
   article {
@@ -197,11 +197,11 @@ main {
       padding: 10px;
       position: relative;
       overflow: hidden;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid $color-border;
       margin-bottom: 15px;
       >.title {
         font-size: 2rem;
-        color: var(--color-text-emp);
+        color: $color-text-emp;
         line-height: 1;
         z-index: 1;
       }
@@ -466,8 +466,8 @@ main {
           width: 100%;
           height: 100%;
           transform: translate(-10px, -10px);
-          background-color: var(--color-section);
-          border: 10px solid var(--color-section);
+          background-color: $color-section;
+          border: 10px solid $color-section;
           position: relative;
           overflow: hidden;
           border-radius: 10px;
@@ -522,9 +522,9 @@ main {
           // }
     
           &:hover {
-            background-color: var(--color-light);
-            border-color: var(--color-light);
-            color: var(--color-text-emp);
+            background-color: $color-light;
+            border-color: $color-light;
+            color: $color-text-emp;
             cursor: pointer;
             // background-color: $grey;
             // background-color: $blue;
@@ -572,14 +572,14 @@ main {
     &.empty {
       padding-bottom: 15px;
       .message {
-        background-color: var(--color-box-grey) !important;
+        background-color: $color-box-grey !important;
         @include flex(center, space-between);
       }
     }
     .chain {
       width: 100%;
       &:not(:last-of-type) {
-        border-bottom: 1px solid var(--color-border);
+        border-bottom: 1px solid $light;
         margin-bottom: 10px;
       }
     }
@@ -606,7 +606,7 @@ main {
         .quot {
           position: absolute;
           left: 22px;
-          background-color: var(--color-border);
+          background-color: $color-border;
           opacity: 0.75;
           &.line-v {
             width: 2px;
@@ -629,14 +629,14 @@ main {
         .title {
           width: 100%;
           font-size: 1.35em;
-          color: var(--color-text-emp);
+          color: $color-text-emp;
           padding: 5px 0;
         }
         .message {
-          border: 1px solid var(--color-border);
+          border: 1px solid $color-border;
           padding: 10px 15px;
           border-radius: 8px;
-          background-color: var(--color-box-blue);
+          background-color: $color-box-blue;
           width: 100%;
           margin-bottom: 10px;
           &.left {
@@ -662,7 +662,7 @@ main {
             >i.bullet {
               margin-left: 18.5px;
               top: -4px;
-              color: var(--color-border);
+              color: $color-border;
               transform: scale(1.25);
             }
           }
@@ -681,7 +681,7 @@ main {
           }
           .message {
             // max-width: 720px;
-            background-color: var(--color-box-antique);
+            background-color: $color-box-antique;
           }
         }
       }
@@ -753,11 +753,11 @@ aside {
   }
 
   button {
-    background-color: var(--color-button-float) !important;
+    background-color: $color-button-float !important;
     position: fixed;
     transform: scale(1.15);
     &:hover {
-      color: var(--color-text-link) !important;
+      color: $color-text-link !important;
     }
     &.top {
       top: calc(#{$height-nav} + 15px);
@@ -839,7 +839,7 @@ form.popup {
     max-width: 800px;
     padding: 25px;
     z-index: 1;
-    border: 1px solid var(--color-border);
+    border: 1px solid $color-border;
     
     .header {
       margin-bottom: 5px;
@@ -934,10 +934,10 @@ form.popup {
       }
 
       &.thread .content .text {
-        background-color: var(--color-box-blue);
+        background-color: $color-box-blue;
       }
       &.reply .content .text {
-        background-color: var(--color-box-antique);
+        background-color: $color-box-antique;
       }
     }
   }

@@ -1,7 +1,7 @@
 {
   "mainFile" : "main.php",
   "language" : "ko",
-  "version" : "0.13",
+  "version" : "0.14",
   "devMode" : true,
 
   "theme" : {
@@ -13,7 +13,7 @@
 
   "libraries" : {
     "styles" : [
-      "styles/style_light.css"
+      "styles/style.css"
     ],
     "scripts" : [
       "scripts/functions.js",
