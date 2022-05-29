@@ -5,18 +5,20 @@ header {
   position: fixed;
   top: 0;
   background-color: initial;
+  // background-color: var(--color-header);
   // backdrop-filter: blur(12px);
   // border-bottom: 1px solid rgba($black, 0.2);
-  // height: $height-nav;
+  min-height: $height-nav;
   z-index: 99;
 
   .bg {
-    position: relative;
+    position: absolute;
+    top: 0;
     width: 100%;
     height: $height-nav;
     background-color: var(--color-header);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba($black, 0.2);
+    border-bottom: 1px solid var(--color-border);
     z-index: 5;
   }
 
@@ -30,7 +32,7 @@ header {
 
   nav {
     @include flex(center, space-between);
-    // height: $height-nav;
+    height: $height-nav;
     width: 100%;
     max-width: $max-width;
     white-space: nowrap;
@@ -38,7 +40,7 @@ header {
     font-weight: bold;
     letter-spacing: 0.1rem;
     position: relative;
-    top: 0-$height-nav;
+    // top: 0-$height-nav;
     padding: 10px 0;
 
     label {
@@ -862,7 +864,7 @@ footer {
   height: 60px;
   align-items: center;
   margin: 0 auto;
-  border-top: 1px solid rgba(black, 0.25);
+  border-top: 1px solid var(--color-border);
   font-size: 0.9em;
 }
 
