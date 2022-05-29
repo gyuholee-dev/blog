@@ -44,14 +44,35 @@
         </tr>
       </table>
 
-      <div class="buttons">
-        <input type="hidden" name="confirm" value="true">
+      <div class="buttons confirm">
         <input type="hidden" name="action" value="user">
         <input type="hidden" name="do" value="edit">
+        <input type="hidden" name="confirm" value="true">
         <input class="btn" type="button" value="로그아웃" onclick="location.href='{main}?action=user&do=logout'">
-        <input class="btn" type="button" value="정보수정" onclick="sendEdit()">
+        <input class="btn red" type="button" value="정보수정" onclick="sendEdit()">
       </div>
 
+    </form>
+  </div>
+</section>
+
+<section class="user">
+  <div class="header">
+    <div class="title">설정</div>
+  </div>
+  <div class="content">
+    <form name="preference" method="post">
+      <table class="table edit">
+        <tr>
+          <th>색상 테마</th>
+          <td>
+            <div class="buttons btn-cont btn-end">
+              <input class="btn" type="button" value="라이트">
+              <input class="btn" type="button" value="다크">
+            </div>
+          </td>
+        </tr>
+      </table>
     </form>
   </div>
 </section>
@@ -61,9 +82,11 @@
     <div class="title">회원탈퇴</div>
   </div>
   <div class="content">
-    <form name="signout" method="post" action="{main}?action=user&do=signout">
-      <div class="buttons">
+    <form name="signout" method="post">
+      <div class="buttons confirm">
         <b class="xi-warning red">회원정보가 삭제됩니다.</b>
+        <input type="hidden" name="action" value="user">
+        <input type="hidden" name="do" value="signout">
         <input type="hidden" name="confirm" value="true">
         <input class="btn red" type="button" value="회원탈퇴" onclick="checkForm('회원탈퇴하시겠습니까?', signout)">
       </div>

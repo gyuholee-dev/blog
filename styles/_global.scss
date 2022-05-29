@@ -82,7 +82,7 @@ form {
 
 table {
   width: 100%;
-  width: -webkit-fill-available;
+  width: stretch;
   border-collapse: collapse;
   // white-space: nowrap;
   * {
@@ -209,14 +209,23 @@ input[type=reset] {
   &.red {
     background-color: $red;
     color: white;
+    &:hover {
+      color: white;
+    }
   }
   &.green {
     background-color: $green;
     color: white;
+    &:hover {
+      color: white;
+    }
   }
   &.blue {
     background-color: $blue;
     color: white;
+    &:hover {
+      color: white;
+    }
   }
 }
 
@@ -311,7 +320,7 @@ b, span, a, label, .btn {
     }
   }
 }
-p, .div
+p, span, a, label, .btn, th, td,
 h1, h2, h3, h4, h5, h6 {
   &.text-left {
     text-align: left;

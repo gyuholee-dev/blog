@@ -235,6 +235,44 @@ main {
       white-space: nowrap;
       line-height: 1.8;
     }
+
+    .buttons {
+      @include flex(center, center);
+      width: 100%;
+      &.confirm {
+        margin-bottom: 10px;
+      }
+      &:not(.btn-cont)>*:not(:last-child) {
+        margin-right: 25px;
+      }
+      &.btn-between {
+        justify-content: space-between;
+      }
+      &.btn-around {
+        justify-content: space-around;
+      }
+      &.btn-start {
+        justify-content: start;
+      }
+      &.btn-end {
+        justify-content: end;
+      }
+      &.btn-cont {
+        .btn {
+          &:first-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          &:last-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+          }
+          &:not(:first-child):not(:last-child) {
+            border-radius: 0;
+          }
+        }
+      } 
+    }
   }
 
   // 섹션 포스트
@@ -402,14 +440,6 @@ main {
             width: calc(100% - 148px);
           }
         }
-      }
-    }
-
-    .buttons {
-      @include flex(center, center);
-      width: 100%;
-      >*:not(:last-child) {
-        margin-right: 25px;
       }
     }
   }
