@@ -6,19 +6,19 @@
   <div class="content">
     <table class="table column">
       <tr>
-        <td>
+        <td class="flex-column">
           <label>thread title</label>
           <input type="text" class="subject" name="title" readonly>
         </td>
       </tr>
       <tr>
-        <td>
+        <td class="flex-column">
           <label>reply content</label>
           <textarea name="content" maxlength="280" required></textarea>
         </td>
       </tr>
     </table>
-    <div class="buttons">
+    <div class="buttons confirm">
       <input type="hidden" name="reply" value="true">
       <input type="hidden" name="action" value="{action}"> 
       <input type="hidden" name="postid" value="{postid}"> 

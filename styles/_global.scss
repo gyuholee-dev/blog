@@ -81,17 +81,19 @@ form {
 }
 
 table {
-  width: 100%;
-  width: stretch;
+  // width: 100%;
+  // width: stretch;
   border-collapse: collapse;
-  // white-space: nowrap;
   * {
     font-size: 1rem;
   }
   th, td {
     padding: 5px;
-    &.flex {
+    &.flex, &.flex-row {
       @include flex(center, space-between);
+    }
+    &.flex-column {
+      @include flex(start, start, column);
     }
   }
   th {
