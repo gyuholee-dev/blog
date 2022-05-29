@@ -41,6 +41,10 @@ header {
     top: 0-$height-nav;
     padding: 10px 0;
 
+    label {
+      font-size: 0.95rem;
+    }
+
     .title {
       @include flex(center, start);
       width: auto;

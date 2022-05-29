@@ -35,12 +35,37 @@ html.mobile {
         z-index: 3;
         transform: translateY(calc(-100% - #{$height-nav}));
         transition: transform 0.25s;
+        padding: 0 15px;
         &.open {
           transform: translateY(0);
         }
         >li {
+          justify-content: center;
           width: 100%;
           max-width: initial;
+          height: $height-nav - 10px;
+          line-height: $height-nav - 10px;
+          &:not(:last-child) {
+            border-bottom: 1px solid var(--color-border);
+          }
+          &.active {
+            a {
+              label {
+                background-color: var(--color-box-emp);
+              }
+            }
+          }
+          a {
+            padding: 5px;
+            label {
+              width: 100%;
+              max-width: 260px;
+              border-radius: 15px;
+              height: 100%;
+              line-height: $height-nav - 20px;
+              border: none;
+            }
+          }
         }
         .sep {
           display: none;
