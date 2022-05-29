@@ -2,7 +2,6 @@
 html.mobile {
   font-size: 16px;
   line-height: 1.5;
-
   header {
     background-color: initial;
     backdrop-filter: none;
@@ -46,6 +45,10 @@ html.mobile {
         transform: translateY(calc(-100% - #{$height-nav}));
         transition: transform 0.25s;
         padding: 0 20px;
+        display: none;
+        &.show {
+          display: flex;
+        }
         &.open {
           transform: translateY(0);
         }
@@ -73,7 +76,7 @@ html.mobile {
               border-radius: 15px;
               height: 100%;
               line-height: $height-nav - 20px;
-              border: none;
+              border: none !important;
             }
           }
         }
@@ -83,7 +86,6 @@ html.mobile {
       }
     }
   }
-
   main {
     section {
       >.header {

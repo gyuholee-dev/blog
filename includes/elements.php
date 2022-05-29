@@ -735,6 +735,12 @@ function makeSidemenu($position)
   
   $html = "";
   if ($position == 'left') {
+    // 테마 전환
+    $html .= getButton('button', '<i class="xi-brightness"></i>', 
+      ['id'=>'change_theme', 'class'=>'float bottom', 'onclick'=>"changeTheme()"]);
+    // 디바이스 모드
+    $html .= getButton('button', '<i class="xi-mobile"></i>', 
+      ['id'=>'change_device', 'class'=>'float bottom', 'onclick'=>"changeDevice()"]);
 
   } elseif ($position == 'right') {
     // 포스트 작성

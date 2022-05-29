@@ -144,9 +144,17 @@ function setLoadingEvent(loading, form, delay=350) {
 // ---------------------------------------------------------------------------------------
 
 // 메인메뉴 토글
-function toggleMenu(menu) {
-  // let menu = document.querySelector('.menu');
-  menu.classList.toggle('open');
+async function toggleMenu(menu) {
+  // menu.classList.toggle('open');
+  if (menu.classList.contains('open')) {
+    menu.classList.remove('open');
+    await timeout(250);
+    menu.classList.remove('show');
+  } else {
+    menu.classList.add('show');
+    await timeout(50);
+    menu.classList.add('open');
+  }
 }
 
 // ---------------------------------------------------------------------------------------
