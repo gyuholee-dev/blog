@@ -52,4 +52,7 @@
       grid-template-columns: repeat(2, 1fr);
     }
   }
+  main section.list.thread .post .header {
+    min-width: 48px;
+  }
 }

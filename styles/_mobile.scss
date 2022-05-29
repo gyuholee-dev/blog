@@ -96,6 +96,14 @@ html.mobile {
         padding: 0;
       }
     }
+    section.user {
+      .content {
+        padding: 0;
+        table th {
+          width: 120px;
+        }
+      }
+    }
     section.list.thread {
       .post {
         padding: 0;
