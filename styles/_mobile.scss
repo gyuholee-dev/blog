@@ -6,7 +6,7 @@ html.mobile {
   header {
     background-color: initial;
     backdrop-filter: none;
-    border-bottom: none;
+    // border-bottom: none;
     nav {
       @include flex(stretch, start, column);
       .bg {
@@ -16,6 +16,9 @@ html.mobile {
         > label {
           display: block;
         }
+      }
+      .title.active {
+        color: var(--color-text);
       }
       .buttons {
         display: none;
@@ -37,11 +40,12 @@ html.mobile {
         overflow: visible;
         background-color: var(--color-header);
         backdrop-filter: blur(12px);
+        border-top: 1px solid var(--color-border);
         border-bottom: 1px solid rgba(0,0,0,0.2);
         z-index: 3;
         transform: translateY(calc(-100% - #{$height-nav}));
         transition: transform 0.25s;
-        padding: 0 15px;
+        padding: 0 20px;
         &.open {
           transform: translateY(0);
         }
@@ -65,7 +69,7 @@ html.mobile {
             padding: 5px;
             label {
               width: 100%;
-              max-width: 260px;
+              max-width: 300px;
               border-radius: 15px;
               height: 100%;
               line-height: $height-nav - 20px;

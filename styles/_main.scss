@@ -2,11 +2,11 @@
 // 헤더
 header {
   @include flex(center, start, column);
-  position: fixed;
+  position: sticky;
   top: 0;
   background-color: var(--color-header);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba($black, 0.2);
   min-height: $height-nav;
   z-index: 99;
 
@@ -38,7 +38,6 @@ header {
       height: $height-nav;
       background-color: var(--color-header);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--color-border);
       z-index: 5;
       display: none;
     }
@@ -133,7 +132,7 @@ header {
       width: 100%;
       margin-right: 10px;
       height: $height-nav - 20px;
-      overflow: hidden;
+      // overflow: hidden;
       z-index: 7;
 
       >li {
@@ -166,7 +165,6 @@ header {
 // --------------------------------------------------------------------------
 // 메인
 main {
-  margin-top: $height-nav;
   overflow-x: hidden;
   flex-grow: 1;
 
@@ -864,7 +862,7 @@ footer {
   height: 60px;
   align-items: center;
   margin: 0 auto;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgba($black, 0.2);
   font-size: 0.9em;
 }
 
