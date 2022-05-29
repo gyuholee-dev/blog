@@ -1,7 +1,7 @@
 {
   "mainFile" : "main.php",
   "language" : "ko",
-  "version" : "0.14",
+  "version" : "0.15",
   "devMode" : true,
 
   "theme" : {
