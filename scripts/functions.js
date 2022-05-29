@@ -143,6 +143,14 @@ function setLoadingEvent(loading, form, delay=350) {
 
 // ---------------------------------------------------------------------------------------
 
+// 메인메뉴 토글
+function toggleMenu(menu) {
+  // let menu = document.querySelector('.menu');
+  menu.classList.toggle('open');
+}
+
+// ---------------------------------------------------------------------------------------
+
 // 로그 출력
 async function printLog() {
   const msg = await xhr('getMsg');
@@ -184,7 +192,6 @@ function initTheme() {
   if (USER) {
     const userData = JSON.parse(decodeURIComponent(USER));
     const userTheme = userData.pref.theme;
-    console.log(userTheme);
     if (!THEME || THEME != userTheme) { 
       setCookie('THEME', userTheme);
     }

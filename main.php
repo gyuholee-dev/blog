@@ -8,7 +8,6 @@ require_once 'includes/elements.php';
 $content = '';
 $popupData = [];
 switch ($ACT) {
-  // TODO: user, do 권한 체크해서 로그인 분기
   case 'main':
     $content .= makePostPage($ACT, 1);
     $content .= makeList('최신 게시물', 'tile', 'all', 'all', 0, 12);

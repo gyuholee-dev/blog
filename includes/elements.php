@@ -172,7 +172,20 @@ function getTagLink(string $tags) : string
   return $html;
 }
 
-// 네비게이션 출력
+// 탑메뉴 출력
+function getTopmenu($type='logo', $sep='') : string
+{
+  $headerLink = getHeaderLink('title', '<i class="xi-angle-right"></i>');
+  $menuButton = getButton('button', '<i class="xi-bars"></i>', 
+    ['class'=>'none menu', 'onclick'=>'toggleMenu(mainmenu)']);
+  // $searchButton = getButton('button', '<i class="xi-search"></i>', 
+  //   ['class'=>'none search', 'onclick'=>'return false']);
+  $userButton = getUserButton('icon');
+
+  return "<div class='menu top'>$menuButton$headerLink$userButton</div>";
+}
+
+// 네비게이션 메뉴 출력
 function getNavmenu($separator=null) : string
 {
   global $CONF, $ACT;
@@ -191,7 +204,7 @@ function getNavmenu($separator=null) : string
     $navmenu .= "<li class='$active'><a href='$main?action=$key'><label>$data[title]</a></label>$sep</li>";
   }
   
-  $navmenu = '<ul class="menu main">'.$navmenu.'</ul>';
+  $navmenu = '<ul id="mainmenu" class="menu main">'.$navmenu.'</ul>';
   return $navmenu;
 
 }
@@ -276,10 +289,9 @@ function makeHead() : string
 function makeHeader() : string
 {
   $header_data = array(
+    'topmenu' => getTopmenu('title', '<i class="xi-angle-right"></i>'),
     'navmenu' => getNavmenu('<i class="xi-minus xi-rotate-90"></i>'),
-    'headerLink' => getHeaderLink('title', '<i class="xi-angle-right"></i>'),
     'headerButtons' => getHeaderButtons()
-    // 'loginLink' => getLoginLink('icon')
   );
   $header = renderElement(TPL.'header.html', $header_data);
   return $header;

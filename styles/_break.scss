@@ -42,7 +42,7 @@
 }
 
 @include breakpoint(640) {
-  header nav > .title a {
+  header nav .title a {
     > label {
       display: none;
     }

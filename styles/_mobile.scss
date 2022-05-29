@@ -5,12 +5,50 @@ html.mobile {
 
   header {
     nav {
-      font-size: 0.95rem;
-      .menu {
+      @include flex(stretch, start, column);
+      .title a {
+        > label {
+          display: block;
+        }
+      }
+      .buttons {
         display: none;
+      }
+      .menu.top {
+        .btn {
+          display: block;
+          margin: 0;
+        }
+        .title>.sep {
+          display: none;
+        }
+      }
+      .menu.main {
+        @include flex(stretch, start, column);
+        height: auto;
+        position: relative;
+        top: 10px;
+        overflow: visible;
+        background-color: var(--color-header);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+        z-index: 3;
+        transform: translateY(calc(-100% - #{$height-nav}));
+        transition: transform 0.25s;
+        &.open {
+          transform: translateY(0);
+        }
+        >li {
+          width: 100%;
+          max-width: initial;
+        }
+        .sep {
+          display: none;
+        }
       }
     }
   }
+
   main {
     section {
       >.header {
