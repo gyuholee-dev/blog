@@ -213,6 +213,9 @@ function setUserData(array $userData) : bool
     'nickname' => $userData['nickname'],
     'groups' => $userData['groups'],
     'key' => makeCode(),
+    'pref' => [
+      'theme' => isset($_COOKIE['THEME'])?$_COOKIE['THEME']:'',
+    ]
   );
   $_SESSION['USER'] = $USER;
   setcookie('USER', json_encode($USER), time()+3600);

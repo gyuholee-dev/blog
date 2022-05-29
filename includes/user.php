@@ -87,6 +87,14 @@ if (isset($_POST['confirm'])) {
       pushLog('정보수정을 완료하였습니다.', 'success');
       header("Location: $MAIN?action=user&do=mypage");
       break;
-      
+    
+    case 'pref':
+      $theme = $_POST['theme'];
+      $USER['pref']['theme'] = $theme;
+      $_SESSION['USER'] = $USER;
+      setcookie('USER', json_encode($USER), time()+3600);
+      pushLog('테마를 변경하였습니다', 'success');
+      header("Location: $MAIN?action=user&do=mypage");
+      break;
   }
 }

@@ -238,7 +238,7 @@ main {
 
     .buttons {
       @include flex(center, center);
-      width: 100%;
+      // width: 100%;
       &.confirm {
         margin-bottom: 10px;
       }
@@ -259,15 +259,15 @@ main {
       }
       &.btn-cont {
         .btn {
-          &:first-child {
+          &:first-of-type {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
           }
-          &:last-child {
+          &:last-of-type {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
           }
-          &:not(:first-child):not(:last-child) {
+          &:not(:first-of-type):not(:last-of-type) {
             border-radius: 0;
           }
         }
@@ -408,6 +408,10 @@ main {
   // 섹션 유저
   section.user {
     max-width: 640px;
+
+    .buttons {
+      width: 100%;
+    }
 
     .content {
       form {

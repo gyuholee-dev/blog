@@ -123,6 +123,13 @@ function sendLogin() {
   document.login.submit();
 }
 
+// 설정 폼 ---------------------------------------------------
+// 테마 체인지
+function sendTheme(color, form) {
+  form.theme.value = color;
+  form.submit();
+}
+
 // 쓰레드 폼 ---------------------------------------------------
 
 function sendThread(form) {

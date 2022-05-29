@@ -65,6 +65,27 @@ function onVisible(element, callback) {
   }).observe(element);
 }
 
+// 쿠키 저장
+function setCookie(key, value, maxAge=3600) {
+  document.cookie = `${key}=${value}; path=/; max-age=${maxAge};`;
+}
+// 쿠키 삭제
+function delCookie(key) {
+  document.cookie = `${key}=; path=/; max-age=0;`;
+}
+// 쿠키 불러오기
+function getCookie(key) {
+  let cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i].split('=');
+    if (cookie[0].trim() === key) {
+      return cookie[1];
+    }
+  }
+  return null;
+}
+
+
 // 비동기 지연
 // https://coder-question-ko.com/cq-ko-blog/81552
 // await timeout(1000);
@@ -154,4 +175,25 @@ async function makeThreadList(start, items, postid) {
 async function getThreadData(threadid) {
   const threadData = await xhr('getThreadData', {threadid: threadid});
   return threadData;
+}
+
+// 테마 저장
+function initTheme() {
+  const USER = getCookie('USER');
+  const THEME = getCookie('THEME');
+  if (USER) {
+    const userData = JSON.parse(decodeURIComponent(USER));
+    const userTheme = userData.pref.theme;
+    console.log(userTheme);
+    if (!THEME || THEME != userTheme) { 
+      setCookie('THEME', userTheme);
+    }
+  } else if (!THEME) {
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');  
+    if (prefersDarkScheme.matches) {
+      setCookie('THEME', 'dark');
+    } else {
+      setCookie('THEME', 'light');
+    }
+  }
 }

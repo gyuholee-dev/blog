@@ -213,7 +213,7 @@ input[type=reset] {
       color: white;
     }
   }
-  &.green {
+  &.green, &.active {
     background-color: $green;
     color: white;
     &:hover {

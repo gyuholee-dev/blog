@@ -42,6 +42,19 @@ function renderElement(string $template, array $data=array()) : string
 
 // ------------------------ 블로그 엘리먼트 함수 ------------------------
 
+function getThemeClass() : string
+{
+  global $USER;
+  if ($USER) { // 로그인 상태일 경우 유저 테마가 우선
+    $mode = $USER['pref']['theme'];
+    // setcookie('THEME', $mode, time()+3600);
+    // if (isset($_COOKIE['THEME'])) setcookie('THEME', '', time()-360000);
+  } else {
+    $mode = isset($_COOKIE['THEME'])?$_COOKIE['THEME']:'prefers';
+  }
+  return "theme-$mode";
+}
+
 // 사이트 타이틀
 function getSiteTitle() : string
 {
@@ -250,6 +263,7 @@ function makeHead() : string
     <link rel="shortcut icon" href="$favicon">
     <title>$siteTitle</title>
     <meta name="description" content="$description">
+    <meta name="color-scheme" content="light dark"> 
   HTML;
 
   $head .= getLibraries('styles');
@@ -676,7 +690,8 @@ function makeUserPage() : string
       'nickname' => $data['nickname'],
       'email' => $data['email'],
       'avatar' => $data['avatar'],
-      'link' => $data['link']
+      'link' => $data['link'],
+      'prefbutton_theme' => makePrefButton('theme')
     );
     $html = renderElement(TPL.'mypage.html', $mypage_data);
     
@@ -685,6 +700,20 @@ function makeUserPage() : string
   }
   
   return $html;
+}
+function makePrefButton($key) {
+  global $CONF, $USER;
+  if ($key == 'theme') {
+    $theme = $USER['pref']['theme'];
+    $class = ['light'=>'', 'dark'=>''];
+    $class[$theme] = 'active';
+
+    return 
+      getButton('button', '라이트', 
+        ['class'=>$class['light'], 'onclick'=>'sendTheme("light", preference)']).
+      getButton('button', '다크', 
+        ['class'=>$class['dark'], 'onclick'=>'sendTheme("dark", preference)']);
+  }
 }
 
 // 사이드메뉴 출력

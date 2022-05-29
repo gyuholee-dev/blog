@@ -43,6 +43,7 @@ switch ($ACT) {
     if ($USER) {
       switch ($DO) {
         case 'edit':
+        case 'pref':
           include INC.'user.php';
           break;
         case 'mypage':
@@ -91,8 +92,9 @@ preloadLibrary();
 
 // 랜더링
 $html_data = array(
-  'head' => makeHead(),
   'device' => $DEVICE,
+  'head' => makeHead(),
+  'theme' => getThemeClass(),
   'header' => makeHeader(),
   'content' => $content,
   'leftmenu' => makeSidemenu('left'),

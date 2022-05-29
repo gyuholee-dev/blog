@@ -67,8 +67,11 @@
           <th>색상 테마</th>
           <td>
             <div class="buttons btn-cont btn-end">
-              <input class="btn" type="button" value="라이트">
-              <input class="btn" type="button" value="다크">
+              <input type="hidden" name="action" value="user">
+              <input type="hidden" name="do" value="pref">
+              <input type="hidden" name="theme" value="">
+              <input type="hidden" name="confirm" value="true">
+              {prefbutton_theme}
             </div>
           </td>
         </tr>
