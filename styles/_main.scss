@@ -4,23 +4,11 @@ header {
   @include flex(center, start, column);
   position: fixed;
   top: 0;
-  background-color: initial;
-  // background-color: var(--color-header);
-  // backdrop-filter: blur(12px);
-  // border-bottom: 1px solid rgba($black, 0.2);
+  background-color: var(--color-header);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
   min-height: $height-nav;
   z-index: 99;
-
-  .bg {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: $height-nav;
-    background-color: var(--color-header);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--color-border);
-    z-index: 5;
-  }
 
   .sep {
     width: 0;
@@ -42,6 +30,18 @@ header {
     position: relative;
     // top: 0-$height-nav;
     padding: 10px 0;
+
+    .bg {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: $height-nav;
+      background-color: var(--color-header);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      z-index: 5;
+      display: none;
+    }
 
     label {
       font-size: 0.95rem;

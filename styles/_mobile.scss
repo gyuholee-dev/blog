@@ -4,8 +4,14 @@ html.mobile {
   line-height: 1.5;
 
   header {
+    background-color: initial;
+    backdrop-filter: none;
+    border-bottom: none;
     nav {
       @include flex(stretch, start, column);
+      .bg {
+        display: block;
+      }
       .title a {
         > label {
           display: block;
