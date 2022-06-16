@@ -24,7 +24,7 @@ define('MAIN', 'main.php');
 
 // 퍼미션 상수 선언
 define('PERM_POST_WRITE', 4);
-define('PERM_THREAD_WRITE', 1);
+define('PERM_THREAD_WRITE', 2);
 define('PERM_THREAD_EDIT', 2);
 define('PERM_THREAD_UPDATE', 2);
 define('PERM_THREAD_DELETE', 2);
