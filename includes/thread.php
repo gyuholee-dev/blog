@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     switch ($DO) {
       case 'write':
         $title = $_POST['title'];
-        $content = $_POST['content'];
+        $content = strip_tags($_POST['content']);
         $pinned = isset($_POST['pinned'])?1:0;
         $secret = isset($_POST['secret'])?1:0;
         $userid = ($USER)?$USER['userid']:$_SERVER['REMOTE_ADDR'];
@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
         $threadid = $_POST['threadid'];
         $threadnumb = $_POST['threadnumb'];
         $title = $_POST['title'];
-        $content = $_POST['content'];
+        $content = strip_tags($_POST['content']);
         $pinned = isset($_POST['pinned'])?1:0;
         $secret = isset($_POST['secret'])?1:0;
         $pullup = isset($_POST['pullup'])?1:0;
@@ -131,7 +131,7 @@ if (isset($_POST['submit'])) {
       case 'write':
         $threadid = $_POST['threadid'];
         $threadnumb = $_POST['threadnumb'];
-        $content = $_POST['content'];
+        $content = strip_tags($_POST['content']);
         $secret = (isset($_POST['secret']))?1:0;
         $userid = ($USER)?$USER['userid']:$_SERVER['REMOTE_ADDR'];
         $nickname = ($USER)?$USER['nickname']:'Guest';
