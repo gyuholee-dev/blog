@@ -49,6 +49,7 @@ global $DB, $USER;
 global $ACT, $CAT, $DO;
 global $ID, $PAGE, $NUMB;
 global $DEVICE;
+global $THEME;
 global $MAIN;
 $MAIN = MAIN;
 
@@ -111,48 +112,12 @@ if (!$USER) { // 로그인 안되어 있을 경우
   setcookie('USER', '', time()-3600);
 }
 
+// 테마 초기화 ------------------------------------------------
+
+$THEME = detectTheme();
+setcookie('THEME', $THEME, time()+3600);
+
 // 사이트 초기화 ------------------------------------------------
-
-/* 리퀘스트
-action, category, do, postid, page, numb
-action=main
-       profile(=category)
-       portpolio(=category)
-       study(=category)
-       diary(=category)
-       
-       search(result)
-
-       board
-       user
-do=
-  post&page=1
-  list&page=1
-  view&postid=1
-  edit&postid=1
-  delete&postid=1
-  write&category=diary
-
-search=type=
-  post
-  board
-  user
-  tag
-category=
-query=검색어
-
-board&do=
-  list&category=notice&page=1
-  view&numb=1
-  edit&numb=1
-  delete&numb=1
-  write&category=notice
-user&do=
-  login
-  logout
-  signup
-  mypage
-*/
 
 $ACT = isset($_REQUEST['action'])?$_REQUEST['action']:'main';
 $CAT = isset($_REQUEST['category'])?$_REQUEST['category']:'all';

@@ -8,7 +8,7 @@
     "logo" : "logo.png",
     "icon" : "icon.png",
     "favicon" : "favicon.ico",
-    "themeColor" : "light"
+    "defaultTheme" : "auto", // auto, dark, light
   },
 
   "libraries" : {

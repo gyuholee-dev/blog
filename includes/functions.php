@@ -81,6 +81,21 @@ function detectDevice() : string
   }
 }
 
+// 테마모드
+function detectTheme() : string
+{
+  global $CONF;
+
+  $mode = 'auto';
+  if (isset($_COOKIE['THEME'])) {
+    $mode = $_COOKIE['THEME'];
+  } else if (isset($CONF['theme']['defaultTheme'])) {
+    $mode = $CONF['theme']['defaultTheme'];
+  }
+
+  return $mode;
+}
+
 // 경고 출력
 function alert(string $msg, string $url=null) : void
 {

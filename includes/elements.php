@@ -42,19 +42,6 @@ function renderElement(string $template, array $data=array()) : string
 
 // ------------------------ 블로그 엘리먼트 함수 ------------------------
 
-function getThemeClass() : string
-{
-  global $USER;
-  if ($USER) { // 로그인 상태일 경우 유저 테마가 우선
-    $mode = $USER['pref']['theme'];
-    // setcookie('THEME', $mode, time()+3600);
-    // if (isset($_COOKIE['THEME'])) setcookie('THEME', '', time()-360000);
-  } else {
-    $mode = isset($_COOKIE['THEME'])?$_COOKIE['THEME']:'prefers';
-  }
-  return "theme-$mode";
-}
-
 // 사이트 타이틀
 function getSiteTitle() : string
 {
@@ -716,15 +703,17 @@ function makeUserPage() : string
 function makePrefButton($key) {
   global $CONF, $USER;
   if ($key == 'theme') {
-    $theme = $USER['pref']['theme'];
-    $class = ['light'=>'', 'dark'=>''];
+    $theme = detectTheme();
+    $class = ['auto'=>'', 'light'=>'', 'dark'=>''];
     $class[$theme] = 'active';
 
     return 
+      getButton('button', '자동', 
+        ['class'=>'theme auto '.$class['auto'], 'onclick'=>'setTheme("auto", preference)']).
       getButton('button', '라이트', 
-        ['class'=>$class['light'], 'onclick'=>'sendTheme("light", preference)']).
+        ['class'=>'theme light '.$class['light'], 'onclick'=>'setTheme("light", preference)']).
       getButton('button', '다크', 
-        ['class'=>$class['dark'], 'onclick'=>'sendTheme("dark", preference)']);
+        ['class'=>'theme dark '.$class['dark'], 'onclick'=>'setTheme("dark", preference)']);
   }
 }
 
@@ -738,9 +727,6 @@ function makeSidemenu($position)
     // 테마 전환
     $html .= getButton('button', '<i class="xi-brightness"></i>', 
       ['id'=>'change_theme', 'class'=>'float bottom', 'onclick'=>"changeTheme()"]);
-    // 디바이스 모드
-    $html .= getButton('button', '<i class="xi-mobile"></i>', 
-      ['id'=>'change_device', 'class'=>'float bottom', 'onclick'=>"changeDevice()"]);
 
   } elseif ($position == 'right') {
     // 포스트 작성

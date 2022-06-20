@@ -67,11 +67,11 @@ function onVisible(element, callback) {
 
 // 쿠키 저장
 function setCookie(key, value, maxAge=3600) {
-  document.cookie = `${key}=${value}; path=/; max-age=${maxAge};`;
+  document.cookie = `${key}=${value}; path=/blog; max-age=${maxAge};`;
 }
 // 쿠키 삭제
 function delCookie(key) {
-  document.cookie = `${key}=; path=/; max-age=0;`;
+  document.cookie = `${key}=; path=/blog; max-age=0;`;
 }
 // 쿠키 불러오기
 function getCookie(key) {
@@ -193,22 +193,33 @@ async function getThreadData(threadid) {
   return threadData;
 }
 
-// 테마 저장
-function initTheme() {
-  const USER = getCookie('USER');
-  const THEME = getCookie('THEME');
-  if (USER) {
-    const userData = JSON.parse(decodeURIComponent(USER));
-    const userTheme = userData.pref.theme;
-    if (!THEME || THEME != userTheme) { 
-      setCookie('THEME', userTheme);
-    }
-  } else if (!THEME) {
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');  
-    if (prefersDarkScheme.matches) {
-      setCookie('THEME', 'dark');
+// 테마 체인지
+function changeTheme(theme=null) {
+  if (!theme) {
+    const THEME = getCookie('THEME');
+    if (THEME == 'auto') {
+      const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');  
+      if (prefersDarkScheme.matches) {
+        theme = 'light';
+      } else {
+        theme = 'dark';
+      }
+    } else if (THEME == 'dark') {
+      theme = 'light';
     } else {
-      setCookie('THEME', 'light');
+      theme = 'dark';
     }
   }
+  setCookie('THEME', theme);
+  document.body.classList = `theme-${theme}`;
+}
+
+// 테마 셋
+function setTheme(theme, form) {
+  changeTheme(theme);
+  const buttons = form.querySelectorAll('button.theme');
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove('active');
+  }
+  form.querySelector(`button.theme.${theme}`).classList.add('active');
 }

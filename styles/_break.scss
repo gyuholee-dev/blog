@@ -42,11 +42,119 @@
 }
 
 @include breakpoint(640) {
-  header nav .title a {
-    > label {
-      display: none;
+
+  header {
+    background-color: initial;
+    backdrop-filter: none;
+    // border-bottom: none;
+    nav {
+      @include flex(stretch, start, column);
+      .bg {
+        display: block;
+      }
+      .title a {
+        > label {
+          display: block;
+        }
+      }
+      .title.active {
+        color: var(--color-text);
+      }
+      .buttons {
+        display: none;
+      }
+      .menu.top {
+        .btn {
+          display: block;
+          margin: 0;
+        }
+        .title>.sep {
+          display: none;
+        }
+      }
+      .menu.main {
+        @include flex(stretch, start, column);
+        height: auto;
+        position: relative;
+        top: 10px;
+        overflow: visible;
+        background-color: var(--color-header);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+        z-index: 3;
+        transform: translateY(calc(-100% - #{$height-nav}));
+        transition: transform 0.25s;
+        padding: 0 20px;
+        display: none;
+        &.show {
+          display: flex;
+        }
+        &.open {
+          transform: translateY(0);
+        }
+        >li {
+          justify-content: center;
+          width: 100%;
+          max-width: initial;
+          height: $height-nav - 10px;
+          line-height: $height-nav - 10px;
+          &:not(:last-child) {
+            border-bottom: 1px solid var(--color-border);
+          }
+          &.active {
+            a {
+              label {
+                background-color: var(--color-box-emp);
+              }
+            }
+          }
+          a {
+            padding: 5px;
+            label {
+              width: 100%;
+              max-width: 300px;
+              border-radius: 15px;
+              height: 100%;
+              line-height: $height-nav - 20px;
+              border: none !important;
+            }
+          }
+        }
+        .sep {
+          display: none;
+        }
+      }
     }
   }
+
+  main {
+    section {
+      >.header {
+        padding: 10px 0;
+      }
+      >.content {
+        padding: 0 10px;
+      }
+      >.footer {
+        padding: 0;
+      }
+    }
+    section.user {
+      .content {
+        padding: 0;
+        table th {
+          width: 120px;
+        }
+      }
+    }
+    section.list.thread {
+      .post {
+        padding: 0;
+      }
+    }
+  }
+
   main section.list.tile ul.tile {
     &.grid.long {
       grid-template-columns: repeat(2, 1fr);

@@ -93,7 +93,7 @@ preloadLibrary();
 $html_data = array(
   'device' => $DEVICE,
   'head' => makeHead(),
-  'theme' => getThemeClass(),
+  'theme' => $THEME,
   'header' => makeHeader(),
   'content' => $content,
   'leftmenu' => makeSidemenu('left'),

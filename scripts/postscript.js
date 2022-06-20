@@ -3,7 +3,7 @@ DOMLoaded = async ()=>{
   // console.log("DOM LOADED");
 
   // 테마 저장
-  initTheme();
+  // initTheme();
 
   // 로그 출력
   printLog();
