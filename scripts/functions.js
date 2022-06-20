@@ -67,11 +67,11 @@ function onVisible(element, callback) {
 
 // 쿠키 저장
 function setCookie(key, value, maxAge=3600) {
-  document.cookie = `${key}=${value}; path=/blog; max-age=${maxAge};`;
+  document.cookie = `${key}=${value}; max-age=${maxAge};`;
 }
 // 쿠키 삭제
 function delCookie(key) {
-  document.cookie = `${key}=; path=/blog; max-age=0;`;
+  document.cookie = `${key}=; max-age=0;`;
 }
 // 쿠키 불러오기
 function getCookie(key) {
