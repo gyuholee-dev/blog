@@ -1,10 +1,18 @@
 // XEIcon 2.2.0 by @NAVER - http://xpressengine.github.io/XEIcon/ - @XEIcon
 // License - http://xpressengine.github.io/XEIcon/license.html (Font: SIL OFL 1.1, CSS: MIT License)
 
+$xeicon-font-path: "./fonts" !default;
+
 @font-face {
   font-family: 'xeicon';
-  src: url('fonts/xeicon.eot?v=2.2.0');
-  src: url('fonts/xeicon.eot?#iefix&v=2.2.0') format("embedded-opentype"), url('fonts/xeicon.woff2?v=2.2.0') format("woff2"), url('fonts/xeicon.woff?v=2.2.0') format("woff"), url('fonts/xeicon.ttf?v=2.2.0') format("truetype"), url('fonts/xeicon.svg?v=2.2.0#xeicon') format("svg");
+  // src: url('#{$xeicon-font-path}/xeicon.eot?v=2.2.0');
+  src: url('#{$xeicon-font-path}/xeicon.woff2?v=2.2.0');
+  src: local('xeicon'),
+       url('#{$xeicon-font-path}/xeicon.woff2?v=2.2.0') format("woff2"), 
+       url('#{$xeicon-font-path}/xeicon.woff?v=2.2.0') format("woff"), 
+       url('#{$xeicon-font-path}/xeicon.ttf?v=2.2.0') format("truetype");
+      //  url('#{$xeicon-font-path}/xeicon.eot?#iefix&v=2.2.0') format("embedded-opentype");
+      //  url('#{$xeicon-font-path}/xeicon.svg?v=2.2.0#xeicon') format("svg");
   font-weight: normal;
   font-style: normal;
 }

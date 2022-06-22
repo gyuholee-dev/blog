@@ -2,11 +2,14 @@ $sunflower-font-family: "sunflower" !default;
 $sunflower-font-path: "fonts" !default;
 @font-face {
   font-family: '#{$sunflower-font-family}';
-  src:  url('#{$sunflower-font-path}/#{$sunflower-font-family}.eot?5q79r4');
-  src:  url('#{$sunflower-font-path}/#{$sunflower-font-family}.eot?5q79r4#iefix') format('embedded-opentype'),
-    url('#{$sunflower-font-path}/#{$sunflower-font-family}.ttf?5q79r4') format('truetype'),
-    url('#{$sunflower-font-path}/#{$sunflower-font-family}.woff?5q79r4') format('woff'),
-    url('#{$sunflower-font-path}/#{$sunflower-font-family}.svg?5q79r4##{$sunflower-font-family}') format('svg');
+  // src:  url('#{$sunflower-font-path}/#{$sunflower-font-family}.eot?5q79r4');
+  src:  url('#{$sunflower-font-path}/#{$sunflower-font-family}.woff2?5q79r4');
+  src:  
+        url('#{$sunflower-font-path}/#{$sunflower-font-family}.woff2?5q79r4') format('woff2'),
+        url('#{$sunflower-font-path}/#{$sunflower-font-family}.woff?5q79r4') format('woff'),
+        url('#{$sunflower-font-path}/#{$sunflower-font-family}.ttf?5q79r4') format('truetype');
+        // url('#{$sunflower-font-path}/#{$sunflower-font-family}.eot?5q79r4#iefix') format('embedded-opentype'),
+        // url('#{$sunflower-font-path}/#{$sunflower-font-family}.svg?5q79r4##{$sunflower-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
